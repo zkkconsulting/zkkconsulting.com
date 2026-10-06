@@ -35,13 +35,41 @@
 
   /* ── NAV SHRINK ── */
   var nav = document.getElementById('nav');
+  var homeHero = document.querySelector('.page-hero');
   if (nav) {
     var onScroll = function () {
-      nav.classList.toggle('shrink', (window.pageYOffset || document.documentElement.scrollTop) > 30);
+      var y = window.pageYOffset || document.documentElement.scrollTop;
+      nav.classList.toggle('shrink', y > 30);
+      if (homeHero) nav.classList.toggle('on-hero', y < homeHero.offsetHeight - nav.offsetHeight);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }
+
+  /* ── AURORA LAYER (hero, CTA band, footer): compositor-only blobs, paused offscreen ── */
+  var hosts = document.querySelectorAll('.page-hero, #contact.cta-band, footer');
+  hosts.forEach(function (h) {
+    if (h.querySelector(':scope > .aurora')) return;
+    var d = document.createElement('div'); d.className = 'aurora'; d.setAttribute('aria-hidden', 'true');
+    d.innerHTML = '<i></i><i></i><i></i><i></i><i></i>';
+    h.insertBefore(d, h.firstChild);
+  });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (e) { e.target.classList.toggle('is-off', !e.isIntersecting); });
+    });
+    hosts.forEach(function (h) { io.observe(h); });
+  }
+
+  /* ── SPOTLIGHT CARDS: glow follows cursor on the hovered card only ── */
+  var glassSel = '.card, .faq-item, .terms-item, .spotlight, .review-card';
+  document.addEventListener('pointermove', function (e) {
+    var el = e.target.closest && e.target.closest(glassSel);
+    if (!el) return;
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--cx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--cy', (e.clientY - r.top) + 'px');
+  }, { passive: true });
 
   /* ── SMOOTH SCROLL + HASH ── */
   var navH = 72;
