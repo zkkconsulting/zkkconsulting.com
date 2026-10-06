@@ -17,10 +17,10 @@
 
 
 
-  /* ── MOBILE HERO LOGOS: continuous conveyor belt (track duplicated for a seamless loop) ── */
+  /* ── HERO LOGOS: continuous conveyor belt (track duplicated for a seamless loop) ── */
   (function () {
     var row = document.querySelector('.page-hero .logo-row');
-    if (!row || !window.matchMedia('(max-width: 700px)').matches) return;
+    if (!row) return;
     var imgs = Array.prototype.slice.call(row.querySelectorAll('img'));
     if (imgs.length < 3) return;
     var track = document.createElement('div'); track.className = 'logo-track';
@@ -28,6 +28,26 @@
         .forEach(function (im) { track.appendChild(im); });
     row.appendChild(track); row.classList.add('is-belt');
   })();
+
+  /* ── FAQ: smooth open/close for <details> ── */
+  document.querySelectorAll('.faq-item').forEach(function (d) {
+    var sum = d.querySelector('summary'), ans = d.querySelector('.faq-answer');
+    if (!sum || !ans) return;
+    var anim = null;
+    sum.addEventListener('click', function (e) {
+      if (reduceMotion || !d.animate) return;
+      e.preventDefault();
+      if (anim) anim.cancel();
+      var opening = !d.open;
+      var startH = d.offsetHeight;
+      if (opening) d.open = true;
+      var endH = opening ? sum.offsetHeight + ans.offsetHeight + (parseFloat(getComputedStyle(d).borderTopWidth) || 0) * 2 : sum.offsetHeight + (parseFloat(getComputedStyle(d).borderTopWidth) || 0) * 2;
+      d.style.overflow = 'hidden';
+      anim = d.animate({ height: [startH + 'px', endH + 'px'] }, { duration: 380, easing: 'cubic-bezier(.22,.8,.3,1)' });
+      ans.animate({ opacity: opening ? [0, 1] : [1, 0], transform: opening ? ['translateY(-6px)', 'none'] : ['none', 'translateY(-6px)'] }, { duration: 320, easing: 'ease' });
+      anim.onfinish = anim.oncancel = function () { if (!opening) d.open = false; d.style.overflow = ''; anim = null; };
+    });
+  });
 
   /* ── SCROLL REVEAL ── */
   if (animate) {
