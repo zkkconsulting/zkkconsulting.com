@@ -67,6 +67,20 @@
     }
   }
 
+  /* ── REVEAL SAFETY NET: refresh trigger positions after load, and un-hide anything that is on screen but still hidden ── */
+  if (animate) {
+    var fixHidden = function () {
+      var vh = window.innerHeight;
+      document.querySelectorAll('.fade-up').forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < vh && r.bottom > 0 && parseFloat(getComputedStyle(el).opacity) < 0.05) gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', overwrite: true, clearProps: 'transform' });
+      });
+    };
+    var fixT = 0;
+    window.addEventListener('scroll', function () { clearTimeout(fixT); fixT = setTimeout(fixHidden, 220); }, { passive: true });
+    window.addEventListener('load', function () { if (hasST) ScrollTrigger.refresh(); setTimeout(function () { if (hasST) ScrollTrigger.refresh(); fixHidden(); }, 600); });
+  }
+
   /* ── NAV SHRINK ── */
   var nav = document.getElementById('nav');
   var homeHero = document.querySelector('.page-hero');
@@ -160,7 +174,7 @@
   }, { passive: true });
 
   /* ── SECTION RAIL: progress line + clickable dots, on every page (desktop) ── */
-  var railIO = null, railEl = null;
+  var railIO = null, railEl = null, railSecs = [], railDots = [], railLabel = null, lastLabel = -2;
   function buildRail() {
     if (!('IntersectionObserver' in window)) return;
     if (railEl) railEl.remove();
@@ -179,17 +193,29 @@
       railEl.appendChild(a); return a;
     });
     document.body.appendChild(railEl);
-    railIO = new IntersectionObserver(function (en) {
-      en.forEach(function (e) { if (e.isIntersecting) dots.forEach(function (d, i) { d.classList.toggle('on', secs[i] === e.target); }); });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    secs.forEach(function (x) { railIO.observe(x); });
+    railSecs = secs; railDots = dots;
+    railLabel = document.createElement('div'); railLabel.className = 'rail-label'; railLabel.setAttribute('aria-hidden', 'true'); railEl.appendChild(railLabel);
     setRailProgress();
   }
   var rp = 0, maxScroll = 0, maxAt = 0;
   function setRailProgress() {
-    if (!railEl) return;
-    if (!maxScroll || Date.now() - maxAt > 1000) { maxScroll = document.documentElement.scrollHeight - innerHeight; maxAt = Date.now(); }
-    railEl.style.setProperty('--p', maxScroll > 0 ? Math.min(1, (window.pageYOffset || 0) / maxScroll).toFixed(3) : 0);
+    if (!railEl || !railSecs.length) return;
+    var n = railSecs.length, mid = innerHeight * 0.4, idx = -1, frac = 0;
+    for (var k = 0; k < n; k++) {
+      var r = railSecs[k].getBoundingClientRect();
+      if (r.top <= mid) { idx = k; frac = Math.max(0, Math.min(1, (mid - r.top) / Math.max(r.height, 1))); } else break;
+    }
+    var p = idx < 0 ? 0 : (idx >= n - 1 ? 1 : (idx + frac) / (n - 1));
+    railEl.style.setProperty('--p', p.toFixed(3));
+    var pos = p * (n - 1);
+    if (idx < 0) { var ft = railSecs[0].getBoundingClientRect().top; pos = -1 + Math.max(0, Math.min(1, 1 - (ft - mid) / innerHeight)); }
+    if (railLabel) { var li = idx < 0 ? -1 : Math.min(n - 1, Math.round(pos)); if (li !== lastLabel) { lastLabel = li; railLabel.textContent = li < 0 ? '' : railDots[li].getAttribute('aria-label'); railLabel.classList.remove('swap'); void railLabel.offsetWidth; railLabel.classList.add('swap'); } }
+    for (var j = 0; j < n; j++) {
+      var f = Math.max(0, Math.min(1, pos - j + 1));          // 0 -> 1 as the line approaches then reaches the dot
+      var act = Math.max(0, 1 - Math.abs(pos - j));            // bell shape around the dot
+      railDots[j].style.setProperty('--f', f.toFixed(3));
+      railDots[j].style.setProperty('--a', act.toFixed(3));
+    }
   }
   window.addEventListener('scroll', function () { if (!rp) rp = requestAnimationFrame(function () { rp = 0; setRailProgress(); }); }, { passive: true });
   buildRail();

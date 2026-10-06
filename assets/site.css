@@ -1219,7 +1219,7 @@ html { scrollbar-width: thin; scrollbar-color: #2f8f68 #0e1713; }
 ::-webkit-scrollbar-track { background: #0e1713; }
 ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #52c79a, #2f8f68 60%, #b98a2a); border-radius: 8px; border: 2px solid #0e1713; }
 .scroll-rail { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 250; display: none; flex-direction: column; gap: 14px; padding: 12px 7px; border-radius: 999px; background: rgba(1,20,13,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.12); }
-@media (min-width: 1100px) { .scroll-rail { display: flex; } }
+@media (min-width: 701px) { .scroll-rail { display: flex; } }
 .scroll-rail a { position: relative; display: block; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.35); transition: height .3s, background .3s, box-shadow .3s; }
 .scroll-rail a:hover { background: rgba(255,255,255,.8); }
 .scroll-rail a.on { height: 26px; border-radius: 6px; background: linear-gradient(180deg, #52c79a, #ffd36b); box-shadow: 0 0 10px rgba(82,199,154,.7); }
@@ -1873,3 +1873,43 @@ main :is(#packages, #terms) > .wrap-narrow:last-child {
   .page-hero .logo-track { gap: 3.2rem; padding-right: 3.2rem; animation-duration: 28s; }
   .page-hero .logo-row.is-belt img { height: 36px !important; }
 }
+
+/* dots fill forward as the line passes them */
+.scroll-rail a.done { background: #52c79a; }
+.scroll-rail a.on { background: linear-gradient(180deg, #52c79a, #ffd36b); }
+@media (max-width: 700px) {
+  .scroll-rail { left: calc(50% + 28px) !important; }
+  nav.shrink ~ .scroll-rail { left: calc(50% + 8px) !important; }
+  .scroll-rail a.on { background: linear-gradient(90deg, #52c79a, #ffd36b); }
+}
+@media (max-width: 420px) {
+  .scroll-rail { left: calc(50% + 6px) !important; }
+  nav.shrink ~ .scroll-rail { left: calc(50% - 7px) !important; }
+}
+
+/* dots fill progressively (driven by scroll position, no pops) */
+.scroll-rail a, .scroll-rail a.on, .scroll-rail a.done { background: rgba(255,255,255,.32); height: 8px; width: 8px; border-radius: 50%; box-shadow: none; transition: none; position: relative; }
+.scroll-rail a::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(135deg, #52c79a, #ffd36b); opacity: var(--f, 0); transform: scale(var(--f, 0)); transition: opacity .12s linear, transform .12s linear; }
+.scroll-rail a { transform: scale(calc(1 + var(--a, 0) * .55)); transition: transform .12s linear; }
+.scroll-rail a.on { width: 8px; }
+@media (max-width: 700px) {
+  .scroll-rail a, .scroll-rail a.on, .scroll-rail a.done { width: 6px; height: 6px; }
+}
+
+/* section name under the progress rail (phones only) */
+.rail-label { display: none; }
+@media (max-width: 700px) {
+  .rail-label { display: block; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 2px; white-space: nowrap; max-width: 46vw; overflow: hidden; text-overflow: ellipsis;
+    font: 600 .54rem/1 var(--sans, Inter, sans-serif); letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.85); pointer-events: none; }
+  .rail-label.swap { animation: railLabelIn .35s ease both; }
+  @keyframes railLabelIn { from { opacity: 0; transform: translate(-50%, -3px); } to { opacity: 1; transform: translate(-50%, 0); } }
+}
+@media (max-width: 700px) {
+  .scroll-rail { top: calc(var(--navh, 62px) / 2 - 14px) !important; }
+}
+
+/* Expertise: closing scope note, slim glass strip above the footer */
+main #scope-note { padding: 0; background: linear-gradient(180deg, #eef1ef, #dfe6e2); }
+main #scope-note .wrap-narrow { max-width: none; width: 100%; }
+main #scope-note .notice { max-width: 980px; margin: 0 auto; background: transparent; border: 0; border-radius: 0; text-align: center; padding: 1.1rem clamp(1.2rem, 6vw, 4rem); font-size: .78rem; color: #2f3b35; opacity: 1 !important; transform: none !important; }
+main #scope-note .notice strong { color: #0d1612; }
