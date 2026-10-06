@@ -47,7 +47,7 @@
   }
 
   /* ── AURORA LAYER (hero, CTA band, footer): compositor-only blobs, paused offscreen ── */
-  var hosts = document.querySelectorAll('.page-hero, #contact.cta-band, footer');
+  var hosts = document.querySelectorAll('.page-hero, .cta-band, footer');
   hosts.forEach(function (h) {
     if (h.querySelector(':scope > .aurora')) return;
     var d = document.createElement('div'); d.className = 'aurora'; d.setAttribute('aria-hidden', 'true');
@@ -94,8 +94,8 @@
       if (flip) svg.style.transform = 'scaleX(-1)';
       sec.insertBefore(svg, sec.firstChild);
     };
-    var secs = Array.prototype.slice.call(document.querySelectorAll('main section')).filter(function (x) {
-      return !x.classList.contains('page-hero') && x.id !== 'contact' && !x.classList.contains('legal-item');
+    var secs = Array.prototype.slice.call(document.querySelectorAll('main section:not(.deck-slide)')).filter(function (x) {
+      return !x.classList.contains('page-hero') && x.id !== 'contact' && !x.classList.contains('cta-band') && !x.classList.contains('legal-item');
     });
     var pio = new IntersectionObserver(function (en) {
       en.forEach(function (e) {
@@ -118,6 +118,42 @@
       bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, (window.pageYOffset || 0) / h) : 0) + ')';
     });
   }, { passive: true });
+
+  /* ── SECTION RAIL: progress line + clickable dots, on every page (desktop) ── */
+  var railIO = null, railEl = null;
+  function buildRail() {
+    if (!('IntersectionObserver' in window)) return;
+    if (railEl) railEl.remove();
+    if (railIO) railIO.disconnect();
+    var secs = Array.prototype.slice.call(document.querySelectorAll('main section:not(.deck-slide)')).filter(function (x) {
+      return !x.classList.contains('page-hero') && !x.closest('[hidden]') && x.getBoundingClientRect().height > 60;
+    });
+    if (secs.length < 2) return;
+    railEl = document.createElement('div'); railEl.className = 'scroll-rail'; railEl.setAttribute('aria-label', 'Sections');
+    var dots = secs.map(function (sec) {
+      var a = document.createElement('a'); a.href = '#'; a.setAttribute('role', 'button');
+      var lab = sec.querySelector('.section-label, h2, h1');
+      var span = document.createElement('span'); span.textContent = lab ? lab.textContent.trim() : 'Section';
+      a.setAttribute('aria-label', span.textContent); a.appendChild(span);
+      a.addEventListener('click', function (e) { e.preventDefault(); sec.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); });
+      railEl.appendChild(a); return a;
+    });
+    document.body.appendChild(railEl);
+    railIO = new IntersectionObserver(function (en) {
+      en.forEach(function (e) { if (e.isIntersecting) dots.forEach(function (d, i) { d.classList.toggle('on', secs[i] === e.target); }); });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    secs.forEach(function (x) { railIO.observe(x); });
+    setRailProgress();
+  }
+  var rp = 0;
+  function setRailProgress() {
+    if (!railEl) return;
+    var h = document.documentElement.scrollHeight - innerHeight;
+    railEl.style.setProperty('--p', h > 0 ? Math.min(1, (window.pageYOffset || 0) / h).toFixed(4) : 0);
+  }
+  window.addEventListener('scroll', function () { if (!rp) rp = requestAnimationFrame(function () { rp = 0; setRailProgress(); }); }, { passive: true });
+  buildRail();
+  window.ZKK.buildRail = buildRail;
 
   /* ── SMOOTH SCROLL + HASH ── */
   var navH = 72;

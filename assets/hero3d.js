@@ -190,7 +190,7 @@
     (function tick() {
       requestAnimationFrame(tick);
       if (!visible || document.hidden) return;
-      var t = clock.getElapsedTime(), sy = window.pageYOffset || 0;
+      var t = clock.getElapsedTime() * (window.innerWidth > 900 ? 1.7 : 1), sy = window.pageYOffset || 0;
       edges.rotation.y = t * 0.06 + sy * 0.001; edges.rotation.x = t * 0.035;
       core.rotation.copy(edges.rotation);
       inner.rotation.y = -t * 0.14; inner.rotation.z = t * 0.08;

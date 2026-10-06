@@ -966,7 +966,7 @@ section.alt .viz-tab-mini.is-active {
   <script>
     document.querySelectorAll('.pf-tab').forEach(function (t) {
       t.addEventListener('click', function () {
-        var box = document.querySelector('.pf-tabs'); if (box) box.classList.add('picked');
+        setTimeout(function () { if (window.ZKK && ZKK.buildRail) ZKK.buildRail(); }, 80);
         var hint = document.getElementById('pfHint'); if (hint) hint.hidden = true;
       });
     });
