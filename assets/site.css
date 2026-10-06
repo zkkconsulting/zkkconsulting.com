@@ -1540,3 +1540,221 @@ main #terms .terms-item p { font-size: 1rem; line-height: 1.65; color: var(--mut
 main #terms .terms-item strong { color: #fff; }
 main #terms .terms-item:hover { translate: none; background: rgba(255,255,255,.16); }
 @media (max-width: 900px) { main #terms .terms-grid { grid-template-columns: 1fr; } main #terms .terms-item { min-height: 0; padding: 2.2rem 1.6rem; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); } }
+
+
+/* ═══ "OUR WORK" sample reports: four dark-glass panels side by side ═══ */
+main #reports { padding: 0; overflow: hidden; background: radial-gradient(45% 55% at 10% 15%, rgba(32,170,108,.45), transparent 70%), radial-gradient(45% 55% at 90% 85%, rgba(18,150,140,.4), transparent 70%), #0a1f17; --ink: #f5f5f7; --muted: rgba(245,245,247,.82); --accent: #7fe0b8; color: var(--ink); }
+main #reports > :is(.section-label, h2) { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0 !important; padding: 0 !important; }
+main #reports .bg-paths path { stroke: #fff; stroke-opacity: .55; }
+main #reports .reports-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; width: 100%; position: relative; z-index: 1; }
+main #reports .report-tile {
+  border-radius: 0; min-height: clamp(380px, 54vh, 540px); padding: 2.8rem clamp(1.4rem, 2.4vw, 2.4rem) 2.4rem;
+  display: flex; flex-direction: column; gap: .6rem; text-align: left;
+  background: rgba(255,255,255,.08); -webkit-backdrop-filter: blur(5px) saturate(150%); backdrop-filter: blur(5px) saturate(150%);
+  border: 0; border-right: 1px solid rgba(255,255,255,.18); box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+  --ink: #f5f5f7; --muted: rgba(245,245,247,.82); --accent: #7fe0b8; color: var(--ink);
+}
+main #reports .report-tile:nth-child(odd) { background: rgba(11,107,69,.22); }
+main #reports .report-tile:last-child { border-right: 0; }
+main #reports .report-tile svg { width: 46px; height: 46px; fill: none; stroke: var(--accent); stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; margin-bottom: auto; flex: none; }
+main #reports .report-name { font-family: var(--serif); font-size: clamp(1.25rem, 1.7vw, 1.6rem); line-height: 1.2; margin-top: 1.4rem; color: var(--ink); }
+main #reports .report-tile p { font-size: .95rem; line-height: 1.6; color: var(--muted); margin-bottom: 1.2rem; }
+main #reports .report-btn { align-self: flex-start; color: #fff; border-color: rgba(255,255,255,.6); }
+main #reports .report-btn:hover { background: #fff; color: #013220; }
+main #reports .report-tile:hover { translate: none; background: rgba(255,255,255,.16); }
+main #reports .reports-note { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 2rem 6vw 2.6rem; }
+main #reports .reports-note .notice-plain { background: transparent; border: 0; border-left: 2px solid var(--accent); color: var(--muted); padding-left: 1rem; margin: 0; }
+main #reports .reports-note .notice-plain strong { color: #fff; }
+@media (max-width: 1000px) { main #reports .reports-grid { grid-template-columns: repeat(2, 1fr); } main #reports .report-tile:nth-child(2n) { border-right: 0; } }
+@media (max-width: 600px) { main #reports .reports-grid { grid-template-columns: 1fr; } main #reports .report-tile { min-height: 0; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); } }
+
+/* ═══ light glass panels: mint -> company gold ═══ */
+main :is(#what, #refprocess) .card, main #what .grid-4 > .card:nth-child(n), main #refprocess .process-grid > .card:nth-child(n) { --accent: #b8860b; }
+main #what .grid-4 > .card:nth-child(1), main #what .grid-4 > .card:nth-child(4), main #refprocess .process-grid > .card:nth-child(odd) { background: linear-gradient(145deg, rgba(184,134,11,.22), rgba(184,134,11,.08)) !important; }
+main :is(#what, #refprocess) .feature-card svg { stroke: #a97a0b; }
+main :is(#what, #refprocess) .card::before { background: radial-gradient(300px circle at var(--cx, 50%) var(--cy, -40%), rgba(184,134,11,.2), transparent 70%); }
+main :is(#what, #refprocess) .card::after { background: radial-gradient(220px circle at var(--cx, 50%) var(--cy, -40%), rgba(255,255,255,.9), rgba(184,134,11,.55) 40%, transparent 72%); }
+main :is(#what, #refprocess) .process-num { background: none; -webkit-text-fill-color: #a97a0b; color: #a97a0b; }
+main #reports .report-name { min-height: 4.9em; display: flex; align-items: flex-end; } main #reports .report-tile p { flex: 1; }
+
+/* ═══ SAMPLE REPORTS: gold-lit cut-out band; the "independent samples" note is the band's own footer strip ═══ */
+main #reports { background:
+    radial-gradient(40% 55% at 8% 12%, rgba(32,170,108,.42), transparent 70%),
+    radial-gradient(45% 60% at 55% 112%, rgba(200,150,50,.55), transparent 70%),
+    radial-gradient(40% 55% at 95% 20%, rgba(18,150,140,.35), transparent 70%), #0a1f17; }
+main #reports .reports-note { max-width: none; width: 100%; margin: 0; padding: 1.5rem clamp(1.4rem, 6vw, 5rem); background: rgba(255,255,255,.06); border-top: 1px solid rgba(255,255,255,.2); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); text-align: center; }
+main #reports .reports-note .notice-plain { border-left: 0; padding: 0; max-width: 980px; margin: 0 auto; font-size: .86rem; line-height: 1.65; }
+
+/* ═══ HOME founders ("Who does the research"): light gold glass halves, flush ═══ */
+main #founders { padding: 0; overflow: hidden; --accent: #b8860b; }
+main #founders > :is(.section-label, h2, .section-intro) { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0 !important; padding: 0 !important; }
+main #founders .bg-paths path { stroke: #0b4a32; stroke-opacity: .5; }
+main #founders .founders-grid { width: 100%; max-width: none; margin: 0; gap: 0; grid-template-columns: 1fr 1fr; align-items: stretch; position: relative; z-index: 1; }
+main #founders .founder-card {
+  border-radius: 0; padding: 3rem clamp(1.6rem, 4vw, 4rem) 2.8rem; margin: 0;
+  background: rgba(255,255,255,.10) !important; -webkit-backdrop-filter: blur(5px) saturate(150%); backdrop-filter: blur(5px) saturate(150%);
+  border: 0; border-right: 1px solid rgba(255,255,255,.7); box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+main #founders .founder-card:first-child { background: linear-gradient(145deg, rgba(184,134,11,.22), rgba(184,134,11,.08)) !important; }
+main #founders .founder-card:last-child { border-right: 0; }
+main #founders .founder-card:hover { translate: none; }
+main #founders .founder-card::before { background: radial-gradient(300px circle at var(--cx, 50%) var(--cy, -40%), rgba(184,134,11,.2), transparent 70%); }
+main #founders .founder-card::after { background: radial-gradient(220px circle at var(--cx, 50%) var(--cy, -40%), rgba(255,255,255,.9), rgba(184,134,11,.55) 40%, transparent 72%); }
+main #founders .founders-note { position: relative; z-index: 1; max-width: none; width: 100%; margin: 0; padding: 1.4rem clamp(1.4rem, 6vw, 5rem); text-align: center; background: rgba(255,255,255,.35); border-top: 1px solid rgba(255,255,255,.7); }
+@media (max-width: 900px) { main #founders .founders-grid { grid-template-columns: 1fr; } main #founders .founder-card { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.7); } }
+
+/* ═══ SERVICES: document formatting (dark halves) + bundles (light gold halves) ═══ */
+main #formatting { padding: 0; overflow: hidden; background: radial-gradient(45% 55% at 10% 15%, rgba(32,170,108,.45), transparent 70%), radial-gradient(45% 55% at 90% 85%, rgba(200,150,50,.4), transparent 70%), #0a1f17; --ink: #f5f5f7; --muted: rgba(245,245,247,.82); --accent: #ffd36b; --navy: #ffd36b; color: var(--ink); }
+main #formatting > :is(.section-label, h2, .section-intro) { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0 !important; padding: 0 !important; }
+main #formatting .bg-paths path { stroke: #fff; stroke-opacity: .55; }
+main #formatting .grid-2 { width: 100%; max-width: none; margin: 0; gap: 0; grid-template-columns: 1fr 1fr; position: relative; z-index: 1; }
+main #formatting .grid-2 > .card {
+  border-radius: 0; min-height: clamp(320px, 46vh, 460px); padding: 3rem clamp(1.6rem, 4vw, 4rem) 2.6rem; justify-content: flex-end;
+  display: flex; flex-direction: column; background: rgba(255,255,255,.08) !important; -webkit-backdrop-filter: blur(5px) saturate(150%); backdrop-filter: blur(5px) saturate(150%);
+  border: 0; border-right: 1px solid rgba(255,255,255,.18); box-shadow: inset 0 1px 0 rgba(255,255,255,.25); --ink: #f5f5f7; --muted: rgba(245,245,247,.82); --accent: #ffd36b;
+}
+main #formatting .grid-2 > .card:first-child { background: rgba(184,134,11,.22) !important; }
+main #formatting .grid-2 > .card:last-child { border-right: 0; }
+main #formatting .grid-2 h3 { font-size: clamp(1.5rem, 2.2vw, 2rem) !important; color: var(--ink); margin-bottom: 1.2rem !important; }
+main #formatting .dot-list li { color: var(--muted); } main #formatting .dot-list strong { color: #fff; }
+main #formatting .btn-outline { color: #fff; border-color: rgba(255,255,255,.6); } main #formatting .btn-outline:hover { background: #fff; color: #013220; }
+main #formatting .card:hover { translate: none; }
+
+main #bundles { padding: 0; overflow: hidden; --accent: #b8860b; }
+main #bundles > :is(.section-label, h2, p.section-intro:not(:last-child)) { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0 !important; padding: 0 !important; }
+main #bundles .bg-paths path { stroke: #0b4a32; stroke-opacity: .5; }
+main #bundles .bundle-grid { width: 100%; max-width: none; margin: 0; gap: 0; grid-template-columns: 1fr 1fr; position: relative; z-index: 1; }
+main #bundles .bundle-grid > .card {
+  border-radius: 0; padding: 3rem clamp(1.6rem, 4vw, 4rem) 2.8rem; background: rgba(255,255,255,.10) !important; -webkit-backdrop-filter: blur(5px) saturate(150%); backdrop-filter: blur(5px) saturate(150%);
+  border: 0; border-right: 1px solid rgba(255,255,255,.7); box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+main #bundles .bundle-grid > .card:first-child { background: linear-gradient(145deg, rgba(184,134,11,.22), rgba(184,134,11,.08)) !important; }
+main #bundles .bundle-grid > .card:last-child { border-right: 0; }
+main #bundles .card:hover { translate: none; }
+main #bundles .card::before { background: radial-gradient(300px circle at var(--cx, 50%) var(--cy, -40%), rgba(184,134,11,.2), transparent 70%); }
+main #bundles .card::after { background: radial-gradient(220px circle at var(--cx, 50%) var(--cy, -40%), rgba(255,255,255,.9), rgba(184,134,11,.55) 40%, transparent 72%); }
+main #bundles .section-intro + .bundle-grid, main #bundles > p:last-of-type { position: relative; z-index: 1; }
+@media (max-width: 900px) {
+  main :is(#formatting .grid-2, #bundles .bundle-grid) { grid-template-columns: 1fr; }
+  main #formatting .grid-2 > .card, main #bundles .bundle-grid > .card { min-height: 0; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.3); }
+}
+main #bundles > p.section-intro:last-child { position: relative; z-index: 1; padding: 1.6rem 6vw 2rem; margin: 0 auto; max-width: 760px; }
+
+/* ═══ Notes under glass bands become glass rows that fill their own band ═══ */
+main #founders .founders-note {
+  padding: clamp(2.4rem, 5vw, 3.6rem) clamp(1.4rem, 8vw, 8rem); font-size: 1.12rem; line-height: 1.7; color: #2f3b35;
+  background: rgba(255,255,255,.10); -webkit-backdrop-filter: blur(5px) saturate(150%); backdrop-filter: blur(5px) saturate(150%);
+  border-top: 1px solid rgba(255,255,255,.7); box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+/* sample reports: light gold/white glass over white with moving lines */
+main #reports {
+  background: linear-gradient(180deg, #eef1ef, #dfe6e2); --ink: #0d1612; --muted: #46524b; --accent: #b8860b; color: var(--ink);
+}
+main #reports .bg-paths path { stroke: #0b4a32; stroke-opacity: .5; }
+main #reports .report-tile {
+  background: rgba(255,255,255,.10); border-right: 1px solid rgba(255,255,255,.7); border-bottom: 0; box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+  --ink: #0d1612; --muted: #46524b; --accent: #b8860b;
+}
+main #reports .report-tile:nth-child(odd) { background: linear-gradient(145deg, rgba(184,134,11,.22), rgba(184,134,11,.08)); }
+main #reports .report-tile:last-child { border-right: 0; }
+main #reports .report-tile:hover { background: rgba(255,255,255,.22); }
+main #reports .report-tile svg { stroke: #a97a0b; }
+main #reports .report-btn { color: #0b3d2c; border-color: #0b3d2c; }
+main #reports .report-btn:hover { background: #0b3d2c; color: #fff; }
+main #reports .reports-note {
+  padding: clamp(2.4rem, 5vw, 3.6rem) clamp(1.4rem, 8vw, 8rem); border-top: 1px solid rgba(255,255,255,.7);
+  background: rgba(255,255,255,.10); -webkit-backdrop-filter: blur(5px) saturate(150%); backdrop-filter: blur(5px) saturate(150%); box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+main #reports .reports-note .notice-plain { color: #2f3b35; font-size: 1.02rem; }
+main #reports .reports-note .notice-plain strong { color: #0d1612; }
+
+/* ═══ gold tiles stay gold on hover; reports 2x2; notes small, panels big ═══ */
+main :is(#what, #refprocess) .card:hover,
+main #what .grid-4 > .card:nth-child(1):hover, main #what .grid-4 > .card:nth-child(4):hover,
+main #refprocess .process-grid > .card:nth-child(odd):hover { background: linear-gradient(145deg, rgba(184,134,11,.30), rgba(184,134,11,.12)) !important; }
+main #what .grid-4 > .card:nth-child(2):hover, main #what .grid-4 > .card:nth-child(3):hover,
+main #refprocess .process-grid > .card:nth-child(even):hover { background: rgba(255,255,255,.10) !important; }
+main #founders .founder-card:first-child:hover, main #bundles .bundle-grid > .card:first-child:hover { background: linear-gradient(145deg, rgba(184,134,11,.30), rgba(184,134,11,.12)) !important; }
+main #founders .founder-card:last-child:hover, main #bundles .bundle-grid > .card:last-child:hover { background: rgba(255,255,255,.10) !important; }
+main #reports .report-tile:nth-child(odd):hover { background: linear-gradient(145deg, rgba(184,134,11,.30), rgba(184,134,11,.12)); }
+main #reports .report-tile:nth-child(even):hover { background: rgba(255,255,255,.10); }
+
+main #reports .reports-grid { grid-template-columns: repeat(2, 1fr); }
+main #reports .report-tile { min-height: clamp(380px, 50vh, 520px); padding: 3.2rem clamp(1.8rem, 5vw, 4.5rem) 2.8rem; }
+main #reports .report-tile:nth-child(2n) { border-right: 0; }
+main #reports .report-tile:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.7); }
+main #reports .report-tile:nth-child(2), main #reports .report-tile:nth-child(3) { background: rgba(255,255,255,.10); }
+main #reports .report-tile:nth-child(1), main #reports .report-tile:nth-child(4) { background: linear-gradient(145deg, rgba(184,134,11,.22), rgba(184,134,11,.08)); }
+main #reports .report-tile:nth-child(2):hover, main #reports .report-tile:nth-child(3):hover { background: rgba(255,255,255,.10); }
+main #reports .report-tile:nth-child(1):hover, main #reports .report-tile:nth-child(4):hover { background: linear-gradient(145deg, rgba(184,134,11,.30), rgba(184,134,11,.12)); }
+main #reports .report-name { font-size: clamp(1.6rem, 2.4vw, 2.2rem); min-height: 0; }
+main #reports .report-tile p { font-size: 1.05rem; max-width: 46ch; }
+main #reports .report-tile svg { width: 56px; height: 56px; }
+@media (max-width: 700px) { main #reports .reports-grid { grid-template-columns: 1fr; } main #reports .report-tile { border-right: 0; min-height: 0; } }
+
+main #founders .founder-card { padding: 4rem clamp(1.8rem, 5vw, 5rem) 3.4rem; }
+main #founders .founder-name { font-size: 1.7rem; }
+main #founders .founder-bio { font-size: 1.04rem; line-height: 1.8; }
+main #founders .founders-note, main #reports .reports-note { padding: 1rem clamp(1.2rem, 6vw, 5rem); font-size: .8rem; line-height: 1.55; }
+main #reports .reports-note .notice-plain { font-size: .8rem; line-height: 1.55; }
+
+/* ═══ SMALL PRINT: warnings / sub-labels are compact everywhere (Services + Our Work) ═══ */
+main .notice, main .notice-plain { font-size: .76rem; line-height: 1.55; padding: .7rem 1rem; border-radius: 6px; }
+main .notice strong, main .notice-plain strong { font-weight: 600; }
+main .case-foot, main .case-foot * { font-size: .74rem; }
+main .deck-caption { font-size: .72rem; }
+main .spotlight .notice { margin-top: 1rem !important; }
+
+/* notes that close a band become slim glass strips, full width, flush */
+main :is(#packages, #terms) > .wrap-narrow:last-child { max-width: none; width: calc(100% + 10vw); margin: 2.4rem -5vw -3.9rem; padding: 0; }
+main #terms > .wrap-narrow:last-child { width: 100%; margin: 0; position: relative; z-index: 1; }
+main :is(#packages, #terms) > .wrap-narrow:last-child .notice-plain {
+  max-width: none; margin: 0; border: 0; border-top: 1px solid rgba(255,255,255,.7); border-radius: 0; text-align: center !important;
+  padding: .9rem clamp(1.2rem, 6vw, 5rem); background: rgba(255,255,255,.10); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+main #terms > .wrap-narrow:last-child .notice-plain { border-top-color: rgba(255,255,255,.18); color: rgba(245,245,247,.85); box-shadow: inset 0 1px 0 rgba(255,255,255,.2); }
+main #terms > .wrap-narrow:last-child .notice-plain strong { color: #fff; }
+
+/* ═══ Document formatting: compact secondary band (not a feature section) ═══ */
+main #formatting .grid-2 > .card { min-height: 0; padding: 1.8rem clamp(1.4rem, 4vw, 3.4rem) 1.7rem; justify-content: flex-start; }
+main #formatting .grid-2 h3 { font-size: 1.25rem !important; margin-bottom: .7rem !important; }
+main #formatting .dot-list { margin: 0; }
+main #formatting .dot-list li { font-size: .9rem; line-height: 1.55; margin-bottom: .3rem; }
+main #formatting .btn-outline { margin-top: .8rem !important; }
+
+/* ═══ round: formatting = small; bundles = big; closing notes = glass strips with no gaps ═══ */
+main #formatting .grid-2 > .card { padding: 1.1rem clamp(1.2rem, 3vw, 2.6rem) 1.1rem; }
+main #formatting .grid-2 h3 { font-size: 1.05rem !important; margin-bottom: .45rem !important; }
+main #formatting .dot-list li { font-size: .8rem; line-height: 1.45; margin-bottom: .15rem; }
+main #formatting .btn-outline { margin-top: .5rem !important; padding: .5rem 1rem; font-size: .7rem; }
+
+main #bundles .bundle-grid > .card { padding: 4rem clamp(1.8rem, 5vw, 5rem) 3.6rem; }
+main #bundles .bundle-name { font-size: clamp(1.7rem, 2.4vw, 2.2rem); margin-bottom: 1.2rem; }
+main #bundles .bundle-parts li { font-size: 1.05rem; padding: .7rem 0; }
+main #bundles .bundle-math { font-size: 1.02rem; }
+main #bundles .bt-price { font-size: 2.8rem; }
+main #bundles .bundle-card p.bundle-note { font-size: 1.04rem; line-height: 1.75; }
+main #bundles .btn { padding: 1.05rem 1.4rem; font-size: .86rem; }
+main #bundles > p.section-intro:last-child {
+  max-width: none; width: 100%; margin: 0; padding: .9rem clamp(1.2rem, 6vw, 5rem); font-size: .8rem; line-height: 1.5; text-align: center;
+  background: rgba(255,255,255,.10); -webkit-backdrop-filter: blur(5px) saturate(150%); backdrop-filter: blur(5px) saturate(150%);
+  border-top: 1px solid rgba(255,255,255,.7); box-shadow: inset 0 1px 0 rgba(255,255,255,.8); color: #2f3b35;
+}
+main #terms > .wrap-narrow:last-child { margin: 0 !important; padding: 0 !important; max-width: none !important; }
+main #terms .terms-grid { margin-bottom: 0 !important; }
+main #terms { padding-bottom: 0 !important; }
+main #bundles > p.section-intro:last-child { margin: 0 !important; }
+
+/* ═══ SCROLL PERFORMANCE (no visual change) ═══ */
+main section:not(.page-hero):not(.deck-slide) { content-visibility: auto; contain-intrinsic-size: auto 800px; }
+body::before { transform: translateZ(0); will-change: transform; }
+.bg-paths { contain: strict; transform: translateZ(0); }
+.bg-paths path { shape-rendering: optimizeSpeed; }
+.scroll-rail, .scroll-progress { will-change: transform; }
+
+/* glass bands render as one complete block: no staggered reveal, so no gaps while scrolling in */
+main :is(#what, #why, #engineering, #refprocess, #founders, #bundles, #terms, #reports) .fade-up,
+main :is(#packages, #terms) > .wrap-narrow:last-child {
+  opacity: 1 !important; transform: none !important; visibility: visible !important;
+}

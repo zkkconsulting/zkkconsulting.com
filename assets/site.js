@@ -15,6 +15,7 @@
 
   window.ZKK = { reduceMotion: reduceMotion, animate: animate, hasST: hasST };
 
+
   /* ── SCROLL REVEAL ── */
   if (animate) {
         document.body.classList.add('js-anim');
@@ -39,9 +40,15 @@
   if (nav) {
     var onScroll = function () {
       var y = window.pageYOffset || document.documentElement.scrollTop;
-      nav.classList.toggle('shrink', y > 30);
-      if (homeHero) nav.classList.toggle('on-hero', y < homeHero.offsetHeight - nav.offsetHeight);
+      var sh = y > 30, oh = homeHero ? y < heroLimit : false;
+      if (sh !== lastShrink) { nav.classList.toggle('shrink', sh); lastShrink = sh; }
+      if (homeHero && oh !== lastOnHero) { nav.classList.toggle('on-hero', oh); lastOnHero = oh; }
     };
+    var lastShrink = null, lastOnHero = null, heroLimit = 0;
+    var measureHero = function () { heroLimit = homeHero ? homeHero.offsetHeight - nav.offsetHeight : 0; onScroll(); };
+    window.addEventListener('resize', measureHero);
+    window.addEventListener('load', measureHero);
+    setTimeout(measureHero, 0);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }
@@ -79,8 +86,8 @@
       svg.setAttribute('class', 'bg-paths'); svg.setAttribute('viewBox', '0 0 696 316');
       svg.setAttribute('preserveAspectRatio', 'xMidYMid slice'); svg.setAttribute('aria-hidden', 'true');
       [1, -1].forEach(function (pos) {
-        for (var i = 0; i < 12; i++) {
-          var k = i * 3, o = 380 - k * 5 * pos;
+        for (var i = 0; i < 9; i++) {
+          var k = i * 4, o = 380 - k * 5 * pos;
           var path = document.createElementNS(NS, 'path');
           path.setAttribute('d', 'M-' + o + ' -' + (189 + k * 6) + 'C-' + o + ' -' + (189 + k * 6) + ' -' + (312 - k * 5 * pos) + ' ' + (216 - k * 6) + ' ' + (152 - k * 5 * pos) + ' ' + (343 - k * 6) + 'C' + (616 - k * 5 * pos) + ' ' + (470 - k * 6) + ' ' + (684 - k * 5 * pos) + ' ' + (875 - k * 6) + ' ' + (684 - k * 5 * pos) + ' ' + (875 - k * 6));
           path.setAttribute('pathLength', '1');
@@ -114,7 +121,7 @@
     if (pr) return;
     pr = requestAnimationFrame(function () {
       pr = 0;
-      var h = document.documentElement.scrollHeight - innerHeight;
+      var h = (window.__maxScroll && Date.now() - window.__maxAt < 1000) ? window.__maxScroll : (window.__maxScroll = document.documentElement.scrollHeight - innerHeight, window.__maxAt = Date.now(), window.__maxScroll);
       bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, (window.pageYOffset || 0) / h) : 0) + ')';
     });
   }, { passive: true });
@@ -135,7 +142,7 @@
       var lab = sec.querySelector('.section-label, h2, h1');
       var span = document.createElement('span'); span.textContent = lab ? lab.textContent.trim() : 'Section';
       a.setAttribute('aria-label', span.textContent); a.appendChild(span);
-      a.addEventListener('click', function (e) { e.preventDefault(); sec.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); });
+      a.addEventListener('click', function (e) { e.preventDefault(); if (window.ZKK && window.ZKK.lenis) window.ZKK.lenis.scrollTo(sec, { duration: 1.1 }); else sec.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); });
       railEl.appendChild(a); return a;
     });
     document.body.appendChild(railEl);
@@ -145,11 +152,11 @@
     secs.forEach(function (x) { railIO.observe(x); });
     setRailProgress();
   }
-  var rp = 0;
+  var rp = 0, maxScroll = 0, maxAt = 0;
   function setRailProgress() {
     if (!railEl) return;
-    var h = document.documentElement.scrollHeight - innerHeight;
-    railEl.style.setProperty('--p', h > 0 ? Math.min(1, (window.pageYOffset || 0) / h).toFixed(4) : 0);
+    if (!maxScroll || Date.now() - maxAt > 1000) { maxScroll = document.documentElement.scrollHeight - innerHeight; maxAt = Date.now(); }
+    railEl.style.setProperty('--p', maxScroll > 0 ? Math.min(1, (window.pageYOffset || 0) / maxScroll).toFixed(3) : 0);
   }
   window.addEventListener('scroll', function () { if (!rp) rp = requestAnimationFrame(function () { rp = 0; setRailProgress(); }); }, { passive: true });
   buildRail();
@@ -159,7 +166,8 @@
   var navH = 72;
   function scrollToTarget(target) {
     var y = target.getBoundingClientRect().top + window.pageYOffset - navH + 1;
-    window.scrollTo({ top: y, behavior: reduceMotion ? 'auto' : 'smooth' });
+    if (window.ZKK && window.ZKK.lenis) window.ZKK.lenis.scrollTo(y, { duration: 1.1 });
+    else window.scrollTo({ top: y, behavior: reduceMotion ? 'auto' : 'smooth' });
   }
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener('click', function (ev) {
