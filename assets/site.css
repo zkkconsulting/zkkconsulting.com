@@ -50,7 +50,7 @@ img { max-width: 100%; }
 
 .skip-link {
   position: absolute; left: -9999px; top: 0; z-index: 400;
-  background: var(--navy); color: var(--white);
+  background: var(--navy); color: #fff;
   padding: 0.7rem 1.1rem; border-radius: 0 0 6px 0; font-size: 0.85rem;
 }
 .skip-link:focus { left: 0; }
@@ -157,7 +157,7 @@ nav.shrink .nav-mark { width: 80px; height: auto; }
 .nav-links a.active, .nav-links a[aria-current="page"] { color: var(--ink); }
 
 .nav-cta {
-  color: var(--white) !important; background: var(--navy);
+  color: #fff !important; background: var(--navy);
   padding: 0.5rem 1.05rem !important; border-radius: 4px;
   transition: background 0.2s !important;
 }
@@ -215,11 +215,11 @@ nav.shrink .nav-mark { width: 80px; height: auto; }
   transition: all 0.22s; cursor: pointer; border: none;
   text-align: center;
 }
-.btn-primary { background: var(--navy); color: var(--white); }
+.btn-primary { background: var(--navy); color: #fff; }
 .btn-primary:hover { background: var(--navy-d); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(1, 50, 32, 0.18); }
 .btn-outline { background: transparent; color: var(--navy); border: 1px solid var(--navy); }
-.btn-outline:hover { background: var(--navy); color: var(--white); transform: translateY(-1px); }
-.btn-accent { background: var(--accent); color: var(--white); }
+.btn-outline:hover { background: var(--navy); color: #fff; transform: translateY(-1px); }
+.btn-accent { background: var(--accent); color: #fff; }
 .btn-accent:hover { background: var(--accent-d); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(1, 50, 32, 0.2); }
 .btn-sm { padding: 0.6rem 1.2rem; font-size: 0.74rem; }
 
@@ -364,7 +364,7 @@ section.alt .tag { background: var(--bg); }
 .price-flag {
   position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
   font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
-  background: var(--navy); color: var(--white);
+  background: var(--navy); color: #fff;
   padding: 0.3rem 0.9rem; border-radius: 999px; font-weight: 600; white-space: nowrap;
 }
 .price-name { font-family: var(--serif); font-size: 1.32rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
@@ -456,8 +456,8 @@ section.alt .notice-plain { background: var(--bg); }
   display: inline-block; padding: 0.22rem 0.6rem; border-radius: 3px;
   font-size: 0.64rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
 }
-.badge-client { background: var(--navy); color: var(--white); }
-.badge-sample { background: var(--gold); color: var(--white); border: 1px solid var(--bg-alt); }
+.badge-client { background: var(--navy); color: #fff; }
+.badge-sample { background: var(--gold); color: #fff; border: 1px solid var(--bg-alt); }
 .badge-sampleGreen {background: var(--accent); color: #ffffff; border: 1px solid var(--border); margin-top: 10px; margin-bottom: 10px; font-weight: 900;}
 .badge-industry { background: #eef5f0; color: var(--accent); border: 1px solid #cbe0d3; }
 .case-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; color: var(--ink); line-height: 1.35; margin-bottom: 0.2rem; }
@@ -488,7 +488,7 @@ section.alt .case-foot { background: var(--white); }
   letter-spacing: 0.04em; color: var(--muted); transition: all 0.2s;
 }
 .filter-chip:hover { border-color: var(--navy); color: var(--navy); }
-.filter-chip.is-active { background: var(--navy); border-color: var(--navy); color: var(--white); }
+.filter-chip.is-active { background: var(--navy); border-color: var(--navy); color: #fff; }
 
 /* ── TESTIMONIALS ────────────────────────────────────────────────── */
 .reviews-grid {
@@ -870,7 +870,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .page-hero .lede, .page-hero .price-anchor, .page-hero .logo-note, .page-hero .cred-label { color: rgba(255,255,255,.85); }
 .page-hero .eyebrow { color: #ffd36b; }
 .page-hero .eyebrow::before, .page-hero .eyebrow::after { background: #ffd36b; }
-.page-hero .btn-primary { background: #fff; color: var(--navy); }
+.page-hero .btn-primary { background: #fff; color: #013220; }
 .page-hero .btn-primary:hover { background: #eafff3; box-shadow: 0 8px 28px rgba(25,230,140,.45); }
 .page-hero .btn-outline { color: #fff; border-color: rgba(255,255,255,.6); }
 .page-hero .btn-outline:hover { background: rgba(255,255,255,.14); color: #fff; }
@@ -889,7 +889,7 @@ nav .nav-mark { filter: brightness(0) invert(1); }
 nav .nav-links a:not(.nav-cta) { color: rgba(255,255,255,.88); }
 nav .nav-links a:not(.nav-cta):hover, nav .nav-links a.active, nav .nav-links a[aria-current="page"] { color: #fff; }
 nav .nav-links a::after { background: #fff; }
-nav .nav-cta { background: #fff; color: var(--navy) !important; }
+nav .nav-cta { background: #fff; color: #013220 !important; }
 nav .hamburger span { background: #fff; }
 nav .nav-back { color: rgba(255,255,255,.85); }
 .nav-mark { transition: width .3s ease; }
@@ -921,13 +921,13 @@ section.alt { background: linear-gradient(180deg, #eaf4ee, #e1eee6); }
 #contact.cta-band::after { content: ''; position: absolute; inset: 0; background: rgba(0,18,10,.5); }
 #contact.cta-band > * { position: relative; z-index: 1; }
 #contact.cta-band h2, #contact.cta-band p, #contact.cta-band .section-label { color: #fff; }
-#contact.cta-band .btn-primary { background: #fff; color: var(--navy); }
+#contact.cta-band .btn-primary { background: #fff; color: #013220; }
 #contact.cta-band .btn-outline { color: #fff; border-color: rgba(255,255,255,.6); }
 #contact.cta-band .cta-sub, #contact.cta-band .contact-direct { color: rgba(255,255,255,.85); }
 #contact.cta-band a:not(.btn) { color: #fff; }
 
 .page-hero .hero-canvas { z-index: 1; opacity: .8; }
-@media (max-width: 760px) { .page-hero .hero-canvas { opacity: .4; } }
+@media (max-width: 760px) { .page-hero .hero-canvas { opacity: .6; } }
 
 /* inner pages: same hero, a touch shorter */
 .page-hero-short { min-height: 52vh; }
@@ -990,3 +990,130 @@ section.alt .card, section.alt .faq-item, section.alt .terms-item, section.alt .
 .page-hero .pf-tab.is-active { background: #fff; border-color: #fff; }
 .page-hero .pf-tab.is-active .pf-tab-name { color: var(--ink); }
 .page-hero .pf-tab.is-active .pf-tab-focus { color: var(--accent); }
+
+/* ═══ DARK THEME (Apple-inspired): near-black canvas, graphite sections, soft glass ═══ */
+:root {
+  --bg: #0a0c0b; --bg-alt: #121614; --white: #171c19;
+  --ink: #f5f5f7; --muted: #a1a8a4; --border: rgba(255,255,255,.12);
+  --navy: #52c79a; --navy-d: #3aae82; --accent: #52c79a; --accent-d: #3aae82; --vivid: #52c79a;
+  --shadow: 0 10px 28px rgba(0,0,0,.45);
+}
+html { color-scheme: dark; }
+body { background: #0a0c0b; color: var(--ink); }
+body::before {
+  background:
+    radial-gradient(50% 40% at 10% 6%, rgba(20,147,92,.16), transparent 70%),
+    radial-gradient(45% 40% at 95% 30%, rgba(13,122,115,.14), transparent 70%),
+    radial-gradient(50% 40% at 30% 98%, rgba(185,138,42,.07), transparent 70%);
+}
+section.alt { background: linear-gradient(180deg, #111513, #0e1210); border-color: rgba(255,255,255,.06); }
+.site-disclaimer { background: transparent; border-top-color: rgba(255,255,255,.08); }
+.site-disclaimer a { color: var(--navy); }
+
+/* buttons */
+.btn-primary { background: linear-gradient(135deg, #0f6b47, #1a9a66); color: #fff; }
+.btn-primary:hover { background: linear-gradient(135deg, #14825a, #2bb27c); box-shadow: 0 8px 26px rgba(43,178,124,.3); }
+.btn-outline { color: #f5f5f7; border-color: rgba(255,255,255,.35); }
+.btn-outline:hover { background: rgba(255,255,255,.1); color: #fff; }
+.btn-accent { color: #04210f; }
+.nav-cta { background: #fff; color: #013220 !important; }
+
+/* glass cards on dark */
+.card, .faq-item, .terms-item, .spotlight, .review-card,
+section.alt .card, section.alt .faq-item, section.alt .terms-item, section.alt .spotlight {
+  background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(0,0,0,.3), 0 18px 40px -18px rgba(0,0,0,.7);
+}
+.card::before, .faq-item::before, .terms-item::before, .spotlight::before, .review-card::before {
+  background: radial-gradient(300px circle at var(--cx, 50%) var(--cy, -40%), rgba(82,199,154,.16), transparent 70%);
+}
+.card::after, .faq-item::after, .terms-item::after, .spotlight::after, .review-card::after {
+  background: radial-gradient(220px circle at var(--cx, 50%) var(--cy, -40%), rgba(255,255,255,.7), rgba(82,199,154,.5) 40%, transparent 72%);
+}
+.card:hover, .price-card:hover { border-color: rgba(255,255,255,.2); box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 26px 50px -18px rgba(0,0,0,.8); }
+.price-card.featured { border-color: rgba(82,199,154,.6); }
+.price-deposit, section.alt .price-deposit, section.alt .case-foot, .case-foot { background: rgba(255,255,255,.05); }
+.price-name, .price-amount { color: #fff; }
+
+/* tags, badges, notices */
+.tag, section.alt .tag { background: rgba(255,255,255,.07); color: #d6dad8; border-color: rgba(255,255,255,.12); }
+.badge-industry, .badge-sampleGreen { background: rgba(82,199,154,.12); color: #7fe0b8; border: 1px solid rgba(82,199,154,.3); }
+.notice { background: rgba(184,134,11,.12); color: #e8d29a; }
+.notice strong { color: #f3e2b0; }
+.notice-plain, section.alt .notice-plain { background: rgba(255,255,255,.05); }
+.checkopt:has(input:checked) { background: rgba(82,199,154,.1); }
+.form-success { background: rgba(82,199,154,.1); border-color: rgba(82,199,154,.3); }
+.review-stars { color: #e3c36a; }
+.logo-slot, .logo-small-slot { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.14); }
+
+/* hero buttons keep white; hero text already light */
+.page-hero .btn-primary { background: #fff; color: #013220; }
+.page-hero .btn-primary:hover { background: #eafff3; }
+#contact.cta-band .btn-primary { background: #fff; color: #013220; }
+
+/* forms */
+input, select, textarea { color-scheme: dark; }
+::placeholder { color: #7d8581; }
+
+/* ═══ LIFTED PALETTE: deep green-graphite, more life ═══ */
+:root { --bg: #14211b; --bg-alt: #1a2b23; --white: #213429; --muted: #b0bcb5; --border: rgba(255,255,255,.15); }
+body { background: #14211b; }
+body::before {
+  background:
+    radial-gradient(55% 45% at 8% 5%, rgba(32,170,108,.30), transparent 70%),
+    radial-gradient(50% 45% at 96% 28%, rgba(18,150,140,.26), transparent 70%),
+    radial-gradient(55% 45% at 30% 100%, rgba(200,150,50,.14), transparent 70%);
+}
+section.alt { background: linear-gradient(180deg, rgba(34,62,48,.72), rgba(24,46,36,.72)); border-color: rgba(255,255,255,.08); }
+.card, .faq-item, .terms-item, .spotlight, .review-card,
+section.alt .card, section.alt .faq-item, section.alt .terms-item, section.alt .spotlight {
+  background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.05));
+  border-color: rgba(255,255,255,.17);
+}
+.price-deposit, section.alt .price-deposit, section.alt .case-foot, .case-foot { background: rgba(255,255,255,.07); }
+
+/* ═══ ANIMATED BACKGROUND PATHS in every content section ═══ */
+main > section:not(.page-hero):not(#contact), main section.alt:not(#contact) { position: relative; overflow: hidden; }
+.bg-paths { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: .9; }
+main section:not(.page-hero):not(#contact) > :not(.bg-paths) { position: relative; z-index: 1; }
+.bg-paths path { fill: none; stroke: #fff; stroke-linecap: round; stroke-dasharray: .4 .6; animation: pathFlow var(--d, 30s) linear infinite; }
+@keyframes pathFlow { from { stroke-dashoffset: 1; } to { stroke-dashoffset: -1; } }
+.is-off .bg-paths path { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .bg-paths path { animation: none; stroke-dasharray: none; } }
+
+/* ═══ reading progress ═══ */
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 300; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, #52c79a, #ffd36b); pointer-events: none; }
+
+/* ═══ ALTERNATING SECTIONS: light gray (Apple-style rhythm against the dark hero/page) ═══ */
+main section.alt:not(#contact) {
+  --ink: #0d1612; --muted: #4f5b55; --border: #cdd4d0; --white: #fff;
+  --navy: #0b4a32; --navy-d: #013220; --accent: #0b6b45; --accent-d: #0b4a32; --vivid: #1a9a66;
+  background: linear-gradient(180deg, #eef0ef, #e2e6e4); color: var(--ink);
+  border-color: rgba(0,0,0,.06);
+}
+main section.alt .card, main section.alt .faq-item, main section.alt .terms-item, main section.alt .spotlight, main section.alt .review-card {
+  background: linear-gradient(145deg, rgba(255,255,255,.92), rgba(255,255,255,.6));
+  border-color: rgba(255,255,255,.95);
+  box-shadow: inset 0 1px 0 #fff, 0 14px 32px -16px rgba(8,28,18,.3);
+}
+main section.alt .card:hover { box-shadow: inset 0 1px 0 #fff, 0 22px 44px -16px rgba(8,28,18,.38); }
+main section.alt .card::before, main section.alt .faq-item::before, main section.alt .terms-item::before, main section.alt .spotlight::before {
+  background: radial-gradient(300px circle at var(--cx, 50%) var(--cy, -40%), rgba(26,154,102,.16), transparent 70%);
+}
+main section.alt .card::after, main section.alt .faq-item::after, main section.alt .terms-item::after, main section.alt .spotlight::after {
+  background: radial-gradient(220px circle at var(--cx, 50%) var(--cy, -40%), rgba(255,255,255,.95), rgba(26,154,102,.55) 40%, transparent 72%);
+}
+main section.alt .price-name, main section.alt .price-amount { color: var(--ink); }
+main section.alt .price-deposit, main section.alt .case-foot { background: rgba(255,255,255,.7); }
+main section.alt .tag { background: rgba(0,0,0,.05); color: #33403a; border-color: rgba(0,0,0,.08); }
+main section.alt .badge-industry, main section.alt .badge-sampleGreen { background: rgba(11,107,69,.1); color: #0b6b45; border-color: rgba(11,107,69,.25); }
+main section.alt .notice { background: #fdf9ef; color: #5f4d18; }
+main section.alt .notice strong { color: #4a3c11; }
+main section.alt .notice-plain { background: rgba(255,255,255,.7); }
+main section.alt .btn-outline { color: #0d1612; border-color: rgba(13,22,18,.4); }
+main section.alt .btn-outline:hover { background: rgba(0,0,0,.06); color: #0d1612; }
+main section.alt .btn-primary { color: #fff; }
+main section.alt .bg-paths path { stroke: #0b4a32; }
+main section.alt .review-stars { color: #b8860b; }
+main section.alt .bg-paths { opacity: .55; }

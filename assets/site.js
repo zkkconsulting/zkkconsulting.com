@@ -19,12 +19,12 @@
   if (animate) {
         document.body.classList.add('js-anim');
     gsap.set('.fade-up', { clearProps: 'opacity,transform' }); // release the CSS-based hide; GSAP now owns these props
-    gsap.set('.fade-up', { opacity: 0, y: 30 });
+    gsap.set('.fade-up', { opacity: 0, y: 44, scale: 0.965 });
     if (hasST) {
       ScrollTrigger.batch('.fade-up', {
         start: 'top 88%',
         onEnter: function (els) {
-          gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: 'power2.out', stagger: 0.12, overwrite: true });
+          gsap.to(els, { opacity: 1, y: 0, scale: 1, duration: 1.3, ease: 'expo.out', stagger: 0.09, overwrite: true, clearProps: 'transform' });
         }
       });
       ScrollTrigger.refresh();
@@ -69,6 +69,54 @@
     var r = el.getBoundingClientRect();
     el.style.setProperty('--cx', (e.clientX - r.left) + 'px');
     el.style.setProperty('--cy', (e.clientY - r.top) + 'px');
+  }, { passive: true });
+
+  /* ── BACKGROUND PATHS: flowing white lines in each content section (built when first seen) ── */
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    var NS = 'http://www.w3.org/2000/svg';
+    var buildPaths = function (sec, flip) {
+      var svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('class', 'bg-paths'); svg.setAttribute('viewBox', '0 0 696 316');
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid slice'); svg.setAttribute('aria-hidden', 'true');
+      [1, -1].forEach(function (pos) {
+        for (var i = 0; i < 12; i++) {
+          var k = i * 3, o = 380 - k * 5 * pos;
+          var path = document.createElementNS(NS, 'path');
+          path.setAttribute('d', 'M-' + o + ' -' + (189 + k * 6) + 'C-' + o + ' -' + (189 + k * 6) + ' -' + (312 - k * 5 * pos) + ' ' + (216 - k * 6) + ' ' + (152 - k * 5 * pos) + ' ' + (343 - k * 6) + 'C' + (616 - k * 5 * pos) + ' ' + (470 - k * 6) + ' ' + (684 - k * 5 * pos) + ' ' + (875 - k * 6) + ' ' + (684 - k * 5 * pos) + ' ' + (875 - k * 6));
+          path.setAttribute('pathLength', '1');
+          path.setAttribute('stroke-width', (0.5 + i * 0.07).toFixed(2));
+          path.setAttribute('stroke-opacity', (0.07 + i * 0.016).toFixed(3));
+          path.style.setProperty('--d', (28 + ((i * 7 + (pos > 0 ? 3 : 11)) % 17)) + 's');
+          path.style.animationDelay = '-' + ((i * 2.3) % 20).toFixed(1) + 's';
+          svg.appendChild(path);
+        }
+      });
+      if (flip) svg.style.transform = 'scaleX(-1)';
+      sec.insertBefore(svg, sec.firstChild);
+    };
+    var secs = Array.prototype.slice.call(document.querySelectorAll('main section')).filter(function (x) {
+      return !x.classList.contains('page-hero') && x.id !== 'contact';
+    });
+    var pio = new IntersectionObserver(function (en) {
+      en.forEach(function (e) {
+        if (e.isIntersecting && !e.target.querySelector(':scope > .bg-paths')) buildPaths(e.target, secs.indexOf(e.target) % 2);
+        e.target.classList.toggle('is-off', !e.isIntersecting);
+      });
+    }, { rootMargin: '150px' });
+    secs.forEach(function (x) { pio.observe(x); });
+  }
+
+  /* ── SCROLL PROGRESS BAR ── */
+  var bar = document.createElement('div'); bar.className = 'scroll-progress'; bar.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(bar);
+  var pr = 0;
+  window.addEventListener('scroll', function () {
+    if (pr) return;
+    pr = requestAnimationFrame(function () {
+      pr = 0;
+      var h = document.documentElement.scrollHeight - innerHeight;
+      bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, (window.pageYOffset || 0) / h) : 0) + ')';
+    });
   }, { passive: true });
 
   /* ── SMOOTH SCROLL + HASH ── */

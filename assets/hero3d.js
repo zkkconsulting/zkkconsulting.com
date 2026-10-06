@@ -168,8 +168,8 @@
     function place() {
       var wide = container.clientWidth > 900;
       var halfW = 55 * Math.tan(Math.PI / 8) * (container.clientWidth / container.clientHeight);
-      rig.position.set(wide ? halfW * 0.84 : 0, wide ? -2 : -9, -10);
-      rig.scale.setScalar(wide ? 0.62 : 0.55);
+      rig.position.set(wide ? halfW * 0.84 : 0, wide ? -2 : 5, -10);
+      rig.scale.setScalar(wide ? 0.62 : 0.7);
     }
     place();
 
