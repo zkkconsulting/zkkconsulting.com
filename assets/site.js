@@ -189,7 +189,7 @@
       var lab = sec.querySelector('.section-label, h2, h1');
       var span = document.createElement('span'); span.textContent = lab ? lab.textContent.trim() : 'Section';
       a.setAttribute('aria-label', span.textContent); a.appendChild(span);
-      a.addEventListener('click', function (e) { e.preventDefault(); if (window.ZKK && window.ZKK.lenis) window.ZKK.lenis.scrollTo(sec, { duration: 1.1 }); else sec.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); });
+      a.addEventListener('click', function (e) { e.preventDefault(); scrollToTarget(sec); });
       railEl.appendChild(a); return a;
     });
     document.body.appendChild(railEl);
@@ -225,9 +225,12 @@
   /* ── SMOOTH SCROLL + HASH ── */
   var navH = 72;
   function scrollToTarget(target) {
-    var y = target.getBoundingClientRect().top + window.pageYOffset - navH + 1;
-    if (window.ZKK && window.ZKK.lenis) window.ZKK.lenis.scrollTo(y, { duration: 1.1 });
-    else window.scrollTo({ top: y, behavior: reduceMotion ? 'auto' : 'smooth' });
+    function want() { return target.getBoundingClientRect().top + window.pageYOffset - navH + 1; }
+    window.scrollTo({ top: want(), behavior: reduceMotion ? 'auto' : 'smooth' });
+    // off-screen sections reserve estimated heights, so re-aim once they have rendered
+    [700, 1300].forEach(function (ms) {
+      setTimeout(function () { var w = want(); if (Math.abs(w - (window.pageYOffset || 0)) > 4) window.scrollTo({ top: w, behavior: 'auto' }); }, ms);
+    });
   }
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener('click', function (ev) {
