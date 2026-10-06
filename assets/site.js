@@ -16,6 +16,19 @@
   window.ZKK = { reduceMotion: reduceMotion, animate: animate, hasST: hasST };
 
 
+
+  /* ── MOBILE HERO LOGOS: continuous conveyor belt (track duplicated for a seamless loop) ── */
+  (function () {
+    var row = document.querySelector('.page-hero .logo-row');
+    if (!row || !window.matchMedia('(max-width: 700px)').matches) return;
+    var imgs = Array.prototype.slice.call(row.querySelectorAll('img'));
+    if (imgs.length < 3) return;
+    var track = document.createElement('div'); track.className = 'logo-track';
+    imgs.concat(imgs.map(function (im) { var c = im.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.alt = ''; return c; }))
+        .forEach(function (im) { track.appendChild(im); });
+    row.appendChild(track); row.classList.add('is-belt');
+  })();
+
   /* ── SCROLL REVEAL ── */
   if (animate) {
         document.body.classList.add('js-anim');
@@ -161,6 +174,7 @@
   window.addEventListener('scroll', function () { if (!rp) rp = requestAnimationFrame(function () { rp = 0; setRailProgress(); }); }, { passive: true });
   buildRail();
   window.ZKK.buildRail = buildRail;
+  (function () { var nv = document.getElementById('nav'); if (!nv) return; function setH() { document.documentElement.style.setProperty('--navh', nv.offsetHeight + 'px'); } setH(); if ('ResizeObserver' in window) new ResizeObserver(setH).observe(nv); window.addEventListener('resize', setH); })();
 
   /* ── SMOOTH SCROLL + HASH ── */
   var navH = 72;
