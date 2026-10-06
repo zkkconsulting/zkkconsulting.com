@@ -81,6 +81,20 @@
     window.addEventListener('load', function () { if (hasST) ScrollTrigger.refresh(); setTimeout(function () { if (hasST) ScrollTrigger.refresh(); fixHidden(); }, 600); });
   }
 
+  /* ── STABLE PAGE HEIGHT: measure each section once so content-visibility never changes the page length mid-scroll ── */
+  (function () {
+    var secs = Array.prototype.slice.call(document.querySelectorAll('main section:not(.page-hero):not(.deck-slide)'));
+    function measure() {
+      secs.forEach(function (x) { x.style.contentVisibility = 'visible'; });
+      var hs = secs.map(function (x) { return x.getBoundingClientRect().height; });
+      secs.forEach(function (x, i) { if (hs[i] > 0) x.style.containIntrinsicSize = 'auto ' + Math.round(hs[i]) + 'px'; x.style.contentVisibility = ''; });
+      window.__maxAt = 0; if (window.ZKK) window.ZKK.page = Date.now();
+    }
+    var t = 0;
+    window.addEventListener('load', function () { setTimeout(measure, 300); });
+    window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(measure, 400); });
+  })();
+
   /* ── NAV SHRINK ── */
   var nav = document.getElementById('nav');
   var homeHero = document.querySelector('.page-hero');
@@ -168,7 +182,7 @@
     if (pr) return;
     pr = requestAnimationFrame(function () {
       pr = 0;
-      var h = (window.__maxScroll && Date.now() - window.__maxAt < 1000) ? window.__maxScroll : (window.__maxScroll = document.documentElement.scrollHeight - innerHeight, window.__maxAt = Date.now(), window.__maxScroll);
+      var h = document.documentElement.scrollHeight - innerHeight;
       bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, (window.pageYOffset || 0) / h) : 0) + ')';
     });
   }, { passive: true });
@@ -196,6 +210,7 @@
     railSecs = secs; railDots = dots;
     railLabel = document.createElement('div'); railLabel.className = 'rail-label'; railLabel.setAttribute('aria-hidden', 'true'); railEl.appendChild(railLabel);
     setRailProgress();
+    if (window.ZKK && window.ZKK.railLayout) window.ZKK.railLayout();
   }
   var rp = 0, maxScroll = 0, maxAt = 0;
   function setRailProgress() {
@@ -209,7 +224,7 @@
     railEl.style.setProperty('--p', p.toFixed(3));
     var pos = p * (n - 1);
     if (idx < 0) { var ft = railSecs[0].getBoundingClientRect().top; pos = -1 + Math.max(0, Math.min(1, 1 - (ft - mid) / innerHeight)); }
-    if (railLabel) { var li = idx < 0 ? -1 : Math.min(n - 1, Math.round(pos)); if (li !== lastLabel) { lastLabel = li; railLabel.textContent = li < 0 ? '' : railDots[li].getAttribute('aria-label'); railLabel.classList.remove('swap'); void railLabel.offsetWidth; railLabel.classList.add('swap'); } }
+    if (railLabel) { var li = idx < 0 ? -1 : idx; if (li !== lastLabel) { lastLabel = li; railLabel.textContent = li < 0 ? '' : railDots[li].getAttribute('aria-label'); railLabel.classList.remove('swap'); void railLabel.offsetWidth; railLabel.classList.add('swap'); } }
     for (var j = 0; j < n; j++) {
       var f = Math.max(0, Math.min(1, pos - j + 1));          // 0 -> 1 as the line approaches then reaches the dot
       var act = Math.max(0, 1 - Math.abs(pos - j));            // bell shape around the dot
@@ -220,7 +235,25 @@
   window.addEventListener('scroll', function () { if (!rp) rp = requestAnimationFrame(function () { rp = 0; setRailProgress(); }); }, { passive: true });
   buildRail();
   window.ZKK.buildRail = buildRail;
-  (function () { var nv = document.getElementById('nav'); if (!nv) return; function setH() { document.documentElement.style.setProperty('--navh', nv.offsetHeight + 'px'); } setH(); if ('ResizeObserver' in window) new ResizeObserver(setH).observe(nv); window.addEventListener('resize', setH); })();
+  (function () {
+    var nv = document.getElementById('nav'); if (!nv) return;
+    var mark = nv.querySelector('.nav-mark'), ham = nv.querySelector('.hamburger');
+    function setH() {
+      var root = document.documentElement.style;
+      root.setProperty('--navh', nv.offsetHeight + 'px');
+      if (!mark || !ham || window.innerWidth > 700) return;
+      var a = mark.getBoundingClientRect(), b = ham.getBoundingClientRect();
+      var avail = Math.max(80, b.left - a.right - 28), n = railDots.length || 8;
+      root.setProperty('--rail-x', ((a.right + b.left) / 2).toFixed(1) + 'px');
+      root.setProperty('--rail-w', Math.min(avail - 32, 28 + n * 16).toFixed(0) + 'px');
+    }
+    setH();
+    if ('ResizeObserver' in window) new ResizeObserver(setH).observe(nv);
+    window.addEventListener('resize', setH);
+    nv.addEventListener('transitionend', setH);
+    window.addEventListener('load', function () { setH(); setTimeout(setH, 400); });
+    window.ZKK.railLayout = setH;
+  })();
 
   /* ── SMOOTH SCROLL + HASH ── */
   var navH = 72;
