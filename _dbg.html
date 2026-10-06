@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page Not Found | ZKK Consulting</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#fbfaf7" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
+  <style>
+    body { display: flex; flex-direction: column; min-height: 100vh; }
+    .nf-main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 140px 6vw 60px; text-align: center; }
+    .nf-inner { max-width: 620px; }
+    .nf-links { margin-top: 2rem; font-size: .88rem; color: var(--muted); }
+    .nf-links a { color: var(--navy); font-weight: 500; text-decoration: none; }
+    .nf-links a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="/" class="nav-logo" aria-label="ZKK Consulting LLC, home">
+      <img class="nav-mark" src="/ZKK_logo.png" alt="" aria-hidden="true">
+    </a>
+    <a href="/" class="nav-back">&larr; Back to site</a>
+  </nav>
+
+  <main class="nf-main">
+    <div class="nf-inner">
+      <div class="eyebrow">Error 404</div>
+      <h1>This page doesn't exist.</h1>
+      <p class="lede" style="color:var(--muted);">
+        The link may be out of date, or the address may have a typo in it. Everything on the site is
+        reachable from the homepage.
+      </p>
+      <div class="hero-ctas" style="margin-top:2rem;">
+        <a href="/" class="btn btn-primary">Go to homepage</a>
+        <a href="/services.html" class="btn btn-outline">Services &amp; pricing</a>
+        <a href="mailto:info@zkkconsulting.com" class="btn btn-outline">Email us</a>
+      </div>
+      <p class="nf-links">
+        <a href="/work.html">Our Work</a> &middot;
+        <a href="/expertise.html">Expertise</a> &middot;
+        <a href="/team.html">Team</a> &middot;
+        <a href="/referrals.html">Referrals</a> &middot;
+        <a href="/legal.html">Legal</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <p class="footer-entity"><strong>ZKK Consulting LLC</strong> is a Texas limited liability company.</p>
+      <p>&copy; 2026 ZKK Consulting LLC. &nbsp;&middot;&nbsp; <a href="/legal.html">Legal &amp; Disclaimers</a></p>
+    </div>
+  </footer>
+
+<script>setTimeout(function(){var o=[];document.querySelectorAll("*").forEach(function(e){var r=e.getBoundingClientRect();if(r.right>innerWidth+2&&r.width>0&&getComputedStyle(e).position!=="fixed"&&!e.closest(".aurora,.hero-canvas,.bg-paths,.mobile-menu,svg,canvas"))o.push(e.tagName+"."+(e.className.baseVal||e.className))});console.log("DBG overflow "+document.documentElement.scrollWidth+"/"+innerWidth+" "+o.slice(0,6).join(","))},2500);window.addEventListener("error",function(e){console.log("DBG jserror "+e.message)})</script></body>
+</html>

@@ -19,12 +19,12 @@
   if (animate) {
         document.body.classList.add('js-anim');
     gsap.set('.fade-up', { clearProps: 'opacity,transform' }); // release the CSS-based hide; GSAP now owns these props
-    gsap.set('.fade-up', { opacity: 0, y: 44, scale: 0.965 });
+    gsap.set('.fade-up', { opacity: 0, y: 26 });
     if (hasST) {
       ScrollTrigger.batch('.fade-up', {
         start: 'top 88%',
         onEnter: function (els) {
-          gsap.to(els, { opacity: 1, y: 0, scale: 1, duration: 1.3, ease: 'expo.out', stagger: 0.09, overwrite: true, clearProps: 'transform' });
+          gsap.to(els, { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out', stagger: 0.07, overwrite: true, clearProps: 'transform,willChange' });
         }
       });
       ScrollTrigger.refresh();
@@ -84,7 +84,7 @@
           var path = document.createElementNS(NS, 'path');
           path.setAttribute('d', 'M-' + o + ' -' + (189 + k * 6) + 'C-' + o + ' -' + (189 + k * 6) + ' -' + (312 - k * 5 * pos) + ' ' + (216 - k * 6) + ' ' + (152 - k * 5 * pos) + ' ' + (343 - k * 6) + 'C' + (616 - k * 5 * pos) + ' ' + (470 - k * 6) + ' ' + (684 - k * 5 * pos) + ' ' + (875 - k * 6) + ' ' + (684 - k * 5 * pos) + ' ' + (875 - k * 6));
           path.setAttribute('pathLength', '1');
-          path.setAttribute('stroke-width', (0.5 + i * 0.07).toFixed(2));
+          path.setAttribute('stroke-width', (0.3 + i * 0.035).toFixed(2));
           path.setAttribute('stroke-opacity', (0.07 + i * 0.016).toFixed(3));
           path.style.setProperty('--d', (28 + ((i * 7 + (pos > 0 ? 3 : 11)) % 17)) + 's');
           path.style.animationDelay = '-' + ((i * 2.3) % 20).toFixed(1) + 's';
@@ -95,7 +95,7 @@
       sec.insertBefore(svg, sec.firstChild);
     };
     var secs = Array.prototype.slice.call(document.querySelectorAll('main section')).filter(function (x) {
-      return !x.classList.contains('page-hero') && x.id !== 'contact';
+      return !x.classList.contains('page-hero') && x.id !== 'contact' && !x.classList.contains('legal-item');
     });
     var pio = new IntersectionObserver(function (en) {
       en.forEach(function (e) {
