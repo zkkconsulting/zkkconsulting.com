@@ -1913,3 +1913,23 @@ main #scope-note { padding: 0; background: linear-gradient(180deg, #eef1ef, #dfe
 main #scope-note .wrap-narrow { max-width: none; width: 100%; }
 main #scope-note .notice { max-width: 980px; margin: 0 auto; background: transparent; border: 0; border-radius: 0; text-align: center; padding: 1.1rem clamp(1.2rem, 6vw, 4rem); font-size: .78rem; color: #2f3b35; opacity: 1 !important; transform: none !important; }
 main #scope-note .notice strong { color: #0d1612; }
+
+/* phones/touch: a tap must not change a glass block's colour (sticky :hover/:active) */
+@media (max-width: 700px) {
+  main :is(#what .grid-4, #refprocess .process-grid, #why .grid-3, #engineering .grid-3) > .card:nth-child(odd):is(:hover, :active, :focus, :focus-within),
+  main #reports .report-tile:nth-child(odd):is(:hover, :active, :focus, :focus-within),
+  main #terms .terms-item:nth-child(odd):is(:hover, :active, :focus, :focus-within),
+  main #founders .founder-card:nth-child(odd):is(:hover, :active, :focus, :focus-within),
+  main #bundles .bundle-grid > .card:nth-child(odd):is(:hover, :active, :focus, :focus-within) {
+    background: linear-gradient(145deg, rgba(184,134,11,.26), rgba(184,134,11,.10)) !important;
+    translate: none !important;
+  }
+  main :is(#what .grid-4, #refprocess .process-grid, #why .grid-3, #engineering .grid-3) > .card:nth-child(even):is(:hover, :active, :focus, :focus-within),
+  main #reports .report-tile:nth-child(even):is(:hover, :active, :focus, :focus-within),
+  main #terms .terms-item:nth-child(even):is(:hover, :active, :focus, :focus-within),
+  main #founders .founder-card:nth-child(even):is(:hover, :active, :focus, :focus-within),
+  main #bundles .bundle-grid > .card:nth-child(even):is(:hover, :active, :focus, :focus-within) {
+    background: rgba(255,255,255,.12) !important;
+    translate: none !important;
+  }
+}
