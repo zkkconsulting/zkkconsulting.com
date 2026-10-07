@@ -2169,3 +2169,8 @@ body.hero-pg .page-hero .pf-tab { flex: 1 1 0; }
 @media (max-width: 760px) {
   body.hero-pg .page-hero .eyebrow { white-space: nowrap; font-size: 2.7vw !important; letter-spacing: .06em; }
 }
+
+/* phones: hero text sits a bit higher (visible area is shorter than the full screen) */
+@media (max-width: 700px) {
+  body.hero-pg .page-hero:not(.page-hero-short) { padding-bottom: 150px; }
+}
