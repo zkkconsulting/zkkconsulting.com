@@ -1968,3 +1968,79 @@ main #cases .case-foot a { color: #0b3d2c; }
 main #cases .cb-label { color: #8a6508; } main #cases .case-block p { font-size: .98rem; line-height: 1.7; color: #46524b; }
 main #cases .cases-note { position: relative; z-index: 1; margin: 0; padding: .9rem clamp(1.2rem, 6vw, 5rem); text-align: center; font-size: .78rem; line-height: 1.5; color: #2f3b35; background: rgba(255,255,255,.10); -webkit-backdrop-filter: blur(5px) saturate(150%); backdrop-filter: blur(5px) saturate(150%); border-top: 1px solid rgba(255,255,255,.7); box-shadow: inset 0 1px 0 rgba(255,255,255,.8); }
 main #cases .case-foot { padding: .9rem clamp(1.6rem, 4vw, 3.4rem); gap: 1rem; }
+
+/* ═══ OUR WORK case studies v2: floating liquid-glass cards inside a normal section ═══ */
+main #cases { padding: 3.9rem 5vw 0; overflow: hidden; }
+main #cases > :is(.section-label, h2, .section-intro) { position: static !important; width: auto; height: auto; overflow: visible; clip: auto; clip-path: none; margin-left: auto !important; margin-right: auto !important; }
+main #cases > .section-label { margin-bottom: .8rem !important; }
+main #cases > h2 { margin-bottom: 1rem !important; }
+main #cases > .section-intro { margin-bottom: 2.4rem !important; }
+main #cases .case-grid { width: 100%; max-width: 1150px; margin: 0 auto; gap: 1.8rem; grid-template-columns: 1fr 1fr; }
+main #cases .case-card.card {
+  border-radius: 24px; border: 1px solid rgba(255,255,255,.85);
+  background: linear-gradient(145deg, rgba(255,255,255,.62), rgba(255,255,255,.22)) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(170%); backdrop-filter: blur(22px) saturate(170%);
+  box-shadow: inset 0 1px 0 #fff, 0 26px 50px -28px rgba(6,28,18,.5);
+  overflow: hidden; transition: translate .35s ease, box-shadow .35s ease;
+}
+main #cases .case-card.card:nth-child(4n+1), main #cases .case-card.card:nth-child(4n+4) {
+  background: linear-gradient(145deg, rgba(184,134,11,.26), rgba(184,134,11,.08)) !important;
+}
+main #cases .case-card.card:hover { translate: 0 -5px; box-shadow: inset 0 1px 0 #fff, 0 36px 58px -28px rgba(6,28,18,.55); }
+main #cases .case-top { padding: 2rem 2rem 0; }
+main #cases .case-body { padding: 1.2rem 2rem 1.6rem; }
+main #cases .case-foot { background: rgba(255,255,255,.4) !important; border-top: 1px solid rgba(255,255,255,.8); padding: .9rem 2rem; }
+main #cases .cases-note { margin: 2.4rem -5vw 0; }
+@media (max-width: 900px) {
+  main #cases .case-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  main #cases .case-card.card:nth-child(n) { background: linear-gradient(145deg, rgba(255,255,255,.62), rgba(255,255,255,.22)) !important; }
+  main #cases .case-card.card:nth-child(odd) { background: linear-gradient(145deg, rgba(184,134,11,.26), rgba(184,134,11,.08)) !important; }
+  main #cases .case-card.card:hover { translate: none; }
+}
+
+/* ═══ OUR WORK "Inside a report": clean light document card on a light, line-animated section ═══ */
+main #samples { background: linear-gradient(180deg, #eef1ef, #dfe6e2); --ink: #0d1612; --muted: #5a6660; --border: #e3e8e5; --accent: #0b6b45; --navy: #0b3d2c; color: var(--ink); padding-bottom: 3.4rem; }
+main #samples .bg-paths path { stroke: #0b4a32; stroke-opacity: .5; }
+main #samples .hero-deck {
+  --white: #ffffff; --bg: #f5f7f6; --bg-alt: #eef2f0;
+  background: #fff; border: 1px solid rgba(255,255,255,.9); border-radius: 22px;
+  box-shadow: 0 1px 2px rgba(6,28,18,.06), 0 34px 70px -34px rgba(6,28,18,.45);
+}
+main #samples .deck-slide { background: #fff; }
+main #samples .deck-eyebrow { color: #b8860b; }
+main #samples .deck-eyebrow span { color: #8a948e; }
+main #samples .deck-title { color: #0d1612; }
+main #samples .deck-tag { color: #6b7770; border-color: #dfe5e2; background: #f7f9f8; }
+main #samples .deck-table th { color: #8a948e; border-bottom: 1px solid #e3e8e5; font-weight: 600; }
+main #samples .deck-table td, main #samples .deck-table tbody th { color: #1c2a23; border-bottom: 1px solid #eef1ef; }
+main #samples .deck-table tbody tr:hover td, main #samples .deck-table tbody tr:hover th { background: #f8faf9; }
+main #samples .deck-table .t-name { color: #0d1612; }
+main #samples .deck-pill { background: rgba(184,134,11,.12); color: #8a6508; border: 1px solid rgba(184,134,11,.28); border-radius: 999px; padding: .38cqw 1.1cqw; letter-spacing: .1em; }
+main #samples .deck-notes-label { color: #8a948e; border-bottom-color: #e3e8e5; }
+main #samples .deck-note { color: #5a6660; }
+main #samples .deck-aside { background: #f6f8f7; border-radius: 14px; padding: 1.6cqw 1.8cqw; }
+main #samples .deck-foot { color: #8a948e; border-top-color: #eef1ef; }
+main #samples .deck-foot strong { color: #0d1612; }
+main #samples .funnel-key { color: #0b3d2c; }
+main #samples .funnel-bar { background: #0b3d2c; } main #samples .funnel-row:nth-child(2) .funnel-bar { background: #2f6f57; } main #samples .funnel-row:nth-child(3) .funnel-bar { background: #b8860b; }
+main #samples .funnel-val, main #samples .cov-blend-val { color: #0d1612; }
+main #samples .chart-bar { background: #0b3d2c; } main #samples .chart-col:last-child .chart-bar { background: #b8860b; }
+main #samples .chart-val { color: #0b3d2c; }
+main #samples .deck-ctrl { background: #f6f8f7; border-top: 1px solid #e8ece9; }
+main #samples .deck-dot { background: #d6ddd9; } main #samples .deck-dot[aria-current="true"] { background: #b8860b; }
+main #samples .deck-arrow { background: #fff; border-color: #dfe5e2; color: #0b3d2c; }
+main #samples .deck-arrow:hover { background: #0b3d2c; color: #fff; border-color: #0b3d2c; }
+main #samples .deck-count { color: #6b7770; }
+main #samples .deck-caption { margin: 0; padding: .85rem 1.4rem 1rem; max-width: none; background: #f6f8f7; border-top: 1px solid #e8ece9; font-size: .7rem; line-height: 1.55; color: #7a857f; }
+main #samples .deck-slide--fill .deck-aside, main #samples .deck-aside { justify-content: flex-start; } main #samples .deck-aside { align-self: stretch; }
+
+/* "Inside a report": dark green section behind the white document card */
+main #samples {
+  background: radial-gradient(45% 55% at 10% 15%, rgba(32,170,108,.45), transparent 70%), radial-gradient(45% 55% at 90% 85%, rgba(200,150,50,.38), transparent 70%), #0a1f17;
+  --ink: #f5f5f7; --muted: rgba(245,245,247,.82); color: var(--ink);
+}
+main #samples .bg-paths path { stroke: #fff; stroke-opacity: .55; }
+main #samples > h2 { color: #fff; }
+main #samples > .section-label { color: #ffd36b; }
+main #samples > .section-intro { color: rgba(245,245,247,.82); }
+main #samples .hero-deck { box-shadow: 0 40px 80px -30px rgba(0,0,0,.65); }
