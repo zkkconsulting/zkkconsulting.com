@@ -2155,15 +2155,17 @@ body.hero-pg .page-hero .pf-tabs { margin-left: 0; justify-content: flex-start; 
 body.hero-pg .page-hero .hero-meta .cred-label { font-size: .52rem; letter-spacing: .18em; color: rgba(255,255,255,.5); margin: 2.4rem 0 0; }
 
 /* team page: hero hugs its content (panels are hidden until a tab is picked, so no dead 100vh gap) */
-body.hero-pg .page-hero:has(.pf-tabs) { min-height: 0; padding-bottom: 72px; }
+body.hero-pg .page-hero:has(.pf-tabs) { min-height: 100vh; min-height: 100svh; padding-bottom: 72px; }
+body.hero-pg .page-hero .pf-tabs { display: flex; width: 100%; }
+body.hero-pg .page-hero .pf-tab { flex: 1 1 0; }
 
 /* team tabs on iPad/phone: stacked, both the same width (active tab no longer a short card inside a wide bar) */
 @media (max-width: 1100px) {
-  .page-hero .pf-tabs { display: flex; flex-direction: column; flex-wrap: nowrap; width: fit-content; max-width: 100%; gap: .4rem; }
+  .page-hero .pf-tabs { display: flex; flex-direction: column; flex-wrap: nowrap; width: 100%; max-width: 100%; gap: .4rem; }
   .page-hero .pf-tab { width: 100%; flex: none; text-align: left; }
 }
 
-/* team page on phones: hero fills the screen */
-@media (max-width: 700px) {
-  body.hero-pg .page-hero:has(.pf-tabs) { min-height: 100vh; min-height: 100svh; }
+/* home hero tagline: one line on phones (iPhone 15 = 393px) */
+@media (max-width: 760px) {
+  body.hero-pg .page-hero .eyebrow { white-space: nowrap; font-size: 2.7vw !important; letter-spacing: .06em; }
 }
