@@ -2044,3 +2044,13 @@ main #samples > h2 { color: #fff; }
 main #samples > .section-label { color: #ffd36b; }
 main #samples > .section-intro { color: rgba(245,245,247,.82); }
 main #samples .hero-deck { box-shadow: 0 40px 80px -30px rgba(0,0,0,.65); }
+
+/* phones: background lines are livelier and clearly visible */
+@media (max-width: 700px) {
+  .bg-paths, main section.alt .bg-paths, main :is(#what, #why, #engineering, #refprocess, #founders, #bundles, #terms, #reports, #cases, #samples, #formatting) .bg-paths { opacity: 1 !important; }
+  .bg-paths path { vector-effect: non-scaling-stroke; stroke-width: 1.4px !important; stroke-opacity: .55; animation-duration: calc(var(--d, 30s) * .38) !important; }
+  .bg-paths path:nth-child(3n) { stroke-width: 2px !important; stroke-opacity: .7; }
+}
+
+/* phones: no dot rail in the top bar (the thin progress line at the very top stays) */
+@media (max-width: 700px) { .scroll-rail { display: none !important; } }
