@@ -44,10 +44,10 @@
   <link rel="stylesheet" href="/assets/site.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body>
+<body class="home">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <nav id="nav" class="on-hero">
+  <nav id="nav" class="on-hero hero-home">
     <a href="/" class="nav-logo" aria-label="ZKK Consulting, home">
       <img class="nav-mark" src="/ZKK_logo.png" alt="" aria-hidden="true">
     </a>
@@ -83,14 +83,14 @@
   <div id="heroCanvas" class="hero-canvas" aria-hidden="true"></div>
   <div class="page-hero-inner">
       <div class="eyebrow">Market Research &amp; Business Growth Consulting</div>
-      <h1>Research That Makes The Next Decision Clearer</h1>
+      <h1>Research That Makes The Next Decision <span class="gold">Clearer</span></h1>
       <p class="lede">Sourced analysis for fundraising, planning, and product decisions.</p>
+      <div class="hero-meta">
       <p class="hero-pill">
         <span>Competitive landscapes</span><i></i><span>Market sizing</span><i></i><span>Patent landscapes</span><i></i><span>Financial modeling</span>
       </p>
 
       <div class="cred-strip">
-        <div class="cred-label">Backgrounds, clients &amp; affiliations</div>
         <div class="logo-row">
           <img src="/assets/logos/sageSpectraLogo.png" style="height:44px" alt="Sage Spectra">
           <img src="/assets/logos/OncorLogo.png" style="height:60px" alt="Oncor">
@@ -99,6 +99,8 @@
           <img src="/assets/logos/utdWhite.png" style="height:52px" alt="UT Dallas">
           <img src="/assets/logos/IEEE-logo.png" style="height:40px" alt="IEEE">
         </div>
+        <div class="cred-label">Backgrounds, clients &amp; affiliations</div>
+      </div>
       </div>
     </div>
   </section>
@@ -575,6 +577,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="/assets/site.js"></script>
   <script src="/assets/hero3d.js"></script>
+  <script src="/assets/sky.js"></script>
   <script>
     /* ═══════════════════════════════════════════════════════════════
        PUBLISHED REVIEWS – add approved client feedback here.

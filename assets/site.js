@@ -98,10 +98,13 @@
   /* ── NAV SHRINK ── */
   var nav = document.getElementById('nav');
   var homeHero = document.querySelector('.page-hero');
+  var isHome = document.body.classList.contains('home');
   if (nav) {
+    if (isHome) nav.classList.add('hero-home');
     var onScroll = function () {
       var y = window.pageYOffset || document.documentElement.scrollTop;
-      var sh = y > 30, oh = homeHero ? y < heroLimit : false;
+      var sh = y > 30, oh = isHome ? y < 8 : (homeHero ? y < heroLimit : false); /* flips as the logo docks */
+      if (isHome) nav.style.setProperty('--p', y > 8 ? 1 : 0);  /* logo docks as soon as you scroll; CSS eases it */
       if (sh !== lastShrink) { nav.classList.toggle('shrink', sh); lastShrink = sh; }
       if (homeHero && oh !== lastOnHero) { nav.classList.toggle('on-hero', oh); lastOnHero = oh; }
     };
