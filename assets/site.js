@@ -98,7 +98,7 @@
   /* ── NAV SHRINK ── */
   var nav = document.getElementById('nav');
   var homeHero = document.querySelector('.page-hero');
-  var isHome = document.body.classList.contains('home');
+  var isHome = document.body.classList.contains('hero-pg');
   if (nav) {
     if (isHome) nav.classList.add('hero-home');
     var onScroll = function () {
