@@ -140,6 +140,12 @@
     var inner = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(5.5, 0)), new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0.6 }));
     rig.add(core, edges, inner);
 
+    // beads render in a second pass with a depth-only sphere (the crystal) so they go behind it for real
+    var beadScene = new THREE.Scene(), beadRig = new THREE.Group();
+    beadScene.add(beadRig);
+    var occluder = new THREE.Mesh(new THREE.SphereGeometry(10.6, 32, 24), new THREE.MeshBasicMaterial({ colorWrite: false }));
+    occluder.renderOrder = -1; beadRig.add(occluder);
+    renderer.autoClear = false;
     var rings = [];
     [[17, MINT, 0.5], [21, TEAL, 0.35], [25, GOLD, 0.3]].forEach(function (r, i) {
       var ring = new THREE.Mesh(
@@ -149,7 +155,7 @@
       ring.rotation.set(Math.PI / 2 + i * 0.5, i * 0.7, 0);
       var bead = new THREE.Mesh(new THREE.SphereGeometry(0.7, 12, 12), new THREE.MeshBasicMaterial({ color: r[1] }));
       ring.userData = { bead: bead, r: r[0], speed: 0.09 + i * 0.04 };
-      rig.add(ring, bead);
+      rig.add(ring); beadRig.add(bead);
       rings.push(ring);
     });
 
@@ -204,7 +210,11 @@
       dust.rotation.y = t * 0.008; dust.rotation.x = Math.sin(t * 0.04) * 0.06;
       rig.rotation.y += (mx * 0.4 - rig.rotation.y) * 0.02;
       rig.rotation.x += (my * 0.25 - rig.rotation.x) * 0.02;
+      beadRig.position.copy(rig.position); beadRig.rotation.copy(rig.rotation); beadRig.scale.copy(rig.scale);
+      renderer.clear();
       renderer.render(scene, camera);
+      renderer.clearDepth();
+      renderer.render(beadScene, camera);
     })();
   }
 
