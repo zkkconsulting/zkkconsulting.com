@@ -2181,3 +2181,8 @@ body.hero-pg .page-hero .pf-tab { flex: 1 1 0; }
 /* during a dot/anchor scroll: no lazy section sizing, no scroll anchoring (they made the target move and the scroll twitch) */
 html.sj { overflow-anchor: none; }
 html.sj main section:not(.page-hero):not(.deck-slide) { content-visibility: visible; }
+
+/* footer LinkedIn button */
+footer .footer-col a.footer-social { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1rem; padding: .5rem .9rem; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; color: #fff; font-size: .8rem; text-decoration: none; transition: background .2s, border-color .2s, color .2s; }
+footer .footer-col a.footer-social svg { width: 16px; height: 16px; }
+footer .footer-col a.footer-social:hover { background: #fff; border-color: #fff; color: #0d1612; text-decoration: none; }
