@@ -5,6 +5,7 @@
   <url><loc>https://zkkconsulting.com/work/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://zkkconsulting.com/expertise/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://zkkconsulting.com/team/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zkkconsulting.com/faq/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://zkkconsulting.com/referrals/</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://zkkconsulting.com/legal/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
