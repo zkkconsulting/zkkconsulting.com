@@ -926,7 +926,7 @@ section.alt { background: linear-gradient(180deg, #eaf4ee, #e1eee6); }
 .cta-band .cta-sub, .cta-band .contact-direct { color: rgba(255,255,255,.85); }
 .cta-band a:not(.btn) { color: #fff; }
 
-.page-hero .hero-canvas { z-index: 1; opacity: .8; }
+.page-hero .hero-canvas { z-index: 1; opacity: .95; }   /* same boldness as the phone globe */
 @media (max-width: 760px) { .page-hero .hero-canvas { opacity: .6; } }
 
 /* inner pages: same hero, a touch shorter */
@@ -1795,7 +1795,7 @@ main :is(#packages, #terms) > .wrap-narrow:last-child {
   .page-hero .logo-row.is-belt { display: block; overflow: hidden; min-height: 0; padding: .3rem 0;
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
   .page-hero .logo-track { display: flex; align-items: center; width: max-content; gap: 2.6rem; padding-right: 2.6rem; animation: beltMove 22s linear infinite; will-change: transform; }
-  .page-hero .logo-row.is-belt img { display: block !important; flex: 0 0 auto !important; height: 30px !important; width: auto !important; max-width: none !important; opacity: .9; animation: none; }
+  .page-hero .logo-row.is-belt img { display: block !important; flex: 0 0 auto !important; height: calc(30px * var(--k, 1)) !important; width: auto !important; max-width: none !important; opacity: .9; animation: none; }
   @keyframes beltMove { to { transform: translateX(-50%); } }
   .page-hero .logo-note { font-size: .62rem; margin-top: .7rem; }
   .page-hero .page-hero-inner { width: 100%; min-width: 0; }
@@ -1866,12 +1866,12 @@ main :is(#packages, #terms) > .wrap-narrow:last-child {
   .page-hero .logo-row.is-belt { display: block; overflow: hidden; padding: .5rem 0; min-height: 0;
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
   .page-hero .logo-track { display: flex; align-items: center; width: max-content; gap: 4.4rem; padding-right: 4.4rem; animation: beltMove 34s linear infinite; will-change: transform; }
-  .page-hero .logo-row.is-belt img { display: block !important; flex: 0 0 auto !important; height: 44px !important; width: auto !important; max-width: none !important; max-height: none !important; opacity: .9; }
+  .page-hero .logo-row.is-belt img { display: block !important; flex: 0 0 auto !important; height: calc(44px * var(--k, 1)) !important; width: auto !important; max-width: none !important; max-height: none !important; opacity: .9; }
   @keyframes beltMove { to { transform: translateX(-50%); } }
 }
 @media (min-width: 701px) and (max-width: 1024px) {
   .page-hero .logo-track { gap: 3.2rem; padding-right: 3.2rem; animation-duration: 28s; }
-  .page-hero .logo-row.is-belt img { height: 36px !important; }
+  .page-hero .logo-row.is-belt img { height: calc(36px * var(--k, 1)) !important; }
 }
 
 /* dots fill forward as the line passes them */
@@ -2131,7 +2131,7 @@ body.hero-pg .page-hero .pf-tabs { margin-left: 0; justify-content: flex-start; 
   body.hero-pg .page-hero .hero-pill { flex-wrap: wrap; gap: .5rem 1rem; }
   body.hero-pg .page-hero .hero-pill span { white-space: nowrap; }
 }
-@media (max-width: 760px) { body.hero-pg .page-hero .cred-label { margin: 1.3rem 0 0; } }
+@media (max-width: 760px) { body.hero-pg .page-hero .cred-label { margin: 0.95rem 0 0; } }
 
 /* tablets (iPad mini etc.): wider column + proportionally bigger logo/type so the hero doesn't look squeezed */
 @media (min-width: 761px) and (max-width: 1100px) {
@@ -2152,7 +2152,7 @@ body.hero-pg .page-hero .pf-tabs { margin-left: 0; justify-content: flex-start; 
   .hero-meta .cred-strip { width: 0; min-width: 100%; }
   body.hero-pg .page-hero .hero-meta .cred-strip { margin-top: 1.1rem; }
 }
-body.hero-pg .page-hero .hero-meta .cred-label { font-size: .52rem; letter-spacing: .18em; color: rgba(255,255,255,.5); margin: 2.4rem 0 0; }
+body.hero-pg .page-hero .hero-meta .cred-label { font-size: .52rem; letter-spacing: .18em; color: rgba(255,255,255,.5); margin: 1.2rem 0 0; }
 
 /* team page: hero hugs its content (panels are hidden until a tab is picked, so no dead 100vh gap) */
 body.hero-pg .page-hero:has(.pf-tabs) { min-height: 100vh; min-height: 100svh; padding-bottom: 72px; }
@@ -2220,5 +2220,53 @@ body.home .page-hero .cred-label { color: rgba(255,255,255,.42); }
 body.home .page-hero h1 { text-shadow: 0 2px 26px rgba(0,16,8,.7); }
 body.home .page-hero-inner::before {
   content: ''; position: absolute; z-index: -1; inset: -6% -8%; pointer-events: none;
-  background: radial-gradient(ellipse at 40% 50%, rgba(0,16,9,.32), transparent 72%);
+  background: radial-gradient(ellipse closest-side at 50% 50%, rgba(0,16,9,.32), transparent);   /* fades to nothing before the box edge, so no visible seam */
+}
+
+/* ── NAV (scrolled): near-black bar with a subtle liquid-glass finish (buttons stay plain) ── */
+nav:not(.on-hero) {
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0) 60%), linear-gradient(90deg, rgba(0,0,0,.98) 0%, rgba(1,8,5,.97) 55%, rgba(0,0,0,.98) 100%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%); backdrop-filter: blur(20px) saturate(150%);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.16), 0 8px 28px rgba(0,0,0,.4);
+}
+nav:not(.on-hero)::before { opacity: .08; }
+
+/* logo gem: a quick glint sweeps across it now and then (no slow pulsing); otherwise the logo stays white */
+.nav-logo { position: relative; }
+.nav-logo::before, .nav-logo::after { content: ''; position: absolute; left: 81.25%; top: 20.8%; width: 7.18%; height: 23.07%; pointer-events: none; transform: scale(1.08); }
+.nav-logo::after { background: url(/assets/logo-gem.png) center / 100% 100% no-repeat; opacity: 0; filter: brightness(1.3) saturate(1.3) drop-shadow(0 0 3px rgba(255,214,110,.8)); animation: logoGemFlash 6.5s ease-in-out 1.2s infinite; }
+.nav-logo::before { z-index: 1; -webkit-mask: url(/assets/logo-gem.png) center / 100% 100% no-repeat; mask: url(/assets/logo-gem.png) center / 100% 100% no-repeat;
+  background: linear-gradient(110deg, transparent 38%, rgba(255,255,255,.95) 50%, transparent 62%) 130% 0 / 260% 100% no-repeat; animation: logoGemSweep 6.5s ease-in-out 1.2s infinite; }
+@keyframes logoGemFlash { 0%, 20%, 100% { opacity: 0; } 5% { opacity: 1; } 12% { opacity: .9; } }
+@keyframes logoGemSweep { 0%, 4%, 100% { background-position: 130% 0; } 15%, 99% { background-position: -30% 0; } }
+@media (prefers-reduced-motion: reduce) { .nav-logo::before, .nav-logo::after { animation: none; } }
+@media (max-width: 760px) { .page-hero .hero-canvas { opacity: .95; } }
+
+/* hero logo belt: even out visual size (wide wordmarks smaller, compact marks larger) so the logos read as one set */
+.page-hero .logo-row img[src*="sageSpectra"] { --k: .8; }
+.page-hero .logo-row img[src*="Oncor"] { --k: 1.4; }
+.page-hero .logo-row img[src*="teliatry"] { --k: .76; }
+.page-hero .logo-row img[src*="dynamicKpis"] { --k: .6; }
+.page-hero .logo-row img[src*="IEEE"] { --k: .98; }
+.page-hero .logo-row.is-belt img { opacity: .8; }
+
+@media (max-width: 760px) { body.hero-pg .page-hero .hero-meta .cred-label { margin: 2rem 0 0; } }   /* phones keep their current spacing */
+
+/* PC: slightly bigger ZKK logo, slightly smaller supporting text */
+@media (min-width: 761px) {
+  :root { --logo-w: min(14.6vw, 292px); }
+  body.hero-pg .page-hero { padding-top: calc(var(--logo-top) + 7.8vw + 1.2rem); }
+  body.home .page-hero .eyebrow { font-size: .72rem; }
+  body.home .page-hero .lede { font-size: 1.08rem; }
+  body.home .page-hero .hero-pill { font-size: .86rem !important; }
+  body.home .page-hero .cred-label { font-size: .5rem; }
+}
+
+/* team page (PC): smaller founder buttons so they stay clear of the globe */
+@media (min-width: 761px) {
+  body.hero-pg .page-hero .pf-tabs { width: 100%; max-width: 480px; padding: .3rem; gap: .3rem; }
+  body.hero-pg .page-hero .pf-tab { flex: 1 1 100%; width: 100%; box-sizing: border-box; padding: .55rem .9rem; }   /* each button fills its full row, so the white flash covers the whole box */
+  body.hero-pg .page-hero .pf-tab .pf-tab-name { font-size: .88rem; }
+  body.hero-pg .page-hero .pf-tab .pf-tab-focus { font-size: .64rem; line-height: 1.3; }
 }
