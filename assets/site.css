@@ -2174,3 +2174,10 @@ body.hero-pg .page-hero .pf-tab { flex: 1 1 0; }
 @media (max-width: 700px) {
   body.hero-pg .page-hero:not(.page-hero-short) { padding-bottom: 150px; }
 }
+
+/* side dots: never show the focus ring on a mouse-clicked dot */
+.scroll-rail a:focus:not(:focus-visible) { outline: none; }
+
+/* during a dot/anchor scroll: no lazy section sizing, no scroll anchoring (they made the target move and the scroll twitch) */
+html.sj { overflow-anchor: none; }
+html.sj main section:not(.page-hero):not(.deck-slide) { content-visibility: visible; }

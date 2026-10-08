@@ -204,6 +204,15 @@ section.alt .viz-tab-mini.is-active {
     .slot-card { border-style: dashed !important; border-color: rgba(255,255,255,.18) !important; background: var(--bg-alt) !important; }
     .slot-card:hover { transform: none; box-shadow: none; }
   </style>
+<script>
+  // #jad / #zolomon deep links: hide the page until the founder panel is open and scrolled into place (revealed by the tab script below)
+  if (/^#(jad|zolomon)$/.test(location.hash)) {
+    document.documentElement.classList.add('pf-boot');
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    setTimeout(function () { document.documentElement.classList.remove('pf-boot'); }, 2500);
+  }
+</script>
+<style>.pf-boot body { opacity: 0; } body { transition: opacity .25s ease; }</style>
 </head>
 <body class="hero-pg">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -990,7 +999,9 @@ section.alt .viz-tab-mini.is-active {
     );
   }
 
-  function show(key, shouldScroll) {
+  var scrollTimers = [];
+  function show(key, shouldScroll, instant) {
+    var wasOpen = !!document.querySelector('.pf-panel:not([hidden])');
     tabs.forEach(function (t) {
       var on = t.getAttribute('data-panel') === key;
       t.classList.toggle('is-active', on);
@@ -1009,6 +1020,7 @@ section.alt .viz-tab-mini.is-active {
 
     // Recalculate trigger positions now that the panel is visible, in "safe"
     // mode so it doesn't fight the smooth scroll below.
+    if (window.ZKK && window.ZKK.buildRail) window.ZKK.buildRail(); // side dots follow the open founder panel
     if (window.ScrollTrigger && ScrollTrigger.refresh) ScrollTrigger.refresh(true);
 
     animatePanel(shownPanel);
@@ -1017,11 +1029,13 @@ section.alt .viz-tab-mini.is-active {
       var anchor = document.getElementById(key);
       if (anchor) {
         // WHERE THE FOUNDER JUMP LANDS (edit these two numbers) ▼▼
-        var navH = 260;                                        // space reserved for the top bar (px)
-        var extraDown = window.innerWidth <= 700 ? 300 : 0;   // extra px to scroll PAST the panel's top: phones | desktop/tablet
+        var navH = window.innerWidth <= 700 ? 260 : 72;       // px kept above the panel's top: phones | desktop/tablet (desktop = just under the top bar, hero fully scrolled away)
+        var extraDown = window.innerWidth <= 700 ? 300 : 110;  // extra px to scroll PAST the panel's top (phones: 300 | desktop/tablet: 110, raise to scroll further down)
         var want = function () { return anchor.getBoundingClientRect().top + window.pageYOffset - navH + 1 + extraDown; };
-        window.scrollTo({ top: want(), behavior: reduceMotion ? 'auto' : 'smooth' });
-        [500, 1100].forEach(function (ms) { setTimeout(function () { var w = want(); if (Math.abs(w - (window.pageYOffset || 0)) > 4) window.scrollTo({ top: w, behavior: 'auto' }); }, ms); });
+        // one scroll at a time: cancel re-aims from any earlier click; smooth only when opening, instant when swapping tabs or on load
+        scrollTimers.forEach(clearTimeout); scrollTimers = [];
+        window.scrollTo({ top: want(), behavior: (reduceMotion || instant || wasOpen) ? 'auto' : 'smooth' });
+        [500, 1100].forEach(function (ms) { scrollTimers.push(setTimeout(function () { var w = want(); if (Math.abs(w - (window.pageYOffset || 0)) > 4) window.scrollTo({ top: w, behavior: 'auto' }); }, ms)); });
       }
     }
   }
@@ -1034,7 +1048,11 @@ section.alt .viz-tab-mini.is-active {
 
   var h = (window.location.hash || '').replace('#', '');
   if (h === 'jad' || h === 'zolomon') {
-    show(h, true);
+    show(h, true, true);
+    // reveal once images/layout have settled and the final re-aim has run
+    var reveal = function () { document.documentElement.classList.remove('pf-boot'); };
+    if (document.readyState === 'complete') setTimeout(reveal, 600);
+    else window.addEventListener('load', function () { setTimeout(reveal, 600); });
   }
   // No hash on arrival: both panels stay closed until a tab is clicked.
 })();

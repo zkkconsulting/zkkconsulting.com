@@ -206,6 +206,7 @@
       var lab = sec.querySelector('.section-label, h2, h1');
       var span = document.createElement('span'); span.textContent = lab ? lab.textContent.trim() : 'Section';
       a.setAttribute('aria-label', span.textContent); a.appendChild(span);
+      a.addEventListener('mousedown', function (e) { e.preventDefault(); }); // mouse clicks don't focus the dot, so no stuck focus ring (keyboard focus still works)
       a.addEventListener('click', function (e) { e.preventDefault(); scrollToTarget(sec); });
       railEl.appendChild(a); return a;
     });
@@ -260,13 +261,23 @@
 
   /* ── SMOOTH SCROLL + HASH ── */
   var navH = 72;
+  var scrollRaf = 0;
+  function stopScroll() { if (scrollRaf) { cancelAnimationFrame(scrollRaf); scrollRaf = 0; document.documentElement.style.scrollBehavior = ''; document.documentElement.classList.remove('sj'); } }
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.addEventListener(ev, stopScroll, { passive: true }); });
+  // one eased scroll that re-reads the target every frame, so late layout shifts (lazy sections, fade-ins) can't make it jerk or overshoot
   function scrollToTarget(target) {
-    function want() { return target.getBoundingClientRect().top + window.pageYOffset - navH + 1; }
-    window.scrollTo({ top: want(), behavior: reduceMotion ? 'auto' : 'smooth' });
-    // off-screen sections reserve estimated heights, so re-aim once they have rendered
-    [700, 1300].forEach(function (ms) {
-      setTimeout(function () { var w = want(); if (Math.abs(w - (window.pageYOffset || 0)) > 4) window.scrollTo({ top: w, behavior: 'auto' }); }, ms);
-    });
+    stopScroll();
+    function want() { return Math.max(0, target.getBoundingClientRect().top + window.pageYOffset - navH + 1); }
+    document.documentElement.classList.add('sj'); // render every section at its real height while scrolling, so the target can't move under us
+    var from = window.pageYOffset || 0;
+    if (reduceMotion) { window.scrollTo({ top: want(), behavior: 'instant' }); document.documentElement.classList.remove('sj'); return; }
+    document.documentElement.style.scrollBehavior = 'auto'; // CSS smooth-scroll would turn every frame into its own animation and fight the next one
+    var t0 = performance.now(), dur = Math.min(1500, 650 + Math.abs(want() - from) * 0.3);
+    (function step(now) {
+      var p = Math.min(1, (now - t0) / dur), e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; // easeInOutCubic
+      window.scrollTo({ top: from + (want() - from) * e, behavior: 'instant' });
+      if (p < 1) scrollRaf = requestAnimationFrame(step); else { scrollRaf = 0; document.documentElement.style.scrollBehavior = ''; document.documentElement.classList.remove('sj'); }
+    })(t0);
   }
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener('click', function (ev) {
@@ -282,11 +293,11 @@
   });
   window.addEventListener('popstate', function () {
     var h = window.location.hash;
-    if (h && h.length > 1) { var t = document.querySelector(h); if (t) scrollToTarget(t); }
+    if (h && h.length > 1) { var t = document.querySelector(h); if (t && !t.classList.contains('pf-anchor')) scrollToTarget(t); }
   });
   if (window.location.hash && window.location.hash.length > 1) {
     var initTarget = document.querySelector(window.location.hash);
-    if (initTarget) window.setTimeout(function () { scrollToTarget(initTarget); }, 60);
+    if (initTarget && !initTarget.classList.contains('pf-anchor')) window.setTimeout(function () { scrollToTarget(initTarget); }, 60);
   }
 
   /* ── MOBILE MENU ── */
