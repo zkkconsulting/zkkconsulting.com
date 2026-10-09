@@ -2272,3 +2272,6 @@ nav:not(.on-hero)::before { opacity: .08; }
 }
 
 @media (max-width: 760px) { .hero-logo { display: none; } }
+
+/* PC: the side section rail is the progress indicator, so the thin bar across the top goes */
+@media (min-width: 701px) { .scroll-progress { display: none; } }
