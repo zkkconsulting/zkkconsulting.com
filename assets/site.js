@@ -101,15 +101,17 @@
   var isHome = document.body.classList.contains('hero-pg');
   if (nav) {
     if (isHome) nav.classList.add('hero-home');
+    var navLogo = nav.querySelector('.nav-logo');
+    if (isHome && homeHero && navLogo) { var hl = navLogo.cloneNode(true); hl.classList.add('hero-logo'); hl.setAttribute('tabindex', '-1'); hl.setAttribute('aria-hidden', 'true'); homeHero.appendChild(hl); }
     var onScroll = function () {
       var y = window.pageYOffset || document.documentElement.scrollTop;
       var sh = y > 30, oh = isHome ? y < 8 : (homeHero ? y < heroLimit : false); /* flips as the logo docks */
-      if (isHome) nav.style.setProperty('--p', y > 8 ? 1 : 0);  /* logo docks as soon as you scroll; CSS eases it */
+      var li = y > logoPass; if (li !== lastLogo) { nav.classList.toggle('logo-in', li); lastLogo = li; }
       if (sh !== lastShrink) { nav.classList.toggle('shrink', sh); lastShrink = sh; }
       if (homeHero && oh !== lastOnHero) { nav.classList.toggle('on-hero', oh); lastOnHero = oh; }
     };
-    var lastShrink = null, lastOnHero = null, heroLimit = 0;
-    var measureHero = function () { heroLimit = homeHero ? homeHero.offsetHeight - nav.offsetHeight : 0; onScroll(); };
+    var lastShrink = null, lastOnHero = null, lastLogo = null, heroLimit = 0, logoPass = 0;
+    var measureHero = function () { heroLimit = homeHero ? homeHero.offsetHeight - nav.offsetHeight : 0; var hl = homeHero && homeHero.querySelector('.hero-logo'); logoPass = hl && hl.offsetParent ? hl.offsetTop + hl.offsetHeight - nav.offsetHeight * 0.6 : 0; onScroll(); };
     window.addEventListener('resize', measureHero);
     window.addEventListener('load', measureHero);
     setTimeout(measureHero, 0);

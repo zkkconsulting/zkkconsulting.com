@@ -79,12 +79,6 @@
       new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(container);
     }
 
-    var targetRotX = 0, targetRotY = 0;
-    window.addEventListener('mousemove', function (e) {
-      targetRotY = ((e.clientX / window.innerWidth) - 0.5) * 0.25;
-      targetRotX = ((e.clientY / window.innerHeight) - 0.5) * 0.15;
-    });
-
     var clock = new THREE.Clock();
 
 
@@ -95,7 +89,7 @@
       if (!visible) { requestAnimationFrame(tick); return; }
       if (knot) { knot.rotation.x = t * 0.25; knot.rotation.y = t * 0.18; }
       group.rotation.y += 0.0009;
-      group.rotation.x += (targetRotX - group.rotation.x) * 0.02;
+      group.rotation.x = Math.sin(t * 0.12) * 0.08;   // slow self-driven sway, no mouse input
       nodes.forEach(function (n) {
 
 
@@ -290,7 +284,7 @@
     for (var lon = 0; lon < 360; lon += 15) for (var i = 0; i < N; i++) { var a = ll(-90 + 180 * i / N, lon, R), b = ll(-90 + 180 * (i + 1) / N, lon, R); grid.push(a[0], a[1], a[2], b[0], b[1], b[2]); }
     for (var lat = -75; lat <= 75; lat += 15) for (var j = 0; j < N; j++) { var c = ll(lat, 360 * j / N, R), d = ll(lat, 360 * (j + 1) / N, R); grid.push(c[0], c[1], c[2], d[0], d[1], d[2]); }
     var gg = new THREE.BufferGeometry(); gg.setAttribute('position', new THREE.Float32BufferAttribute(grid, 3));
-    earth.add(new THREE.LineSegments(gg, new THREE.LineBasicMaterial({ color: 0xcfeedd, transparent: true, opacity: 0.13, depthWrite: false })));
+    earth.add(new THREE.LineSegments(gg, new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.3, depthWrite: false })));
 
     var dal = ll(32.78, -96.8, R * 1.004), dgeo = new THREE.BufferGeometry();       // one gold dot over Dallas, TX, same size as the map dots
     dgeo.setAttribute('position', new THREE.Float32BufferAttribute(dal, 3));
