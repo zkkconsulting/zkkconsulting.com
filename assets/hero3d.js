@@ -9,6 +9,8 @@
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) return;
 
+  function paused() { return document.hidden || performance.now() < (window.ZKK_PAUSE || 0); }   // hero stops drawing while the page scrolls / the logo docks, so those stay smooth
+
   function initNetwork(containerId, nodeCount) {
     var container = document.getElementById(containerId);
     if (!container) return;
@@ -92,7 +94,7 @@
       var t = clock.getElapsedTime();
 
 
-      if (!visible) { requestAnimationFrame(tick); return; }
+      if (!visible || paused()) { requestAnimationFrame(tick); return; }
       if (knot) { knot.rotation.x = t * 0.25; knot.rotation.y = t * 0.18; }
       group.rotation.y += 0.0009;
       group.rotation.x += (targetRotX - group.rotation.x) * 0.02;
@@ -195,7 +197,7 @@
     var clock = new THREE.Clock();
     (function tick() {
       requestAnimationFrame(tick);
-      if (!visible || document.hidden) return;
+      if (!visible || paused()) return;
       var t = clock.getElapsedTime() * (window.innerWidth > 900 ? 1.7 : 1), sy = window.pageYOffset || 0;
       edges.rotation.y = t * 0.06 + sy * 0.001; edges.rotation.x = t * 0.035;
       core.rotation.copy(edges.rotation);
@@ -259,7 +261,7 @@
     if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(container);
     (function tick() {
       requestAnimationFrame(tick);
-      if (!visible || document.hidden) return;
+      if (!visible || paused()) return;
       var t = clock.getElapsedTime();
       gem.rotation.set(0.2 + Math.sin(t * 0.45) * 0.1, 0.65 + Math.sin(t * 0.38) * 0.6, Math.sin(t * 0.3) * 0.04);
       renderer.render(scene, camera);
@@ -277,7 +279,7 @@
     camera.position.z = 55;
     var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     container.appendChild(renderer.domElement);
 
     var R = 20, rig = new THREE.Group(), earth = new THREE.Group();
@@ -290,7 +292,7 @@
     for (var lon = 0; lon < 360; lon += 15) for (var i = 0; i < N; i++) { var a = ll(-90 + 180 * i / N, lon, R), b = ll(-90 + 180 * (i + 1) / N, lon, R); grid.push(a[0], a[1], a[2], b[0], b[1], b[2]); }
     for (var lat = -75; lat <= 75; lat += 15) for (var j = 0; j < N; j++) { var c = ll(lat, 360 * j / N, R), d = ll(lat, 360 * (j + 1) / N, R); grid.push(c[0], c[1], c[2], d[0], d[1], d[2]); }
     var gg = new THREE.BufferGeometry(); gg.setAttribute('position', new THREE.Float32BufferAttribute(grid, 3));
-    earth.add(new THREE.LineSegments(gg, new THREE.LineBasicMaterial({ color: 0xcfeedd, transparent: true, opacity: 0.13, depthWrite: false })));
+    earth.add(new THREE.LineSegments(gg, new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.3, depthWrite: false })));
 
     var dal = ll(32.78, -96.8, R * 1.004), dgeo = new THREE.BufferGeometry();       // one gold dot over Dallas, TX, same size as the map dots
     dgeo.setAttribute('position', new THREE.Float32BufferAttribute(dal, 3));

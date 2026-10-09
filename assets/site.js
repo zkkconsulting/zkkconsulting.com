@@ -102,9 +102,10 @@
   if (nav) {
     if (isHome) nav.classList.add('hero-home');
     var onScroll = function () {
+      window.ZKK_PAUSE = Math.max(window.ZKK_PAUSE || 0, performance.now() + 180);   // hero canvases rest while scrolling
       var y = window.pageYOffset || document.documentElement.scrollTop;
       var sh = y > 30, oh = isHome ? y < 8 : (homeHero ? y < heroLimit : false); /* flips as the logo docks */
-      if (isHome) nav.style.setProperty('--p', y > 8 ? 1 : 0);  /* logo docks as soon as you scroll; CSS eases it */
+      if (isHome) { var pp = y > 8 ? 1 : 0; if (nav.style.getPropertyValue('--p') !== String(pp)) { window.ZKK_PAUSE = performance.now() + 700; nav.style.setProperty('--p', pp); } }  /* logo docks as soon as you scroll; CSS eases it */
       if (sh !== lastShrink) { nav.classList.toggle('shrink', sh); lastShrink = sh; }
       if (homeHero && oh !== lastOnHero) { nav.classList.toggle('on-hero', oh); lastOnHero = oh; }
     };
