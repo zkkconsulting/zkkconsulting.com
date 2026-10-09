@@ -11,7 +11,7 @@
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function build() {
-    dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = hero.clientWidth; H = hero.clientHeight;
     cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     LW = Math.ceil(W / 5); LH = Math.ceil(H / 5); lo.width = LW; lo.height = LH;
@@ -53,7 +53,7 @@
       }
     });
   }
-  var lastSky = -1, lastDraw = 0;
+  var lastSky = -1;
   function flow(t) {                           // thin lines drifting across the sky, alternating direction and tint
     ctx.lineWidth = 1;
     for (var k = 0; k < 5; k++) {
@@ -121,8 +121,7 @@
 
   function frame(now) {
     requestAnimationFrame(frame);
-    if (!vis || document.hidden || now < (window.ZKK_PAUSE || 0) || now - lastDraw < 30) return;   // paused while scrolling/docking; ~30fps cap
-    lastDraw = now;
+    if (!vis) return;
     ctx.clearRect(0, 0, W, H);
     var tw = still ? 12 : now / 1000;
     if (now - lastSky > 45) { sky(tw); lastSky = now; }     // ~22fps is plenty for slow light
