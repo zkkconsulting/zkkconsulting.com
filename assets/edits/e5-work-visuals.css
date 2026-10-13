@@ -1,0 +1,14 @@
+/* Edit 5: Our Work, "When a picture does the work" cinema panel (Campaigns look). */
+#work-visuals { position: relative; overflow: hidden; color: #e8efe9; background:
+  radial-gradient(800px 420px at 50% -60px, rgba(255,211,107,.15), transparent 70%),
+  radial-gradient(600px 500px at 8% 70%, rgba(1,80,52,.4), transparent 70%), #05080a; }
+#work-visuals::before, #work-visuals::after { content: ""; position: absolute; top: 0; bottom: 0; width: 22px; opacity: .22; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, transparent 0 14px, #fff 14px 30px, transparent 30px 44px);
+  -webkit-mask: linear-gradient(90deg, #000 0 8px, transparent 8px); mask: linear-gradient(90deg, #000 0 8px, transparent 8px); }
+#work-visuals::before { left: 12px; } #work-visuals::after { right: 12px; transform: scaleX(-1); }
+#work-visuals h2 { color: #fff; }
+#work-visuals .section-intro, #work-visuals .dot-list li { color: rgba(232,239,233,.8); }
+#work-visuals .section-label { color: #ffd36b; letter-spacing: .26em; }
+#work-visuals a { color: #ffd36b; }
+@media (max-width: 760px) { #work-visuals::before, #work-visuals::after { display: none; } }
+#work-visuals .btn-primary { color: #fff; }

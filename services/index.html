@@ -32,6 +32,85 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/site.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "ZKK Consulting",
+    "url": "https://zkkconsulting.com/services/",
+    "image": "https://zkkconsulting.com/og-image.png",
+    "email": "info@zkkconsulting.com",
+    "parentOrganization": {
+      "@id": "https://zkkconsulting.com/#org"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Research packages",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "price": "999",
+          "priceCurrency": "USD",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Launchpad",
+            "description": "Focused market and competitive research to clarify the landscape and answer the core question."
+          }
+        },
+        {
+          "@type": "Offer",
+          "price": "1999",
+          "priceCurrency": "USD",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Growth",
+            "description": "Broader market and commercial analysis, including sizing, for fundraising, planning, and other key decisions."
+          }
+        },
+        {
+          "@type": "Offer",
+          "price": "3499",
+          "priceCurrency": "USD",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Comprehensive",
+            "description": "Comprehensive market and commercial research, including financial modeling and go-to-market analysis."
+          }
+        },
+        {
+          "@type": "Offer",
+          "price": "1349",
+          "priceCurrency": "USD",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Patent Landscape Research",
+            "description": "Standalone summary of publicly available patent information around a client technology."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://zkkconsulting.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services & Pricing",
+        "item": "https://zkkconsulting.com/services/"
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="hero-pg">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -46,6 +125,7 @@
       <li><a href="/expertise/">Expertise</a></li>
       <li><a href="/team/">Team</a></li>
       <li><a href="/faq/">FAQ</a></li>
+      <li><a href="/ads/">Campaigns</a></li>
       <li><a href="/intake/" class="nav-cta">Book a Discovery Call</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -61,6 +141,7 @@
       <li><a href="/expertise/" class="mobile-link">Expertise</a></li>
       <li><a href="/team/" class="mobile-link">Team</a></li>
       <li><a href="/faq/" class="mobile-link">FAQ</a></li>
+      <li><a href="/ads/" class="mobile-link">Campaigns</a></li>
       <li><a href="/referrals/" class="mobile-link">Referral Program</a></li>
       <li><a href="/legal/" class="mobile-link">Legal</a></li>
       <li><a href="/intake/" class="mobile-link is-cta">Book a Discovery Call</a></li>
@@ -508,6 +589,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="/assets/site.js"></script>
+  <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
   <script src="/assets/hero3d.js" defer></script>
   <script src="/assets/sky.js"></script>
 

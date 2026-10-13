@@ -1,0 +1,6 @@
+/* Edit 3: Referrals, "Three steps." with glowing gold numerals. */
+#refprocess .process-num { color: #c9a24a; text-shadow: 0 0 24px rgba(255,211,107,.45); }
+#refprocess .section-label { color: #c9a24a; letter-spacing: .26em; }
+#refprocess .card { position: relative; border-top: 2px solid rgba(255,211,107,.55); }
+#refprocess .card:hover { border-color: rgba(255,211,107,.8); box-shadow: 0 22px 44px -16px rgba(0,0,0,.6), 0 0 0 1px rgba(255,211,107,.35); }
+@media (min-width: 761px) { #refprocess .process-3 .card:not(:last-child)::after { content: ""; position: absolute; top: 2.6rem; right: -1.1rem; width: 1.1rem; height: 1px; background: linear-gradient(90deg, rgba(255,211,107,.6), transparent); } }

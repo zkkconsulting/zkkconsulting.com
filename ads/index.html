@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ZKK Campaigns | ZKK Consulting</title>
+
+  <meta name="description" content="Watch and share ZKK Consulting campaign films and visuals." />
+  <meta name="author" content="ZKK Consulting" />
+  <meta name="theme-color" content="#0a0c0b" />
+  <link rel="canonical" href="https://zkkconsulting.com/ads/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ZKK Consulting" />
+  <meta property="og:title" content="ZKK Campaigns" />
+  <meta property="og:description" content="Watch and share ZKK Consulting campaign films and visuals." />
+  <meta property="og:url" content="https://zkkconsulting.com/ads/" />
+  <meta property="og:image" content="https://zkkconsulting.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="ZKK Consulting, market research and business growth consulting." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ZKK Campaigns" />
+  <meta name="twitter:description" content="Watch and share ZKK Consulting campaign films and visuals." />
+  <meta name="twitter:image" content="https://zkkconsulting.com/og-image.png" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <style>
+    body { background: #05080a; }
+    .sr { position: relative; color: #e8efe9; background:
+      radial-gradient(900px 520px at 50% -80px, rgba(255,211,107,.16), transparent 70%),
+      radial-gradient(700px 600px at 8% 40%, rgba(1,80,52,.45), transparent 70%),
+      radial-gradient(700px 600px at 95% 75%, rgba(1,60,40,.4), transparent 70%),
+      #05080a; padding: 9rem 5vw 5rem; overflow: hidden; }
+    .sr::before, .sr::after { content: ""; position: absolute; top: 0; bottom: 0; width: 22px; opacity: .22; pointer-events: none;
+      background: repeating-linear-gradient(to bottom, transparent 0 14px, #fff 14px 30px, transparent 30px 44px);
+      -webkit-mask: linear-gradient(90deg, #000 0 8px, transparent 8px); mask: linear-gradient(90deg, #000 0 8px, transparent 8px); }
+    .sr::before { left: 12px; } .sr::after { right: 12px; transform: scaleX(-1); }
+    .sr-head { text-align: center; max-width: 760px; margin: 0 auto 2.5rem; }
+    .sr-head .eyebrow { color: #ffd36b; letter-spacing: .28em; text-transform: uppercase; font-size: .78rem; margin-bottom: 1rem; }
+    .sr-head h1 { color: #fff; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.08; margin: 0 0 1rem; }
+    .sr-head h1 em { color: #ffd36b; font-style: italic; }
+    .sr-head p { color: rgba(232,239,233,.78); font-size: 1.1rem; margin: 0; }
+    .sr-stage { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, auto) 1fr; gap: 2rem; align-items: center; justify-content: center; }
+    .sr-screen { position: relative; border-radius: 14px; background: #000; padding: 6px; box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 30px 80px rgba(0,0,0,.65), 0 0 90px rgba(255,211,107,.12); }
+    .sr-screen video { display: block; height: min(72vh, 640px); max-width: 100%; width: auto; border-radius: 9px; background: #000; }
+    .sr-info, .sr-info h2, .sr-info p { text-align: left; }
+    .sr-info h2 { color: #fff; font-size: 1.7rem; margin: .2rem 0 .6rem; }
+    .sr-info p { color: rgba(232,239,233,.75); margin: 0 0 1.4rem; }
+    .sr-now { color: #ffd36b; font-size: .75rem; letter-spacing: .22em; text-transform: uppercase; }
+    .sr-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .sr .btn-outline { color: #fff; border-color: rgba(255,255,255,.55); }
+    .sr .btn-outline:hover { background: rgba(255,255,255,.14); }
+    .sr-label { max-width: 1000px; margin: 4rem auto 1.2rem; color: #ffd36b; font-size: .78rem; letter-spacing: .24em; text-transform: uppercase; display: flex; align-items: center; gap: 1rem; }
+    .sr-label::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,211,107,.5), transparent); }
+    .sr-reel, .sr-stills { max-width: 1000px; margin: 0 auto; display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); }
+    .sr-tile { position: relative; display: block; aspect-ratio: 4/5; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); background: #0b1210; padding: 0; cursor: pointer; color: #fff; text-align: left; transition: transform .25s, border-color .25s, box-shadow .25s; }
+    .sr-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+    .sr-tile:hover, .sr-tile:focus-visible { transform: translateY(-4px); border-color: #ffd36b; box-shadow: 0 12px 34px rgba(0,0,0,.5), 0 0 0 1px #ffd36b; }
+    .sr-tile:hover img { transform: scale(1.06); }
+    .sr-tile.on { border-color: #ffd36b; box-shadow: 0 0 0 2px #ffd36b; }
+    .sr-tile .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.2rem .9rem .8rem; background: linear-gradient(transparent, rgba(0,0,0,.85)); font-size: .92rem; font-weight: 500; }
+    .sr-tile .play { position: absolute; top: 50%; left: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: rgba(255,211,107,.92); display: grid; place-items: center; box-shadow: 0 6px 20px rgba(0,0,0,.5); }
+    .sr-tile .play::after { content: ""; border-left: 15px solid #1a1405; border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 4px; }
+    .sr-slot-unused { aspect-ratio: 4/5; border-radius: 10px; border: 1.5px dashed rgba(255,255,255,.22); display: grid; place-items: center; text-align: center; color: rgba(232,239,233,.45); font-size: .85rem; padding: 1rem; background: repeating-linear-gradient(45deg, rgba(255,255,255,.02) 0 10px, transparent 10px 20px); }
+    .sr-slot b { display: block; font-size: 1.6rem; color: rgba(255,211,107,.55); margin-bottom: .3rem; }
+    .sr-stills .sr-tile { cursor: zoom-in; }
+    .sr-head::before { content: ""; display: block; width: 64px; height: 2px; margin: 0 auto 1.4rem; background: linear-gradient(90deg, transparent, #ffd36b, transparent); }
+    .sr-head h1 em { background: linear-gradient(100deg, #ffd36b 20%, #fff2c4 45%, #ffd36b 70%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: srShine 6s ease-in-out infinite; }
+    @keyframes srShine { 0%,100% { background-position: 100% 0; } 50% { background-position: 0 0; } }
+    .sr-head, .sr-stage { animation: srRise .8s cubic-bezier(.2,.7,.2,1) both; } .sr-stage { animation-delay: .15s; }
+    @keyframes srRise { from { opacity: 0; transform: translateY(18px); } }
+    .sr-stills .sr-tile { aspect-ratio: 1/1; background: #f4f1ea; }
+    .sr-stills .sr-tile img { object-fit: contain; padding: 6%; }
+    .sr-stills .sr-tile.photo img { object-fit: cover; padding: 0; }
+    .sr-stills .sr-tile.wide { grid-column: 1 / -1; aspect-ratio: auto; }
+    .sr-stills .sr-tile.wide img { height: auto; padding: 1.2rem; }
+    .sr-stills .sr-tile .cap { color: #fff; }
+    .sr-tile.is-dark { background: #05080a; }
+    @media (max-width: 760px) {
+      .sr { padding-top: 7rem; } .sr::before, .sr::after { display: none; }
+      .sr-stage { grid-template-columns: 1fr; justify-items: stretch; text-align: left; gap: 1.4rem; }
+      .sr-info { min-width: 0; }
+      .sr-screen video { height: auto; max-height: 70vh; width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) { .sr-tile, .sr-tile img { transition: none; } .sr-head, .sr-stage, .sr-head h1 em { animation: none; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav id="nav">
+    <a href="/" class="nav-logo" aria-label="ZKK Consulting, home">
+      <img class="nav-mark" src="/ZKK_logo.png" alt="" aria-hidden="true">
+    </a>
+    <ul class="nav-links">
+      <li><a href="/services/">Services</a></li>
+      <li><a href="/work/">Our Work</a></li>
+      <li><a href="/expertise/">Expertise</a></li>
+      <li><a href="/team/">Team</a></li>
+      <li><a href="/faq/">FAQ</a></li>
+      <li><a href="/ads/" aria-current="page">Campaigns</a></li>
+      <li><a href="/intake/" class="nav-cta">Book a Discovery Call</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" data-lenis-prevent>
+    <button class="mobile-menu-close" id="mobileClose" aria-label="Close menu">&#10005;</button>
+    <ul>
+      <li><a href="/services/" class="mobile-link">Services</a></li>
+      <li><a href="/work/" class="mobile-link">Our Work</a></li>
+      <li><a href="/expertise/" class="mobile-link">Expertise</a></li>
+      <li><a href="/team/" class="mobile-link">Team</a></li>
+      <li><a href="/faq/" class="mobile-link">FAQ</a></li>
+      <li><a href="/ads/" class="mobile-link">Campaigns</a></li>
+      <li><a href="/referrals/" class="mobile-link">Referral Program</a></li>
+      <li><a href="/legal/" class="mobile-link">Legal</a></li>
+      <li><a href="/intake/" class="mobile-link is-cta">Book a Discovery Call</a></li>
+      <li><a href="mailto:info@zkkconsulting.com" class="mobile-link is-cta">Email Us</a></li>
+    </ul>
+  </div>
+
+  <main id="main">
+  <section class="sr">
+    <header class="sr-head">
+      <div class="eyebrow">ZKK Campaigns</div>
+      <h1>Ideas in <em>motion</em></h1>
+      <p>The films and visuals behind ZKK Consulting.</p>
+    </header>
+
+    <div class="sr-stage" id="srStage" hidden>
+      <div class="sr-screen"><video id="srVideo" controls playsinline preload="metadata"></video></div>
+      <div class="sr-info">
+        <div class="sr-now">Now playing</div>
+        <h2 id="srTitle"></h2>
+        <p id="srDesc"></p>
+        <div class="sr-actions">
+          <button id="srShare" type="button" class="btn btn-primary" hidden>Share</button>
+          <button id="srCp" type="button" class="btn btn-outline">Copy link</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sr-label" id="srReelLbl" hidden>Campaign films</div>
+    <div id="srReel" class="sr-reel"></div>
+
+    <div class="sr-label" id="srStillsLbl" hidden>Campaign visuals</div>
+    <div id="srStills" class="sr-stills"></div>
+  </section>
+  </main>
+
+
+      <footer>
+    <div id="footerCanvas" class="hero-canvas" aria-hidden="true"></div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="/" class="footerJad-logo" aria-label="ZKK Consulting LLC, home">
+          <img class="footerJad-mark" src="/favicon.svg" alt="" aria-hidden="true">
+          <span style="padding-left: 2px;">ZKK Consulting</span>
+        </a>
+        
+        <p class="footer-about">
+          Market research and business growth consulting. We research the market, the competition, and the
+          landscape around a decision, then hand you the organized analysis behind it.
+        </p>
+        <a class="footer-social" href="https://www.linkedin.com/company/zkkconsulting" target="_blank" rel="noopener noreferrer" aria-label="ZKK Consulting on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/services/#packages" style="color: #454e5a;">Core packages</a></li>
+          <li><a href="/services/#patent" style="color: #454e5a;">Patent landscape research</a></li>
+          <li><a href="/services/#addons" style="color: #454e5a;">Add-ons</a></li>
+          <li><a href="/services/#bundles" style="color: #454e5a;">Bundles</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/work/" style="color: #454e5a;">Our work</a></li>
+          <li><a href="/expertise/" style="color: #454e5a;">Specialized expertise</a></li>
+          <li><a href="/team/" style="color: #454e5a;">Team</a></li>
+          <li><a href="/referrals/" style="color: #454e5a;">Referral program</a></li>
+          <li><a href="/#faq" style="color: #454e5a;">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="/intake/" style="color: #454e5a;">Book a discovery call</a></li>
+          <li><a href="mailto:info@zkkconsulting.com" style="color: #454e5a;">info@zkkconsulting.com</a></li>
+          <li><a href="mailto:zolomon@zkkconsulting.com" style="color: #454e5a;">zolomon@zkkconsulting.com</a></li>
+          <li><a href="mailto:jad@zkkconsulting.com" style="color: #454e5a;">jad@zkkconsulting.com</a></li>
+          <li><a href="/legal/" style="color: #454e5a;">Legal &amp; disclaimers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-entity"><strong>ZKK Consulting LLC</strong> is a Texas limited liability company, co-founded by Zolomon Kaliser and Jad Haddad.</p>
+      <p>&copy; 2026 ZKK Consulting LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="site-disclaimer">
+    <p>
+      Reports, models, and other deliverables provided by ZKK Consulting LLC are business research and
+      analysis only. They are not legal, regulatory, medical, clinical, tax, accounting, or investment
+      advice, and are not a guarantee of funding, regulatory clearance, reimbursement, patent outcomes, or
+      financial results. Regulatory, patent, and reimbursement research reflects publicly available sources
+      as of the report date. Clients remain responsible for their own regulatory, legal, clinical, and
+      business decisions and should retain qualified professionals where determinations or representation
+      are required. <a href="/legal/">Read the full disclaimers</a>.
+    </p>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="/assets/site.js"></script>
+  <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
+  <script src="/assets/hero3d.js" defer></script>
+  <script src="/assets/sky.js"></script>
+
+  <script>
+  // Add a video: drop the MP4 (+ a poster JPG) in /ads/videos/ and add one line. desc is optional.
+  var VIDEOS = [
+    { title: "The Typical Research Report", file: "zkk_research_report.mp4", poster: "zkk_research_report.jpg" },
+    { title: "What Everyone Missed in The Wolf Of Wall Street", file: "zkk_wall_street_audio.mp4", poster: "zkk_wall_street_audio.jpg" },
+  ];
+  // Add a picture: drop the image in /ads/images/ and add one line. photo: fill the tile (else it sits on cream, for logos/icons). wide: full-width banner.
+  var PICS = [
+    // { title: "Campaign still", file: "still-1.jpg", photo: true },
+  ];
+  (function () {
+    var V = "/ads/videos/", I = "/ads/images/";
+    var $ = function (id) { return document.getElementById(id); };
+    var vid = $("srVideo"), reel = $("srReel"), cur, curTitle;
+    function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt) e.textContent = txt; return e; }
+
+    function show(i, play) {
+      var ad = VIDEOS[i], slug = ad.file.replace(/\.mp4$/, "");
+      cur = location.origin + "/ads/#" + encodeURIComponent(slug); curTitle = ad.title;
+      vid.src = V + encodeURIComponent(ad.file); vid.poster = ad.poster ? V + encodeURIComponent(ad.poster) : "";
+      vid.setAttribute("aria-label", ad.title + " (video)");
+      $("srTitle").textContent = ad.title; $("srDesc").textContent = ad.desc || "";
+      Array.prototype.forEach.call(reel.querySelectorAll(".sr-tile"), function (t, n) { t.classList.toggle("on", n === i); });
+      if (play) vid.play().catch(function () {});
+      try { history.replaceState(null, "", "#" + encodeURIComponent(slug)); } catch (e) {}
+    }
+
+    VIDEOS.forEach(function (ad, i) {
+      var b = el("button", "sr-tile"); b.type = "button"; b.setAttribute("aria-label", "Play " + ad.title);
+      if (ad.poster) { var im = el("img"); im.src = V + encodeURIComponent(ad.poster); im.alt = ""; im.loading = "lazy"; b.append(im); }
+      b.append(el("span", "play"), el("span", "cap", ad.title));
+      b.onclick = function () { show(i, true); $("srStage").scrollIntoView({ behavior: "smooth", block: "center" }); };
+      reel.append(b);
+    });
+    if (VIDEOS.length > 1) $("srReelLbl").hidden = false; else reel.hidden = true;
+
+    var stills = $("srStills");
+    PICS.forEach(function (p) {
+      var a = el("a", "sr-tile" + (p.photo ? " photo" : "") + (p.wide ? " wide" : "")); a.href = I + encodeURIComponent(p.file); a.target = "_blank"; a.rel = "noopener";
+      var im = el("img"); im.src = a.href; im.alt = p.title || ""; im.loading = "lazy";
+      a.append(im); if (p.title && !p.wide) a.append(el("span", "cap", p.title));
+      stills.append(a);
+    });
+    if (PICS.length) $("srStillsLbl").hidden = false; else stills.hidden = true;
+
+    if (VIDEOS.length) {
+      $("srStage").hidden = false;
+      var h = decodeURIComponent(location.hash.slice(1)), start = 0;
+      VIDEOS.forEach(function (a, i) { if (a.file.replace(/\.mp4$/, "") === h) start = i; });
+      show(start, false);
+      var sh = $("srShare"), cp = $("srCp");
+      if (navigator.share) { sh.hidden = false; sh.onclick = function () { navigator.share({ title: curTitle, text: curTitle + " | ZKK Consulting", url: cur }).catch(function () {}); }; }
+      cp.onclick = function () {
+        function done() { cp.textContent = "Copied!"; setTimeout(function () { cp.textContent = "Copy link"; }, 2000); }
+        function fail() { window.prompt("Copy this link:", cur); }
+        try { navigator.clipboard.writeText(cur).then(done, fail); } catch (e) { fail(); }
+      };
+    }
+  })();
+  </script>
+
+</body>
+</html>

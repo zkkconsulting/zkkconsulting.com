@@ -1,0 +1,9 @@
+/* Edit 1: Our Work, "Inside a report" on a spotlit stage (Campaigns look). */
+#samples { position: relative; overflow: hidden; color: #e8efe9; background:
+  radial-gradient(900px 480px at 50% -60px, rgba(255,211,107,.16), transparent 70%),
+  radial-gradient(700px 520px at 6% 60%, rgba(1,80,52,.4), transparent 70%),
+  radial-gradient(700px 520px at 96% 85%, rgba(1,60,40,.35), transparent 70%), #05080a; }
+#samples h2 { color: #fff; }
+#samples .section-intro { color: rgba(232,239,233,.78); }
+#samples .section-label { color: #ffd36b; letter-spacing: .26em; }
+#samples .hero-deck { box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 30px 80px rgba(0,0,0,.65), 0 0 90px rgba(255,211,107,.12); border-radius: 14px; }
