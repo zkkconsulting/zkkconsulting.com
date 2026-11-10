@@ -32,7 +32,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/site.css?v=20261110b">
   <link rel="stylesheet" href="/assets/prose.css?v=20261110b">
-  <link rel="stylesheet" href="/assets/tour.css?v=6">
+  <link rel="stylesheet" href="/assets/tour.css?v=7">
   <link rel="stylesheet" href="/assets/edits/e1-work-stage.css"> <!-- edit-1 -->
   <link rel="stylesheet" href="/assets/edits/e5-work-visuals.css"> <!-- edit-5 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
@@ -243,40 +243,46 @@
     </div>
   </section>
 
-  <section id="tour" class="tour" style="height:calc(11 * 85vh)" aria-label="Guided tour of the fall-detection sample report">
-    <div class="tour-sticky">
-      <div class="tour-copy">
-        <div class="section-label">Inside a sample report</div>
-        <h2>Scroll through a real deliverable</h2>
-        <ol class="tour-steps">
-          <li class="tour-step"><span class="tour-num">01 / 11</span><h3>A full report, page by page</h3><p>This is our wrist-worn fall-detection report for Vyrex Solutions, built from public sources. Keep scrolling to move through it. Competitor names are hidden in this preview.</p></li>
-          <li class="tour-step" data-page="0" data-rect="44,606,524,82"><span class="tour-num">02 / 11</span><h3>The answer comes first</h3><p>The cover states the bottom line, so you know the conclusion before you turn the page.</p></li>
-          <li class="tour-step" data-page="1" data-rect="62,148,500,102"><span class="tour-num">03 / 11</span><h3>Where the data runs thinnest</h3><p>Three research firms sizing the same category disagree by 46%. The report draws the boundary first and says so before giving any number.</p></li>
-          <li class="tour-step" data-page="2" data-rect="62,56,500,345"><span class="tour-num">04 / 11</span><h3>A market size you can check</h3><p>The sizing is built step by step from population and survey inputs, each with its source, then cross-checked against an independent estimate.</p></li>
-          <li class="tour-step" data-page="3" data-rect="62,174,500,156"><span class="tour-num">05 / 11</span><h3>What we could not size, said plainly</h3><p>Where no public figure exists, the report says so instead of inventing one.</p></li>
-          <li class="tour-step" data-page="4" data-rect="66,70,480,358"><span class="tour-num">06 / 11</span><h3>Competitors on one page</h3><p>Products are compared on form, fall detection, device price and monthly cost.</p></li>
-          <li class="tour-step" data-page="5" data-rect="62,38,500,232"><span class="tour-num">07 / 11</span><h3>Live patent risk, up front</h3><p>An active ITC investigation in this space is summarized at a glance: who filed, which patents, which products.</p></li>
-          <li class="tour-step" data-page="6" data-rect="62,58,500,212"><span class="tour-num">08 / 11</span><h3>A five-year model, weak spots marked</h3><p>Revenue, margin and cash needs by year, followed by a section on which numbers to distrust.</p></li>
-          <li class="tour-step" data-page="7" data-rect="62,150,500,230"><span class="tour-num">09 / 11</span><h3>What actually decides the outcome</h3><p>The scenarios show revenue barely moves while profit swings widely, and they name the unmeasured inputs behind it.</p></li>
-          <li class="tour-step" data-page="8" data-rect="62,176,500,222"><span class="tour-num">10 / 11</span><h3>Considerations tied to findings</h3><p>The report closes with strategic considerations, each grounded in a specific finding and the checks it still needs.</p></li>
-          <li class="tour-step"><span class="tour-num">11 / 11</span><h3>Want one for your market?</h3><p>Fixed-price packages start at $999.</p><div class="hero-ctas"><a href="/intake/" class="btn btn-primary">Book a call</a><a href="/services/#prices" class="btn btn-outline">See prices</a></div></li>
-        </ol>
-        <div class="tour-bar" aria-hidden="true"><i></i></div>
-        <a class="tour-skip" href="#cases">Skip the tour</a>
-      </div>
-      <div class="tour-stage" aria-hidden="true">
-        <div class="tour-world">
-          <div class="tour-page"><img src="/assets/samples/fall/f01.jpg" alt="" width="612" height="792" decoding="async"></div>
-          <div class="tour-page"><img src="/assets/samples/fall/f02.jpg" alt="" width="612" height="792" decoding="async"></div>
-          <div class="tour-page"><img src="/assets/samples/fall/f03.jpg" alt="" width="612" height="792" decoding="async"></div>
-          <div class="tour-page"><img src="/assets/samples/fall/f04.jpg" alt="" width="612" height="792" decoding="async"></div>
-          <div class="tour-page"><img src="/assets/samples/fall/f05.jpg" alt="" width="612" height="792" decoding="async"></div>
-          <div class="tour-page"><img src="/assets/samples/fall/f06.jpg" alt="" width="612" height="792" decoding="async"></div>
-          <div class="tour-page"><img src="/assets/samples/fall/f07.jpg" alt="" width="612" height="792" decoding="async"></div>
-          <div class="tour-page"><img src="/assets/samples/fall/f08.jpg" alt="" width="612" height="792" decoding="async"></div>
-          <div class="tour-page"><img src="/assets/samples/fall/f09.jpg" alt="" width="612" height="792" decoding="async"></div>
+  <section id="tour" class="tour" aria-labelledby="tour-title">
+    <div class="tour-head">
+      <div class="section-label">Inside a sample report</div>
+      <h2 id="tour-title">Walk through a real report</h2>
+      <p>Scroll to page through our wrist-worn fall-detection report for Vyrex Solutions. Each page zooms in on what it shows.</p>
+      <a class="tour-skip" href="#cases">Skip the walkthrough</a>
+    </div>
+    <div class="tour-track" style="height:calc(9 * 120vh)">
+      <div class="tour-sticky">
+        <div class="tour-cap">
+          <ol class="tour-caps">
+            <li class="tour-c"><span class="tour-num">01 / 09</span><h3>The answer comes first</h3><p>The cover states the bottom line, so you know the conclusion before you turn the page.</p></li>
+            <li class="tour-c"><span class="tour-num">02 / 09</span><h3>Where the data runs thinnest</h3><p>Three research firms sizing the same category disagree by 46%. The report draws the boundary first and says so before giving any number.</p></li>
+            <li class="tour-c"><span class="tour-num">03 / 09</span><h3>A market size you can check</h3><p>The sizing is built step by step from population and survey inputs, each with its source, then cross-checked against an independent estimate.</p></li>
+            <li class="tour-c"><span class="tour-num">04 / 09</span><h3>What we could not size, said plainly</h3><p>Where no public figure exists, the report says so instead of inventing one.</p></li>
+            <li class="tour-c"><span class="tour-num">05 / 09</span><h3>Competitors on one page</h3><p>Products are compared on form, fall detection, device price and monthly cost.</p></li>
+            <li class="tour-c"><span class="tour-num">06 / 09</span><h3>Live patent risk, up front</h3><p>An active ITC investigation in this space is summarized at a glance: who filed, which patents, which products.</p></li>
+            <li class="tour-c"><span class="tour-num">07 / 09</span><h3>A five-year model, weak spots marked</h3><p>Revenue, margin and cash needs by year, followed by a section on which numbers to distrust.</p></li>
+            <li class="tour-c"><span class="tour-num">08 / 09</span><h3>What actually decides the outcome</h3><p>The scenarios show revenue barely moves while profit swings widely, and they name the unmeasured inputs behind it.</p></li>
+            <li class="tour-c"><span class="tour-num">09 / 09</span><h3>Considerations tied to findings</h3><p>The report closes with strategic considerations, each grounded in a specific finding and the checks it still needs.</p></li>
+          </ol>
+          <div class="tour-bar" aria-hidden="true"><i></i></div>
+        </div>
+        <div class="tour-desk" aria-hidden="true">
+          <figure class="sheet" data-rect="44,606,524,82"><img src="/assets/samples/fall/f01.webp" alt="" width="612" height="792" decoding="async"></figure>
+          <figure class="sheet" data-rect="62,148,500,102"><img src="/assets/samples/fall/f02.webp" alt="" width="612" height="792" decoding="async"></figure>
+          <figure class="sheet" data-rect="62,56,500,345"><img src="/assets/samples/fall/f03.webp" alt="" width="612" height="792" decoding="async"></figure>
+          <figure class="sheet" data-rect="62,174,500,156"><img src="/assets/samples/fall/f04.webp" alt="" width="612" height="792" decoding="async"></figure>
+          <figure class="sheet" data-rect="66,70,480,358"><img src="/assets/samples/fall/f05.webp" alt="" width="612" height="792" decoding="async"></figure>
+          <figure class="sheet" data-rect="62,38,500,232"><img src="/assets/samples/fall/f06.webp" alt="" width="612" height="792" decoding="async"></figure>
+          <figure class="sheet" data-rect="62,58,500,212"><img src="/assets/samples/fall/f07.webp" alt="" width="612" height="792" decoding="async"></figure>
+          <figure class="sheet" data-rect="62,150,500,230"><img src="/assets/samples/fall/f08.webp" alt="" width="612" height="792" decoding="async"></figure>
+          <figure class="sheet" data-rect="62,176,500,222"><img src="/assets/samples/fall/f09.webp" alt="" width="612" height="792" decoding="async"></figure>
         </div>
       </div>
+    </div>
+    <div class="tour-end">
+      <h3>Want one for your market?</h3>
+      <p>Fixed-price packages start at $999.</p>
+      <div class="hero-ctas"><a href="/intake/" class="btn btn-primary">Book a call</a><a href="/services/#prices" class="btn btn-outline">See prices</a></div>
     </div>
   </section>
 
@@ -548,7 +554,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="/assets/site.js?v=20261110b"></script>
-  <script src="/assets/tour.js?v=9"></script>
+  <script src="/assets/tour.js?v=13"></script>
   <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
   <script src="/assets/hero3d.js" defer></script>
   <script src="/assets/sky.js"></script>

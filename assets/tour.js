@@ -1,100 +1,81 @@
-/* 3D scroll tour through a sample report. Scroll position drives a camera that
-   flies through a stack of pages and frames the area each step talks about. */
+/* Sample-report scroll tour. Scroll position maps straight to each sheet's
+   transform (no easing lag), so the motion is exactly as smooth as the scroll. */
 (function () {
   var root = document.getElementById('tour');
   if (!root) return;
-  var stage = root.querySelector('.tour-stage');
-  var world = root.querySelector('.tour-world');
-  var pages = [].slice.call(root.querySelectorAll('.tour-page'));
-  var steps = [].slice.call(root.querySelectorAll('.tour-step'));
+  var track = root.querySelector('.tour-track');
+  var desk = root.querySelector('.tour-desk');
+  var sheets = [].slice.call(root.querySelectorAll('.sheet'));
+  var caps = [].slice.call(root.querySelectorAll('.tour-c'));
   var bar = root.querySelector('.tour-bar i');
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var P = 1400, PW = 612, PH = 792, GAP = 1100;
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var N = sheets.length, PW = 612, PH = 792;
+  var W = 0, H = 0, DW = 0, DH = 0, zoom = [];
 
-  // Page positions: a gentle S-curve receding into depth.
-  var pos = pages.map(function (_, i) {
-    return { x: Math.sin(i * 0.85) * 340, y: Math.cos(i * 0.6) * 50 - 25, z: -i * GAP };
-  });
-  pages.forEach(function (el, i) {
-    el.style.transform = 'translate3d(' + pos[i].x + 'px,' + pos[i].y + 'px,' + pos[i].z + 'px)';
-  });
-
-  // Highlight boxes, one per step that targets a page region.
-  var hls = steps.map(function (s) {
-    if (!s.dataset.rect) return null;
-    var r = s.dataset.rect.split(',').map(Number), pg = pages[+s.dataset.page];
-    var hl = document.createElement('div');
-    hl.className = 'tour-hl';
-    hl.style.cssText = 'left:' + r[0] + 'px;top:' + r[1] + 'px;width:' + r[2] + 'px;height:' + r[3] + 'px';
-    pg.appendChild(hl);
-    return hl;
-  });
-
-  var cams = [];
-  function buildCams() {
-    var w = stage.clientWidth, h = stage.clientHeight, mid = (pages.length - 1) / 2;
-    cams = steps.map(function (s, k) {
-      if (s.dataset.rect) {
-        var i = +s.dataset.page, r = s.dataset.rect.split(',').map(Number);
-        var sc = Math.min(w * 0.84 / r[2], h * 0.7 / r[3], 2.2);
-        return { x: pos[i].x + r[0] + r[2] / 2 - PW / 2, y: pos[i].y + r[1] + r[3] / 2 - PH / 2, z: pos[i].z,
-                 d: P / sc, rx: 4, ry: k % 2 ? -7 : 7, fz: pos[i].z };
-      }
-      // Overview: the whole stack from the side.
-      var fit = Math.min(w / 900, h / 1100);
-      return { x: pos[1].x - 560, y: 0, z: -1.3 * GAP, d: 1.3 * GAP + 1.25 * P / fit, rx: 6, ry: -18, fz: GAP };
-    });
-  }
-
-  function lerp(a, b, t) { return a + (b - a) * t; }
+  function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function seg(t, a, b) { return ease(clamp((t - a) / (b - a))); }
 
-  var target = 0, cur = 0, active = -1, raf = 0;
-  function readScroll() {
-    var r = root.getBoundingClientRect(), span = root.offsetHeight - innerHeight;
-    var p = Math.min(Math.max(-r.top / span, 0), 1);
-    if (bar) bar.style.width = (p * 100) + '%';
-    var f = p * (steps.length - 1), i = Math.floor(f), t = f - i;
-    // Hold on each step for the first 35% of its slice, then fly to the next.
-    target = Math.min(i + ease(Math.min(Math.max((t - 0.35) / 0.65, 0), 1)), steps.length - 1);
-    if (reduce) target = Math.round(f);
-  }
+  // Highlight boxes, placed in page units so they scale with the sheet.
+  sheets.forEach(function (s) {
+    var r = s.dataset.rect.split(',').map(Number), hl = document.createElement('span');
+    hl.className = 'sheet-hl';
+    hl.style.cssText = 'left:' + (r[0] / PW * 100) + '%;top:' + (r[1] / PH * 100) + '%;width:' + (r[2] / PW * 100) + '%;height:' + (r[3] / PH * 100) + '%';
+    s.appendChild(hl);
+    var sh = document.createElement('span'); sh.className = 'sheet-shade'; s.appendChild(sh);
+  });
 
-  function render() {
-    cur = reduce ? target : lerp(cur, target, 0.14);
-    if (Math.abs(cur - target) < 0.0005) cur = target;
-    var i = Math.floor(cur), t = cur - i, a = cams[i], b = cams[Math.min(i + 1, cams.length - 1)];
-    var swing = Math.sin(Math.PI * t); // pull back and bank mid-flight
-    var c = {
-      x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t), z: lerp(a.z, b.z, t), fz: lerp(a.fz, b.fz, t),
-      d: lerp(a.d, b.d, t) + swing * 700,
-      rx: lerp(a.rx, b.rx, t) + swing * 6, ry: lerp(a.ry, b.ry, t) + swing * (b.ry > a.ry ? 10 : -10)
-    };
-    world.style.transform = 'translateZ(' + (P - c.d) + 'px) rotateX(' + c.rx + 'deg) rotateY(' + c.ry + 'deg) translate3d(' + (-c.x) + 'px,' + (-c.y) + 'px,' + (-c.z) + 'px)';
-    // Pages between the camera and its target fade away as it passes them.
-    pages.forEach(function (el, k) {
-      var ahead = pos[k].z - c.fz; // > 0 means in front of the plane the camera is aiming at
-      var o = ahead > 0 ? 1 - ahead / (GAP * 0.7) : 1 + ahead / (GAP * 6);
-      o = Math.max(0, Math.min(1, o));
-      el.style.opacity = o.toFixed(3);
-      el.style.visibility = o < 0.01 ? 'hidden' : 'visible';
+  function measure() {
+    DW = desk.clientWidth; DH = desk.clientHeight;
+    var navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
+    H = Math.min((DH - navH * .5) * .86, DW * .86 * PH / PW); W = H * PW / PH;
+    desk.style.setProperty('--sw', W + 'px'); desk.style.setProperty('--sh', H + 'px');
+    // How far to zoom and shift so each sheet's passage fills the desk.
+    zoom = sheets.map(function (s) {
+      var r = s.dataset.rect.split(',').map(Number), k = W / PW;
+      var z = Math.min(DW * .9 / (r[2] * k), DH * .62 / (r[3] * k), 2.6);
+      return { z: Math.max(z, 1), ox: (r[0] + r[2] / 2 - PW / 2) * k, oy: (r[1] + r[3] / 2 - PH / 2) * k };
     });
-    var now = Math.round(cur);
-    if (now !== active) {
-      steps.forEach(function (s, k) { s.classList.toggle('on', k === now); });
-      hls.forEach(function (h, k) { if (h) h.classList.toggle('on', k === now); });
-      active = now;
-    }
-    raf = cur !== target ? requestAnimationFrame(render) : 0;
-  }
-  function kick() {
-    var r = root.getBoundingClientRect();
-    document.body.classList.toggle('in-tour', r.top <= 0 && r.bottom >= innerHeight);
-    readScroll(); if (!raf) raf = requestAnimationFrame(render);
   }
 
-  buildCams();
+  var raf = 0;
+  function render() {
+    raf = 0;
+    var r = track.getBoundingClientRect(), span = track.offsetHeight - innerHeight;
+    var p = clamp(-r.top / span), f = p * N;
+    document.body.classList.toggle('in-tour', r.top <= 0 && r.bottom >= innerHeight);
+    if (bar) bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+
+    sheets.forEach(function (s, i) {
+      var t = f - i, last = i === N - 1;
+      if (t < -0.32 || t > 2.2) { s.style.visibility = caps[i].style.visibility = 'hidden'; caps[i].style.opacity = 0; return; }
+      s.style.visibility = 'visible';
+      // Arrive: slide up from below, tilted like a page being laid down.
+      var e = i === 0 ? 1 : seg(t, -0.32, 0);
+      // Read: zoom into the passage, hold, zoom back out.
+      var zin = seg(t, 0.06, 0.3), zout = seg(t, 0.52, 0.74), zk = last ? zin : Math.min(zin, 1 - zout);
+      // Settle: shrink back and tip away as the next page covers it.
+      var b = last ? 0 : seg(t, 0.72, 1.02), deep = last ? 0 : clamp(t - 1.02);
+      var Z = zoom[i], S = (1 + (Z.z - 1) * zk) * (1 - 0.12 * b - 0.05 * deep) * (0.86 + 0.14 * e);
+      var tx = -Z.ox * S * zk, ty = -Z.oy * S * zk + (1 - e) * DH * 0.95 - b * DH * 0.02;
+      var rx = still ? 0 : (1 - e) * 22, rz = still ? 0 : (1 - e) * 4 - b * 3;
+      s.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0) rotateX(' + rx.toFixed(2) + 'deg) rotate(' + rz.toFixed(2) + 'deg) scale(' + S.toFixed(4) + ')';
+      s.style.zIndex = i + 1;
+      s.lastChild.style.opacity = (0.45 * b + 0.3 * deep).toFixed(3);   // shade
+      s.lastChild.previousSibling.style.opacity = zk.toFixed(3);        // highlight
+      // Caption follows the zoom.
+      var c = caps[i], out = last ? 0 : seg(t, 0.76, 0.87), a = i === 0 ? 1 - out : Math.min(seg(t, -0.12, -0.01), 1 - out);
+      if (i === 0 && t < 0) a = 1;
+      c.style.opacity = a.toFixed(3);
+      c.style.transform = 'translateY(' + ((1 - a) * 10).toFixed(1) + 'px)';
+      c.style.visibility = a > 0.01 ? 'visible' : 'hidden';
+    });
+  }
+  function kick() { if (!raf) raf = requestAnimationFrame(render); }
+
+  // Decode every page up front so a fast scroll never shows a blank sheet.
+  sheets.forEach(function (s) { var im = s.querySelector('img'); if (im.decode) im.decode().catch(function () {}); });
+  measure(); render();
   addEventListener('scroll', kick, { passive: true });
-  addEventListener('resize', function () { buildCams(); kick(); });
-  readScroll(); cur = target; render();
+  addEventListener('resize', function () { measure(); kick(); });
 })();

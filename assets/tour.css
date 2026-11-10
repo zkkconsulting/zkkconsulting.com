@@ -1,58 +1,56 @@
-/* 3D sample-report tour on /work/. Driven by /assets/tour.js. */
-section.tour { padding: 0; position: relative; background: #0a0c0b; color: #f5f5f7; }
-.tour-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; grid-template-columns: minmax(300px, 38%) 1fr; }
-.tour-stage { position: relative; overflow: hidden; perspective: 1400px; perspective-origin: 50% 50%;
-  background: radial-gradient(ellipse at 60% 45%, #16201b 0%, #0a0c0b 70%); }
-.tour-world { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; transform-origin: 0 0; will-change: transform; }
-.tour-page { position: absolute; left: -306px; top: -396px; width: 612px; height: 792px; background: #fff; overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06); backface-visibility: hidden; }
-.tour-page img { display: block; width: 100%; height: 100%; }
-.tour-hl { position: absolute; border-radius: 6px; outline: 2px solid #d4a32a; outline-offset: 4px; opacity: 0;
-  box-shadow: 0 0 0 2000px rgba(10, 12, 11, .38); transition: opacity .35s ease; pointer-events: none; }
-.tour-hl.on { opacity: 1; }
+/* Sample-report scroll tour on /work/. Driven by /assets/tour.js.
+   Each page slides up over the last like a sheet laid on a desk, zooms in on one
+   passage, zooms back out, then settles under the next page. */
+section.tour { padding: 0; position: relative; overflow: visible !important; background: #0b0f0d; color: #f5f5f7; }
 
-.tour-copy { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: calc(var(--nav-h, 72px) + 1rem) 3vw 2.5rem 5vw; }
-.tour-copy .section-label { margin-bottom: .6rem; }
-.tour-copy h2 { color: #f5f5f7; margin: 0 0 1.6rem; font-size: clamp(1.6rem, 2.4vw, 2.2rem); }
-.tour-steps { list-style: none; margin: 0; padding: 0; position: relative; min-height: 11.5rem; }
-.tour-step { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateY(12px); transition: opacity .35s ease, transform .35s ease; }
-.tour-step.on { opacity: 1; transform: none; }
-.tour-num { display: block; font: 600 .78rem/1 var(--sans, sans-serif); letter-spacing: .14em; color: #d4a32a; margin-bottom: .55rem; }
-.tour-step h3 { font-family: var(--serif, serif); font-size: clamp(1.25rem, 1.8vw, 1.6rem); color: #f5f5f7; margin: 0 0 .5rem; }
-.tour-step p { color: rgba(245,245,247,.82); font-size: 1.02rem; line-height: 1.6; margin: 0; max-width: 34rem; }
-.tour-step .hero-ctas { margin-top: 1.1rem; }
-.tour-bar { margin-top: 1.4rem; height: 3px; background: rgba(255,255,255,.12); border-radius: 3px; overflow: hidden; max-width: 22rem; }
-.tour-bar i { display: block; height: 100%; width: 0; background: #d4a32a; }
-.tour-note { margin-top: .9rem; font-size: .8rem; color: rgba(245,245,247,.6); max-width: 30rem; }
-
-@media (max-width: 860px) {
-  .tour-sticky { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
-  .tour-stage { grid-row: 1; }
-  .tour-copy { grid-row: 2; padding: 1rem 16px 1.4rem; justify-content: flex-start; background: #0a0c0b; border-top: 1px solid rgba(255,255,255,.08); }
-  .tour-copy h2, .tour-copy .section-label, .tour-note { display: none; }
-  .tour-steps { min-height: 9.5rem; }
-  .tour-step p { font-size: .95rem; }
-}
-@media (prefers-reduced-motion: reduce) { .tour-step, .tour-hl { transition: none; } }
-.tour-step:not(.on) { pointer-events: none; }
-section.tour { overflow: visible !important; }
-section.tour > .tour-sticky { position: sticky !important; top: 0; }
-/* critique fixes */
-.tour-copy, .tour-copy .section-label, .tour-copy h2 { text-align: left; }
-.tour-copy .section-label { justify-content: flex-start; }
-.tour-step:not(.on) { visibility: hidden; transition: opacity .35s ease, transform .35s ease, visibility 0s .35s; }
-.tour-skip { margin-top: 1rem; font-size: .85rem; color: rgba(245,245,247,.7); text-decoration: underline; text-underline-offset: 3px; align-self: flex-start; min-height: 44px; display: inline-flex; align-items: center; }
+.tour-head { padding: 5.5rem 5vw 2.5rem; max-width: 760px; }
+.tour-head .section-label, .tour-head h2, .tour-head p { text-align: left; justify-content: flex-start; }
+.tour-head h2 { color: #f5f5f7; margin: .5rem 0 .8rem; }
+.tour-head p { color: rgba(245,245,247,.78); font-size: 1.05rem; line-height: 1.6; margin: 0; }
+.tour-skip { display: inline-flex; align-items: center; min-height: 44px; margin-top: .4rem; font-size: .88rem; color: rgba(245,245,247,.7); text-decoration: underline; text-underline-offset: 3px; }
 .tour-skip:hover { color: #fff; }
+
+.tour-track { position: relative; }
+section.tour .tour-sticky { position: sticky !important; top: 0; height: 100vh; height: 100svh; overflow: hidden;
+  display: grid; grid-template-columns: minmax(280px, 34%) 1fr; }
+
+.tour-desk { position: relative; overflow: hidden; perspective: 1800px; perspective-origin: 50% 40%;
+  background: radial-gradient(ellipse 70% 60% at 50% 55%, #1a2420 0%, #0b0f0d 75%); }
+.sheet { position: absolute; left: 0; right: 0; top: calc(var(--nav-h, 72px) * .5); bottom: 0; margin: auto;
+  width: var(--sw, 480px); height: var(--sh, 620px); background: #fff; border-radius: 3px; overflow: hidden;
+  transform-origin: 50% 50%; will-change: transform; visibility: hidden; backface-visibility: hidden;
+  box-shadow: 0 1px 1px rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.22), 0 28px 60px rgba(0,0,0,.45); }
+.sheet img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+/* soft light falloff so the sheet reads as paper, not a screenshot */
+.sheet::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 40%, rgba(0,0,0,.05) 100%); }
+.sheet-shade { position: absolute; inset: 0; background: #0b0f0d; opacity: 0; pointer-events: none; z-index: 2; }
+.sheet-hl { position: absolute; border-radius: 4px; opacity: 0; pointer-events: none; z-index: 1;
+  box-shadow: 0 0 0 2px rgba(212,163,42,.9), 0 0 0 3000px rgba(11,15,13,.28); }
+
+.tour-cap { position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: center;
+  padding: calc(var(--nav-h, 72px) + 1rem) 2.5vw 2.5rem 5vw; }
+.tour-caps { list-style: none; margin: 0; padding: 0; position: relative; min-height: 13rem; }
+.tour-c { position: absolute; inset: 0 0 auto 0; opacity: 0; visibility: hidden; will-change: opacity, transform; }
+.tour-num { display: block; font: 600 .78rem/1 var(--sans, sans-serif); letter-spacing: .14em; color: #d4a32a; margin-bottom: .6rem; }
+.tour-c h3 { font-family: var(--serif, serif); font-size: clamp(1.3rem, 2vw, 1.75rem); line-height: 1.25; color: #f5f5f7; margin: 0 0 .55rem; }
+.tour-c p { color: rgba(245,245,247,.8); font-size: 1.02rem; line-height: 1.6; margin: 0; max-width: 32rem; }
+.tour-bar { margin-top: 1.6rem; height: 2px; background: rgba(255,255,255,.12); border-radius: 2px; overflow: hidden; max-width: 20rem; }
+.tour-bar i { display: block; height: 100%; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: #d4a32a; }
+
+.tour-end { padding: 3.5rem 5vw 5rem; text-align: center; }
+.tour-end h3 { font-family: var(--serif, serif); color: #f5f5f7; font-size: clamp(1.4rem, 2.4vw, 2rem); margin: 0 0 .5rem; }
+.tour-end p { color: rgba(245,245,247,.78); margin: 0 0 1.3rem; }
+
+@media (max-width: 860px) {
+  .tour-head { padding: 3.5rem 16px 1.5rem; }
+  section.tour .tour-sticky { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+  .tour-desk { grid-row: 1; }
+  .tour-cap { grid-row: 2; padding: .9rem 16px 1.1rem; background: #0b0f0d; border-top: 1px solid rgba(255,255,255,.08); }
+  .tour-caps { min-height: 8.6rem; }
+  .tour-c h3 { font-size: 1.15rem; }
+  .tour-c p { font-size: .93rem; line-height: 1.5; }
+  .tour-bar { margin-top: .7rem; max-width: none; }
+  .tour-end { padding: 2.5rem 16px 3.5rem; }
+}
 body.in-tour .scroll-rail { opacity: 0; pointer-events: none; }
-@media (max-width: 860px) {
-  .tour-steps { min-height: 10.5rem; }
-  .tour-step .hero-ctas { display: flex; flex-wrap: nowrap; gap: .6rem; margin-top: .8rem; }
-  .tour-step .hero-ctas .btn { flex: 1; padding: .75rem .6rem; min-height: 44px; }
-  .tour-skip { margin-top: .4rem; min-height: 32px; }
-  .tour-bar { margin-top: .6rem; }
-}
-@media (max-width: 860px) {
-  section.tour .tour-step .hero-ctas { flex-direction: row !important; align-items: stretch; }
-  section.tour .tour-step .hero-ctas .btn { width: auto !important; margin: 0 !important; }
-}
-@media (max-width: 860px) { .tour-world { top: 56%; } }
