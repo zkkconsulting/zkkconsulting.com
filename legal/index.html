@@ -30,33 +30,33 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/site.css?v=20261110">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <style>
     .legal-intro, nav.legal-toc, .legal-body { max-width: 760px; margin-left: auto; margin-right: auto; padding-left: 24px; padding-right: 24px; }
     .legal-intro { margin-top: 2.6rem; }
-    .legal-intro p { font-size: 1.04rem; line-height: 1.75; color: rgba(245,245,247,.88); }
-    .legal-intro strong, .legal-item strong { color: #fff; font-weight: 600; }
-    nav.legal-toc { margin-top: 2rem; padding-top: 1.2rem; padding-bottom: 1.2rem; border: 1px solid rgba(255,255,255,.15); border-radius: 10px; }
-    .legal-toc::before { content: 'On this page'; display: block; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: rgba(245,245,247,.6); margin-bottom: .7rem; }
+    .legal-intro p { font-size: 1.04rem; line-height: 1.75; color: var(--muted); }
+    .legal-intro strong, .legal-item strong { color: var(--ink); font-weight: 600; }
+    nav.legal-toc { margin-top: 2rem; padding-top: 1.2rem; padding-bottom: 1.2rem; border: 1px solid var(--border); border-radius: 10px; }
+    .legal-toc::before { content: 'On this page'; display: block; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--muted); margin-bottom: .7rem; }
     .legal-toc ol { columns: 2; column-gap: 2rem; list-style: none; counter-reset: toc; font-size: .95rem; margin: 0; padding: 0; }
     .legal-toc li { counter-increment: toc; margin-bottom: .5rem; break-inside: avoid; }
-    .legal-toc li::before { content: counter(toc) ". "; color: rgba(245,245,247,.5); font-variant-numeric: tabular-nums; }
-    nav.legal-toc a { color: #fff; text-decoration: none; }
+    .legal-toc li::before { content: counter(toc) ". "; color: var(--muted); font-variant-numeric: tabular-nums; }
+    nav.legal-toc a { color: var(--ink); text-decoration: none; }
     nav.legal-toc a:hover { text-decoration: underline; }
     .legal-body { padding-top: 2.6rem; padding-bottom: 4.5rem; }
-    .legal-item { border-top: 1px solid rgba(255,255,255,.12); padding-top: 2rem; margin-top: 2rem; scroll-margin-top: 92px; }
+    .legal-item { border-top: 1px solid var(--border); padding-top: 2rem; margin-top: 2rem; scroll-margin-top: 92px; }
     .legal-item:first-child { border-top: none; padding-top: 0; margin-top: 0; }
     .legal-item h2 { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; text-align: left; margin-bottom: .9rem; }
     .legal-item h2 .num { display: none; }
-    .legal-item p, .legal-item ul { font-size: 1.04rem; line-height: 1.75; color: rgba(245,245,247,.88); margin-bottom: 1rem; }
+    .legal-item p, .legal-item ul { font-size: 1.04rem; line-height: 1.75; color: var(--muted); margin-bottom: 1rem; }
     .legal-item p:last-child { margin-bottom: 0; }
     .legal-item ul { padding-left: 1.3rem; }
     .legal-item li { margin-bottom: .4rem; }
-    .legal-item a, .legal-contact a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
-    .legal-contact { border: 1px solid rgba(255,255,255,.15); border-radius: 10px; padding: 1.5rem 1.7rem; margin-top: 3rem; }
+    .legal-item a, .legal-contact a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+    .legal-contact { border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 1.7rem; margin-top: 3rem; }
     .legal-contact .ct { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; margin-bottom: .4rem; }
-    .legal-contact p { font-size: 1rem; line-height: 1.75; color: rgba(245,245,247,.88); margin: 0; }
+    .legal-contact p { font-size: 1rem; line-height: 1.75; color: var(--muted); margin: 0; }
     @media (max-width: 640px) { .legal-toc ol { columns: 1; } }
   </style>
   <script type="application/ld+json">
@@ -80,10 +80,10 @@
   }
   </script>
 </head>
-<body class="hero-pg">
+<body class="light-pg">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <nav id="nav" class="on-hero hero-home">
+  <nav id="nav">
     <a href="/" class="nav-logo" aria-label="ZKK Consulting LLC, home">
       <img class="nav-mark" src="/ZKK_logo.png" alt="" aria-hidden="true">
     </a>
@@ -121,7 +121,7 @@
   </div>
 
   <main id="main">
-    <section class="page-hero page-hero-short">
+    <section class="light-hero">
       <div class="page-hero-inner">
         <div class="eyebrow">Legal</div>
         <h1>Legal notices and disclaimers.</h1>
@@ -412,7 +412,7 @@
         </a>
       </div>
       <div class="footer-col">
-        <h4>Services</h4>
+        <h3>Services</h3>
         <ul>
           <li><a href="/services/#packages" style="color: #454e5a;">Core packages</a></li>
           <li><a href="/services/#patent" style="color: #454e5a;">Patent landscape research</a></li>
@@ -424,7 +424,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
+        <h3>Company</h3>
         <ul>
           <li><a href="/work/" style="color: #454e5a;">Our work</a></li>
           <li><a href="/expertise/" style="color: #454e5a;">Specialized expertise</a></li>
@@ -436,7 +436,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h3>Contact</h3>
         <ul>
           <li><a href="/intake/" style="color: #454e5a;">Book a discovery call</a></li>
           <li><a href="/contact/" style="color: #454e5a;">Contact</a></li>
