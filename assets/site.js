@@ -139,7 +139,7 @@
       sec.insertBefore(svg, sec.firstChild);
     };
     var secs = Array.prototype.slice.call(document.querySelectorAll('main section:not(.deck-slide)')).filter(function (x) {
-      return !x.classList.contains('page-hero') && x.id !== 'contact' && !x.classList.contains('cta-band') && !x.classList.contains('legal-item');
+      return !x.classList.contains('page-hero') && !x.classList.contains('tour') && x.id !== 'contact' && !x.classList.contains('cta-band') && !x.classList.contains('legal-item');
     });
     var pio = new IntersectionObserver(function (en) {
       en.forEach(function (e) {
@@ -150,87 +150,8 @@
     secs.forEach(function (x) { pio.observe(x); });
   }
 
-  /* ── SCROLL PROGRESS BAR ── */
-  var bar = document.createElement('div'); bar.className = 'scroll-progress'; bar.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(bar);
-  var pr = 0;
-  window.addEventListener('scroll', function () {
-    if (pr) return;
-    pr = requestAnimationFrame(function () {
-      pr = 0;
-      var h = document.documentElement.scrollHeight - innerHeight;
-      bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, (window.pageYOffset || 0) / h) : 0) + ')';
-    });
-  }, { passive: true });
-
-  /* ── SECTION RAIL: progress line + clickable dots, on every page (desktop) ── */
-  var railIO = null, railEl = null, railSecs = [], railDots = [], railLabel = null, lastLabel = -2;
-  function buildRail() {
-    if (!('IntersectionObserver' in window)) return;
-    if (railEl) railEl.remove();
-    if (railIO) railIO.disconnect();
-    var secs = Array.prototype.slice.call(document.querySelectorAll('main section:not(.deck-slide)')).filter(function (x) {
-      return !x.classList.contains('page-hero') && !x.closest('[hidden]') && x.getBoundingClientRect().height > 60;
-    });
-    if (secs.length < 2) return;
-    railEl = document.createElement('div'); railEl.className = 'scroll-rail'; railEl.setAttribute('aria-label', 'Sections');
-    var dots = secs.map(function (sec) {
-      var a = document.createElement('a'); a.href = '#'; a.setAttribute('role', 'button');
-      var lab = sec.querySelector('.section-label, h2, h1');
-      var span = document.createElement('span'); span.textContent = lab ? lab.textContent.trim() : 'Section';
-      a.setAttribute('aria-label', span.textContent); a.appendChild(span);
-      a.addEventListener('mousedown', function (e) { e.preventDefault(); }); // mouse clicks don't focus the dot, so no stuck focus ring (keyboard focus still works)
-      a.addEventListener('click', function (e) { e.preventDefault(); scrollToTarget(sec); });
-      railEl.appendChild(a); return a;
-    });
-    document.body.appendChild(railEl);
-    railSecs = secs; railDots = dots;
-    railLabel = document.createElement('div'); railLabel.className = 'rail-label'; railLabel.setAttribute('aria-hidden', 'true'); railEl.appendChild(railLabel);
-    setRailProgress();
-    if (window.ZKK && window.ZKK.railLayout) window.ZKK.railLayout();
-  }
-  var rp = 0, maxScroll = 0, maxAt = 0;
-  function setRailProgress() {
-    if (!railEl || !railSecs.length) return;
-    var n = railSecs.length, mid = innerHeight * 0.4, idx = -1, frac = 0;
-    for (var k = 0; k < n; k++) {
-      var r = railSecs[k].getBoundingClientRect();
-      if (r.top <= mid) { idx = k; frac = Math.max(0, Math.min(1, (mid - r.top) / Math.max(r.height, 1))); } else break;
-    }
-    var p = idx < 0 ? 0 : (idx >= n - 1 ? 1 : (idx + frac) / (n - 1));
-    railEl.style.setProperty('--p', p.toFixed(3));
-    var pos = p * (n - 1);
-    if (idx < 0) { var ft = railSecs[0].getBoundingClientRect().top; pos = -1 + Math.max(0, Math.min(1, 1 - (ft - mid) / innerHeight)); }
-    if (railLabel) { var li = idx < 0 ? -1 : idx; if (li !== lastLabel) { lastLabel = li; railLabel.textContent = li < 0 ? '' : railDots[li].getAttribute('aria-label'); railLabel.classList.remove('swap'); void railLabel.offsetWidth; railLabel.classList.add('swap'); } }
-    for (var j = 0; j < n; j++) {
-      var f = Math.max(0, Math.min(1, pos - j + 1));          // 0 -> 1 as the line approaches then reaches the dot
-      var act = Math.max(0, 1 - Math.abs(pos - j));            // bell shape around the dot
-      railDots[j].style.setProperty('--f', f.toFixed(3));
-      railDots[j].style.setProperty('--a', act.toFixed(3));
-    }
-  }
-  window.addEventListener('scroll', function () { if (!rp) rp = requestAnimationFrame(function () { rp = 0; setRailProgress(); }); }, { passive: true });
-  buildRail();
-  window.ZKK.buildRail = buildRail;
-  (function () {
-    var nv = document.getElementById('nav'); if (!nv) return;
-    var mark = nv.querySelector('.nav-mark'), ham = nv.querySelector('.hamburger');
-    function setH() {
-      var root = document.documentElement.style;
-      root.setProperty('--navh', nv.offsetHeight + 'px');
-      if (!mark || !ham || window.innerWidth > 700) return;
-      var a = mark.getBoundingClientRect(), b = ham.getBoundingClientRect();
-      var avail = Math.max(80, b.left - a.right - 28), n = railDots.length || 8;
-      root.setProperty('--rail-x', ((a.right + b.left) / 2).toFixed(1) + 'px');
-      root.setProperty('--rail-w', Math.min(avail - 32, 28 + n * 16).toFixed(0) + 'px');
-    }
-    setH();
-    if ('ResizeObserver' in window) new ResizeObserver(setH).observe(nv);
-    window.addEventListener('resize', setH);
-    nv.addEventListener('transitionend', setH);
-    window.addEventListener('load', function () { setH(); setTimeout(setH, 400); });
-    window.ZKK.railLayout = setH;
-  })();
+  // Progress bar and section rail removed so the nav is the only bar at the top.
+  window.ZKK.buildRail = window.ZKK.railLayout = function () {};
 
   /* ── SMOOTH SCROLL + HASH ── */
   var navH = 72;

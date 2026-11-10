@@ -30,11 +30,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css?v=20261110b">
-  <link rel="stylesheet" href="/assets/prose.css?v=20261110b">
-  <link rel="stylesheet" href="/assets/tour.css?v=10">
-  <link rel="stylesheet" href="/assets/edits/e1-work-stage.css"> <!-- edit-1 -->
-  <link rel="stylesheet" href="/assets/edits/e5-work-visuals.css"> <!-- edit-5 -->
+  <link rel="stylesheet" href="/assets/site.css?v=20261111a">
+  <link rel="stylesheet" href="/assets/prose.css?v=20261111a">
+  <link rel="stylesheet" href="/assets/tour.css?v=12">
   <style>
     /* ── DELIVERABLE PREVIEW DECK ── */
     .hero-deck {
@@ -231,9 +229,10 @@
       <div class="tour-intro">
         <div class="eyebrow">Samples</div>
         <h1 id="tour-title">A real market research report, page by page</h1>
-        <p>Scroll to read our wrist-worn fall-detection report for Vyrex Solutions, the way a client receives it.</p>
+        <p>Scroll through our wrist-worn fall-detection report for Vyrex Solutions.</p>
         <span class="tour-cue">Scroll</span><a class="tour-skip" href="#cases">Skip to all samples</a>
       </div>
+      <a class="tour-skip tour-skip-fixed" href="#cases">Skip</a>
       <div class="tour-book" aria-hidden="true">
         <div class="leaf"><div class="sheet" data-rect="44,606,524,82"><img src="/assets/samples/fall/f01.webp" alt="" width="612" height="792" decoding="async" fetchpriority="high"></div></div>
         <div class="leaf"><div class="sheet" data-rect="62,148,500,102"><img src="/assets/samples/fall/f02.webp" alt="" width="612" height="792" decoding="async"></div></div>
@@ -245,214 +244,60 @@
         <div class="leaf"><div class="sheet" data-rect="62,150,500,230"><img src="/assets/samples/fall/f08.webp" alt="" width="612" height="792" decoding="async"></div></div>
         <div class="leaf"><div class="sheet" data-rect="62,176,500,222"><img src="/assets/samples/fall/f09.webp" alt="" width="612" height="792" decoding="async"></div></div>
       </div>
-      <div class="tour-cap l"><span class="tour-num">01 / 09</span><h2>The answer comes first</h2><p>The cover states the bottom line, so you know the conclusion before you turn the page.</p></div>
-      <div class="tour-cap r"><span class="tour-num">02 / 09</span><h2>Where the data runs thinnest</h2><p>Three research firms sizing the same category disagree by 46%. The report draws the boundary first and says so before giving any number.</p></div>
-      <div class="tour-cap l"><span class="tour-num">03 / 09</span><h2>A market size you can check</h2><p>The sizing is built step by step from population and survey inputs, each with its source, then cross-checked against an independent estimate.</p></div>
-      <div class="tour-cap r"><span class="tour-num">04 / 09</span><h2>What we could not size, said plainly</h2><p>Where no public figure exists, the report says so instead of inventing one.</p></div>
-      <div class="tour-cap l"><span class="tour-num">05 / 09</span><h2>Competitors on one page</h2><p>Products are compared on form, fall detection, device price and monthly cost.</p></div>
-      <div class="tour-cap r"><span class="tour-num">06 / 09</span><h2>Live patent risk, up front</h2><p>An active ITC investigation in this space is summarized at a glance: who filed, which patents, which products.</p></div>
-      <div class="tour-cap l"><span class="tour-num">07 / 09</span><h2>A five-year model, weak spots marked</h2><p>Revenue, margin and cash needs by year, followed by a section on which numbers to distrust.</p></div>
-      <div class="tour-cap r"><span class="tour-num">08 / 09</span><h2>What actually decides the outcome</h2><p>The scenarios show revenue barely moves while profit swings widely, and they name the unmeasured inputs behind it.</p></div>
-      <div class="tour-cap l"><span class="tour-num">09 / 09</span><h2>Considerations tied to findings</h2><p>The report closes with strategic considerations, each grounded in a specific finding and the checks it still needs.</p></div>
-      <div class="tour-progress" aria-hidden="true"><i></i></div>
+      <div class="tour-cap float r" data-move="rise"><span class="tour-num">01 / 09</span><h2>The answer comes first</h2><p>The cover states the bottom line, so you know the conclusion before you turn the page.</p></div>
+      <div class="tour-cap panel" data-move="side"><span class="tour-num">02 / 09</span><h2>Where the data runs thinnest</h2><p>Three research firms sizing the same category disagree by 46%. The report draws the boundary before giving any number.</p><div class="tchart" role="img" aria-label="Published market size estimates differ by 46 percent"><div class="tc-row"><span class="tc-l">Lowest estimate</span><span class="tc-bar"><i style="--w:68.5%"></i></span><span class="tc-v">1.00×</span></div><div class="tc-row hi"><span class="tc-l">Highest estimate</span><span class="tc-bar"><i style="--w:100.0%"></i></span><span class="tc-v">1.46×</span></div></div><p class="tc-note">Same category, same base year, three firms.</p></div>
+      <div class="tour-cap float l" data-move="zoom"><span class="tour-num">03 / 09</span><h2>A market size you can check</h2><p>Built step by step from population and survey inputs, each with a source, then cross-checked.</p></div>
+      <div class="tour-cap float r" data-move="swing"><span class="tour-num">04 / 09</span><h2>What we could not size, said plainly</h2><p>Where no public figure exists, the report says so instead of inventing one.</p></div>
+      <div class="tour-cap panel" data-move="side"><span class="tour-num">05 / 09</span><h2>Competitors, priced over three years</h2><p>Smartwatches look cheap. Monitored devices cost far more once the monthly fee is counted.</p><div class="tchart" role="img" aria-label="Three-year total cost by product"><div class="tc-row"><span class="tc-l">Apple Watch SE 3</span><span class="tc-bar"><i style="--w:9.4%"></i></span><span class="tc-v">$249</span></div><div class="tc-row"><span class="tc-l">Galaxy Watch9</span><span class="tc-bar"><i style="--w:14.4%"></i></span><span class="tc-v">$380</span></div><div class="tc-row"><span class="tc-l">Pixel Watch 5</span><span class="tc-bar"><i style="--w:15.2%"></i></span><span class="tc-v">$400</span></div><div class="tc-row hi"><span class="tc-l">Lively Mobile2</span><span class="tc-bar"><i style="--w:52.1%"></i></span><span class="tc-v">$1,374</span></div><div class="tc-row hi"><span class="tc-l">LifeFone</span><span class="tc-bar"><i style="--w:66.8%"></i></span><span class="tc-v">$1,762+</span></div><div class="tc-row hi"><span class="tc-l">Bay Alarm SOS</span><span class="tc-bar"><i style="--w:77.1%"></i></span><span class="tc-v">$2,033</span></div><div class="tc-row hi"><span class="tc-l">MGMove</span><span class="tc-bar"><i style="--w:79.9%"></i></span><span class="tc-v">$2,106</span></div><div class="tc-row hi"><span class="tc-l">Kanega</span><span class="tc-bar"><i style="--w:100.0%"></i></span><span class="tc-v">$2,637</span></div></div><p class="tc-note">Three-year total: device plus monthly fees.</p></div>
+      <div class="tour-cap float l" data-move="zoom"><span class="tour-num">06 / 09</span><h2>Live patent risk, up front</h2><p>An active ITC case in this space, summarized at a glance: who filed, which patents, which products.</p></div>
+      <div class="tour-cap panel" data-move="side"><span class="tour-num">07 / 09</span><h2>A five-year model, weak spots marked</h2><p>Base-case revenue by year, followed by a section on which inputs to distrust.</p><div class="tcols" role="img" aria-label="Base case total revenue by fiscal year"><div class="tc-col"><span class="tc-v">$0.5M</span><span class="tc-stick"><i style="--h:1.8%"></i></span><span class="tc-l">FY27</span></div><div class="tc-col"><span class="tc-v">$2.1M</span><span class="tc-stick"><i style="--h:8.5%"></i></span><span class="tc-l">FY28</span></div><div class="tc-col"><span class="tc-v">$6.0M</span><span class="tc-stick"><i style="--h:24.1%"></i></span><span class="tc-l">FY29</span></div><div class="tc-col"><span class="tc-v">$13.5M</span><span class="tc-stick"><i style="--h:53.9%"></i></span><span class="tc-l">FY30</span></div><div class="tc-col"><span class="tc-v">$25.1M</span><span class="tc-stick"><i style="--h:100.0%"></i></span><span class="tc-l">FY31</span></div></div><p class="tc-note">Illustrative model output, not a forecast.</p></div>
+      <div class="tour-cap panel" data-move="side"><span class="tour-num">08 / 09</span><h2>What decides the outcome</h2><p>Lifetime value to acquisition cost swings sevenfold between scenarios. Below about 3×, paid growth stops working.</p><div class="tchart" role="img" aria-label="Lifetime value to customer acquisition cost by scenario"><span class="tc-line" style="--x:0.193"><em>3×</em></span><div class="tc-row"><span class="tc-l">Downside</span><span class="tc-bar"><i style="--w:13.7%"></i></span><span class="tc-v">2.13×</span></div><div class="tc-row hi"><span class="tc-l">Base</span><span class="tc-bar"><i style="--w:36.9%"></i></span><span class="tc-v">5.73×</span></div><div class="tc-row hi"><span class="tc-l">Upside</span><span class="tc-bar"><i style="--w:100.0%"></i></span><span class="tc-v">15.53×</span></div></div><p class="tc-note">FY2031 output of the scenario model.</p></div>
+      <div class="tour-cap float l" data-move="settle"><span class="tour-num">09 / 09</span><h2>Considerations tied to findings</h2><p>Each closing consideration points back to a finding and the check it still needs.</p><div class="tour-ctas"><a href="/intake/" class="btn btn-primary">Book a call</a><a href="/services/#prices" class="btn btn-outline">See prices</a></div></div>
     </div>
   </section>
 
-  <section class="tour-end">
-    <h2>Want one for your market?</h2>
-    <p>Fixed-price packages start at $999.</p>
-    <div class="hero-ctas"><a href="/intake/" class="btn btn-primary">Book a call</a><a href="/services/#prices" class="btn btn-outline">See prices</a></div>
-  </section>
 
-  <section id="cases" class="alt"><span id="reports"></span>
-    <div class="section-label fade-up">Sample Reports</div>
-    <h2 class="fade-up">What you get, by package</h2>
-    <p class="section-intro fade-up">
-      Each card shows the question, the research we did, and the finished deliverable. Open the PDF to read it.
-    </p>
-
-    <!-- UNCOMMENT WHEN WE HAVE MORE REPORTS FOR SPECIFIC MARKETS
-    <div class="filter-row fade-up" id="caseFilters" role="group" aria-label="Filter case studies by industry">
-      <button type="button" class="filter-chip is-active" data-filter="all">All</button>
-      <button type="button" class="filter-chip" data-filter="medtech">Medical devices</button>
-      <button type="button" class="filter-chip" data-filter="electronics">Electronics &amp; hardware</button>
-      <button type="button" class="filter-chip" data-filter="industrial">Industrial &amp; B2B</button>
-      <button type="button" class="filter-chip" data-filter="consumer">Consumer</button>
-      <button type="button" class="filter-chip" data-filter="ip">Patent research</button>
+  <section id="cases" class="smp-sec"><span id="reports"></span>
+    <h2>All samples</h2>
+    <p class="smp-intro">One sample per package. Open any PDF to read it in full.</p>
+    <div class="smp-grid">
+      <article class="smp">
+        <span class="smp-tag">Comprehensive + Patent</span>
+        <h3>Wrist-worn fall detection</h3>
+        <p>Market, competitors, patents, regulation and a five-year model for a new wrist device.</p>
+        <ul class="smp-chips"><li>Market sizing</li><li>Patent landscape</li><li>5-year model</li></ul>
+        <div class="smp-links"><a href="../samples/Sample Report 1.pdf" target="_blank" rel="noopener noreferrer">Read the report <span aria-hidden="true">&#8599;</span></a><a href="../samples/Sample Report 1 - Five Year Model.xlsx" target="_blank" rel="noopener noreferrer">Excel model <span aria-hidden="true">&#8599;</span></a></div>
+      </article>
+      <article class="smp">
+        <span class="smp-tag">Launchpad</span>
+        <h3>CGM competitive brief</h3>
+        <p>Who competes, how they are positioned, and where the gaps are.</p>
+        <ul class="smp-chips"><li>Competitors</li><li>Positioning</li><li>Sources</li></ul>
+        <div class="smp-links"><a href="../samples/Market_Brief_CGM_SAMPLE.pdf" target="_blank" rel="noopener noreferrer">Read the sample <span aria-hidden="true">&#8599;</span></a></div>
+      </article>
+      <article class="smp">
+        <span class="smp-tag">Growth</span>
+        <h3>CGM market report</h3>
+        <p>A market size built from traceable inputs, plus a competitive view ready for investor questions.</p>
+        <ul class="smp-chips"><li>TAM / SAM / SOM</li><li>Segments</li><li>Competitors</li></ul>
+        <div class="smp-links"><a href="../samples/Market_Report_CGM_SAMPLE.pdf" target="_blank" rel="noopener noreferrer">Read the sample <span aria-hidden="true">&#8599;</span></a></div>
+      </article>
+      <article class="smp">
+        <span class="smp-tag">Comprehensive</span>
+        <h3>CGM strategy package</h3>
+        <p>Pricing, go-to-market and an editable five-year financial model.</p>
+        <ul class="smp-chips"><li>Pricing</li><li>Go-to-market</li><li>Financial model</li></ul>
+        <div class="smp-links"><a href="../samples/Strategy_Package_CGM_SAMPLE.pdf" target="_blank" rel="noopener noreferrer">Read the sample <span aria-hidden="true">&#8599;</span></a></div>
+      </article>
     </div>
-    -->
-
-    <!-- ══════════════════════════════════════════════════════════════════════
-         ADDING A CASE STUDY
-         Copy the block below, paste it inside <div class="case-grid">, and edit.
-         · data-industry must be one of: medtech, electronics, industrial,
-           consumer, ip  (add a matching filter chip above for a new value)
-         · Use badge-client for a real engagement, badge-sample for our own
-           sample work. Never label sample work as a client engagement.
-         · "Result" should be a measurable outcome where one exists. Where it
-           does not, describe what the deliverable enabled or provided.
-           Do not promise or imply outcomes.
-
-    <article class="case-card card fade-up" data-industry="INDUSTRY">
-      <div class="case-top">
-        <div class="case-badges">
-          <span class="badge badge-client">Client engagement</span>
-          <span class="badge badge-industry">Industry label</span>
-        </div>
-        <div class="case-title">Short descriptive title</div>
-        <div class="case-sub">Package or service used</div>
-      </div>
-      <div class="case-body">
-        <div class="case-block"><div class="cb-label">Question</div><p>What the company needed.</p></div>
-        <div class="case-block"><div class="cb-label">Research</div><p>What ZKK delivered.</p></div>
-        <div class="case-block"><div class="cb-label">Result</div><p>The measurable outcome, or what the deliverable enabled.</p></div>
-      </div>
-      <div class="case-foot">
-        <span class="cf-note">Details published with client permission.</span>
-        <a href="#">View the deliverable &#8599;</a>
-      </div>
-    </article>
-         ══════════════════════════════════════════════════════════════════════ -->
-
-    <div class="case-grid" id="caseGrid">
-
-      <article class="case-card card fade-up" data-industry="medtech">
-        <div class="case-top">
-          <div class="case-badges">
-            <span class="badge badge-sample">SAMPLE PROJECT</span>
-            <span class="badge badge-industry">MEDICAL DEVICES</span>
-          </div>
-          <div class="case-title">Market, patent, and commercial research for wrist-worn fall detection</div>
-          <div class="case-sub">COMPREHENSIVE PACKAGE SAMPLE + PATENT LANDSCAPE RESEARCH</div>
-        </div>
-        <div class="case-body">
-          <div class="case-block"><div class="cb-label">Question</div><p>An internal hardware program needs a grounded view of its United States market, competitive and patent context, and the commercial assumptions behind a five-year outlook.</p></div>
-          <div class="case-block"><div class="cb-label">Research</div><p>Market sizing, competitor, buyer, patent, regulatory and reimbursement, supply-chain, pricing, and channel research, paired with an editable five-year commercial model.</p></div>
-          <div class="case-block"><div class="cb-label">Result</div><p>A sourced report and an editable Excel model with base, downside, and upside cases. Built from ZKK’s own internal hardware program, not client work. Model projections are illustrative, not forecasts.</p></div>
-        </div>
-        <div class="case-foot">
-          <a href="../samples/Sample Report 1.pdf" target="_blank" rel="noopener noreferrer">Read the sample &#8599;</a>
-          <a href="../samples/Sample Report 1 - Five Year Model.xlsx" target="_blank" rel="noopener noreferrer">Companion file &#8599;</a>
-        </div>
-
-      </article>
-
-      <article class="case-card card fade-up" data-industry="medtech">
-        <div class="case-top">
-          <div class="case-badges">
-            <span class="badge badge-sample">Sample project</span>
-            <span class="badge badge-industry">Medical devices</span>
-          </div>
-          <div class="case-title">Competitive landscape for a continuous monitoring device</div>
-          <div class="case-sub">Launchpad package sample</div>
-        </div>
-        <div class="case-body">
-          <div class="case-block"><div class="cb-label">Question</div><p>A hypothetical early-stage company entering a crowded monitoring category needs a clear view of existing competitors, their positioning, and the gaps or distinctions relevant to a product decision.</p></div>
-          <div class="case-block"><div class="cb-label">Research</div><p>Competitive landscape research mapping the field, profiling relevant competitors by product and positioning, and documenting demand context with traceable sources.</p></div>
-          <div class="case-block"><div class="cb-label">Result</div><p>A concise, circulable document that gives a founding team a clear view of the field and the assumptions that warrant further testing. This reflects the deliverable format of a Launchpad engagement.</p></div>
-        </div>
-        <div class="case-foot">
-          <a href="../samples/Market_Brief_CGM_SAMPLE.pdf" target="_blank" rel="noopener noreferrer">Read the sample &#8599;</a>
-        </div>
-      </article>
-
-      <article class="case-card card fade-up" data-industry="medtech">
-        <div class="case-top">
-          <div class="case-badges">
-            <span class="badge badge-sample">Sample project</span>
-            <span class="badge badge-industry">Medical devices</span>
-          </div>
-          <div class="case-title">Market sizing and landscape for a fundraising conversation</div>
-          <div class="case-sub">Growth package sample</div>
-        </div>
-        <div class="case-body">
-          <div class="case-block"><div class="cb-label">Question</div><p>A hypothetical company preparing for an investor conversation needs market sizing grounded in traceable sources, along with a competitive view that can withstand diligence questions.</p></div>
-          <div class="case-block"><div class="cb-label">Research</div><p>Market sizing and competitive research, including TAM, SAM, and SOM estimates built from traceable inputs, documented assumptions, segment and channel analysis, and a source appendix.</p></div>
-          <div class="case-block"><div class="cb-label">Result</div><p>A research package the team can present with traceable arithmetic and sources. This reflects the deliverable format of a Growth engagement.</p></div>
-        </div>
-        <div class="case-foot">
-          <a href="../samples/Market_Report_CGM_SAMPLE.pdf" target="_blank" rel="noopener noreferrer">Read the sample &#8599;</a>
-        </div>
-      </article>
-
-      <article class="case-card card fade-up" data-industry="medtech">
-        <div class="case-top">
-          <div class="case-badges">
-            <span class="badge badge-sample">Sample project</span>
-            <span class="badge badge-industry">Medical devices</span>
-          </div>
-          <div class="case-title">Market and commercial research with a five-year model</div>
-          <div class="case-sub">Comprehensive package sample</div>
-        </div>
-        <div class="case-body">
-          <div class="case-block"><div class="cb-label">Question</div><p>A hypothetical company moving beyond initial market orientation needs market, pricing, and financial analysis to understand the commercial assumptions behind a five-year outlook.</p></div>
-          <div class="case-block"><div class="cb-label">Research</div><p>Comprehensive market and commercial research, including pricing and go-to-market analysis, an editable five-year revenue, COGS, and operating expense model, and source-supported findings.</p></div>
-          <div class="case-block"><div class="cb-label">Result</div><p>An editable workbook with key drivers isolated for continued scenario testing. This reflects the deliverable format of a Comprehensive engagement.</p></div>
-        </div>
-        <div class="case-foot">
-          <a href="../samples/Strategy_Package_CGM_SAMPLE.pdf" target="_blank" rel="noopener noreferrer">Read the sample &#8599;</a>
-
-        </div>
-      </article>
-
-      <!-- ── PLACEHOLDER SLOT — replace with a real client engagement or delete ── -->
-      <!--<article class="case-card card slot-card fade-up" data-industry="industrial">
-        <div class="case-top">
-          <div class="slot-label">Placeholder &middot; replace before publishing</div>
-          <h3>Client engagement slot</h3>
-        </div>
-        <div class="case-body">
-          <p>Reserved for a sanitized client engagement. Copy the commented template above this grid in the
-          page source, fill in Question, Research, and Result, set <code>data-industry</code>, and use the
-          <code>badge-client</code> label. Publish a client name or logo only where the client has agreed in
-          writing. Delete this placeholder card once real engagements fill the grid.</p>
-        </div>
-      </article>-->
-
-      <!-- ── PLACEHOLDER SLOT — replace with a non-medtech sample project or delete ── -->
-      <!--<article class="case-card card slot-card fade-up" data-industry="consumer">
-        <div class="case-top">
-          <div class="slot-label">Placeholder &middot; replace before publishing</div>
-          <h3>Cross-industry sample slot</h3>
-        </div>
-        <div class="case-body">
-          <p>Reserved for an independent sample project outside medtech, for example a consumer product
-          category, an industrial component market, or a software category. Same template, but keep the
-          <code>badge-sample</code> label so it is never mistaken for a client engagement.</p>
-        </div>
-      </article>-->
-
-    </div>
-
-    <p class="section-intro fade-up" id="caseEmpty" hidden style="margin-top:1.5rem;">
-      No case studies in that category yet. <a href="/intake/">Ask us about your industry</a> and we will
-      tell you what comparable work we have done.
-    </p>
-    <p class="cases-note">These are independent samples made by ZKK to show format and method. No client was involved, and the companies, products, prices, and figures are fictitious, except the fall-detection sample, which uses real public sources.</p>
+    <p class="smp-note">The CGM samples use fictitious figures to show format. The fall-detection report uses real public sources. <a href="/work/fall-detection-sample/">What it contains</a></p>
   </section>
-
-  <!-- seo-learn-more -->
-  <section>
-    <div class="section-label fade-up">Learn More</div>
-    <h2 class="fade-up">Read about the sample in detail</h2>
-    <div class="related-grid fade-up">
-      <a class="card card-static" href="/work/fall-detection-sample/"><h3>Wrist-worn fall detection sample</h3><p>What each part of the deliverable contains.</p></a>
-      <a class="card card-static" href="/market-research-cost/"><h3>What market research costs</h3><p>Packages, add-ons, and bundles side by side.</p></a>
-      <a class="card card-static" href="/insights/"><h3>Guides</h3><p>How the research behind these deliverables works.</p></a>
-    </div>
-  </section>
-  <!-- /seo-learn-more -->
 
   <section class="alt cta-band">
-    <div class="section-label fade-up">Your Project</div>
-    <p class="cta-headline fade-up">Need research outside these examples?</p>
-    <p class="cta-sub fade-up">
-      We work across sectors and take on scopes beyond the examples shown here. Tell us what you are trying
-      to answer, and we will assess fit and outline a realistic scope.
-    </p>
-    <div class="hero-ctas fade-up">
-      <a href="/intake/" class="btn btn-primary">Book a Discovery Call</a>
-      <a href="/services/" class="btn btn-outline">Services &amp; pricing</a>
+    <p class="cta-headline">Need research outside these examples?</p>
+    <div class="hero-ctas">
+      <a href="/intake/" class="btn btn-primary">Book a call</a>
+      <a href="/services/" class="btn btn-outline">See packages</a>
     </div>
   </section>
   </main>
@@ -480,8 +325,8 @@
         <ul>
           <li><a href="/services/#packages">Core packages</a></li>
           <li><a href="/services/#patent">Patent landscape research</a></li>
-          <li><a href="/services/#addons">Add-ons</a></li>
-          <li><a href="/services/#bundles">Bundles</a></li>
+          <li><a href="/services/#capabilities">Capabilities</a></li>
+          <li><a href="/market-research-cost/#bundles">Bundles</a></li>
           <li><a href="/engineering-led-product-consulting/">Engineering-led product consulting</a></li>
           <li><a href="/competitive-pricing-analysis/">Competitive pricing analysis</a></li>
           <li><a href="/product-strategy-research/">Product strategy research</a></li>
@@ -531,95 +376,9 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="/assets/site.js?v=20261110b"></script>
-  <script src="/assets/tour.js?v=15"></script>
+  <script src="/assets/site.js?v=20261111a"></script>
+  <script src="/assets/tour.js?v=19"></script>
   <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
-  <script>
-    (function () {
-      'use strict';
-      var reduceMotion = (window.ZKK && window.ZKK.reduceMotion) || false;
-
-      /* ── DELIVERABLE DECK ── */
-      var deck = document.getElementById('heroDeck');
-      if (deck) {
-        var slides = [].slice.call(deck.querySelectorAll('.deck-slide'));
-        var dotsBox = document.getElementById('deckDots');
-        var countEl = document.getElementById('deckCount');
-        var idx = 0, timer = null, dots = [], halted = false;
-        var labels = ['Competitive landscape', 'Market sizing', 'Pricing & channel', 'Five-year revenue model'];
-        var DELAY = 9000;
-
-        function pad(n) { return (n < 10 ? '0' : '') + n; }
-        function show(n, focusDot) {
-          idx = (n + slides.length) % slides.length;
-          slides.forEach(function (s, i) { s.classList.toggle('is-active', i === idx); });
-          dots.forEach(function (d, i) {
-            d.setAttribute('aria-current', i === idx ? 'true' : 'false');
-            d.tabIndex = i === idx ? 0 : -1;
-          });
-          countEl.textContent = pad(idx + 1) + ' / ' + pad(slides.length);
-          if (focusDot && dots[idx]) dots[idx].focus();
-        }
-        slides.forEach(function (s, i) {
-          var d = document.createElement('button');
-          d.type = 'button';
-          d.className = 'deck-dot';
-          d.setAttribute('aria-label', 'Section ' + (i + 1) + ': ' + (labels[i] || ''));
-          d.onclick = function () { halt(); show(i); };
-          dotsBox.appendChild(d);
-          dots.push(d);
-        });
-        function next() { show(idx + 1); }
-        function stop() { if (timer) { clearInterval(timer); timer = null; } }
-        function start() { if (!reduceMotion && !halted && !timer) timer = setInterval(next, DELAY); }
-        function halt() { halted = true; stop(); }
-
-        document.getElementById('deckPrev').onclick = function () { halt(); show(idx - 1); };
-        document.getElementById('deckNext').onclick = function () { halt(); show(idx + 1); };
-        deck.addEventListener('mouseenter', stop);
-        deck.addEventListener('mouseleave', start);
-        deck.addEventListener('focusin', stop);
-        deck.addEventListener('focusout', function (e) { if (!deck.contains(e.relatedTarget)) start(); });
-        document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
-        dotsBox.addEventListener('keydown', function (e) {
-          if (e.key === 'ArrowLeft') { e.preventDefault(); halt(); show(idx - 1, true); }
-          if (e.key === 'ArrowRight') { e.preventDefault(); halt(); show(idx + 1, true); }
-        });
-        var x0 = null;
-        deck.addEventListener('touchstart', function (e) { halt(); x0 = e.changedTouches[0].clientX; }, { passive: true });
-        deck.addEventListener('touchend', function (e) {
-          if (x0 === null) return;
-          var dx = e.changedTouches[0].clientX - x0;
-          if (Math.abs(dx) > 45) show(idx + (dx < 0 ? 1 : -1));
-          x0 = null;
-        }, { passive: true });
-        show(0);
-        start();
-      }
-
-      /* ── CASE STUDY FILTERS ── */
-      var chips = [].slice.call(document.querySelectorAll('#caseFilters .filter-chip'));
-      var cards = [].slice.call(document.querySelectorAll('#caseGrid .case-card'));
-      var emptyMsg = document.getElementById('caseEmpty');
-      if (chips.length && cards.length) {
-        chips.forEach(function (chip) {
-          chip.addEventListener('click', function () {
-            var f = chip.getAttribute('data-filter');
-            chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
-            var shown = 0;
-            cards.forEach(function (card) {
-              var match = (f === 'all') || (card.getAttribute('data-industry') === f);
-              card.hidden = !match;
-              if (match) shown++;
-            });
-            if (emptyMsg) emptyMsg.hidden = shown > 0;
-            if (window.ScrollTrigger && ScrollTrigger.refresh) ScrollTrigger.refresh();
-          });
-        });
-      }
-    })();
-
-  </script>
 
 </body>
 </html>
