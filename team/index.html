@@ -159,25 +159,17 @@ section.alt .viz-tab-mini.is-active {
     .contact-link svg { width: 19px; height: 19px; flex-shrink: 0; stroke: var(--accent); fill: none; stroke-width: 1.6; }
     .contact-link .lbl { color: var(--muted); font-size: .78rem; display: block; }
 
-    .pf-tabs { display: inline-flex; gap: .4rem; margin-top: 2rem; padding: .4rem; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 10px; flex-wrap: wrap; }
-    .pf-tab {
-      display: flex; flex-direction: column; gap: .18rem; align-items: flex-start;
-      padding: .72rem 1.25rem; border: 1px solid transparent; border-radius: 7px;
-      background: transparent; cursor: pointer; font-family: var(--sans); text-align: left;
-      transition: background .18s ease, border-color .18s ease, box-shadow .18s ease;
-    }
-    .pf-tab:hover { background: rgba(255,255,255,.6); }
-
-    .pf-tab { cursor: pointer; }
-    .pf-tab:hover { background: rgba(255,255,255,.85); transform: translateY(-1px); }
-    .pf-tab.is-active { background: var(--white); border-color: var(--navy); box-shadow: 0 3px 10px rgba(28,43,58,.1); }
-    .pf-tab.is-active .pf-tab-name::after { content: ' →'; color: var(--accent); }
-
-
-    .pf-tab-name { font-family: var(--serif); font-size: 1.02rem; font-weight: 600; color: var(--muted); transition: color .18s ease; }
-    .pf-tab.is-active .pf-tab-name { color: var(--ink); }
-    .pf-tab-focus { font-size: .7rem; letter-spacing: .05em; color: var(--muted); }
-    .pf-tab.is-active .pf-tab-focus { color: var(--accent); font-weight: 500; }
+    .who-pick { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; max-width: 760px; }
+    .who-card { display: grid; grid-template-columns: 72px 1fr; gap: .2rem 1rem; align-items: center; padding: 1rem 1.1rem; border: 1px solid rgba(255,255,255,.22); border-radius: 10px; background: rgba(255,255,255,.06); cursor: pointer; font-family: var(--sans); text-align: left; color: inherit; }
+    .who-card:hover, .who-card:focus-visible { border-color: #ffd36b; }
+    .who-card.is-active { border-color: #ffd36b; background: rgba(255,211,107,.1); }
+    .who-photo { grid-row: 1 / 5; width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+    .who-role { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: #ffd36b; font-weight: 600; }
+    .who-name { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: #fff; }
+    .who-focus { font-size: .82rem; line-height: 1.45; color: rgba(255,255,255,.75); }
+    .who-go { font-size: .78rem; font-weight: 600; color: #ffd36b; }
+    .who-card.is-active .who-go { visibility: hidden; }
+    .pf-panel .fade-up { opacity: 1 !important; transform: none !important; }
     .pf-panel[hidden] { display: none; }
     .pf-anchor { display: block; position: relative; top: calc(var(--nav-h) * -1); visibility: hidden; }
 
@@ -199,7 +191,7 @@ section.alt .viz-tab-mini.is-active {
       .timeline, .experience-list { padding-left: 1.6rem; }
       .timeline-item::before, .exp-item::before { left: calc(-1.6rem - 6px); }
     }
-    @media (max-width: 560px) { .pf-tabs { display: flex; width: 100%; } .pf-tab { flex: 1 1 100%; } }
+    @media (max-width: 640px) { .who-pick { grid-template-columns: 1fr; } }
 
     .slot-card { border-style: dashed !important; border-color: rgba(255,255,255,.18) !important; background: var(--bg-alt) !important; }
     .slot-card:hover { transform: none; box-shadow: none; }
@@ -278,12 +270,12 @@ section.alt .viz-tab-mini.is-active {
     </a>
     <ul class="nav-links">
       <li><a href="/services/">Services</a></li>
-      <li><a href="/work/">Our Work</a></li>
-      <li><a href="/expertise/">Expertise</a></li>
-      <li><a href="/team/" aria-current="page">Team</a></li>
-      <li><a href="/insights/">Insights</a></li>
+      <li><a href="/market-research-cost/">Pricing</a></li>
+      <li><a href="/work/">Samples</a></li>
+      <li><a href="/insights/">Guides</a></li>
+      <li><a href="/team/">Team</a></li>
       <li><a href="/faq/">FAQ</a></li>
-      <li><a href="/intake/" class="nav-cta">Book a Discovery Call</a></li>
+      <li><a href="/intake/" class="nav-cta">Book a Call</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -294,14 +286,17 @@ section.alt .viz-tab-mini.is-active {
     <button class="mobile-menu-close" id="mobileClose" aria-label="Close menu">&#10005;</button>
     <ul>
       <li><a href="/services/" class="mobile-link">Services</a></li>
-      <li><a href="/work/" class="mobile-link">Our Work</a></li>
+      <li><a href="/market-research-cost/" class="mobile-link">Pricing</a></li>
+      <li><a href="/work/" class="mobile-link">Samples</a></li>
+      <li><a href="/insights/" class="mobile-link">Guides</a></li>
       <li><a href="/expertise/" class="mobile-link">Expertise</a></li>
       <li><a href="/team/" class="mobile-link">Team</a></li>
-      <li><a href="/insights/" class="mobile-link">Insights</a></li>
+      <li><a href="/about/" class="mobile-link">About</a></li>
       <li><a href="/faq/" class="mobile-link">FAQ</a></li>
+      <li><a href="/contact/" class="mobile-link">Contact</a></li>
       <li><a href="/referrals/" class="mobile-link">Referral Program</a></li>
       <li><a href="/legal/" class="mobile-link">Legal</a></li>
-      <li><a href="/intake/" class="mobile-link is-cta">Book a Discovery Call</a></li>
+      <li><a href="/intake/" class="mobile-link is-cta">Book a Call</a></li>
       <li><a href="mailto:info@zkkconsulting.com" class="mobile-link is-cta">Email Us</a></li>
     </ul>
   </div>
@@ -313,19 +308,24 @@ section.alt .viz-tab-mini.is-active {
       <div class="eyebrow">ZKK Consulting LLC</div>
       <h1>Meet the research team behind the work.</h1>
       <p class="lede">
-        We are a two-person firm. Read our backgrounds below, including education, project work,
-        experience, and credentials.
+        We are a two-person firm. Pick a founder to see their education, experience, and credentials.
       </p>
-      <div class="pf-tabs" role="tablist" aria-label="Choose a co-founder">
-        <button class="pf-tab" type="button" role="tab" id="tab-zolomon"
+      <div class="who-pick" role="tablist" aria-label="Choose a founder">
+        <button class="who-card" type="button" role="tab" id="tab-zolomon"
                 aria-selected="true" aria-controls="panel-zolomon" data-panel="zolomon">
-          <span class="pf-tab-name">Zolomon Kaliser</span>
-          <span class="pf-tab-focus">Market research, financial modeling &amp; medical devices</span>
+          <img class="who-photo" src="/assets/zolomon.jpg" alt="">
+          <span class="who-role">Founder</span>
+          <span class="who-name">Zolomon Kaliser</span>
+          <span class="who-focus">Market research, financial modeling &amp; medical devices</span>
+          <span class="who-go">View profile &darr;</span>
         </button>
-        <button class="pf-tab" type="button" role="tab" id="tab-jad"
+        <button class="who-card" type="button" role="tab" id="tab-jad"
                 aria-selected="false" aria-controls="panel-jad" data-panel="jad">
-          <span class="pf-tab-name">Jad Haddad</span>
-          <span class="pf-tab-focus">Regulatory research, patent analysis &amp; technology markets</span>
+          <img class="who-photo" src="/assets/jad.jpg" alt="">
+          <span class="who-role">Co-Founder</span>
+          <span class="who-name">Jad Haddad</span>
+          <span class="who-focus">Regulatory research, patent analysis &amp; technology markets</span>
+          <span class="who-go">View profile &darr;</span>
         </button>
       </div>
     </div>
@@ -979,7 +979,7 @@ section.alt .viz-tab-mini.is-active {
           <li><a href="/expertise/" style="color: #454e5a;">Specialized expertise</a></li>
           <li><a href="/team/" style="color: #454e5a;">Team</a></li>
           <li><a href="/about/" style="color: #454e5a;">About</a></li>
-          <li><a href="/insights/" style="color: #454e5a;">Insights</a></li>
+          <li><a href="/insights/" style="color: #454e5a;">Guides</a></li>
           <li><a href="/referrals/" style="color: #454e5a;">Referral program</a></li>
           <li><a href="/faq/" style="color: #454e5a;">FAQ</a></li>
         </ul>
@@ -1022,7 +1022,7 @@ section.alt .viz-tab-mini.is-active {
   <script src="/assets/hero3d.js" defer></script>
   <script src="/assets/sky.js"></script>
   <script>
-    document.querySelectorAll('.pf-tab').forEach(function (t) {
+    document.querySelectorAll('.who-card').forEach(function (t) {
       t.addEventListener('click', function () {
         setTimeout(function () { if (window.ZKK && ZKK.buildRail) ZKK.buildRail(); }, 80);
         var hint = document.getElementById('pfHint'); if (hint) hint.hidden = true;
@@ -1032,7 +1032,7 @@ section.alt .viz-tab-mini.is-active {
 
   <script>
     (function () {
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.pf-tab'));
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.who-card'));
   if (!tabs.length) return;
 
   var reduceMotion = window.ZKK && window.ZKK.reduceMotion;
@@ -1072,7 +1072,6 @@ section.alt .viz-tab-mini.is-active {
     if (window.ZKK && window.ZKK.buildRail) window.ZKK.buildRail(); // side dots follow the open founder panel
     if (window.ScrollTrigger && ScrollTrigger.refresh) ScrollTrigger.refresh(true);
 
-    animatePanel(shownPanel);
 
     if (shouldScroll) {
       var anchor = document.getElementById(key);
@@ -1083,7 +1082,7 @@ section.alt .viz-tab-mini.is-active {
         var want = function () { return anchor.getBoundingClientRect().top + window.pageYOffset - navH + 1 + extraDown; };
         // one scroll at a time: cancel re-aims from any earlier click; smooth only when opening, instant when swapping tabs or on load
         scrollTimers.forEach(clearTimeout); scrollTimers = [];
-        window.scrollTo({ top: want(), behavior: (reduceMotion || instant || wasOpen) ? 'auto' : 'smooth' });
+        window.scrollTo({ top: want(), behavior: 'auto' });
         [500, 1100].forEach(function (ms) { scrollTimers.push(setTimeout(function () { var w = want(); if (Math.abs(w - (window.pageYOffset || 0)) > 4) window.scrollTo({ top: w, behavior: 'auto' }); }, ms)); });
       }
     }
