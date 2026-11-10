@@ -33,7 +33,7 @@ section.tour { padding: 0; position: relative; overflow: visible !important; bac
   opacity: 0; visibility: hidden; }
 .tour-cap.l { left: 5vw; } .tour-cap.r { right: 5vw; }
 .tour-num { display: block; font: 600 .75rem/1 var(--sans, sans-serif); letter-spacing: .16em; color: #ffd36b; margin-bottom: .55rem; }
-.tour-cap h3 { font-family: var(--serif, serif); font-size: clamp(1.2rem, 1.7vw, 1.5rem); line-height: 1.25; color: #fff; margin: 0 0 .45rem; }
+.tour-cap h2 { font-family: var(--serif, serif); font-size: clamp(1.2rem, 1.7vw, 1.5rem); line-height: 1.25; color: #fff; margin: 0 0 .45rem; }
 .tour-cap p { color: rgba(245,245,247,.82); font-size: .98rem; line-height: 1.55; margin: 0; }
 
 .tour-progress { position: absolute; z-index: 45; left: 0; right: 0; top: var(--nav-h, 72px); height: 2px; background: rgba(255,255,255,.06); }
