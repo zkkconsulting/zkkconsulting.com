@@ -2217,7 +2217,6 @@ body.home .page-hero h1 .gold {
 }
 @media (prefers-reduced-motion: reduce) { body.home .page-hero h1 .gold { animation: none; background: none; -webkit-text-fill-color: #e0aa3e; } }
 /* headline serif matches the video's refined display face */
-body.home .page-hero h1 { font-family: 'Cormorant Garamond', var(--serif); font-style: italic; font-weight: 500; letter-spacing: -0.005em; }
 @media (min-width: 761px) { body.home .page-hero h1 { font-size: clamp(3.5rem, 5.4vw, 6.6rem); line-height: 1.03; } }
 @media (max-width: 760px) { body.home .page-hero h1 { font-size: clamp(1.9rem, 8.4vw, 2.8rem); line-height: 1.12; text-wrap: balance; } }
 body.home .page-hero h1 .gold { font-size: 1.14em; line-height: 1; }
@@ -2309,3 +2308,12 @@ body.light-pg .btn-outline { color: var(--ink); border-color: rgba(13,22,18,.35)
 .light-hero .hero-ctas { justify-content: flex-start; margin-top: 1.6rem; }
 @media (max-width: 640px) { .light-hero { padding-top: 110px; } }
 body.light-pg nav.legal-toc { background: #fff !important; box-shadow: none !important; border: 1px solid var(--border) !important; }
+
+/* Content is visible on load (no scroll-triggered fade) */
+.fade-up { opacity: 1 !important; transform: none !important; will-change: auto; }
+/* Home: calmer globe on phones so the buttons lead */
+@media (max-width: 760px) { body.home #hero .hero-canvas { opacity: .3; } }
+/* Minimum 12px text everywhere */
+:is(.badge, .bt-label, .btn-sm, .bundle-save, .case-sub, .cb-label, .cert-issuer, .cred-label, .eyebrow, .ff-label, .ff-text,
+    .fgroup-label, .founder-hero-role, .founder-role, .fstep-num, .opt, .price-flag, .price-meta, .proj-tag, .sl-price-meta,
+    .step-hint, .viz-tab-mini, .who-role, .case-foot a, .footer-col h3, .footer-col h4, .scroll-rail a span, .section-label) { font-size: max(.75rem, 12px) !important; }

@@ -49,37 +49,8 @@
     });
   });
 
-  /* ── SCROLL REVEAL ── */
-  if (animate) {
-        document.body.classList.add('js-anim');
-    gsap.set('.fade-up', { clearProps: 'opacity,transform' }); // release the CSS-based hide; GSAP now owns these props
-    gsap.set('.fade-up', { opacity: 0, y: 26 });
-    if (hasST) {
-      ScrollTrigger.batch('.fade-up', {
-        start: 'top 88%',
-        onEnter: function (els) {
-          gsap.to(els, { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out', stagger: 0.07, overwrite: true, clearProps: 'transform,willChange' });
-        }
-      });
-      ScrollTrigger.refresh();
-    } else {
-      gsap.to('.fade-up', { opacity: 1, y: 0, duration: 0.8, stagger: 0.08 });
-    }
-  }
-
-  /* ── REVEAL SAFETY NET: refresh trigger positions after load, and un-hide anything that is on screen but still hidden ── */
-  if (animate) {
-    var fixHidden = function () {
-      var vh = window.innerHeight;
-      document.querySelectorAll('.fade-up').forEach(function (el) {
-        var r = el.getBoundingClientRect();
-        if (r.top < vh && r.bottom > 0 && parseFloat(getComputedStyle(el).opacity) < 0.05) gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', overwrite: true, clearProps: 'transform' });
-      });
-    };
-    var fixT = 0;
-    window.addEventListener('scroll', function () { clearTimeout(fixT); fixT = setTimeout(fixHidden, 220); }, { passive: true });
-    window.addEventListener('load', function () { if (hasST) ScrollTrigger.refresh(); setTimeout(function () { if (hasST) ScrollTrigger.refresh(); fixHidden(); }, 600); });
-  }
+  /* Scroll reveal removed: content is visible on load. */
+  if (animate) document.body.classList.add('js-anim');
 
   /* ── STABLE PAGE HEIGHT: measure each section once so content-visibility never changes the page length mid-scroll ── */
   (function () {
