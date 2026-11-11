@@ -2855,3 +2855,27 @@ main > section:not(.page-hero):not(.bp-hero):not(.hero-paper):not(#tour):not(#sa
   animation: dots-drift 80s linear infinite; }
 @keyframes dots-drift { to { background-position: 180px 240px, 350px 390px, -300px 400px; } }
 @media (prefers-reduced-motion: reduce) { main > section { animation: none !important; } }
+
+/* ── Division pass: hero video further right, black/gray hero buttons, cards for loose text, hairline section divides ── */
+@media (min-width: 861px) {
+  .hero-paper .hero-vid { width: 46% !important; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 42%) !important; mask-image: linear-gradient(90deg, transparent 0%, #000 42%) !important; }
+}
+.hero-paper .btn-glass.btn-primary { background: #0d1612 !important; border: 1px solid #0d1612 !important; color: #fff !important; box-shadow: none !important; }
+.hero-paper .btn-glass.btn-primary:hover { background: #26312b !important; }
+.hero-paper .btn-glass.btn-outline { background: #d6d6cf !important; border: 1px solid #c4c4bc !important; color: #0d1612 !important; box-shadow: none !important; }
+.hero-paper .btn-glass.btn-outline:hover { background: #cacac2 !important; }
+/* Cards for text that used to float on the page */
+body:is(.light-pg, .home) main > section :is(.prose, .h-steps li, .h-tile, .pz-terms li, .legal-item, .faq-item, .next-strip, .deposit-strip) {
+  background: #fff !important; border: 1px solid rgba(13,22,18,.08) !important; border-radius: 16px !important; box-shadow: 0 1px 2px rgba(13,22,18,.04), 0 12px 32px rgba(13,22,18,.07) !important;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+body:is(.light-pg, .home) main > section :is(.prose, .h-steps li, .h-tile, .pz-terms li, .legal-item) { padding: clamp(1.2rem, 2.4vw, 1.9rem) clamp(1.2rem, 2.6vw, 2.1rem) !important; }
+body:is(.light-pg, .home) main > section .prose { margin-left: auto; margin-right: auto; }
+body.home .h-steps { gap: 1rem !important; }
+body.home .h-steps li { border-top: 1px solid rgba(13,22,18,.08) !important; }
+body.light-pg .faq-list { display: grid; gap: .8rem; }
+body.light-pg .next-strip, body.light-pg .deposit-strip { color: #3d4a43; }
+/* One clear hairline between consecutive content sections */
+body:is(.light-pg, .home) main > section + section:not(.cta-band) { border-top: 1px solid rgba(13,22,18,.12); }
+body.light-pg .zform .btn-primary { background: #0d1612 !important; border: 1px solid #0d1612 !important; color: #fff !important; }
+body.light-pg .zform .btn-primary:hover { background: #26312b !important; }
+body.light-pg .zform .btn-outline { background: #e6e6df !important; border: 1px solid #c4c4bc !important; color: #0d1612 !important; }
