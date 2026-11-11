@@ -3123,3 +3123,9 @@ nav#nav .nav-cta:hover { background: linear-gradient(transparent 6%, #ffe08f 6%,
   nav#nav, nav#nav.shrink, nav#nav.on-hero, nav#nav.hero-home { width: min(1000px, calc(100% - 48px)); }
   nav#nav .nav-links { flex: 1; justify-content: space-between; padding-left: clamp(2rem, 5vw, 4.5rem) !important; }
 }
+/* New ZKK wordmark in the nav: all white, the gold diamond still flashes on a loop */
+nav#nav .nav-logo::before, nav#nav .nav-logo::after { left: 88.71%; top: 27.79%; width: 7.14%; height: 27.79%; transform: none; }
+nav#nav .nav-logo::after { background-image: url(/assets/logo-gem-nav.png); }
+nav#nav .nav-logo::before { -webkit-mask-image: url(/assets/logo-gem-nav.png); mask-image: url(/assets/logo-gem-nav.png); }
+nav#nav .nav-logo .nav-mark, nav#nav .nav-mark { height: 24px !important; filter: none !important; }
+@media (max-width: 860px) { nav#nav .nav-logo .nav-mark, nav#nav .nav-mark { height: 22px !important; } }
