@@ -3201,3 +3201,6 @@ nav#nav .nav-links a:not(.nav-cta)::after { top: calc(50% + .85em); bottom: auto
 :root body main > section.bp-hero + .legal-intro::before { content: ""; position: absolute; left: 50%; transform: translateX(-50%); width: 100vw; top: calc(-2.6rem - 22px); height: 22px; background: #f6f7f6; border-radius: 22px 22px 0 0; }
 :root body main > section.team-hero ~ .pf-panel { position: relative !important; z-index: 3 !important; margin-top: -22px !important; border-radius: 22px 22px 0 0 !important; }
 :root body main:has(> .team-hero):not(:has(> .pf-panel:not([hidden]))) + footer.site-footer { position: relative; z-index: 3; margin-top: -22px; border-radius: 22px 22px 0 0; }
+/* Home: the first section is clean white so its peek reads clearly against the paper hero */
+:root body.home main section#research { background: #ffffff !important; }
+:root body.home main section#research .h-tile { background: #f5f6f3 !important; border-color: #e3e7e4 !important; box-shadow: none !important; }

@@ -193,3 +193,6 @@ body.in-tour .tour-stage { cursor: pointer; }
 @keyframes tourLineIn { from { border-top-color: transparent; } }
 @media (prefers-reduced-motion: reduce) { .tour.is-playing .tour-desc, .tour.is-playing .tour-how li, .tour.is-playing .tour-how { animation: none; } .tour-intro h1, .tour-intro-foot { transition: none; } }
 :root body .tour .tour-intro h1 mark.hl.hl-on { padding: 0 .22em 0 .06em !important; margin: 0 !important; }
+/* Scroll hint: a rounded peek of the samples section at the bottom of the cover, gone once the walkthrough plays */
+.tour-stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: #f7f7f4; border-radius: 22px 22px 0 0; z-index: 20; pointer-events: none; transition: transform .32s ease; }
+.tour.is-starting .tour-stage::after, .tour.is-playing .tour-stage::after { transform: translateY(100%); }
