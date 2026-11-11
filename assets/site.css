@@ -2801,3 +2801,41 @@ body.home #reviews .reviews-grid > * { box-shadow: 0 1px 2px rgba(13,22,18,.05) 
 /* light pages: tighter, even section spacing (no big empty bands) */
 body.light-pg section.pz-sec { padding: clamp(56px, 6vw, 84px) var(--edge) !important; }
 body.light-pg section.pz-sec + section.pz-sec { padding-top: clamp(24px, 3vw, 40px) !important; }
+
+/* ── Calm pass: quieter heroes, one surface on team profiles, even section spacing ── */
+/* Home: gray, slower video kept to the right so it never sits under the headline */
+.hero-paper .hero-vid { filter: grayscale(.85) contrast(.82) brightness(1.03) !important; opacity: .55; }
+@media (min-width: 861px) {
+  .hero-paper .hero-vid { width: 54% !important; left: auto !important; right: 0 !important; height: 100% !important; object-fit: cover;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 34%) !important; mask-image: linear-gradient(90deg, transparent 0%, #000 34%) !important; }
+  .hero-paper::after { background: linear-gradient(0deg, rgba(229,229,223,.95) 0%, rgba(229,229,223,0) 26%), linear-gradient(rgba(150,150,144,.14), rgba(150,150,144,.14)) !important; }
+  body.home .hero-paper .page-hero-inner { max-width: 660px !important; }
+  body.home .hero-paper h1 { font-size: clamp(3.2rem, 4.9vw, 5.2rem) !important; line-height: 1.04; }
+  .hero-paper .cred-strip { max-width: 660px !important; }
+  .hero-paper .logo-row img { zoom: 1.4; }
+}
+/* Nav call to action in the highlighter gold */
+nav#nav .nav-cta, .nav-cta { background: #ffd36b !important; color: #071a12 !important; border: 1px solid #ffd36b !important; }
+nav#nav .nav-cta:hover, .nav-cta:hover { background: #ffe08f !important; }
+/* Team hero: dim the drawing, solid picker cards */
+.team-hero > .bp-bg { opacity: .4; }
+.team-hero::after { background: linear-gradient(90deg, rgba(8,16,12,.9) 0%, rgba(8,16,12,.7) 50%, rgba(8,16,12,.45) 100%) !important; }
+.team-hero .who-card { background: #17241e !important; border-color: rgba(255,255,255,.18); }
+.team-hero .who-card.is-active { background: #22301f !important; }
+/* Team profiles: one paper surface from the portrait down, with small pieces drifting behind */
+.pf-panel { position: relative; isolation: isolate; overflow: hidden; background: #e8ebe9; color: #0d1612; }
+.pf-panel::before, .pf-panel::after { content: ""; position: absolute; inset: -240px 0 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(11,74,50,.22) 0 2px, transparent 2.5px), radial-gradient(circle, rgba(197,139,42,.28) 0 1.5px, transparent 2px);
+  background-size: 180px 180px, 260px 260px; background-position: 0 0, 90px 130px; animation: pf-drift 70s linear infinite; }
+.pf-panel::after { background-image: radial-gradient(circle, rgba(13,22,18,.12) 0 3px, transparent 3.5px); background-size: 340px 340px; animation-duration: 110s; animation-direction: reverse; }
+@keyframes pf-drift { to { background-position: 180px 240px, 350px 390px; } }
+.pf-panel > section, .pf-panel > section.alt { background: transparent !important; color: #0d1612; }
+.pf-panel .founder-hero { background: transparent !important; padding-top: clamp(64px, 8vw, 112px); }
+.pf-panel .founder-hero-name, .pf-panel h2, .pf-panel h3, .pf-panel .exp-role { color: #0d1612 !important; }
+.pf-panel .founder-hero-statement, .pf-panel .exp-company, .pf-panel .exp-date, .pf-panel .exp-bullets li, .pf-panel .section-intro { color: #3d4a43 !important; }
+.pf-panel .founder-hero-role, .pf-panel .section-label { color: #0b6b45 !important; }
+@media (prefers-reduced-motion: reduce) { .pf-panel::before, .pf-panel::after { animation: none; } }
+/* Even breathing room between every content section */
+main > section:not(.page-hero):not(.bp-hero):not(.hero-paper):not(#tour):not(.cta-band), .pf-panel > section {
+  padding-top: clamp(80px, 9vw, 128px) !important; padding-bottom: clamp(80px, 9vw, 128px) !important; }
+.pf-panel .ff-text { color: #7a5a06 !important; }
