@@ -3209,3 +3209,97 @@ nav#nav .nav-links a:not(.nav-cta)::after { top: calc(50% + .85em); bottom: auto
   :root body.home .hero-paper .logo-row img { zoom: .8; }
   :root body.home .hero-paper .hero-ctas .btn { min-height: 42px !important; font-size: .62rem !important; }
 }
+/* Reviews: a stacked deck with fanned cards behind the front one */
+#reviews .rv-stack { max-width: 760px; margin: 0 auto; }
+.rv-deck { position: relative; display: grid; padding-bottom: 34px; }
+.rv-deck > * { grid-area: 1 / 1; }
+.rv-card, .rv-ghost { margin: 0; border-radius: 18px; background: #fff; border: 1px solid rgba(13,22,18,.1); box-shadow: 0 18px 40px rgba(13,22,18,.08); transform-origin: 50% 100%; transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .4s ease; }
+.rv-card { position: relative; display: flex; flex-direction: column; gap: 1rem; padding: clamp(1.6rem, 3vw, 2.4rem); cursor: pointer; }
+.rv-card .review-text { margin: 0; font-size: clamp(1.02rem, 1.4vw, 1.15rem); }
+.rv-card[data-pos="0"] { z-index: 5; transform: none; opacity: 1; }
+.rv-card[data-pos="1"] { z-index: 4; transform: translateY(14px) scale(.96); opacity: 1; }
+.rv-card[data-pos="2"] { z-index: 3; transform: translateY(28px) scale(.92); opacity: 1; }
+.rv-card[data-pos="3"] { z-index: 2; transform: translateY(28px) scale(.92); opacity: 0; }
+.rv-card:not([data-pos="0"]) > * { visibility: hidden; }
+.rv-ghost-1 { z-index: 2; transform: translateY(14px) scale(.96); }
+.rv-ghost-2 { z-index: 1; transform: translateY(28px) scale(.92); background: #f7f7f4; }
+.rv-ctl { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.4rem; }
+.rv-btn { width: 44px; height: 44px; border-radius: 999px; border: 1px solid rgba(13,22,18,.18); background: #fff; color: #0d1612; font-size: 1.1rem; cursor: pointer; transition: border-color .2s, background .2s; }
+.rv-btn:hover { border-color: #0d1612; background: #f5f6f3; }
+.rv-count { min-width: 3.5em; text-align: center; font-size: .85rem; letter-spacing: .08em; color: #4a554f; font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .rv-card, .rv-ghost { transition: none; } }
+/* Leave us a review: footer button and dialog */
+footer .footer-brand button.footer-review { display: inline-flex; align-items: center; margin: 1rem 0 0 .6rem; padding: .5rem .9rem; border: 1px solid rgba(255,211,107,.6); border-radius: 999px; background: transparent; color: #ffd36b; font: inherit; font-size: .88rem; cursor: pointer; transition: background .2s, color .2s; }
+footer .footer-brand button.footer-review:hover { background: #ffd36b; color: #0d1612; }
+.rv-dialog { width: min(520px, calc(100% - 32px)); padding: 0; border: 0; border-radius: 18px; background: #fff; color: #0d1612; box-shadow: 0 30px 80px rgba(0,0,0,.35); }
+.rv-dialog::backdrop { background: rgba(5,10,8,.55); backdrop-filter: blur(4px); }
+.rv-form, .rv-done { position: relative; display: flex; flex-direction: column; gap: .9rem; padding: 2rem 1.8rem 1.6rem; }
+.rv-dialog h2 { margin: 0; font-size: 1.5rem; text-align: left; }
+.rv-sub, .rv-done p { margin: -.4rem 0 .2rem; color: #4a554f; font-size: .95rem; }
+.rv-form label { display: flex; flex-direction: column; gap: .35rem; font-size: .85rem; font-weight: 600; color: #0d1612; }
+.rv-form label span { font-weight: 400; color: #6a756f; }
+.rv-form input, .rv-form textarea { font: inherit; font-size: 1rem; font-weight: 400; padding: .7rem .8rem; border: 1px solid #d5dad7; border-radius: 10px; background: #fafbf9; color: #0d1612; resize: vertical; }
+.rv-form input:focus, .rv-form textarea:focus { outline: 2px solid #0b6b45; outline-offset: 1px; border-color: transparent; }
+.rv-form .btn, .rv-done .btn { align-self: flex-start; }
+.rv-note { margin: 0; font-size: .75rem; line-height: 1.5; color: #6a756f; }
+.rv-x { position: absolute; top: .8rem; right: .8rem; width: 40px; height: 40px; border: 0; border-radius: 999px; background: transparent; font-size: 1.5rem; color: #4a554f; cursor: pointer; }
+.rv-x:hover { background: #f1f3f1; }
+:root body.home #reviews .rv-stack { margin: 0; max-width: 780px; }
+:root body.home #reviews .rv-card .review-text { color: #0d1612 !important; opacity: 1 !important; }
+:root body.home #reviews .rv-card .review-author { color: #4a554f !important; }
+:root body.home #reviews .rv-card .review-author strong { color: #0d1612 !important; }
+.rv-card[data-pos="1"], .rv-ghost-1 { transform: translateY(18px) scale(.955); }
+.rv-card[data-pos="2"], .rv-card[data-pos="3"], .rv-ghost-2 { transform: translateY(36px) scale(.91); }
+.rv-deck { padding-bottom: 42px; }
+.rv-ctl { justify-content: flex-start; }
+.rv-dialog { position: fixed; inset: 0; margin: auto; height: fit-content; max-height: calc(100dvh - 32px); overflow: auto; }
+.rv-form[hidden], .rv-done[hidden] { display: none !important; }
+:root body .rv-dialog h2 { color: #0d1612 !important; font-family: var(--sans, Inter, sans-serif); font-weight: 600; letter-spacing: -.01em; }
+.rv-form label b { font-weight: 600; }
+.rv-form label b span { font-weight: 400; color: #6a756f; }
+footer .footer-brand a.footer-social { margin-right: .6rem; }
+footer .footer-brand button.footer-review { margin-left: 0; }
+/* Reviews: stack on the left, a slow vertical belt of "Trusted by" logos on the right */
+:root body.home #reviews .rv-wrap { display: grid; grid-template-columns: minmax(0, 780px) minmax(220px, 300px); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+:root body.home #reviews .rv-stack { max-width: none; }
+.rv-trust { align-self: stretch; display: flex; flex-direction: column; gap: 1rem; }
+.rv-trust-label { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #4a554f; }
+.rv-belt { position: relative; height: 320px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); }
+.rv-track { display: flex; flex-direction: column; align-items: flex-start; gap: 2.4rem; padding-bottom: 2.4rem; animation: rvBelt 26s linear infinite; }
+.rv-belt:hover .rv-track { animation-play-state: paused; }
+.rv-track img { height: 30px; width: auto; max-width: 170px; object-fit: contain; filter: grayscale(1) contrast(1.1); opacity: .7; }
+.rv-track img.tall { height: 46px; }
+@keyframes rvBelt { to { transform: translateY(-100%); } }
+@media (max-width: 860px) {
+  :root body.home #reviews .rv-wrap { grid-template-columns: 1fr; gap: 2rem; }
+  .rv-belt { height: auto; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); display: flex; }
+  .rv-track { flex-direction: row; align-items: center; gap: 2.2rem; padding: 0 2.2rem 0 0; animation-name: rvBeltX; flex: none; }
+  .rv-track img { height: 26px; } .rv-track img.tall { height: 38px; }
+  @keyframes rvBeltX { to { transform: translateX(-100%); } }
+}
+@media (prefers-reduced-motion: reduce) { .rv-track { animation: none; } }
+.rv-trust, .rv-stack, .rv-belt { min-width: 0; }
+.rv-belt { overflow: hidden !important; }
+.rv-track img { filter: brightness(0) !important; opacity: .5 !important; transition: opacity .2s; }
+.rv-track img:hover { opacity: .85 !important; }
+@media (max-width: 860px) { :root body.home #reviews .rv-wrap { grid-template-columns: minmax(0, 1fr) !important; } :root body.home #reviews { overflow-x: clip; } }
+/* review link matches the LinkedIn pill exactly */
+footer .footer-col a.footer-review { color: inherit; border-color: rgba(255,255,255,.3); background: transparent; }
+footer .footer-col a.footer-review:hover { background: #fff; border-color: #fff; color: #0d1612; }
+footer .footer-brand a.footer-social { margin: .9rem .6rem 0 0 !important; vertical-align: top; }
+/* Reviews: flat, side by side; a static "Trusted by" row beneath */
+:root body.home #reviews .rv-flat { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+:root body.home #reviews .rv-flat .rv-card { cursor: default; transform: none !important; opacity: 1 !important; box-shadow: 0 10px 30px rgba(13,22,18,.06); }
+:root body.home #reviews .rv-flat .rv-card > * { visibility: visible; }
+:root body.home #reviews .rv-card .review-author { margin-top: auto; }
+:root body.home #reviews .rv-trust { margin-top: clamp(2.2rem, 4vw, 3rem); display: flex; flex-direction: column; gap: 1.1rem; }
+.rv-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem clamp(2rem, 4vw, 3.4rem); }
+.rv-logos img { height: 30px; width: auto; max-width: 170px; object-fit: contain; filter: brightness(0); opacity: .5; }
+.rv-logos img.tall { height: 46px; }
+@media (max-width: 600px) { .rv-logos { gap: 1.2rem 1.8rem; } .rv-logos img { height: 24px; max-width: 130px; } .rv-logos img.tall { height: 36px; } }
+/* Footer: LinkedIn and Leave us a review side by side */
+footer .footer-brand .footer-pills { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .9rem; }
+footer .footer-brand .footer-pills a.footer-social { margin: 0 !important; white-space: nowrap; }
+/* Home: tighter gap between How it works and the reviews */
+:root body.home main > section#how.hs.hs.hs.hs { padding-bottom: clamp(2rem, 4vw, 3rem) !important; }
+:root body.home main > section#reviews.hs.hs.hs.hs { padding-top: clamp(2rem, 4vw, 3rem) !important; }

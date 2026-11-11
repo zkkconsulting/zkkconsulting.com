@@ -251,3 +251,59 @@
   }, { rootMargin: '0px 0px -8% 0px' });
   els.forEach(function (el) { io.observe(el); });
 })();
+
+/* ── LEAVE US A REVIEW: footer button + dialog on every page, sent in the background ── */
+(function () {
+  // FormSubmit endpoint for every form on the site. Swap the address for your FormSubmit alias to keep it out of the page source.
+  var FORM_ENDPOINT = 'https://formsubmit.co/ajax/info@zkkconsulting.com';
+  var brand = document.querySelector('footer .footer-brand');
+  if (!brand || !window.fetch) return;
+  // shareable link: any page + #leave-review opens the form, e.g. https://zkkconsulting.com/#leave-review
+  var HASH = '#leave-review';
+  var btn = document.createElement('a');
+  btn.href = HASH; btn.className = 'footer-social footer-review';
+  btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>Leave us a review';
+  var li = brand.querySelector('a.footer-social');   // sits in one row beside the LinkedIn pill
+  var row = document.createElement('div'); row.className = 'footer-pills';
+  if (li) { li.parentNode.insertBefore(row, li); row.appendChild(li); } else brand.appendChild(row);
+  row.appendChild(btn);
+  var dlg = document.createElement('dialog');
+  dlg.className = 'rv-dialog'; dlg.setAttribute('aria-labelledby', 'rvTitle');
+  dlg.innerHTML =
+    '<form class="rv-form" method="dialog" novalidate>' +
+      '<button type="button" class="rv-x" aria-label="Close">×</button>' +
+      '<h2 id="rvTitle">Leave us a review</h2>' +
+      '<p class="rv-sub">Worked with us? A sentence or two helps other teams decide.</p>' +
+      '<label><b>Your name</b><input name="name" required maxlength="60" autocomplete="name"></label>' +
+      '<label><b>Company or role <span>(optional)</span></b><input name="company" maxlength="80" autocomplete="organization"></label>' +
+      '<label><b>Your review</b><textarea name="review" required maxlength="500" rows="4"></textarea></label>' +
+      '<input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">' +
+      '<button type="submit" class="btn btn-primary">Submit review</button>' +
+      '<p class="rv-note">Reviews are checked against real engagements before we publish them. By submitting, you allow ZKK Consulting LLC to publish your review, name and company on this site.</p>' +
+    '</form>' +
+    '<div class="rv-done" hidden><h2>Thank you.</h2><p>We received your review and will check it before publishing.</p><button type="button" class="btn btn-primary rv-close">Close</button></div>';
+  document.body.appendChild(dlg);
+  var form = dlg.querySelector('form'), done = dlg.querySelector('.rv-done'), send = form.querySelector('[type="submit"]');
+  function open() { if (dlg.open) return; form.hidden = false; done.hidden = true; dlg.showModal(); }
+  function close() { dlg.close(); }
+  dlg.addEventListener('close', function () { if (location.hash === HASH && history.replaceState) history.replaceState(null, '', location.pathname + location.search); });
+  btn.addEventListener('click', function (e) { e.preventDefault(); if (history.replaceState) history.replaceState(null, '', HASH); open(); });
+  window.addEventListener('hashchange', function () { if (location.hash === HASH) open(); });
+  if (location.hash === HASH) setTimeout(open, 300);
+  dlg.querySelector('.rv-x').addEventListener('click', close);
+  dlg.querySelector('.rv-close').addEventListener('click', close);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    var data = new FormData(form);
+    data.append('_subject', 'New review submission from zkkconsulting.com');
+    data.append('_cc', 'zolomon@zkkconsulting.com,jad@zkkconsulting.com');
+    data.append('_template', 'table'); data.append('_captcha', 'false');
+    send.disabled = true; send.textContent = 'Sending…';
+    fetch(FORM_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); form.reset(); form.hidden = true; done.hidden = false; })
+      .catch(function () { alert('That did not send. Please try again, or email info@zkkconsulting.com.'); })
+      .then(function () { send.disabled = false; send.textContent = 'Submit review'; });
+  });
+})();

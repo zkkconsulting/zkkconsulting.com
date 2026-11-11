@@ -39,7 +39,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css?v=20261121x">
+  <link rel="stylesheet" href="/assets/site.css?v=20261122i">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -172,10 +172,9 @@
           <img src="/assets/logos/OncorLogo.png" width="675" height="500" style="height:60px;width:auto" alt="Oncor">
           <img src="/assets/logos/teliatryLogo.png" width="1045" height="224" style="height:34px;width:auto" alt="Teliatry">
           <img src="/assets/logos/dynamicKpisLogo.png" width="1038" height="170" style="height:34px;width:auto" alt="Dynamic KPIs">
-          <img src="/assets/logos/IEEE-logo.png" width="1024" height="340" style="height:40px;width:auto" alt="IEEE">
           <img src="/assets/logos/vyrex.png" width="670" height="261" style="height:40px;width:auto" alt="Vyrex Solutions">
         </div>
-        <div class="cred-label">Backgrounds, clients &amp; affiliations</div>
+        <div class="cred-label">Clients &amp; affiliations</div>
       </div>
     </div>
   </section>
@@ -206,16 +205,16 @@
   <section id="how" class="hs">
     <h2>How it works</h2>
     <ol class="h-steps">
-      <li><span>01</span><h3>Free call</h3><p>Tell us the decision you face.</p></li>
-      <li><span>02</span><h3>Fixed scope</h3><p>Agreed deliverables, price and date.</p></li>
-      <li><span>03</span><h3>Research</h3><p>Every figure sourced.</p></li>
-      <li><span>04</span><h3>Walkthrough</h3><p>We present it and answer questions.</p></li>
+      <li><span>01</span><h3>Free call</h3><p>A short call about the decision you face and what you need to know.</p></li>
+      <li><span>02</span><h3>Fixed scope</h3><p>We agree on deliverables, price and delivery date before work starts.</p></li>
+      <li><span>03</span><h3>Research</h3><p>We build the analysis and source every figure.</p></li>
+      <li><span>04</span><h3>Walkthrough</h3><p>We present the findings and answer your questions. One round of revisions is included.</p></li>
     </ol>
   </section>
 
   <section id="reviews" class="hs">
     <h2>What clients say</h2>
-    <div class="reviews-grid" id="reviewsGrid"></div>
+    <div class="rv-flat" id="reviewsGrid"></div>
     <div class="reviews-empty" id="reviewsEmpty" hidden></div>
   </section>
 
@@ -297,7 +296,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="/assets/site.js?v=20261121a"></script>
+  <script src="/assets/site.js?v=20261122b"></script>
   <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
   <script>
     /* ═══════════════════════════════════════════════════════════════
@@ -325,18 +324,15 @@
           grid.hidden = true;
           empty.hidden = false;
         } else {
-          if (REVIEWS.length === 1) grid.classList.add('reviews-single');
           REVIEWS.forEach(function (rv) {
-            var card = document.createElement('div');
-            card.className = 'card review-card';
+            var card = document.createElement('figure');
+            card.className = 'rv-card';
             var starHTML = '';
             if (rv.stars) {
               var n = Math.max(1, Math.min(5, rv.stars));
               starHTML = '<div class="review-stars" aria-label="' + n + ' out of 5 stars">' + '\u2605\u2605\u2605\u2605\u2605'.slice(0, n) + '</div>';
             }
-            card.innerHTML = starHTML +
-              '<p class="review-text"></p>' +
-              '<div class="review-author"><strong></strong><span></span></div>';
+            card.innerHTML = starHTML + '<blockquote class="review-text"></blockquote><figcaption class="review-author"><strong></strong><span></span></figcaption>';
             card.querySelector('.review-text').textContent = rv.text;
             card.querySelector('.review-author strong').textContent = rv.name;
             if (rv.company) card.querySelector('.review-author span').textContent = ' \u00b7 ' + rv.company;
