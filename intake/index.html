@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css?v=20261116e">
+  <link rel="stylesheet" href="/assets/site.css?v=20261117a">
   
   <style>
     .intake-layout { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; max-width: 1040px; margin: 0 auto; align-items: start; }
@@ -424,12 +424,12 @@
               <label for="fPackage">Which service or package looks closest?</label>
               <select id="fPackage" name="desired_package" required>
                 <option value="" disabled selected>Select one&hellip;</option>
-                <option>Launchpad ($3,499)</option>
-                <option>Growth ($5,499)</option>
-                <option>Comprehensive ($9,999)</option>
-                <option>Patent Landscape Research ($2,999)</option>
-                <option>Launchpad + Patent bundle ($5,999)</option>
-                <option>Growth + Patent bundle ($7,999)</option>
+                <option>Launchpad ($2,500)</option>
+                <option>Growth ($4,500)</option>
+                <option>Comprehensive ($7,500)</option>
+                <option>Patent Landscape Research ($2,000)</option>
+                <option>Market + Patent Bundle ($3,999)</option>
+                <option>Investor Readiness Bundle ($5,750)</option>
                 <option>Document formatting only</option>
                 <option>Custom scope, something outside the packages</option>
                 <option>Not sure yet, help me pick</option>
@@ -699,8 +699,8 @@
         growth: 'Growth',
         enterprise: 'Comprehensive',
         patent: 'Patent Landscape Research',
-        'bundle-market-patent': 'Launchpad + Patent bundle',
-        'bundle-investor': 'Growth + Patent bundle',
+        'bundle-market-patent': 'Market + Patent Bundle',
+        'bundle-investor': 'Investor Readiness Bundle',
         formatting: 'Document formatting only'
       };
       var wanted = pkgMap[(params.get('package') || '').toLowerCase()];
