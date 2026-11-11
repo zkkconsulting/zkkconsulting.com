@@ -2848,3 +2848,10 @@ main > section:not(.page-hero):not(.bp-hero):not(.hero-paper):not(#tour):not(.ct
 .pf-panel .skill-chip { background: #fff !important; box-shadow: 0 8px 22px rgba(13,22,18,.06); }
 /* Home: video dimmed further */
 .hero-paper .hero-vid { opacity: .32 !important; filter: grayscale(.95) contrast(.75) brightness(1.05) !important; }
+/* Floating dots behind every content section (the profiles carry their own) */
+main > section:not(.page-hero):not(.bp-hero):not(.hero-paper):not(#tour):not(#samples) {
+  background-image: radial-gradient(circle, rgba(11,74,50,.2) 0 2px, transparent 2.5px), radial-gradient(circle, rgba(197,139,42,.26) 0 1.5px, transparent 2px), radial-gradient(circle, rgba(127,140,133,.22) 0 3px, transparent 3.5px) !important;
+  background-size: 180px 180px, 260px 260px, 340px 340px !important; background-position: 0 0, 90px 130px, 40px 60px;
+  animation: dots-drift 80s linear infinite; }
+@keyframes dots-drift { to { background-position: 180px 240px, 350px 390px, -300px 400px; } }
+@media (prefers-reduced-motion: reduce) { main > section { animation: none !important; } }
