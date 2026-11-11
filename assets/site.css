@@ -3166,3 +3166,16 @@ nav#nav .nav-links a:not(.nav-cta)::after { top: calc(50% + .85em); bottom: auto
   :root body .mobile-menu.open .mobile-link.is-cta span::before { transform: rotate(-1.6deg) skewX(-8deg) scaleX(1); }
 }
 @media (max-width: 860px) and (prefers-reduced-motion: reduce) { :root body .mobile-menu .mobile-link.is-cta span::before { transition: none; } }
+/* Phone menu CTA: formal, straight highlighter in caps */
+@media (max-width: 860px) {
+  :root body .mobile-menu .mobile-link.is-cta span { font-style: normal; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; font-size: .9rem; padding: .3em .55em; }
+  :root body .mobile-menu .mobile-link.is-cta span::before { inset: .12em 0 .08em 0; background: #f2d35a; border-radius: 2px; transform: scaleX(0); }
+  :root body .mobile-menu.open .mobile-link.is-cta span::before { transform: scaleX(1); }
+}
+/* Desktop Book a Call: white, and a highlighter swipes in behind the words on hover */
+@media (min-width: 861px) {
+  nav#nav .nav-cta, nav#nav .nav-cta:hover { position: relative; isolation: isolate; background: #fff !important; color: #000 !important; padding: .5em .9em !important; border-radius: 6px !important; }
+  nav#nav .nav-cta::before { content: ""; position: absolute; z-index: -1; inset: .32em .45em .3em .4em; background: #f2d35a;
+    border-radius: .45em .15em .4em .12em / .25em .45em .2em .5em; transform: rotate(-1.4deg) skewX(-8deg) scaleX(0); transform-origin: left center; transition: transform .35s cubic-bezier(.3,.9,.3,1); }
+  nav#nav .nav-cta:hover::before, nav#nav .nav-cta:focus-visible::before { transform: rotate(-1.4deg) skewX(-8deg) scaleX(1); }
+}
