@@ -178,3 +178,17 @@ body.in-tour .tour-stage { cursor: pointer; }
 .tour-how li { grid-template-columns: 12.5rem 1fr; }
 .tour-how li .k { flex-wrap: nowrap; }
 @media (max-width: 860px) { .tour-how li { grid-template-columns: 7rem 1fr; } .tour-how li .k { flex-wrap: wrap; } }
+/* "real": more room on the right for the italic lean */
+.tour-intro h1 mark.hl { padding: 0 .34em 0 .1em !important; margin: 0 .04em 0 0 !important; }
+/* Play: headline and button fade up and out, then the description and each control row fade in one after another */
+.tour-intro h1, .tour-intro-foot { transition: opacity .3s ease, transform .3s ease; }
+.tour.is-starting .tour-intro h1, .tour.is-starting .tour-intro-foot { opacity: 0; transform: translateY(-10px); pointer-events: none; }
+.tour.is-playing .tour-guide { animation: none; }
+.tour.is-playing .tour-desc, .tour.is-playing .tour-how li { animation: tourGuideIn .55s cubic-bezier(.2,.8,.2,1) both; }
+.tour.is-playing .tour-how { animation: tourLineIn .55s ease both .1s; }
+.tour.is-playing .tour-how li:nth-child(1) { animation-delay: .12s; }
+.tour.is-playing .tour-how li:nth-child(2) { animation-delay: .2s; }
+.tour.is-playing .tour-how li:nth-child(3) { animation-delay: .28s; }
+@keyframes tourGuideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes tourLineIn { from { border-top-color: transparent; } }
+@media (prefers-reduced-motion: reduce) { .tour.is-playing .tour-desc, .tour.is-playing .tour-how li, .tour.is-playing .tour-how { animation: none; } .tour-intro h1, .tour-intro-foot { transition: none; } }

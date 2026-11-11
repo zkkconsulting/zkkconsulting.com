@@ -187,7 +187,8 @@
   }
   // Keys: Escape leaves the walkthrough on its finished state; back keys step back; any other key steps forward.
   // Closing (Esc, Skip, or past the last page) puts the walkthrough back on its cover, ready to play again.
-  function reset() { armed = false; unlock(); if (step) step.kill(); busy = false; tl.progress(0); idx = -1; root.classList.remove('is-playing'); }
+  var swap = 0;
+  function reset() { clearTimeout(swap); root.classList.remove('is-starting'); armed = false; unlock(); if (step) step.kill(); busy = false; tl.progress(0); idx = -1; root.classList.remove('is-playing'); }
   var BACK = ['ArrowUp', 'ArrowLeft', 'PageUp', 'Backspace'];
   var IGNORE = /^(Tab|Shift|Control|Alt|Meta|CapsLock|Fn|ContextMenu|F\d{1,2}|Unidentified)$/;
   addEventListener('keydown', function (e) {
@@ -211,9 +212,10 @@
   root.querySelectorAll('.tour-play').forEach(function (b) {
     b.addEventListener('click', function () {
       reset();
-      root.classList.add('is-playing');   // the intro swaps to the description and how to move through the report
       armed = true;
       lock(pin.start + 1);
+      root.classList.add('is-starting');   // headline and button fade out first, then the guide fades in
+      swap = setTimeout(function () { root.classList.remove('is-starting'); root.classList.add('is-playing'); }, 320);
     });
   });
   addEventListener('load', function () { ScrollTrigger.refresh(); });
