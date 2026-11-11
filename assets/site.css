@@ -3192,3 +3192,12 @@ nav#nav .nav-links a:not(.nav-cta)::after { top: calc(50% + .85em); bottom: auto
 .rg-links a { display: flex; justify-content: space-between; gap: .8rem; padding: .45rem 0; color: #0d1612; text-decoration: none; font-size: .94rem; font-weight: 500; }
 .rg-links li:first-child a { color: #0b6b45; font-weight: 600; }
 .rg-links a:hover { color: #0b4a32; text-decoration: underline; text-underline-offset: 3px; }
+:root body main section .rg-grid { max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; }
+/* Scroll hint: the next section's rounded top edge peeks 22px into the bottom of every full-screen hero, with nothing inside it showing */
+:root body main > :is(section.bp-hero, section.hero-paper) { min-height: 100vh !important; min-height: 100svh !important; }
+:root body main > :is(section.bp-hero, section.hero-paper) + :is(section, div) { position: relative !important; z-index: 3 !important; margin-top: -22px !important; border-radius: 22px 22px 0 0 !important; overflow: hidden; }
+:root body main > :is(section.bp-hero, section.hero-paper) + :is(section, div) > svg.bg-paths { clip-path: inset(22px 0 0 0); }
+:root body main > section.bp-hero + .legal-intro { margin-top: 2.6rem !important; border-radius: 0 !important; overflow: visible; }
+:root body main > section.bp-hero + .legal-intro::before { content: ""; position: absolute; left: 50%; transform: translateX(-50%); width: 100vw; top: calc(-2.6rem - 22px); height: 22px; background: #f6f7f6; border-radius: 22px 22px 0 0; }
+:root body main > section.team-hero ~ .pf-panel { position: relative !important; z-index: 3 !important; margin-top: -22px !important; border-radius: 22px 22px 0 0 !important; }
+:root body main:has(> .team-hero):not(:has(> .pf-panel:not([hidden]))) + footer.site-footer { position: relative; z-index: 3; margin-top: -22px; border-radius: 22px 22px 0 0; }

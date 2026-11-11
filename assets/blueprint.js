@@ -2,7 +2,7 @@
    <div data-blueprint data-preset="device"></div>                  framed 9:16 loop
    <div data-blueprint data-mode="hero" data-preset="bars"></div>  full-bleed hero background: the drawing
         holds its place while the whole look jump-cuts between themes, like the home page's match cut.
-   Presets: device, bars, funnel, patent, matrix, stack, people, question, envelope, referral, shield.
+   Presets: device, bars, funnel, patent, matrix, stack, research, people, question, envelope, referral, shield.
    Edit CONFIG for colors, timing and the theme sequence; edit PRESETS for the drawings and their labels. */
 (function () {
   var CONFIG = {
@@ -94,6 +94,17 @@
         "<rect x='272' y='668' width='276' height='54' rx='4' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" + R(272, 668, 276, 54, 4, 's5', 'dm') +
         P('M520 400V500L540 485L560 500V400', 's6', 'ln', 1.8) +
         L('548,695 640,695 720,640') + T(730, 647, 'KEY POINT') + T(240, 1060, 'GUIDE', 18, 'start');
+    },
+    research: function () {   // research and guides: a guide page and a target with an arrow in the bullseye
+      return P('M170 560L410 530L450 1000L210 1030Z', 's1', 'hd') +
+        R(120, 520, 280, 470, 8, 's2', 'ln', 2.4) + P('M150 580H350M150 610H310', 's3', 'ln', 1.8) +
+        F(P('M150 670H370M150 700H370M150 730H330M150 830H370M150 860H370M150 890H300', 'x', 'hd'), 's3') +
+        "<rect x='142' y='760' width='236' height='44' rx='4' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" + R(142, 760, 236, 44, 4, 's3', 'dm') +
+        C(640, 720, 170, 's4', 'ln', 2.2) + C(640, 720, 115, 's4', 'ln', 2) + C(640, 720, 60, 's5', 'ln', 2) + C(640, 720, 16, 's5', 'ln', 2.6) +
+        "<circle cx='640' cy='720' r='16' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        F(P('M600 885L560 1060M680 885L720 1060', 'x', 'hd'), 's5') +
+        P('M440 920L634 726', 's6', 'ln', 2.4) + P('M634 726L604 732M634 726L628 756', 's6', 'ln', 2.4) +
+        P('M440 920L412 920M440 920L440 948M454 906L426 906M454 906L454 934', 's6', 'ln', 1.8);
     },
     people: function () {   // team: two founders
       return C(330, 640, 90, 's1', 'ln', 2.4) + P('M190 930Q190 770 330 770Q470 770 470 930', 's2', 'ln', 2.2) +
