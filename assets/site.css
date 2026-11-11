@@ -2950,3 +2950,13 @@ body.light-pg main > section.alt:not(.cta-band):not(.tone-green), body.light-pg 
 }
 /* Bundle lines: what is inside, under the name */
 .pz-bundles li small { display: block; font-size: .82rem; color: #5a665f; font-weight: 400; margin-top: .2rem; }
+
+/* No overlap card under heroes: the next section starts cleanly below, nothing peeks or overlaps */
+:root body main > :is(section.bp-hero, section.hero-paper) + :is(section, div) { margin-top: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+/* Phones: heroes fill the whole screen, including behind Safari's toolbars */
+@media (max-width: 760px) {
+  :root body main > section.bp-hero, :root body.home .page-hero.hero-paper { min-height: 100vh !important; min-height: 100lvh !important; }
+  :root body .hero-paper .cred-label { font-size: .58rem !important; letter-spacing: .12em; }
+}
+/* Dark heroes: the black primary button needs a clear edge so it reads as the main action */
+:root body section.bp-hero .hero-ctas .btn-primary { border-color: rgba(255,255,255,.62) !important; }

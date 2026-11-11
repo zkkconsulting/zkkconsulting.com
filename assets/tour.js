@@ -61,7 +61,11 @@
   tl.addLabel('s-1', 0);
   gsap.set(book, {
     x: function () { return narrow() ? 0 : innerWidth * .2; },
-    y: function () { return narrow() ? innerHeight * .17 : innerHeight * .04; },
+    y: function () {   // on phones, start the page just below the intro text (short Safari viewports used to overlap)
+      if (!narrow()) return innerHeight * .04;
+      var top = book.offsetTop + H * (1 - .72) / 2, ib = intro.offsetTop + intro.offsetHeight;
+      return Math.max(innerHeight * .17, ib + 28 - top);
+    },
     scale: function () { return narrow() ? .72 : .82; },
     transformOrigin: '50% 50%'   // upright beside the title, no tilt
   });
