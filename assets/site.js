@@ -235,7 +235,7 @@
 /* ── Quiet scroll reveal (new components only): fade and rise once, staggered within a group ── */
 (function () {
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var groups = ['.h-tiles > *', '.h-prices > *', '.h-steps > *', '.h-people > *', '.pz-grid > *', '.pz-caps > *', '.pz-terms > *', '.smp-grid > *',
+  var groups = ['.h-tiles > *', '.h-prices > *', '.h-steps > *', '.h-people > *', '.pz-grid > *', '.pz-caps > *', '.pz-terms > *', '.smp-grid > *', '.tm-grid > *', '.ig-grid > *', '.ig-list > *', '.pz-bundles > *', '.ig-feature',
                 'section.hs > h2', '.h-patent', '.pz-patent', '.pz-table', '.smp-sec > h2', '.pz-sec > h2'];
   var els = document.querySelectorAll(groups.join(','));
   if (!els.length) return;
