@@ -1,107 +1,165 @@
-/* Blueprint reveal of the Vyrex fall-detection device, drawn part by part.
-   <div data-blueprint></div>                  framed 9:16 loop (blueprint blue)
-   <div data-blueprint data-mode="hero"></div>  full-bleed hero background: the device holds its place
-                                                while the whole look jump-cuts between themes, like a match cut.
-   Edit CONFIG to change text, colors and timing. Times are seconds within the loop. */
+/* Line-drawing heroes. Each drawing builds part by part in thin strokes, then a scan passes over it.
+   <div data-blueprint data-preset="device"></div>                  framed 9:16 loop
+   <div data-blueprint data-mode="hero" data-preset="bars"></div>  full-bleed hero background: the drawing
+        holds its place while the whole look jump-cuts between themes, like the home page's match cut.
+   Presets: device, bars, funnel, patent, matrix, stack, people, question, envelope, referral, shield.
+   Edit CONFIG for colors, timing and the theme sequence; edit PRESETS for the drawings and their labels. */
 (function () {
   var CONFIG = {
     duration: 6,
-    text: {
-      title: 'VYREX  FD-01', note: 'Illustrative dimensions',
-      w: '22 mm', h: '39 mm', t: '11 mm',
-      parts: { mcu: 'ESP32-C3', imu: 'IMU', cell: 'Li-Po', motor: 'Haptic', usb: 'USB-C' }
-    },
-    // themes: [background, grid minor, grid major, lines, hidden lines, dimensions, labels, accent]
-    themes: {
+    themes: {   // background, grid minor, grid major, lines, hidden lines, dimensions, labels, accent
       blue:  ['#0a1f3d', 'rgba(125,175,255,.08)', 'rgba(125,175,255,.18)', '#eef4ff', 'rgba(238,244,255,.6)', '#8fd3ff', '#cfe6ff', '#7fd3ff'],
       green: ['#071a12', 'rgba(127,224,184,.07)', 'rgba(127,224,184,.16)', '#f2d35a', 'rgba(242,211,90,.55)', '#7fe0b8', '#d9efe4', '#f2d35a'],
       ink:   ['#0b0f0d', 'rgba(255,255,255,.05)', 'rgba(255,255,255,.12)', '#ffffff', 'rgba(255,255,255,.5)', '#bfc8c3', '#e6ebe8', '#f2d35a']
     },
-    heroCuts: ['blue', 'green', 'ink', 'blue', 'green', 'ink'],   // one theme per cut, spread evenly over the loop
-    t: {
-      grid: [0, .6], body: [.3, 1.4], wall: [1.0, 1.6], pcb: [1.3, 1.9], mcu: [1.6, 2.3], imu: [1.9, 2.4], cell: [2.1, 2.7],
-      motor: [2.3, 2.8], drv: [2.5, 2.9], usb: [2.6, 3.0], btn: [2.7, 3.1], side: [2.9, 3.6], dims: [3.2, 3.9], labels: [3.5, 4.1],
-      scan: [3.7, 4.8], done: [4.6, 5.2], out: [5.5, 6.0]
+    heroCuts: ['blue', 'green', 'ink', 'blue', 'green', 'ink'],
+    t: { grid: [0, .6], s1: [.3, 1.3], s2: [.9, 1.8], s3: [1.4, 2.3], s4: [1.9, 2.8], s5: [2.4, 3.2], s6: [2.8, 3.6],
+         dims: [3.2, 3.9], labels: [3.5, 4.1], scan: [3.7, 4.8], done: [4.6, 5.2], out: [5.5, 6.0] }
+  };
+  var NS = 'http://www.w3.org/2000/svg', V = ['--bp-bg', '--bp-g1', '--bp-g2', '--bp-ln', '--bp-hd', '--bp-dm', '--bp-lb', '--bp-ac'];
+  var MONO = "font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'";
+
+  // drawing helpers: k is the stage key that reveals the element
+  function st(kind, w) { return kind === 'hd' ? 'stroke:var(--bp-hd);stroke-width:1.3;fill:none' : kind === 'dm' ? 'stroke:var(--bp-dm);stroke-width:1.3;fill:none' : 'stroke:var(--bp-ln);stroke-width:' + (w || 2) + ';fill:none'; }
+  function P(d, k, kind, w, extra) { return "<path d='" + d + "' style='" + st(kind, w) + "' data-d='" + k + "' " + (extra || '') + "/>"; }
+  function R(x, y, w, h, rx, k, kind, sw, extra) { return "<rect x='" + x + "' y='" + y + "' width='" + w + "' height='" + h + "' rx='" + (rx || 0) + "' style='" + st(kind, sw) + "' data-d='" + k + "' " + (extra || '') + "/>"; }
+  function C(cx, cy, r, k, kind, sw) { return "<circle cx='" + cx + "' cy='" + cy + "' r='" + r + "' style='" + st(kind, sw) + "' data-d='" + k + "'/>"; }
+  function F(inner, k) { return "<g data-f='" + k + "'>" + inner + "</g>"; }   // faded in, for dashed or filled parts
+  function T(x, y, s, size, anchor, k, col) { return "<text " + MONO + " x='" + x + "' y='" + y + "' font-size='" + (size || 20) + "' letter-spacing='2' text-anchor='" + (anchor || 'start') + "' style='fill:var(" + (col || '--bp-lb') + ")' data-f='" + (k || 'labels') + "'>" + s + "</text>"; }
+  function L(pts) { return "<polyline points='" + pts + "' style='" + st('dm') + "' data-d='labels'/>"; }
+  function D(d) { return P(d, 'dims', 'dm'); }
+
+  var PRESETS = {
+    device: function () {   // Vyrex fall-detection device: ESP32-C3, IMU, Li-Po, haptic driver, USB-C
+      return R(250, 330, 400, 740, 150, 's1', 'ln', 2.6) + "<rect x='250' y='330' width='400' height='740' rx='150' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        F(R(275, 355, 350, 690, 128, 'x', 'hd', 0, "stroke-dasharray='10 7'"), 's2') + R(300, 430, 300, 470, 40, 's2', 'hd') +
+        R(330, 455, 150, 170, 8, 's3', 'ln', 1.8) + P('M345 492v-18h20v18h20v-18h20v18h20v-18h20v18h10', 's3', 'hd') + R(342, 508, 126, 104, 4, 's3', 'hd') +
+        R(515, 480, 56, 56, 4, 's3', 'ln', 1.8) + P('M523 480v-8M535 480v-8M547 480v-8M559 480v-8M523 544v-8M535 544v-8M547 544v-8M559 544v-8', 's3', 'hd') +
+        R(505, 568, 44, 30, 3, 's4', 'hd') + F(R(312, 655, 276, 228, 18, 'x', 'ln', 1.6, "stroke-dasharray='14 6'"), 's4') +
+        C(522, 792, 46, 's4', 'ln', 1.8) + C(522, 792, 18, 's4', 'hd') + R(372, 780, 36, 26, 3, 's5', 'ln', 1.6) + P('M420 793h16l10-9v18l-10-9M446 784v18', 's5', 'hd') +
+        "<rect x='405' y='1050' width='90' height='34' rx='16' style='fill:var(--bp-bg);stroke:var(--bp-ln);stroke-width:2' data-d='s5'/>" +
+        "<rect x='642' y='600' width='18' height='96' rx='9' style='fill:var(--bp-bg);stroke:var(--bp-ln);stroke-width:2' data-d='s5'/>" +
+        R(250, 1190, 400, 110, 46, 's6', 'ln', 2.2) + F(P('M282 1226H618M282 1262H618', 'x', 'hd', 0, "stroke-dasharray='8 6'"), 's6') +
+        D('M250 318V270M650 318V270M250 290H650M250 284v12M650 284v12') + T(450, 262, '22 mm', 20, 'middle', 'dims', '--bp-dm') +
+        D('M662 330H742M662 1070H742M722 330V1070M716 330h12M716 1070h12') +
+        "<text " + MONO + " x='0' y='0' font-size='20' letter-spacing='2' text-anchor='middle' transform='translate(752 700) rotate(90)' style='fill:var(--bp-dm)' data-f='dims'>39 mm</text>" +
+        D('M662 1190H742M662 1300H742M722 1190V1300M716 1190h12M716 1300h12') + T(738, 1252, '11 mm', 20, 'start', 'dims', '--bp-dm') +
+        L('330,520 230,500 200,500') + T(60, 507, 'ESP32-C3') + L('312,840 230,880 200,880') + T(60, 887, 'Li-Po') +
+        L('571,498 600,440 780,440') + T(790, 447, 'IMU') + L('566,808 600,880 780,880') + T(790, 887, 'Haptic') + L('450,1084 450,1130 520,1150') + T(530, 1157, 'USB-C');
+    },
+    bars: function () {   // pricing: the three packages to scale ($3,499 / $5,499 / $9,999)
+      return P('M200 1150V420M200 1150H720', 's1', 'ln', 2.4) + F(P('M200 950H720M200 750H720M200 550H720', 'x', 'hd', 0, "stroke-dasharray='6 8'"), 's1') +
+        R(250, 940, 110, 210, 6, 's2', 'ln', 2) + R(410, 820, 110, 330, 6, 's3', 'ln', 2) + R(570, 550, 110, 600, 6, 's4', 'ln', 2) +
+        "<rect x='570' y='550' width='110' height='600' rx='6' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        P('M305 930L465 810L625 540', 's5', 'dm') + C(305, 930, 6, 's5', 'dm') + C(465, 810, 6, 's5', 'dm') + C(625, 540, 6, 's5', 'dm') +
+        P('M600 380h120l40 40-40 40H600z', 's6', 'ln', 2) + C(622, 420, 8, 's6', 'hd') +
+        T(305, 915, '$3,499', 20, 'middle', 'labels', '--bp-lb') + T(465, 795, '$5,499', 20, 'middle') + T(625, 520, '$9,999', 20, 'middle') +
+        T(305, 1190, 'LAUNCHPAD', 14, 'middle') + T(465, 1190, 'GROWTH', 14, 'middle') + T(625, 1190, 'COMPREHENSIVE', 13, 'middle') + T(690, 428, 'FIXED', 16, 'middle', 'labels', '--bp-ac') +
+        D('M180 420V1150M174 420h12M174 1150h12');
+    },
+    funnel: function () {   // market sizing: TAM, SAM, SOM
+      return C(450, 760, 330, 's1', 'ln', 2.2) + C(450, 760, 220, 's2', 'ln', 2) + C(450, 760, 110, 's3', 'ln', 2) +
+        "<circle cx='450' cy='760' r='110' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        F(P('M90 760H810M450 400V1120', 'x', 'hd', 0, "stroke-dasharray='6 8'"), 's4') +
+        C(420, 730, 7, 's5', 'dm') + C(480, 745, 7, 's5', 'dm') + C(440, 795, 7, 's5', 'dm') + C(500, 790, 7, 's5', 'dm') + C(455, 700, 7, 's5', 'dm') +
+        D('M450 760L683 527') + D('M450 760L606 916') + T(560, 625, 'r', 18, 'middle', 'dims', '--bp-dm') +
+        L('450,430 450,380 560,380') + T(570, 387, 'TAM') + L('300,620 230,560 140,560') + T(60, 567, 'SAM') + L('450,870 450,940 300,1180') + T(300, 1210, 'SOM', 20, 'middle');
+    },
+    patent: function () {   // patent landscape: a patent sheet and its citation network
+      return P('M230 330H600L670 400V930H230Z', 's1', 'ln', 2.4) + P('M600 330V400H670', 's1', 'ln', 1.6) +
+        P('M270 390H520M270 420H460', 's2', 'ln', 1.8) + F(P('M270 480H630M270 510H630M270 540H600M270 600H630M270 630H630M270 660H560', 'x', 'hd'), 's3') +
+        R(300, 720, 140, 140, 10, 's4', 'ln', 1.6) + C(530, 790, 50, 's4', 'ln', 1.6) + P('M440 790H480', 's4', 'hd') +
+        "<path d='M230 330H600L670 400V930H230Z' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        P('M450 930V1040M450 1040L250 1130M450 1040L450 1180M450 1040L650 1130M450 1180L350 1290M450 1180L550 1290', 's5', 'dm') +
+        C(250, 1130, 22, 's5', 'ln', 1.6) + C(450, 1180, 22, 's5', 'ln', 1.6) + C(650, 1130, 22, 's5', 'ln', 1.6) + C(350, 1290, 18, 's6', 'hd') + C(550, 1290, 18, 's6', 'hd') +
+        L('630,600 700,560 780,560') + T(790, 567, 'CLAIM 1') + L('370,860 370,960 200,960') + T(60, 967, 'FIG. 1') + T(450, 1350, 'CITED BY', 18, 'middle');
+    },
+    matrix: function () {   // competitive landscape: a positioning matrix with an open quadrant
+      return P('M200 800H700M450 550V1050', 's1', 'ln', 2.2) + F(R(200, 550, 500, 500, 0, 'x', 'hd', 0, "stroke-dasharray='8 8'"), 's2') +
+        C(300, 640, 16, 's3', 'ln') + C(370, 700, 16, 's3', 'ln') + C(310, 900, 16, 's3', 'ln') + C(560, 960, 16, 's3', 'ln') + C(390, 980, 16, 's3', 'ln') +
+        C(590, 660, 22, 's4', 'ln', 2.6) + C(590, 660, 40, 's4', 'dm') +
+        "<circle cx='590' cy='660' r='22' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        P('M470 820Q520 740 572 678', 's5', 'dm') + P('M556 690L572 678L566 698', 's5', 'dm') +
+        T(700, 840, 'FEATURES', 16, 'end') + T(470, 540, 'PRICE', 16, 'start') + T(590, 610, 'OPEN SPACE', 16, 'middle', 'labels', '--bp-ac') + T(300, 600, 'INCUMBENTS', 16, 'middle');
+    },
+    stack: function () {   // guides: a stack of pages, one open with a highlight
+      return P('M290 470L590 430L640 1010L340 1050Z', 's1', 'hd') + P('M260 440L560 420L590 1000L290 1020Z', 's2', 'hd') +
+        R(240, 400, 340, 600, 8, 's3', 'ln', 2.4) +
+        P('M280 470H520M280 500H470', 's4', 'ln', 1.8) + F(P('M280 560H540M280 590H540M280 620H500M280 680H540M280 710H540M280 740H460M280 800H540M280 830H520', 'x', 'hd'), 's4') +
+        "<rect x='272' y='668' width='276' height='54' rx='4' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" + R(272, 668, 276, 54, 4, 's5', 'dm') +
+        P('M520 400V500L540 485L560 500V400', 's6', 'ln', 1.8) +
+        L('548,695 640,695 720,640') + T(730, 647, 'KEY POINT') + T(240, 1060, 'GUIDE', 18, 'start');
+    },
+    people: function () {   // team: two founders
+      return C(330, 640, 90, 's1', 'ln', 2.4) + P('M190 930Q190 770 330 770Q470 770 470 930', 's2', 'ln', 2.2) +
+        C(570, 640, 90, 's3', 'ln', 2.4) + P('M430 930Q430 770 570 770Q710 770 710 930', 's4', 'ln', 2.2) +
+        P('M160 960H740', 's5', 'ln', 1.8) + F(P('M330 560V720M570 560V720', 'x', 'hd', 0, "stroke-dasharray='6 6'"), 's5') +
+        P('M330 1010H570', 's6', 'dm') + C(450, 1010, 8, 's6', 'dm') +
+        "<circle cx='450' cy='1010' r='8' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        T(330, 1060, 'FOUNDER', 16, 'middle') + T(570, 1060, 'CO-FOUNDER', 16, 'middle');
+    },
+    question: function () {   // FAQ: a question mark built on construction lines
+      return F(C(450, 620, 180, 'x', 'hd'), 's1') + P('M300 620A150 150 0 1 1 520 760Q450 800 450 880V960', 's2', 'ln', 3) +
+        C(450, 1060, 22, 's3', 'ln', 3) + "<circle cx='450' cy='1060' r='22' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        F(P('M270 620H630M450 440V800', 'x', 'hd', 0, "stroke-dasharray='6 8'"), 's4') + D('M450 620L577 493') + T(530, 540, 'r', 18, 'middle', 'dims', '--bp-dm') +
+        T(450, 1160, 'ASK US', 18, 'middle');
+    },
+    envelope: function () {   // contact: a letter on its way
+      return R(220, 560, 460, 320, 10, 's1', 'ln', 2.4) + P('M220 570L450 740L680 570', 's2', 'ln', 2) +
+        R(270, 420, 360, 220, 6, 's3', 'ln', 1.8) + F(P('M300 460H560M300 490H600M300 520H520', 'x', 'hd'), 's4') +
+        R(590, 590, 60, 70, 4, 's5', 'dm') + P('M680 520Q780 420 760 300', 's6', 'dm') + P('M748 318L760 300L776 316', 's6', 'dm') +
+        "<rect x='220' y='560' width='460' height='320' rx='10' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        T(450, 940, 'FREE CONSULTATION', 18, 'middle');
+    },
+    referral: function () {   // referrals: one introduction leads to the next
+      return R(170, 560, 240, 170, 8, 's1', 'ln', 2.2) + P('M170 566L290 650L410 566', 's2', 'ln', 1.8) +
+        R(490, 760, 240, 170, 8, 's3', 'ln', 2.2) + P('M490 766L610 850L730 766', 's4', 'ln', 1.8) +
+        P('M410 650Q500 640 520 750', 's5', 'dm') + P('M506 736L520 752L532 734', 's5', 'dm') +
+        R(560, 520, 140, 70, 35, 's6', 'ln', 2) + "<rect x='560' y='520' width='140' height='70' rx='35' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        T(630, 563, '15%', 22, 'middle', 'labels', '--bp-ac') + T(290, 780, 'YOU', 16, 'middle') + T(610, 980, 'THEM', 16, 'middle');
+    },
+    shield: function () {   // legal: plain terms
+      return P('M450 420L680 500V720Q680 940 450 1040Q220 940 220 720V500Z', 's1', 'ln', 2.6) +
+        F(P('M450 470L630 535V720Q630 900 450 985Q270 900 270 720V535Z', 'x', 'hd', 0, "stroke-dasharray='10 7'"), 's2') +
+        P('M360 730L425 795L550 650', 's3', 'ln', 3) +
+        "<path d='M450 420L680 500V720Q680 940 450 1040Q220 940 220 720V500Z' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
+        F(P('M740 560H840M740 600H840M740 640H810', 'x', 'hd'), 's4') + T(450, 1110, 'PLAIN TERMS', 18, 'middle');
     }
   };
-  var NS = 'http://www.w3.org/2000/svg', T = CONFIG.text;
-  var V = ['--bp-bg', '--bp-g1', '--bp-g2', '--bp-ln', '--bp-hd', '--bp-dm', '--bp-lb', '--bp-ac'];
 
-  function markup(uid, hero) {
+  function markup(uid, hero, preset) {
     var x0 = hero ? -1500 : 0, W = hero ? 2400 : 900;
-    var mono = "font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'";
-    var ln = function (w) { return "style='stroke:var(--bp-ln);stroke-width:" + (w || 2) + ";fill:none'"; };
-    var hd = "style='stroke:var(--bp-hd);stroke-width:1.3;fill:none'";
-    var dm = "style='stroke:var(--bp-dm);stroke-width:1.3;fill:none'";
-    var txt = function (x, y, s, size, anchor, key, col) { return "<text " + mono + " x='" + x + "' y='" + y + "' font-size='" + size + "' letter-spacing='2' text-anchor='" + (anchor || 'start') + "' style='fill:var(" + (col || '--bp-lb') + ")' data-f='" + key + "'>" + s + "</text>"; };
-    var lead = function (pts) { return "<polyline points='" + pts + "' " + dm + " data-d='labels'/>"; };
+    var draw = (PRESETS[preset] || PRESETS.device)();
     return "<defs>" +
       "<pattern id='g" + uid + "' width='20' height='20' patternUnits='userSpaceOnUse'><path d='M20 0H0V20' style='fill:none;stroke:var(--bp-g1)'/></pattern>" +
       "<pattern id='G" + uid + "' width='100' height='100' patternUnits='userSpaceOnUse'><rect width='100' height='100' fill='url(#g" + uid + ")'/><path d='M100 0H0V100' style='fill:none;stroke:var(--bp-g2);stroke-width:1.2'/></pattern>" +
       "<linearGradient id='s" + uid + "' x1='0' y1='0' x2='0' y2='1'><stop offset='0' style='stop-color:var(--bp-ac)' stop-opacity='0'/><stop offset='.85' style='stop-color:var(--bp-ac)' stop-opacity='.2'/><stop offset='1' style='stop-color:var(--bp-ac)' stop-opacity='.65'/></linearGradient>" +
       "</defs>" +
-      "<rect x='" + x0 + "' width='" + W + "' height='1600' style='fill:var(--bp-bg)'/>" +
-      "<rect x='" + x0 + "' width='" + W + "' height='1600' fill='url(#G" + uid + ")' data-f='grid'/>" +
-      "<g data-loop>" +
-      (hero ? '' : txt(60, 110, T.title, 28, 'start', 'grid', '--bp-ln') + txt(60, 1550, T.note, 16, 'start', 'labels')) +
-      // enclosure, wall, board
-      "<rect x='250' y='330' width='400' height='740' rx='150' " + ln(2.6) + " data-d='body'/>" +
-      "<rect x='250' y='330' width='400' height='740' rx='150' style='fill:var(--bp-ac);fill-opacity:0' data-done/>" +
-      "<rect x='275' y='355' width='350' height='690' rx='128' " + hd + " stroke-dasharray='10 7' data-f='wall'/>" +
-      "<rect x='300' y='430' width='300' height='470' rx='40' " + hd + " data-d='pcb'/>" +
-      // ESP32-C3 module with antenna and shield
-      "<rect x='330' y='455' width='150' height='170' rx='8' " + ln(1.8) + " data-d='mcu'/>" +
-      "<path d='M345 492v-18h20v18h20v-18h20v18h20v-18h20v18h10' " + hd + " data-d='mcu'/>" +
-      "<rect x='342' y='508' width='126' height='104' rx='4' " + hd + " data-d='mcu'/>" +
-      // IMU
-      "<rect x='515' y='480' width='56' height='56' rx='4' " + ln(1.8) + " data-d='imu'/>" +
-      "<path d='M523 480v-8M535 480v-8M547 480v-8M559 480v-8M523 544v-8M535 544v-8M547 544v-8M559 544v-8' " + hd + " data-d='imu'/>" +
-      // charge IC and Li-Po cell under the board
-      "<rect x='505' y='568' width='44' height='30' rx='3' " + hd + " data-d='cell'/>" +
-      "<rect x='312' y='655' width='276' height='228' rx='18' " + ln(1.6) + " stroke-dasharray='14 6' data-f='cell'/>" +
-      // haptic motor with MOSFET driver and flyback diode
-      "<circle cx='522' cy='792' r='46' " + ln(1.8) + " data-d='motor'/>" +
-      "<circle cx='522' cy='792' r='18' " + hd + " data-d='motor'/>" +
-      "<rect x='372' y='780' width='36' height='26' rx='3' " + ln(1.6) + " data-d='drv'/>" +
-      "<path d='M420 793h16l10-9v18l-10-9M446 784v18' " + hd + " data-d='drv'/>" +
-      // USB-C and side button
-      "<rect x='405' y='1050' width='90' height='34' rx='16' style='fill:var(--bp-bg);stroke:var(--bp-ln);stroke-width:2' data-d='usb'/>" +
-      "<rect x='642' y='600' width='18' height='96' rx='9' style='fill:var(--bp-bg);stroke:var(--bp-ln);stroke-width:2' data-d='btn'/>" +
-      // side profile with layer lines
-      "<rect x='250' y='1190' width='400' height='110' rx='46' " + ln(2.2) + " data-d='side'/>" +
-      "<path d='M282 1226H618M282 1262H618' " + hd + " stroke-dasharray='8 6' data-f='side'/>" +
-      // dimensions
-      "<path d='M250 318V270M650 318V270M250 290H650M250 284v12M650 284v12' " + dm + " data-d='dims'/>" + txt(450, 262, T.w, 20, 'middle', 'dims', '--bp-dm') +
-      "<path d='M662 330H742M662 1070H742M722 330V1070M716 330h12M716 1070h12' " + dm + " data-d='dims'/>" +
-      "<text " + mono + " x='0' y='0' font-size='20' letter-spacing='2' text-anchor='middle' transform='translate(752 700) rotate(90)' style='fill:var(--bp-dm)' data-f='dims'>" + T.h + "</text>" +
-      "<path d='M662 1190H742M662 1300H742M722 1190V1300M716 1190h12M716 1300h12' " + dm + " data-d='dims'/>" + txt(738, 1252, T.t, 20, 'start', 'dims', '--bp-dm') +
-      // short labels
-      lead('330,520 230,500 200,500') + txt(60, 507, T.parts.mcu, 20, 'start', 'labels') +
-      lead('312,840 230,880 200,880') + txt(60, 887, T.parts.cell, 20, 'start', 'labels') +
-      lead('571,498 600,440 780,440') + txt(790, 447, T.parts.imu, 20, 'start', 'labels') +
-      lead('566,808 600,880 780,880') + txt(790, 887, T.parts.motor, 20, 'start', 'labels') +
-      lead('450,1084 450,1130 520,1150') + txt(530, 1157, T.parts.usb, 20, 'start', 'labels') +
-      "</g>" +
+      "<rect x='" + x0 + "' y='0' width='" + W + "' height='1600' style='fill:var(--bp-bg)'/>" +
+      "<rect x='" + x0 + "' y='0' width='" + W + "' height='1600' fill='url(#G" + uid + ")' data-f='grid'/>" +
+      "<g data-loop>" + draw + "</g>" +
       "<g data-scan><rect x='" + x0 + "' y='-140' width='" + W + "' height='140' fill='url(#s" + uid + ")'/><rect x='" + x0 + "' y='-2' width='" + W + "' height='2' style='fill:var(--bp-ac)' opacity='.9'/></g>";
   }
 
   function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function ease(p) { return p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; }
-  function win(k, t) { var w = CONFIG.t[k]; return ease(clamp((t - w[0]) / (w[1] - w[0]))); }
+  function win(k, t) { var w = CONFIG.t[k]; return w ? ease(clamp((t - w[0]) / (w[1] - w[0]))) : 1; }
   function theme(host, name) { var c = CONFIG.themes[name]; V.forEach(function (v, i) { host.style.setProperty(v, c[i]); }); }
 
   function mount(host, uid) {
-    var hero = host.getAttribute('data-mode') === 'hero';
+    var hero = host.getAttribute('data-mode') === 'hero', preset = host.getAttribute('data-preset') || 'device';
+    var cuts = (host.getAttribute('data-cuts') || '').split(/\s+/).filter(Boolean);
+    if (!cuts.length) cuts = CONFIG.heroCuts;
     var svg = document.createElementNS(NS, 'svg');
     svg.setAttribute('viewBox', hero ? (innerWidth > 860 ? '-1500 160 2400 1240' : '-200 160 1300 1240') : '0 0 900 1600');
     svg.setAttribute('preserveAspectRatio', hero ? 'xMidYMid slice' : 'xMidYMid meet');
     if (hero) svg.setAttribute('aria-hidden', 'true');
-    else { svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', host.getAttribute('data-label') || 'Animated blueprint of a fall-detection device, drawn part by part with illustrative dimensions'); }
-    theme(host, 'blue');
-    svg.innerHTML = markup(uid, hero);
+    else { svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', host.getAttribute('data-label') || 'Animated line drawing'); }
+    theme(host, cuts[0]);
+    svg.innerHTML = markup(uid, hero, preset);
     host.appendChild(svg);
 
-    var draws = [].slice.call(svg.querySelectorAll('[data-d]')).filter(function (el) { return el.getTotalLength; }).map(function (el) {
+    var draws = [].slice.call(svg.querySelectorAll('[data-d]')).filter(function (el) { return el.getTotalLength && el.getAttribute('data-d') !== 'x'; }).map(function (el) {
       var len = el.getTotalLength(); el.style.strokeDasharray = len + ' ' + len; return { el: el, len: len, key: el.getAttribute('data-d') };
     });
     var fades = [].slice.call(svg.querySelectorAll('[data-f]')).map(function (el) { return { el: el, key: el.getAttribute('data-f') }; });
@@ -113,14 +171,10 @@
       fades.forEach(function (f) { f.el.style.opacity = win(f.key, t); });
       var on = t >= CONFIG.t.scan[0] && t <= CONFIG.t.scan[1];
       scan.setAttribute('transform', 'translate(0 ' + (220 + win('scan', t) * 1150) + ')'); scan.style.opacity = on ? 1 : 0;
-      done.style.fillOpacity = (.07 * win('done', t)).toFixed(3);
+      if (done) done.style.fillOpacity = (.08 * win('done', t)).toFixed(3);
       loop.style.opacity = 1 - win('out', t);
-      if (hero) {   // match cut: the drawing keeps its place, the whole look changes in a single frame
-        var cut = Math.floor(t / CONFIG.duration * CONFIG.heroCuts.length);
-        if (cut !== lastCut) { lastCut = cut; theme(host, CONFIG.heroCuts[cut]); }
-      }
+      if (hero) { var cut = Math.floor(t / CONFIG.duration * cuts.length); if (cut !== lastCut) { lastCut = cut; theme(host, cuts[cut]); } }
     }
-
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(5.2); return; }
     var t0 = null, raf = 0, visible = true;
     function frame(now) { if (t0 === null) t0 = now; render(((now - t0) / 1000) % CONFIG.duration); raf = visible ? requestAnimationFrame(frame) : 0; }
@@ -129,6 +183,6 @@
     } else raf = requestAnimationFrame(frame);
   }
 
-  window.ZKKBlueprint = { config: CONFIG, mount: mount };
+  window.ZKKBlueprint = { config: CONFIG, presets: PRESETS, mount: mount };
   [].slice.call(document.querySelectorAll('[data-blueprint]')).forEach(function (h, i) { mount(h, i); });
 })();

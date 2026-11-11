@@ -236,7 +236,7 @@
 (function () {
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var groups = ['.h-tiles > *', '.h-prices > *', '.h-steps > *', '.h-people > *', '.pz-grid > *', '.pz-caps > *', '.pz-terms > *', '.smp-grid > *', '.tm-grid > *', '.ig-grid > *', '.ig-list > *', '.pz-bundles > *', '.ig-feature',
-                'section.hs > h2', '.h-patent', '.pz-patent', '.pz-table', '.smp-sec > h2', '.pz-sec > h2'];
+                '.h-patent', '.pz-patent', '.pz-table'];   // headings are never hidden
   var els = document.querySelectorAll(groups.join(','));
   if (!els.length) return;
   document.documentElement.classList.add('rv-on');

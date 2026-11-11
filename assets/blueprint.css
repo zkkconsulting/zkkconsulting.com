@@ -32,3 +32,23 @@ section.bp-hero > .bp-bg svg { width: 100%; height: 100%; }
 section.bp-hero > .page-hero-inner { z-index: 2 !important; }
 section.bp-hero { min-height: min(78svh, 720px); display: flex; align-items: center; }
 section.bp-hero > .page-hero-inner { width: 100%; }
+
+/* ── Every page: a full-screen drawing hero, then the first section slides up over it ── */
+section.bp-hero { min-height: 100vh !important; min-height: 100svh !important; display: flex !important; align-items: center; margin: 0 !important;
+  padding: calc(var(--nav-h, 68px) + 40px) var(--edge, 6vw) 72px !important; box-sizing: border-box; }
+section.bp-hero > .page-hero-inner { max-width: 1120px !important; margin: 0 auto !important; padding: 0 !important; text-align: left !important; }
+section.bp-hero > .page-hero-inner > * { max-width: 640px; }
+section.bp-hero > .page-hero-inner > :is(.pf-tabs, .who-pick, .who-cards) { max-width: 760px; }
+section.bp-hero h1 { font-size: clamp(2.3rem, 4.4vw, 4rem) !important; line-height: 1.05 !important; letter-spacing: -.03em; margin: .7rem 0 1rem !important; text-align: left !important; }
+section.bp-hero .lede { font-size: 1.1rem !important; line-height: 1.6; text-align: left !important; margin: 0 0 1.6rem !important; }
+section.bp-hero .eyebrow { text-align: left !important; justify-content: flex-start !important; }
+section.bp-hero .hero-ctas { justify-content: flex-start !important; margin-top: 0 !important; }
+section.bp-hero::before, section.bp-hero > .aurora { display: none !important; }
+section.bp-hero .btn-primary { background: #fff !important; color: #071a12 !important; border: 1px solid #fff !important; }
+section.bp-hero .btn-outline { background: rgba(255,255,255,.08) !important; color: #fff !important; border: 1px solid rgba(255,255,255,.45) !important; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+:is(section.bp-hero, section.hero-paper) + :is(section, div) { position: relative; z-index: 3; border-radius: 28px 28px 0 0; margin-top: -28px !important; }
+@media (max-width: 860px) {
+  section.bp-hero { align-items: flex-end; padding-bottom: 56px !important; }
+  section.bp-hero h1 { font-size: clamp(2rem, 8.6vw, 2.6rem) !important; }
+  :is(section.bp-hero, section.hero-paper) + :is(section, div) { border-radius: 22px 22px 0 0; margin-top: -22px !important; }
+}

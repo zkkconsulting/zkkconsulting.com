@@ -2781,3 +2781,23 @@ body.light-pg main section > :not(.bg-paths):not(.bp-bg) { position: relative; z
 body.light-pg :is(.pz-card, .pz-patent, .pz-caps li, .pz-bundles li, .ig-card, .ig-list a, .rf-terms li, .tm-cl:not(.tm-cl-primary), .smp) {
   background: rgba(255,255,255,.72) !important; -webkit-backdrop-filter: blur(10px) saturate(140%); backdrop-filter: blur(10px) saturate(140%); border-color: rgba(13,22,18,.1) !important; }
 body.light-pg .pz-card.feat { border-color: #0b6b45 !important; }
+
+/* ── Home: one continuous gray page, lines flow across section edges, hero fills the screen ── */
+body.home main { background: #e8e8e2; }
+body.home main section.hs { background: transparent !important; overflow: visible !important; }
+body.home main section.hs:nth-of-type(odd) { background: transparent !important; }
+body.home main section#research { background: #e8e8e2 !important; }
+body.home .bg-paths { inset: -18% 0 !important; height: auto !important; }
+body.home .page-hero.hero-paper { min-height: 100vh !important; min-height: 100svh !important; }
+.h-intro { margin: -.8rem 0 1.6rem !important; font-size: 1.08rem !important; }
+/* hero buttons: the same shape and type as every other page */
+.hero-paper .btn-glass { min-height: 48px !important; border-radius: 8px !important; padding: 0 1.4rem !important; letter-spacing: .08em; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; transform: none !important; }
+.hero-paper .btn-glass.btn-primary { background: #0b4a32 !important; border: 1px solid #0b4a32 !important; box-shadow: none !important; }
+.hero-paper .btn-glass.btn-primary:hover { background: #0b6b45 !important; box-shadow: none !important; }
+.hero-paper .btn-glass.btn-outline { background: transparent !important; border: 1px solid rgba(11,74,50,.6) !important; box-shadow: none !important; }
+.hero-paper .btn-glass.btn-outline:hover { background: rgba(255,255,255,.5) !important; }
+/* reviews: lighter cards, no heavy drop shadow */
+body.home #reviews .reviews-grid > * { box-shadow: 0 1px 2px rgba(13,22,18,.05) !important; }
+/* light pages: tighter, even section spacing (no big empty bands) */
+body.light-pg section.pz-sec { padding: clamp(56px, 6vw, 84px) var(--edge) !important; }
+body.light-pg section.pz-sec + section.pz-sec { padding-top: clamp(24px, 3vw, 40px) !important; }
