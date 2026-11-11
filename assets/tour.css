@@ -118,3 +118,10 @@ section.smp-sec { background: radial-gradient(ellipse 70% 60% at 50% 0%, #17211d
 .tour-intro p { color: rgba(240,244,250,.84); font-size: 1.1rem; }
 .tour-intro-foot { display: flex; align-items: center; gap: 1.6rem; margin-top: 1.8rem; }
 .tour-intro-foot .tour-cue, .tour-intro-foot .tour-skip { margin: 0 !important; }
+/* Scroll cue: a quiet label with an arrow, matching the skip link */
+.tour-cue { font-size: .8rem !important; letter-spacing: .14em !important; color: rgba(240,244,250,.7) !important; gap: .45rem !important; }
+.tour-cue::before { display: none !important; }
+.tour-cue::after { content: "\2193"; font-size: .95rem; letter-spacing: 0; animation: tourCueNudge 1.8s ease-in-out infinite; }
+@keyframes tourCueNudge { 50% { transform: translateY(3px); } }
+@media (prefers-reduced-motion: reduce) { .tour-cue::after { animation: none; } }
+.tour-intro-foot .tour-skip { font-size: .85rem; color: rgba(240,244,250,.7); }

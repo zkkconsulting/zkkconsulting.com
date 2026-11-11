@@ -2925,3 +2925,5 @@ body.light-pg main > section.alt:not(.cta-band):not(.tone-green), body.light-pg 
 :root body section:is(.bp-hero, .page-hero) .hero-ctas .btn-outline:hover { background: #cacac2 !important; }
 /* Highlighted words in any heading are italic */
 :is(h1, h2, h3) mark.hl, :is(h1, h2, h3) mark.hl * { font-style: italic !important; }
+/* Italic highlights keep room on both sides of the slant */
+:is(h1, h2, h3) mark.hl { padding: 0 .16em 0 .1em !important; margin: 0 .04em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }

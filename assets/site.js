@@ -251,33 +251,37 @@
   els.forEach(function (el) { io.observe(el); });
 })();
 
-/* ── Home: the first downward scroll from the top glides off the hero into the first section ── */
+/* ── Every hero: the first downward scroll from the top glides into the next section,
+      and leaving the hero lifts the text away while the background pushes in ── */
 (function () {
-  var hero = document.querySelector('body.home .hero-paper'), next = document.getElementById('research');
-  if (!hero || !next) return;
-  var busy = false, ty = 0;
-  function target() { var nav = document.getElementById('nav'); return next.getBoundingClientRect().top + scrollY - (nav ? nav.offsetHeight : 0); }
-  function glide(e) {
-    if (busy || scrollY > 8) return;
-    if (e && e.cancelable) e.preventDefault();
-    busy = true;
-    window.scrollTo({ top: target(), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    setTimeout(function () { busy = false; }, 900);
+  var hero = document.querySelector('main > section.hero-paper, main > section.bp-hero');
+  if (!hero) return;
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var next = hero.nextElementSibling;
+  while (next && (next.hidden || !next.offsetHeight)) next = next.nextElementSibling;
+  if (next && !hero.querySelector('.who-pick')) {   // the team hero holds the founder picker, so it scrolls normally
+    var busy = false, ty = 0;
+    var target = function () { var nav = document.getElementById('nav'); return next.getBoundingClientRect().top + scrollY - (nav ? nav.offsetHeight : 0); };
+    var glide = function (e) {
+      if (busy || scrollY > 8) return;
+      if (e && e.cancelable) e.preventDefault();
+      busy = true;
+      window.scrollTo({ top: target(), behavior: still ? 'auto' : 'smooth' });
+      setTimeout(function () { busy = false; }, 900);
+    };
+    addEventListener('wheel', function (e) { if (e.deltaY > 6) glide(e); }, { passive: false });
+    addEventListener('touchstart', function (e) { ty = e.touches[0].clientY; }, { passive: true });
+    addEventListener('touchmove', function (e) { if (ty - e.touches[0].clientY > 14) glide(e); }, { passive: false });
+    addEventListener('keydown', function (e) { if (['ArrowDown', 'PageDown', ' '].indexOf(e.key) > -1 && !/INPUT|TEXTAREA|SELECT|BUTTON/.test(document.activeElement.tagName)) glide(e); });
   }
-  addEventListener('wheel', function (e) { if (e.deltaY > 6) glide(e); }, { passive: false });
-  addEventListener('touchstart', function (e) { ty = e.touches[0].clientY; }, { passive: true });
-  addEventListener('touchmove', function (e) { if (ty - e.touches[0].clientY > 14) glide(e); }, { passive: false });
-  addEventListener('keydown', function (e) { if (['ArrowDown', 'PageDown', ' '].indexOf(e.key) > -1 && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) glide(e); });
-  var cue = hero.querySelector('.hero-scroll');
-  if (cue) cue.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); busy = false; window.scrollTo({ top: target(), behavior: 'smooth' }); }, true);
-})();
-
-/* ── Home: leaving the hero animates (headline lifts, video pushes in), the next section slides over it ── */
-(function () {
-  var hero = document.querySelector('body.home .hero-paper');
-  if (!hero || !window.gsap || !window.ScrollTrigger || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  gsap.registerPlugin(ScrollTrigger);
-  var tl = gsap.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .6 } });
-  tl.to(hero.querySelector('.page-hero-inner'), { y: -80, autoAlpha: 0, ease: 'none' }, 0)
-    .to(hero.querySelector('.hero-vid'), { scale: 1.12, filter: 'blur(2px) grayscale(.3)', ease: 'none' }, 0);
+  if (still) return;
+  var inner = hero.querySelector('.page-hero-inner'), bg = hero.querySelector('.hero-vid, .bp-bg'), queued = false;
+  function paint() {
+    queued = false;
+    var p = Math.min(Math.max(scrollY / (hero.offsetHeight || 1), 0), 1);
+    if (inner) { inner.style.transform = 'translateY(' + (-80 * p) + 'px)'; inner.style.opacity = 1 - p; }
+    if (bg) bg.style.transform = 'scale(' + (1 + .12 * p) + ')';
+  }
+  addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(paint); } }, { passive: true });
+  paint();
 })();
