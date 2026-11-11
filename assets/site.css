@@ -2927,3 +2927,14 @@ body.light-pg main > section.alt:not(.cta-band):not(.tone-green), body.light-pg 
 :is(h1, h2, h3) mark.hl, :is(h1, h2, h3) mark.hl * { font-style: italic !important; }
 /* Italic highlights keep room on both sides of the slant */
 :is(h1, h2, h3) mark.hl { padding: 0 .16em 0 .1em !important; margin: 0 .04em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* Team hero: title, founder cards, then the calls to action */
+.team-hero .who-pick { margin-top: 2rem !important; }
+.team-hero .team-ctas { margin-top: 1.6rem !important; }
+/* Phones: centered closing headings */
+@media (max-width: 860px) {
+  body.home #people .h-people-wrap, body.home #people .h-people-wrap > div:first-child, body.home #people h2, body.home #people .h-lede { text-align: center !important; margin-left: auto !important; margin-right: auto !important; }
+  body.home #people .h-people { justify-content: center !important; }
+  section.cta-band, section.cta-band .cta-headline { text-align: center !important; }
+  section.cta-band .hero-ctas { justify-content: center !important; }
+}
+@media (max-width: 860px) { :root body main section.cta-band, :root body main section.cta-band .cta-headline { text-align: center !important; margin-left: auto !important; margin-right: auto !important; } }

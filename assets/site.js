@@ -267,7 +267,12 @@
       if (e && e.cancelable) e.preventDefault();
       busy = true;
       window.scrollTo({ top: target(), behavior: still ? 'auto' : 'smooth' });
-      setTimeout(function () { busy = false; }, 900);
+      // the next section rises into place as the page glides down to it
+      if (!still && next.animate) next.animate([
+        { transform: 'translateY(90px) scale(.97)', opacity: .35, borderRadius: '40px 40px 0 0' },
+        { transform: 'none', opacity: 1, borderRadius: '28px 28px 0 0' }
+      ], { duration: 950, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      setTimeout(function () { busy = false; }, 950);
     };
     addEventListener('wheel', function (e) { if (e.deltaY > 6) glide(e); }, { passive: false });
     addEventListener('touchstart', function (e) { ty = e.touches[0].clientY; }, { passive: true });
