@@ -3179,3 +3179,4 @@ nav#nav .nav-links a:not(.nav-cta)::after { top: calc(50% + .85em); bottom: auto
     border-radius: .45em .15em .4em .12em / .25em .45em .2em .5em; transform: rotate(-1.4deg) skewX(-8deg) scaleX(0); transform-origin: left center; transition: transform .35s cubic-bezier(.3,.9,.3,1); }
   nav#nav .nav-cta:hover::before, nav#nav .nav-cta:focus-visible::before { transform: rotate(-1.4deg) skewX(-8deg) scaleX(1); }
 }
+:root body main section.bp-hero h1 + .hero-ctas { margin-top: clamp(2rem, 3.4vw, 2.6rem) !important; }
