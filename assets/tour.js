@@ -140,10 +140,10 @@
   });
 
   // ── Stepped playback ──
-  var idx = -1, busy = false;
+  var idx = -1, busy = false, step = null;
   function play(to) {
     busy = true;
-    tl.tweenTo('s' + to, { duration: Math.abs(to - idx) * STEP_TIME, ease: 'power1.inOut', onComplete: function () { busy = false; } });
+    step = tl.tweenTo('s' + to, { duration: Math.abs(to - idx) * STEP_TIME, ease: 'power1.inOut', onComplete: function () { busy = false; } });
     idx = to;
   }
   function go(dir) {
@@ -185,16 +185,25 @@
     var y = dir > 0 ? (next ? next.getBoundingClientRect().top + scrollY - navH : pin.end + 2) : Math.max(0, pin.start - innerHeight * .6);
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
+  // Keys: Escape leaves the walkthrough on its finished state; back keys step back; any other key steps forward.
+  function finish() { unlock(); if (step) step.kill(); busy = false; tl.progress(1); idx = N - 1; }
+  var BACK = ['ArrowUp', 'ArrowLeft', 'PageUp', 'Backspace'];
+  var IGNORE = /^(Tab|Shift|Control|Alt|Meta|CapsLock|Fn|ContextMenu|F\d{1,2}|Unidentified)$/;
   addEventListener('keydown', function (e) {
-    if (!intent.isEnabled) return;
-    var down = ['ArrowDown', 'PageDown', ' ', 'Spacebar'].indexOf(e.key) > -1;
-    var up = ['ArrowUp', 'PageUp'].indexOf(e.key) > -1;
-    if (!down && !up) return;
-    e.preventDefault(); go(down ? 1 : -1);
+    if (!intent.isEnabled || e.metaKey || e.ctrlKey || e.altKey || IGNORE.test(e.key)) return;
+    e.preventDefault();
+    if (e.key === 'Escape' || e.key === 'Esc') { finish(); leave(1); return; }
+    if (e.repeat) return;
+    go(BACK.indexOf(e.key) > -1 ? -1 : 1);
+  });
+  // A click anywhere on the walkthrough (outside links and buttons) also steps forward.
+  stage.addEventListener('click', function (e) {
+    if (!intent.isEnabled || (e.target.closest && e.target.closest('a, button'))) return;
+    go(1);
   });
   // Skip links jump past the walkthrough and land on the finished state.
   root.querySelectorAll('.tour-skip').forEach(function (a) {
-    a.addEventListener('click', function () { unlock(); tl.progress(1); idx = N - 1; });
+    a.addEventListener('click', finish);
   });
 
   // The walkthrough opens the page, so lock straight away if we start inside it.

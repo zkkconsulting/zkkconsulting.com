@@ -125,3 +125,9 @@ section.smp-sec { background: radial-gradient(ellipse 70% 60% at 50% 0%, #17211d
 @keyframes tourCueNudge { 50% { transform: translateY(3px); } }
 @media (prefers-reduced-motion: reduce) { .tour-cue::after { animation: none; } }
 .tour-intro-foot .tour-skip { font-size: .85rem; color: rgba(240,244,250,.7); }
+/* Instructions: keys on devices with a keyboard, swipe stays implied on phones */
+.tour-esc { font: 600 .72rem/1 var(--sans, sans-serif); letter-spacing: .12em; text-transform: uppercase; color: rgba(240,244,250,.5); }
+.tour-intro-foot { flex-wrap: wrap; row-gap: .7rem; }
+@media (hover: none) { .tour-keys, .tour-esc { display: none !important; } }
+.tour-stage { cursor: pointer; }
+.tour-cue { gap: 0 !important; } .tour-cue::after { margin-left: .45rem; } .tour-esc { margin-left: .4rem; }
