@@ -2960,3 +2960,31 @@ body.light-pg main > section.alt:not(.cta-band):not(.tone-green), body.light-pg 
 }
 /* Dark heroes: the black primary button needs a clear edge so it reads as the main action */
 :root body section.bp-hero .hero-ctas .btn-primary { border-color: rgba(255,255,255,.62) !important; }
+/* Phones: home hero content sits higher (the bottom of the screen is under Safari's toolbar) */
+@media (max-width: 860px) {
+  :root body.home .page-hero.hero-paper { padding-top: calc(var(--nav-h) + 24vh) !important; padding-bottom: 16vh !important; justify-content: flex-start !important; }
+  :root body .hero-paper .hero-vid { height: 22vh !important; }
+}
+/* Highlighted words in headings: italic leans right, so give the right edge more room */
+:root body :is(h1, h2, h3) mark.hl { padding: 0 .3em 0 .12em !important; margin: 0 .02em 0 .06em !important; }
+/* Phones: the team hero fits on one screen (top-aligned, compact founder cards) */
+@media (max-width: 760px) {
+  :root body main > section.team-hero { align-items: flex-start !important; padding-top: calc(var(--nav-h) + 1.6rem) !important; padding-bottom: 2rem !important; }
+  :root body .team-hero h1 { font-size: 1.85rem !important; margin-bottom: 0 !important; }
+  :root body .team-hero .who-pick { margin-top: 1.2rem !important; gap: .6rem !important; }
+  :root body .team-hero .who-card { padding: .8rem 1rem !important; column-gap: .9rem !important; }
+  :root body .team-hero .who-photo { width: 56px !important; height: 56px !important; }
+  :root body .team-hero .who-focus { font-size: .8rem !important; line-height: 1.35 !important; }
+  :root body .team-hero.team-hero .team-ctas { margin-top: 1.2rem !important; gap: .6rem !important; max-width: none !important; }
+  :root body .team-hero.team-hero .team-ctas .btn { width: 100% !important; max-width: none !important; }
+}
+/* Desktop: testimonials use the full width instead of floating in a narrow column */
+@media (min-width: 1100px) {
+  :root body.home main > section#reviews { padding-left: max(5vw, calc((100vw - 1440px) / 2)) !important; padding-right: max(5vw, calc((100vw - 1440px) / 2)) !important; }
+  :root body.home #reviews .reviews-grid { max-width: none !important; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)) !important; gap: 2rem !important; }
+  :root body.home #reviews .review-card { padding: 2.4rem 2.6rem !important; }
+  :root body.home #reviews .review-text { font-size: 1.2rem !important; line-height: 1.7 !important; }
+}
+/* Spacing pass: Book a call heading clears the nav; closing band gets even top and bottom room */
+:root body main > section.intake-top { padding-top: calc(var(--nav-h, 64px) + 2.6rem) !important; }
+@media (max-width: 760px) { :root body main > section.cta-band { padding-top: 3.4rem !important; padding-bottom: 3.4rem !important; } }

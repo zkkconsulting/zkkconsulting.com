@@ -43,16 +43,50 @@
     H = Math.min((innerHeight - navH * .55) * .82, innerWidth * .84 * PH / PW); W = H * PW / PH;
     book.style.setProperty('--sw', W + 'px'); book.style.setProperty('--sh', H + 'px');
   }
+  // phones: the clear space for the outlined passage is between the nav and the caption panel
+  function band(i) {
+    var navH = (document.getElementById('nav') || {}).offsetHeight || 60, top = navH + 12, bot = innerHeight - caps[i].offsetHeight - 16 - 14;
+    return { mid: (top + bot) / 2, h: bot - top };
+  }
+  // y that puts the passage centre in that band when the page is shown at scale s
+  function narrowY(i, s) {
+    var r = leaves[i].querySelector('.sheet').dataset.rect.split(',').map(Number), k = W / PW;
+    return band(i).mid - (book.offsetTop + H / 2) - (r[1] + r[3] / 2 - PH / 2) * k * s;
+  }
+  // phones: page scale that keeps the outlined passage (after the lens push L) inside the band
+  function fit(i, base, L) {
+    var r = leaves[i].querySelector('.sheet').dataset.rect.split(',').map(Number), k = W / PW;
+    return Math.max(.4, Math.min(base, (band(i).h - 10) / (r[3] * k * L)));
+  }
+  function phonePose(i, base, L, extra) {
+    return Object.assign({ scale: function () { return fit(i, base, L); }, y: function () { return narrowY(i, fit(i, base, L)); } }, extra || {});
+  }
   function cam(i) {
     var r = leaves[i].querySelector('.sheet').dataset.rect.split(',').map(Number), k = W / PW;
-    var z = Math.max(1.15, Math.min(innerWidth * (narrow() ? .94 : .78) / (r[2] * k), innerHeight * .58 / (r[3] * k), 2.2));
-    return { scale: z, x: -(r[0] + r[2] / 2 - PW / 2) * k * z, y: -(r[1] + r[3] / 2 - PH / 2) * k * z - (narrow() ? innerHeight * .1 : 0) };
+    if (narrow()) {
+      var z1 = Math.max(1, Math.min(innerWidth * .94 / (r[2] * k), (band(i).h - 10) / (r[3] * k), 2.2));
+      return { scale: z1, x: -(r[0] + r[2] / 2 - PW / 2) * k * z1, y: narrowY(i, z1) };
+    }
+    // desktop: centre the passage in the open side, away from the caption card
+    var f = side(i), z = Math.max(.9, Math.min((f.r - f.l) / (r[2] * k), innerHeight * .58 / (r[3] * k), 2.2));
+    return { scale: z, x: (f.l + f.r) / 2 - innerWidth / 2 - (r[0] + r[2] / 2 - PW / 2) * k * z, y: -(r[1] + r[3] / 2 - PH / 2) * k * z };
+  }
+  // desktop: the horizontal span not taken by this step's caption card
+  function side(i) {
+    var c = caps[i], cl = c.offsetLeft, cr = cl + c.offsetWidth, gap = 40;
+    return cl + c.offsetWidth / 2 < innerWidth / 2 ? { l: cr + gap, r: innerWidth - gap } : { l: gap, r: cl - gap };
+  }
+  // desktop cover step: slide the page only as far as needed so its outlined line clears the caption
+  function riseX(i, L) {
+    var r = leaves[i].querySelector('.sheet').dataset.rect.split(',').map(Number), k = W / PW, f = side(i);
+    var cx = innerWidth / 2 + (r[0] + r[2] / 2 - PW / 2) * k, half = r[2] * k * L / 2 + 12;
+    return Math.min(0, f.r - (cx + half)) + Math.max(0, f.l - (cx - half));
   }
   var poses = {
     zoom: function (i) { return { scale: function () { return cam(i).scale; }, x: function () { return cam(i).x; }, y: function () { return cam(i).y; } }; },
-    side: function () { return narrow() ? { y: vh(-.16), scale: .74 } : { x: vw(-.2), scale: .9, rotationY: rot(14) }; },
-    swing: function () { return narrow() ? { y: vh(-.12), scale: .8, rotationZ: rot(-3) } : { x: vw(-.12), scale: .92, rotationY: rot(-20), rotationZ: rot(-3) }; },
-    settle: function () { return narrow() ? { y: vh(-.12), scale: .8, rotationX: rot(6) } : { x: vw(.14), scale: .86, rotationX: rot(8), rotationY: rot(-10) }; }
+    side: function (i) { return narrow() ? phonePose(i, .74, 1.18) : { x: vw(-.2), scale: .9, rotationY: rot(14) }; },
+    swing: function (i) { return narrow() ? phonePose(i, .8, 1.28, { rotationZ: rot(-3) }) : { x: vw(-.12), scale: .92, rotationY: rot(-20), rotationZ: rot(-3) }; },
+    settle: function (i) { return narrow() ? phonePose(i, .8, 1.28, { rotationX: rot(6) }) : { x: vw(.14), scale: .86, rotationX: rot(8), rotationY: rot(-10) }; }
   };
   var rest = { x: 0, y: 0, scale: 1, rotationX: 0, rotationY: 0, rotationZ: 0 };
 
@@ -80,6 +114,7 @@
     gsap.set(bars, { scaleX: 0 }); gsap.set(sticks, { scaleY: 0 });
 
     if (move !== 'rise') tl.to(sheet, Object.assign({ duration: 1.3 }, poses[move](i)), '>');
+    else tl.to(sheet, narrow() ? Object.assign({ duration: .6 }, phonePose(i, 1, 1.28)) : { x: function () { return riseX(i, 1.28); }, duration: .6 }, '>');   // the cover's outlined line clears the caption
     tl.fromTo(cap, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .55, ease: 'power3.out' }, move === 'rise' ? '>-0.3' : '>-0.45');
     tl.fromTo(hl, { autoAlpha: 0, scale: 1.04 }, { autoAlpha: 1, scale: 1, duration: .5, ease: 'power2.out' }, '<');
     if (bars.length) tl.to(bars, { scaleX: 1, duration: .7, stagger: .07, ease: 'power3.out' }, '>-0.2');
@@ -126,8 +161,8 @@
   var saved = 0;
   function hold() { window.scrollTo(0, saved); }
   var intent = ScrollTrigger.observe({
-    type: 'wheel,touch', tolerance: 12, preventDefault: true,
-    onDown: function () { go(1); }, onUp: function () { go(-1); }
+    type: 'wheel,touch', tolerance: 12, preventDefault: true, wheelSpeed: -1,   // -1 makes wheel match touch: a finger swiping up moves forward
+    onUp: function () { go(1); }, onDown: function () { go(-1); }
   });
   intent.disable();
   function lock(y) {

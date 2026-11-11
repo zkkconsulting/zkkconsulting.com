@@ -6,15 +6,19 @@
    Edit CONFIG for colors, timing and the theme sequence; edit PRESETS for the drawings and their labels. */
 (function () {
   var CONFIG = {
-    duration: 6,
+    duration: 8,
     themes: {   // background, grid minor, grid major, lines, hidden lines, dimensions, labels, accent
       blue:  ['#0a1f3d', 'rgba(125,175,255,.08)', 'rgba(125,175,255,.18)', '#eef4ff', 'rgba(238,244,255,.6)', '#8fd3ff', '#cfe6ff', '#7fd3ff'],
       green: ['#071a12', 'rgba(127,224,184,.07)', 'rgba(127,224,184,.16)', '#f2d35a', 'rgba(242,211,90,.55)', '#7fe0b8', '#d9efe4', '#f2d35a'],
-      ink:   ['#0b0f0d', 'rgba(255,255,255,.05)', 'rgba(255,255,255,.12)', '#ffffff', 'rgba(255,255,255,.5)', '#bfc8c3', '#e6ebe8', '#f2d35a']
+      ink:   ['#0b0f0d', 'rgba(255,255,255,.05)', 'rgba(255,255,255,.12)', '#ffffff', 'rgba(255,255,255,.5)', '#bfc8c3', '#e6ebe8', '#f2d35a'],
+      plum:  ['#1d1030', 'rgba(205,170,255,.07)', 'rgba(205,170,255,.16)', '#f4ecff', 'rgba(244,236,255,.55)', '#d3a8ff', '#ead9ff', '#f2d35a'],
+      amber: ['#25170a', 'rgba(255,200,120,.07)', 'rgba(255,200,120,.16)', '#fff1da', 'rgba(255,241,218,.55)', '#ffc46e', '#ffe4bf', '#ffd36b'],
+      teal:  ['#06272b', 'rgba(110,230,220,.07)', 'rgba(110,230,220,.16)', '#e6fffc', 'rgba(230,255,252,.55)', '#6fe3d8', '#cdf6f1', '#f2d35a']
     },
-    heroCuts: ['blue', 'green', 'ink', 'blue', 'green', 'ink'],
+    palette: ['blue', 'plum', 'green', 'amber', 'ink', 'teal'],   // every hero cycles all six, starting from its page's first data-cuts theme
+    heroCuts: ['blue', 'plum', 'green', 'amber', 'ink', 'teal'],
     t: { grid: [0, .6], s1: [.3, 1.3], s2: [.9, 1.8], s3: [1.4, 2.3], s4: [1.9, 2.8], s5: [2.4, 3.2], s6: [2.8, 3.6],
-         dims: [3.2, 3.9], labels: [3.5, 4.1], done: [4.4, 5.0] }
+         dims: [3.2, 3.9], labels: [3.5, 4.1], done: [4.4, 5.0], out: [7.1, 7.9] }   // out: the drawing fades away before the loop restarts
   };
   var NS = 'http://www.w3.org/2000/svg', V = ['--bp-bg', '--bp-g1', '--bp-g2', '--bp-ln', '--bp-hd', '--bp-dm', '--bp-lb', '--bp-ac'];
   var MONO = "font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'";
@@ -158,7 +162,8 @@
   function mount(host, uid) {
     var hero = host.getAttribute('data-mode') === 'hero', preset = host.getAttribute('data-preset') || 'device';
     var cuts = (host.getAttribute('data-cuts') || '').split(/\s+/).filter(Boolean);
-    if (!cuts.length) cuts = CONFIG.heroCuts;
+    var pal = CONFIG.palette, start = Math.max(0, pal.indexOf(cuts[0]));
+    cuts = pal.slice(start).concat(pal.slice(0, start));
     var svg = document.createElementNS(NS, 'svg');
     svg.setAttribute('viewBox', hero ? (innerWidth > 860 ? '-1500 160 2400 1240' : '-200 160 1300 1240') : '0 0 900 1600');
     svg.setAttribute('preserveAspectRatio', hero ? 'xMidYMid slice' : 'xMidYMid meet');
@@ -172,7 +177,7 @@
       var len = el.getTotalLength(); el.style.strokeDasharray = len + ' ' + len; return { el: el, len: len, key: el.getAttribute('data-d') };
     });
     var fades = [].slice.call(svg.querySelectorAll('[data-f]')).map(function (el) { return { el: el, key: el.getAttribute('data-f') }; });
-    var done = svg.querySelector('[data-done]');
+    var done = svg.querySelector('[data-done]'), loop = svg.querySelector('[data-loop]');
     var lastShot = -1;
 
     // aim the camera at the drawing's centre
@@ -187,6 +192,7 @@
       draws.forEach(function (d) { d.el.style.strokeDashoffset = d.len * (1 - win(d.key, t)); });
       fades.forEach(function (f) { f.el.style.opacity = win(f.key, t); });
       if (done) done.style.fillOpacity = (.08 * win('done', t)).toFixed(3);
+      loop.style.opacity = (1 - win('out', t)).toFixed(3);
       if (!hero) return;
       var n = SHOTS.length, len = CONFIG.duration / n, i = Math.min(n - 1, Math.floor(t / len)), p = (t - i * len) / len, sh = SHOTS[i];
       if (i !== lastShot) { lastShot = i; theme(host, cuts[i % cuts.length]); }   // the cut: new angle and new look in the same frame
