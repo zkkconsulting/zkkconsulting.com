@@ -3180,3 +3180,4 @@ nav#nav .nav-links a:not(.nav-cta)::after { top: calc(50% + .85em); bottom: auto
   nav#nav .nav-cta:hover::before, nav#nav .nav-cta:focus-visible::before { transform: rotate(-1.4deg) skewX(-8deg) scaleX(1); }
 }
 :root body main section.bp-hero h1 + .hero-ctas { margin-top: clamp(2rem, 3.4vw, 2.6rem) !important; }
+.h-intro a { color: inherit; text-decoration: underline; text-decoration-color: rgba(13,22,18,.25); text-underline-offset: 3px; text-decoration-thickness: 1px; transition: text-decoration-color .2s; } .h-intro a:hover { text-decoration-color: #0b6b45; color: #0b4a32; }
