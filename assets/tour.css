@@ -192,3 +192,4 @@ body.in-tour .tour-stage { cursor: pointer; }
 @keyframes tourGuideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @keyframes tourLineIn { from { border-top-color: transparent; } }
 @media (prefers-reduced-motion: reduce) { .tour.is-playing .tour-desc, .tour.is-playing .tour-how li, .tour.is-playing .tour-how { animation: none; } .tour-intro h1, .tour-intro-foot { transition: none; } }
+:root body .tour .tour-intro h1 mark.hl.hl-on { padding: 0 .42em 0 .12em !important; margin: 0 .06em 0 -.02em !important; }
