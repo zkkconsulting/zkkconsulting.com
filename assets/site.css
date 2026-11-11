@@ -2879,3 +2879,36 @@ body:is(.light-pg, .home) main > section + section:not(.cta-band) { border-top: 
 body.light-pg .zform .btn-primary { background: #0d1612 !important; border: 1px solid #0d1612 !important; color: #fff !important; }
 body.light-pg .zform .btn-primary:hover { background: #26312b !important; }
 body.light-pg .zform .btn-outline { background: #e6e6df !important; border: 1px solid #c4c4bc !important; color: #0d1612 !important; }
+
+/* ── Tone pass: gray, gold and green sections; tidy grids; plain hero labels ── */
+/* Home hero: gold glow behind the headline, video further right */
+.hero-paper .page-hero-inner::before { background: radial-gradient(closest-side, rgba(242,211,90,.30), rgba(242,211,90,0)) !important; }
+@media (min-width: 861px) {
+  .hero-paper .hero-vid { width: 40% !important; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 45%) !important; mask-image: linear-gradient(90deg, transparent 0%, #000 45%) !important; }
+}
+/* Hero labels: plain words, no rule */
+.page-hero .eyebrow::before, .page-hero .eyebrow::after, .tour .eyebrow::before, .tour .eyebrow::after, .tour-intro .eyebrow::before, .tour-intro .eyebrow::after { display: none !important; }
+.page-hero .eyebrow, .tour .eyebrow { padding-left: 0 !important; }
+/* Team hero centered like the others */
+.team-hero { align-items: center !important; padding-top: 132px !important; }
+/* Section tones */
+:root body main > section.tone-gold.tone-gold { background-color: #efe6cc !important; }
+:root body main > section.tone-green.tone-green { background-color: #0f2a1f !important; border-top-color: transparent !important; }
+:root body main > section.tone-green.tone-green > :is(h2, h3), :root body main > section.tone-green.tone-green .section-label { color: #fff !important; }
+:root body main > section.tone-green.tone-green > :is(p, .pz-sub, .h-lede, .h-note) { color: rgba(233,239,233,.8) !important; }
+:root body main > section.tone-green.tone-green > :is(p, .pz-sub) a { color: #ffd36b !important; }
+:root body main > section.tone-green.tone-green { background-image: radial-gradient(circle, rgba(255,211,107,.22) 0 2px, transparent 2.5px), radial-gradient(circle, rgba(255,255,255,.12) 0 1.5px, transparent 2px), radial-gradient(circle, rgba(255,255,255,.08) 0 3px, transparent 3.5px) !important; }
+body.light-pg main > section.alt:not(.cta-band):not(.tone-green), body.light-pg main > section.pz-alt:not(.tone-green) { background-color: #efe6cc !important; }
+/* Services: room under the steps */
+.pz-terms + .pz-sub { margin-top: 1.6rem !important; }
+/* Guides: 3 + 2 grid instead of 4 + 1 */
+@media (min-width: 901px) {
+  .ig-grid { grid-template-columns: repeat(6, 1fr) !important; }
+  .ig-grid > * { grid-column: span 2; }
+  .ig-grid > :nth-last-child(-n+2):nth-child(n+4) { grid-column: span 3; }
+}
+@media (min-width: 600px) and (max-width: 900px) { .ig-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+/* Research list: left-aligned heading, equal cards */
+.ig-sec > :is(h2, .pz-sub) { max-width: 1120px !important; text-align: left !important; padding-left: 0 !important; padding-right: 0 !important; }
+.ig-list { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; grid-auto-rows: 1fr; }
+.ig-list li, .ig-list a { height: 100%; }
