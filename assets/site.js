@@ -213,6 +213,7 @@
     var mc = document.getElementById('mobileClose');
     if (mc) mc.addEventListener('click', closeMenu);
     document.querySelectorAll('.mobile-link').forEach(function (l) { l.addEventListener('click', closeMenu); });
+    mobileMenu.addEventListener('click', function (e) { if (e.target === mobileMenu) closeMenu(); });   // tap the dimmed page to close
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
   }
 

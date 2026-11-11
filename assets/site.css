@@ -3129,3 +3129,18 @@ nav#nav .nav-logo::after { background-image: url(/assets/logo-gem-nav.png); }
 nav#nav .nav-logo::before { -webkit-mask-image: url(/assets/logo-gem-nav.png); mask-image: url(/assets/logo-gem-nav.png); }
 nav#nav .nav-logo .nav-mark, nav#nav .nav-mark { height: 24px !important; filter: none !important; }
 @media (max-width: 860px) { nav#nav .nav-logo .nav-mark, nav#nav .nav-mark { height: 22px !important; } }
+/* Phone menu: a black panel that drops out of the notch over a dimmed page; the hamburger becomes the close button */
+@media (max-width: 860px) {
+  :root body .mobile-menu { display: block !important; background: rgba(0,0,0,.45) !important; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    padding: calc(8px + 52px + 8px) 12px max(16px, env(safe-area-inset-bottom)) !important; transition: opacity .25s ease !important; }
+  :root body .mobile-menu ul { margin: 0 !important; max-width: none !important; padding: .4rem 1.1rem 1.1rem !important; background: #000; border: 1px solid rgba(255,255,255,.08);
+    border-radius: 26px; box-shadow: 0 18px 40px rgba(0,0,0,.4); transform: translateY(-10px) scale(.97); transform-origin: top center; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  :root body .mobile-menu.open ul { transform: none; }
+  :root body .mobile-menu ul li { border-bottom: 1px solid rgba(255,255,255,.08) !important; }
+  :root body .mobile-menu ul li:nth-last-child(2), :root body .mobile-menu ul li:last-child { border-bottom: 0 !important; }
+  :root body .mobile-menu .mobile-link { padding: .85rem .1rem !important; font-family: var(--sans) !important; font-size: 1.05rem !important; font-weight: 500; color: rgba(255,255,255,.9); }
+  :root body .mobile-menu ul li:last-child .mobile-link.is-cta { margin-top: .6rem; padding: .85rem 1rem !important; border: 0 !important; border-radius: 12px;
+    background: #ffd36b !important; color: #000 !important; font-weight: 600; text-align: center; }
+  :root body .mobile-menu-close { display: none !important; }
+  nav#nav .hamburger.open span { background: #fff; }
+}
