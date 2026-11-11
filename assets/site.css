@@ -3037,7 +3037,7 @@ body.light-pg main > section.alt:not(.cta-band):not(.tone-green), body.light-pg 
 :root body main > section#samples.smp-sec { background: #f7f7f4 !important; color: #0d1612 !important; padding-top: var(--sec-y, 96px) !important; padding-bottom: var(--sec-y, 96px) !important; border-top: 1px solid rgba(13,22,18,.1) !important; }
 #samples.smp-sec h2 { color: #0d1612 !important; font-size: clamp(1.9rem, 2.8vw, 2.6rem); }
 #samples .smp-intro { color: #4a554f !important; margin-bottom: 0 !important; }
-@media (min-width: 1200px) { #samples .smp-grid { grid-template-columns: repeat(5, 1fr) !important; } }
+@media (min-width: 1200px) { #samples .smp-grid { grid-template-columns: repeat(4, 1fr) !important; } }
 @media (min-width: 640px) and (max-width: 1199px) { #samples .smp-grid { grid-template-columns: repeat(2, 1fr) !important; } #samples .smp-visual { grid-column: 1 / -1; } #samples .smp-visual .smp-bp { aspect-ratio: 16 / 9; } }
 #samples .smp-visual .smp-bp { border-radius: 12px; }
 /* Team hero matches the other heroes: same drawing brightness and the same dark side fade */
