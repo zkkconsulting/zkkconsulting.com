@@ -3144,3 +3144,16 @@ nav#nav .nav-logo .nav-mark, nav#nav .nav-mark { height: 24px !important; filter
   :root body .mobile-menu-close { display: none !important; }
   nav#nav .hamburger.open span { background: #fff; }
 }
+/* Nav hover line sits just under the words */
+nav#nav .nav-links a:not(.nav-cta)::after { top: calc(50% + .85em); bottom: auto; height: 1.5px; border-radius: 1px; }
+/* Phone menu grows out of the notch: no gap, one connected shape */
+@media (max-width: 860px) {
+  nav#nav { transition: border-radius .2s ease !important; }
+  body:has(.mobile-menu.open) nav#nav { border-radius: 26px 26px 0 0 !important; border-bottom-color: transparent !important; box-shadow: none !important; }
+  :root body .mobile-menu { padding-top: calc(8px + 52px) !important; }
+  :root body .mobile-menu ul { border-top: 0 !important; border-radius: 0 0 26px 26px !important; padding-top: 0 !important; transform: translateY(-8px) !important; }
+  :root body .mobile-menu ul::before { content: ""; display: block; height: 1px; margin: 0 0 .2rem; background: rgba(255,255,255,.1); }
+  :root body .mobile-menu.open ul { transform: none !important; }
+  :root body .mobile-menu ul li:last-child .mobile-link.is-cta { background: #fff !important; color: #000 !important; }
+  :root body .mobile-menu .mobile-link.is-cta span { padding: 0 .12em; background: linear-gradient(transparent 8%, #f2d35a 8%, #f2d35a 94%, transparent 94%); }
+}
