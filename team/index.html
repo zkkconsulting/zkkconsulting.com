@@ -913,10 +913,19 @@ section.alt .viz-tab-mini.is-active {
         var navH = window.innerWidth <= 700 ? 260 : 72;       // px kept above the panel's top: phones | desktop/tablet (desktop = just under the top bar, hero fully scrolled away)
         var extraDown = window.innerWidth <= 700 ? 300 : 110;  // extra px to scroll PAST the panel's top (phones: 300 | desktop/tablet: 110, raise to scroll further down)
         var want = function () { return anchor.getBoundingClientRect().top + window.pageYOffset - navH + 1 + extraDown; };
-        // one scroll at a time: cancel re-aims from any earlier click; smooth only when opening, instant when swapping tabs or on load
+        // one smooth scroll, then a single re-aim only if layout shifted and the visitor has not scrolled themselves
         scrollTimers.forEach(clearTimeout); scrollTimers = [];
-        window.scrollTo({ top: want(), behavior: 'auto' });
-        [500, 1100].forEach(function (ms) { scrollTimers.push(setTimeout(function () { var w = want(); if (Math.abs(w - (window.pageYOffset || 0)) > 4) window.scrollTo({ top: w, behavior: 'auto' }); }, ms)); });
+        var userMoved = false, stop = function () { userMoved = true; };
+        ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.addEventListener(ev, stop, { once: true, passive: true }); });
+        window.scrollTo({ top: want(), behavior: instant ? 'instant' : 'smooth' });
+        var settle = function () {
+          scrollTimers.forEach(clearTimeout); scrollTimers = []; window.removeEventListener('scrollend', settle);
+          ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.removeEventListener(ev, stop); });
+          if (userMoved) return;
+          var w = want(); if (Math.abs(w - (window.pageYOffset || 0)) > 40) window.scrollTo({ top: w, behavior: 'instant' });
+        };
+        window.addEventListener('scrollend', settle, { once: true });
+        scrollTimers.push(setTimeout(settle, 1600));   // browsers without scrollend
       }
     }
   }
