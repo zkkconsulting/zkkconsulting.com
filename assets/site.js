@@ -139,7 +139,7 @@
       sec.insertBefore(svg, sec.firstChild);
     };
     var secs = Array.prototype.slice.call(document.querySelectorAll('main section:not(.deck-slide)')).filter(function (x) {
-      return !x.classList.contains('page-hero') && !x.classList.contains('bp-hero') && !x.classList.contains('hero-paper') && !x.classList.contains('tour') && x.id !== 'contact' && !x.classList.contains('cta-band') && !x.classList.contains('legal-item');
+      return !x.classList.contains('page-hero') && !x.classList.contains('bp-hero') && !x.classList.contains('hero-paper') && !x.classList.contains('tour') && !x.classList.contains('legal-item');
     });
     var pio = new IntersectionObserver(function (en) {
       en.forEach(function (e) {

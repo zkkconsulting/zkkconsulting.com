@@ -154,7 +154,7 @@
     play(to);
   }
   var pin = ScrollTrigger.create({
-    trigger: stage, start: 'top top', end: '+=60%', pin: true, anticipatePin: 1, onRefreshInit: size,
+    trigger: stage, start: 'top top', end: '+=15%', pin: true, anticipatePin: 1, onRefreshInit: size,
     onEnter: function (self) { lock(self.start + 1); },
     onEnterBack: function (self) { lock(self.end - 1); }
   });
