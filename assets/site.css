@@ -2259,6 +2259,9 @@ nav:not(.on-hero)::before { opacity: .08; }
 .page-hero .logo-row img[src*="teliatry"] { --k: .76; }
 .page-hero .logo-row img[src*="dynamicKpis"] { --k: .6; }
 .page-hero .logo-row img[src*="IEEE"] { --k: .98; }
+.page-hero .logo-row img[src*="longhorn"] { --k: .95; }
+.page-hero .logo-row img[src*="resilient"] { --k: .78; }
+.page-hero .logo-row img[src*="apis"] { --k: .78; }
 .page-hero .logo-row.is-belt img { opacity: .8; }
 
 @media (max-width: 760px) { body.hero-pg .page-hero .hero-meta .cred-label { margin: 2rem 0 0; } }   /* phones keep their current spacing */
@@ -3303,3 +3306,10 @@ footer .footer-brand .footer-pills a.footer-social { margin: 0 !important; white
 /* Home: tighter gap between How it works and the reviews */
 :root body.home main > section#how.hs.hs.hs.hs { padding-bottom: clamp(2rem, 4vw, 3rem) !important; }
 :root body.home main > section#reviews.hs.hs.hs.hs { padding-top: clamp(2rem, 4vw, 3rem) !important; }
+/* Reviews on phones: one swipeable row, next card peeks in, so the section stays one card tall however many reviews there are */
+@media (max-width: 760px) {
+  :root body.home #reviews .rv-flat { display: flex; gap: .8rem; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; margin: 0 calc(-1 * var(--page-x, 20px)); padding: .2rem var(--page-x, 20px) 1.4rem; scroll-padding: 0 var(--page-x, 20px); }
+  :root body.home #reviews .rv-flat::-webkit-scrollbar { display: none; }
+  :root body.home #reviews .rv-flat > .rv-card { flex: 0 0 86%; scroll-snap-align: start; cursor: default; box-shadow: 0 10px 24px rgba(13,22,18,.07); }
+  :root body.home #reviews .rv-flat > .rv-card:only-child { flex-basis: 100%; }
+}

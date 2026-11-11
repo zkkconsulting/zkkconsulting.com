@@ -39,7 +39,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css?v=20261122i">
+  <link rel="stylesheet" href="/assets/site.css?v=20261122k">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -173,6 +173,9 @@
           <img src="/assets/logos/teliatryLogo.png" width="1045" height="224" style="height:34px;width:auto" alt="Teliatry">
           <img src="/assets/logos/dynamicKpisLogo.png" width="1038" height="170" style="height:34px;width:auto" alt="Dynamic KPIs">
           <img src="/assets/logos/vyrex.png" width="670" height="261" style="height:40px;width:auto" alt="Vyrex Solutions">
+          <img src="/assets/logos/longhornLogo.png" width="293" height="95" style="height:40px;width:auto" alt="Longhorn Investments">
+          <img src="/assets/logos/resilientLogo.png" width="506" height="174" style="height:40px;width:auto" alt="Resilient Healthcare">
+          <img src="/assets/logos/apisLogo.png" width="408" height="93" style="height:36px;width:auto" alt="Allied Professionals Insurance Services">
         </div>
         <div class="cred-label">Clients &amp; affiliations</div>
       </div>
@@ -298,23 +301,9 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="/assets/site.js?v=20261122b"></script>
   <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
+  <script src="/assets/reviews.js"></script> <!-- edit reviews there -->
   <script>
-    /* ═══════════════════════════════════════════════════════════════
-       PUBLISHED REVIEWS: add approved client feedback here.
-       Copy a block, paste it inside the REVIEWS array, fill it in.
-       "stars" is optional (1-5). Omit it entirely if the reviewer did
-       not give a rating; the card renders without stars.
-       Example:
-         { name: "Jane Smith", company: "CEO, Acme Industrial", stars: 5,
-           text: "The ZKK market report gave us the sizing we needed." },
-       ═══════════════════════════════════════════════════════════════ */
-    var REVIEWS = [
-      { name: "Madi Heck", company: "CEO, SageSpectra",
-        text: "Zolomon was a hardworking and dependable member of the SageSpectra team who supported our market research, market sizing, financial analysis, and competitive analysis. He approached each project thoughtfully and delivered thorough, high-quality work." },
-      { name: "DynamicKPIs",
-        text: "We hired Jad and Zolomon to review and quality check data and KPI outputs for various upgrades being rolled out to our clientele. They were thorough and diligent in their analysis, and proactive in suggesting modifications to our output format and internal processes that improved the results of our latest analytics. We will use them again on our next update." }
-    ];
-
+    var REVIEWS = window.REVIEWS || [];
     (function () {
       'use strict';
       var grid = document.getElementById('reviewsGrid');
