@@ -3106,3 +3106,20 @@ nav#nav .nav-cta:hover { background: linear-gradient(transparent 6%, #ffe08f 6%,
 /* Team profiles: the founder header lines up with the content below */
 :root body .pf-panel .founder-hero { max-width: none !important; margin: 0 !important; padding-left: var(--page-x, 5vw) !important; padding-right: var(--page-x, 5vw) !important; box-sizing: border-box; }
 :root body.home main section#plans > h2 { margin-bottom: 1.6rem !important; }
+/* Services and Guides heroes: highlighted word with natural room on the right */
+:root body section.bp-hero h1 mark.hl.hl-on { background: linear-gradient(transparent 8%, #f2d35a 8%, #f2d35a 94%, transparent 94%) !important;
+  color: #0d1612 !important; -webkit-text-fill-color: #0d1612 !important; padding: 0 .26em 0 .08em !important; margin: 0 .04em 0 0 !important; border-radius: 2px !important; font-style: italic; }
+/* Notch nav: roomier on desktop, also a notch on phones */
+@media (min-width: 861px) {
+  nav#nav, nav#nav.shrink, nav#nav.on-hero, nav#nav.hero-home { width: min(1080px, calc(100% - 48px)); padding: 0 .7rem 0 1.8rem !important; }
+  nav#nav .nav-links { gap: clamp(1.4rem, 2.4vw, 2.4rem); }
+}
+@media (max-width: 860px) {
+  nav#nav, nav#nav.shrink, nav#nav.on-hero, nav#nav.hero-home { top: 8px; left: 12px; right: 12px; height: 52px; padding: 0 .6rem 0 1.1rem !important;
+    border: 1px solid rgba(255,255,255,.08) !important; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.28) !important; }
+  nav#nav .hamburger { margin-right: 0; }
+}
+@media (min-width: 861px) {
+  nav#nav, nav#nav.shrink, nav#nav.on-hero, nav#nav.hero-home { width: min(1000px, calc(100% - 48px)); }
+  nav#nav .nav-links { flex: 1; justify-content: space-between; padding-left: clamp(2rem, 5vw, 4.5rem) !important; }
+}
