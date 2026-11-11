@@ -250,3 +250,24 @@
   }, { rootMargin: '0px 0px -8% 0px' });
   els.forEach(function (el) { io.observe(el); });
 })();
+
+/* ── Home: the first downward scroll from the top glides off the hero into the first section ── */
+(function () {
+  var hero = document.querySelector('body.home .hero-paper'), next = document.getElementById('research');
+  if (!hero || !next) return;
+  var busy = false, ty = 0;
+  function target() { var nav = document.getElementById('nav'); return next.getBoundingClientRect().top + scrollY - (nav ? nav.offsetHeight : 0); }
+  function glide(e) {
+    if (busy || scrollY > 8) return;
+    if (e && e.cancelable) e.preventDefault();
+    busy = true;
+    window.scrollTo({ top: target(), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    setTimeout(function () { busy = false; }, 900);
+  }
+  addEventListener('wheel', function (e) { if (e.deltaY > 6) glide(e); }, { passive: false });
+  addEventListener('touchstart', function (e) { ty = e.touches[0].clientY; }, { passive: true });
+  addEventListener('touchmove', function (e) { if (ty - e.touches[0].clientY > 14) glide(e); }, { passive: false });
+  addEventListener('keydown', function (e) { if (['ArrowDown', 'PageDown', ' '].indexOf(e.key) > -1 && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) glide(e); });
+  var cue = hero.querySelector('.hero-scroll');
+  if (cue) cue.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); busy = false; window.scrollTo({ top: target(), behavior: 'smooth' }); }, true);
+})();

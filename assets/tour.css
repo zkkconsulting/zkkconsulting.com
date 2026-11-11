@@ -93,3 +93,6 @@ section.smp-sec { background: radial-gradient(ellipse 70% 60% at 50% 0%, #17211d
 .tour-skip-fixed { position: absolute; z-index: 45; right: 2rem; bottom: 1.4rem; margin: 0; font-size: .85rem; color: rgba(245,245,247,.6); }
 @media (max-width: 860px) { .tour-skip-fixed { top: calc(var(--nav-h, 64px) + .4rem); bottom: auto; right: 16px; } }
 #samples > #reports, #samples > #cases { display: block !important; height: 0 !important; width: 0 !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important; box-shadow: none !important; }
+/* Focus outline on the passage the caption describes */
+.sheet-hl { position: absolute; z-index: 1; border-radius: 4px; pointer-events: none; opacity: 0; visibility: hidden;
+  outline: 2px solid #d4a32a; outline-offset: 5px; box-shadow: 0 0 0 4000px rgba(11,15,13,.16), 0 0 0 9px rgba(242,211,90,.18); }

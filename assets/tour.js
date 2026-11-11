@@ -24,6 +24,10 @@
 
   leaves.forEach(function (leaf, i) {
     var sheet = leaf.querySelector('.sheet');
+    var r = sheet.dataset.rect.split(',').map(Number), hl = document.createElement('span');
+    hl.className = 'sheet-hl';   // focus outline around the passage the caption describes
+    hl.style.cssText = 'left:' + (r[0] / PW * 100) + '%;top:' + (r[1] / PH * 100) + '%;width:' + (r[2] / PW * 100) + '%;height:' + (r[3] / PH * 100) + '%';
+    sheet.appendChild(hl);
     var shade = document.createElement('span'); shade.className = 'leaf-shade'; sheet.appendChild(shade);
     leaf.style.zIndex = N - i;
     gsap.set([leaf, sheet], { transformPerspective: P });
@@ -62,19 +66,21 @@
     .to(book, { x: 0, y: 0, scale: 1, duration: 1.3, ease: 'power3.inOut' }, 0.1);
 
   leaves.forEach(function (leaf, i) {
-    var sheet = leaf.querySelector('.sheet'), shade = sheet.querySelector('.leaf-shade');
+    var sheet = leaf.querySelector('.sheet'), shade = sheet.querySelector('.leaf-shade'), hl = sheet.querySelector('.sheet-hl');
     var cap = caps[i], move = cap.dataset.move, last = i === N - 1;
     var bars = cap.querySelectorAll('.tc-bar i'), sticks = cap.querySelectorAll('.tc-stick i');
     gsap.set(bars, { scaleX: 0 }); gsap.set(sticks, { scaleY: 0 });
 
     if (move !== 'rise') tl.to(sheet, Object.assign({ duration: 1.3 }, poses[move](i)), '>');
     tl.fromTo(cap, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .55, ease: 'power3.out' }, move === 'rise' ? '>-0.3' : '>-0.45');
+    tl.fromTo(hl, { autoAlpha: 0, scale: 1.04 }, { autoAlpha: 1, scale: 1, duration: .5, ease: 'power2.out' }, '<');
     if (bars.length) tl.to(bars, { scaleX: 1, duration: .7, stagger: .07, ease: 'power3.out' }, '>-0.2');
     if (sticks.length) tl.to(sticks, { scaleY: 1, duration: .7, stagger: .09, ease: 'power3.out' }, '>-0.2');
     tl.addLabel('s' + i);
     if (last) return;
 
     tl.to(cap, { autoAlpha: 0, y: -20, duration: .4, ease: 'power1.in' })
+      .to(hl, { autoAlpha: 0, duration: .3, ease: 'none' }, '<')
       .to(sheet, Object.assign({ duration: 1 }, rest), '<')
       .set(leaves[i + 1], { autoAlpha: 1 }, '>-0.4');
     if (still) { tl.to(leaf, { autoAlpha: 0, duration: .6 }, '>-0.3'); return; }

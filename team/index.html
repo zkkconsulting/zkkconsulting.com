@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css?v=20261111h">
+  <link rel="stylesheet" href="/assets/site.css?v=20261112d">
   <style>
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.2rem; align-items: stretch; max-width: 1100px; margin: 0 auto; }
     .about-text h2 { text-align: left; margin-bottom: 1.4rem; }
@@ -195,6 +195,15 @@ section.alt .viz-tab-mini.is-active {
     .slot-card { border-style: dashed !important; border-color: rgba(255,255,255,.18) !important; background: var(--bg-alt) !important; }
     .slot-card:hover { transform: none; box-shadow: none; }
   </style>
+<script>
+  // #jad / #zolomon deep links: hide the page until the founder panel is open and scrolled into place (revealed by the tab script below)
+  if (/^#(jad|zolomon)$/.test(location.hash)) {
+    document.documentElement.classList.add('pf-boot');
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    setTimeout(function () { document.documentElement.classList.remove('pf-boot'); }, 2500);
+  }
+</script>
+<style>.pf-boot body { opacity: 0; } body { transition: opacity .25s ease; }</style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -251,10 +260,10 @@ section.alt .viz-tab-mini.is-active {
   }
   </script>
 </head>
-<body class="light-pg team-pg">
+<body class="hero-pg">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <nav id="nav">
+  <nav id="nav" class="on-hero hero-home">
     <a href="/" class="nav-logo" aria-label="ZKK Consulting LLC, home">
       <img class="nav-mark" src="/ZKK_logo.png" alt="" aria-hidden="true">
     </a>
@@ -279,71 +288,544 @@ section.alt .viz-tab-mini.is-active {
       <li><a href="/market-research-cost/" class="mobile-link">Pricing</a></li>
       <li><a href="/work/" class="mobile-link">Samples</a></li>
       <li><a href="/insights/" class="mobile-link">Guides</a></li>
-      <li><a href="/expertise/" class="mobile-link">Expertise</a></li>
       <li><a href="/team/" class="mobile-link">Team</a></li>
-      <li><a href="/about/" class="mobile-link">About</a></li>
       <li><a href="/faq/" class="mobile-link">FAQ</a></li>
       <li><a href="/contact/" class="mobile-link">Contact</a></li>
-      <li><a href="/referrals/" class="mobile-link">Referral Program</a></li>
-      <li><a href="/legal/" class="mobile-link">Legal</a></li>
-      <li><a href="/intake/" class="mobile-link is-cta">Book a Call</a></li>
-      <li><a href="mailto:info@zkkconsulting.com" class="mobile-link is-cta">Email Us</a></li>
+      <li><a href="/intake/" class="mobile-link is-cta">Book a free consultation</a></li>
     </ul>
   </div>
 
   <main id="main">
-  <section class="light-hero">
+  <section id="hero" class="page-hero">
+    
     <div class="page-hero-inner">
-      <div class="eyebrow">Team</div>
-      <h1>The engineers and analysts behind <mark class="hl">every report</mark></h1>
-      <p class="lede">ZKK is led by its two founders. You work with them directly, from the free consultation to the final walkthrough.</p>
-    </div>
-  </section>
-
-  <section class="pz-sec tm-sec" id="founders">
-    <div class="tm-grid">
-      <article class="tm-card" id="zolomon">
-        <img class="tm-photo" src="/assets/zolomon.jpg" alt="Zolomon Kaliser" width="140" height="140">
-        <p class="tm-role">Founder</p>
-        <h2>Zolomon Kaliser</h2>
-        <p class="tm-bio">Zolomon founded ZKK and leads its market, competitive and financial research: market sizing, pricing and go-to-market analysis, and multi-year revenue and cost models. He also leads the firm's medical-device and FDA-related work, where engineering context and commercial analysis meet.</p>
-        <ul class="tm-chips"><li>Market sizing</li><li>Financial modeling</li><li>Medical devices</li><li>Competitive analysis</li></ul>
-        <h3>Background</h3>
-        <ul class="tm-list">
-          <li>B.S. in Finance, The University of Texas at Dallas</li>
-          <li>M.Eng. program in Biomedical Engineering, Texas A&amp;M University</li>
-          <li>Medical-device market and financial research for SageSpectra</li>
-          <li>Engineering and regulatory research for Teliatry</li>
-        </ul>
-        <div class="tm-links"><a href="mailto:zolomon@zkkconsulting.com">zolomon@zkkconsulting.com</a><a href="https://www.linkedin.com/in/zolomonkaliser/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">&#8599;</span></a></div>
-      </article>
-      <article class="tm-card" id="jad">
-        <img class="tm-photo" src="/assets/jad.jpg" alt="Jad Haddad" width="140" height="140">
-        <p class="tm-role">Co-Founder</p>
-        <h2>Jad Haddad</h2>
-        <p class="tm-bio">Jad co-leads ZKK's market, competitive and financial research and heads its technical work: patent landscapes, electronics and embedded products, component sourcing and BOM cost, and standards and certification pathways.</p>
-        <ul class="tm-chips"><li>Patent landscapes</li><li>Electronics and embedded</li><li>Component sourcing</li><li>Certification pathways</li></ul>
-        <h3>Background</h3>
-        <ul class="tm-list">
-          <li>B.S. program in Electronic Systems Engineering, Texas A&amp;M University</li>
-          <li>Led hardware design for Vyrex, an internal wrist-worn fall-detection wearable, from PCB design through sourcing and prior-art research</li>
-          <li>Capacitor-bank research and training animations for high-voltage transmission</li>
-          <li>Designed and sold an STM32-based automated desk-control system</li>
-        </ul>
-        <div class="tm-links"><a href="mailto:jad@zkkconsulting.com">jad@zkkconsulting.com</a><a href="https://www.linkedin.com/in/jadksrahaddad/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">&#8599;</span></a></div>
-      </article>
-    </div>
-  </section>
-
-  <section class="pz-sec pz-alt tm-contact" id="contact">
-    <div class="tm-contact-grid">
-      <div>
-        <h2>Talk to the people who do the research</h2>
-        <p class="pz-sub">Every engagement starts with a free consultation. You work directly with Zolomon, Jad, or both, depending on the scope.</p>
+      <div class="eyebrow">ZKK Consulting LLC</div>
+      <h1>Meet the research team behind the work.</h1>
+      <p class="lede">
+        Pick a founder to see their background and the research they lead.
+      </p>
+      <div class="who-pick" role="tablist" aria-label="Choose a founder">
+        <button class="who-card" type="button" role="tab" id="tab-zolomon"
+                aria-selected="true" aria-controls="panel-zolomon" data-panel="zolomon">
+          <img class="who-photo" src="/assets/zolomon.jpg" alt="">
+          <span class="who-role">Founder</span>
+          <span class="who-name">Zolomon Kaliser</span>
+          <span class="who-focus">Market, financial &amp; medical-device research</span>
+          <span class="who-go">View profile &darr;</span>
+        </button>
+        <button class="who-card" type="button" role="tab" id="tab-jad"
+                aria-selected="false" aria-controls="panel-jad" data-panel="jad">
+          <img class="who-photo" src="/assets/jad.jpg" alt="">
+          <span class="who-role">Co-Founder</span>
+          <span class="who-name">Jad Haddad</span>
+          <span class="who-focus">Market, patent &amp; technical research</span>
+          <span class="who-go">View profile &darr;</span>
+        </button>
       </div>
-      <div class="tm-links-list">
-        <a href="/intake/" class="tm-cl tm-cl-primary"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span><span class="tm-cl-l">Start a project</span>Book a free consultation</span></a>
-        <a href="mailto:info@zkkconsulting.com" class="tm-cl"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span><span class="tm-cl-l">Reaches both founders</span>info@zkkconsulting.com</span></a>
+    </div>
+  </section>
+
+  <div class="pf-panel" id="panel-zolomon" role="tabpanel" aria-labelledby="tab-zolomon" hidden>
+  <a id="zolomon" class="pf-anchor"></a>
+
+
+    <div class="founder-hero fade-up">
+      <div>
+        <div class="founder-hero-role">Founder</div>
+        <div class="founder-hero-name">Zolomon<br>Kaliser</div>
+        <p class="founder-hero-statement">I dig into the assumptions behind a decision before I trust it, then build the model on what actually holds up. That's the instinct I bring to research: get hands-on with the numbers behind market size, pricing, and forecasts, so the analysis built on top of them is grounded in traceable sources, not just what's assumed.</p>
+      </div>
+      <div class="founder-hero-photo-col">
+        <img class="founder-hero-photo" src="/assets/zolomon.jpg" alt="Zolomon Kaliser">
+      </div>
+    </div>
+  <section class="alt">
+
+    <div class="about-grid">
+
+      <div class="about-text fade-up">
+        <div class="section-label left">About</div>
+        <h2>Engineering meets market and financial analysis.</h2>
+
+        <p>
+          Zolomon Kaliser is the founder of ZKK Consulting LLC. He holds a B.S. in Finance from The
+          University of Texas at Dallas and brings graduate training in biomedical engineering from Texas
+          A&amp;M University.
+        </p>
+        <p>
+          He leads engagements end to end, from <strong>market sizing and competitive landscapes</strong> to
+          pricing, go-to-market analysis and <strong>multi-year revenue and cost models</strong>, with particular
+          depth in medical devices and FDA-regulated products.
+        </p>
+        <p>
+          His work on ZKK's internal Vyrex wearable program has also included bill-of-materials cost
+          research, vendor and assembler sourcing, and unit-cost modeling for hardware products.
+        </p>
+      </div>
+      <div class="about-skills fade-up">
+        <div class="section-label left">Core Competencies</div>
+        <div class="skills-grid">
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Market Research</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>Financial Modeling</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><path d="M12 2v6M12 22v-6"/><rect x="7" y="8" width="10" height="8" rx="2"/></svg>Medical-Device Research</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><path d="M4 19V5M10 19v-9M16 19v-5M22 19H2"/></svg>Data Analysis</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></svg>Competitive Analysis</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/></svg>Advanced Excel</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 00-3 3v7a3 3 0 006 0V5a3 3 0 00-3-3z"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>Biomedical Engineering</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H7l-3 3z"/></svg>Research Communication</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label fade-up">Education</div>
+    <h2 class="fade-up">Zolomon Kaliser: academic background</h2>
+    <div class="timeline">
+      <div class="timeline-item fade-up">
+        <div class="card">
+          <div class="edu-degree-header">Biomedical Engineering, M.Eng. program</div>
+          <div class="edu-university">Texas A&amp;M University (College Station, TX)</div>
+        </div>
+      </div>
+      <div class="timeline-item fade-up">
+        <div class="card">
+          <div class="edu-degree-header">Bachelor of Science in Finance</div>
+          <div class="edu-university">University of Texas at Dallas (Richardson, TX)</div>
+          <div class="cert-issuer"><span class="ff-text">Graduated Aug. 2024</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="section-label fade-up">Texas A&amp;M University</div>
+    <h2 class="fade-up">Zolomon Kaliser: research projects</h2>
+    <div class="tamu-grid">
+      <div class="card tamu-card fade-up">
+        <div class="tamu-card-img" style="background-image: url('../biomedical-device.jpg');" role="img" aria-label="Rendering of the surgical device studied"></div>
+        <div class="tamu-card-body">
+          
+          <div class="tamu-card-title">Biomedical Device Case Study</div>
+          <p class="tamu-card-desc">Assessed material options for repeated autoclave cycles alongside market drivers, sterilization requirements, and the competitive landscape for a surgical-device case study.</p>
+
+             <span class="badge badge-sampleGreen">Research project</span>
+          <div class="cert-issuer"><span class="ff-text">COLLEGE STATION, TX</span></br>Jan. 2025 to Aug. 2025</div>
+
+        </div>
+      </div>
+      <div class="card tamu-card fade-up">
+        <div class="tamu-card-img" style="background-image: url('../addiction-device.jpg');" role="img" aria-label="Smart pill bottle with dispensing cap and charging base"></div>
+        <div class="tamu-card-body">
+          
+          <div class="tamu-card-title">Addiction Prevention &amp; Recovery Device</div>
+          <p class="tamu-card-desc">Assessed clinical need and technical feasibility for a biomedical device concept supporting patient monitoring and recovery engagement, including a non-invasive wearable sensor approach.</p>
+            <span class="badge badge-sampleGreen">Research project</span>
+            <div class="cert-issuer"><span class="ff-text">COLLEGE STATION, TX</span></br>Aug. 2025 to May 2026</div>
+
+        </div>
+      </div>
+      <div class="card tamu-card fade-up">
+        <div class="tamu-card-img" style="background-image: url('../kidney-monitoring.jpg');" role="img" aria-label="Exploded diagram of an implantable silicone cuff"></div>
+        <div class="tamu-card-body">
+
+          <div class="tamu-card-title">Post Kidney Transplant Remote Patient Monitoring</div>
+          
+          <p class="tamu-card-desc">Evaluated remote-monitoring approaches and device concepts intended to support post-transplant kidney patients and reduce in-person follow-up burden.</p>
+            <span class="badge badge-sampleGreen">Research project</span>
+            <div class="cert-issuer"><span class="ff-text">COLLEGE STATION, TX</span></br>Jan. 2026 to May 2026</div>
+        </div>
+      </div>
+      <div class="card tamu-card fade-up">
+        <div class="tamu-card-img" style="background-image: url('../biofilm.jpg');" role="img" aria-label="Research poster on PEG-Gelatin coating and protein adsorption"></div>
+        <div class="tamu-card-body">
+          
+          <div class="tamu-card-title">Stainless Steel PEG-Gelatin Biofilm</div>
+          
+          <p class="tamu-card-desc">Studied biofilm formation on stainless steel with PEG-gelatin coatings, including protein adsorption and bacterial-colonization considerations relevant to implantable-device design.</p>
+            <span class="badge badge-sampleGreen">Research project</span>
+          <div class="cert-issuer"><span class="ff-text">COLLEGE STATION, TX</span></br>Jan. 2026 to May 2026</div>
+        </div>
+      </div>
+      <div class="card tamu-card fade-up">
+        <div class="tamu-card-img" style="background-image: url('../assets/logos/vyrex.png');" role="img" aria-label="Vyrex wearable program logo"></div>
+        <div class="tamu-card-body">
+          
+          <div class="tamu-card-title">Vyrex: Wrist-Worn Fall-Detection Wearable</div>
+          <p class="tamu-card-desc">Performed cost engineering and supply-chain research for an internal wearable
+             program. Rebuilt the bill of materials using distributor and assembler sourcing, reducing estimated 
+             per-unit component cost from $18.73 to $5.39 at quantity one. Also modeled the impact of a sensor 
+             upgrade, maintained the design log, 
+             benchmarked enclosure dimensions against existing wrist wearables, 
+             and contributed to preliminary prior-art research. The program was internal research and 
+             was ultimately not commercialized.
+            </p>
+              <span class="badge badge-sampleGreen">Internal R&amp;D</span>
+              <div class="cert-issuer"><span class="ff-text">COLLEGE STATION, TX</span></br>Feb. 2026 to May 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <section class="alt">
+    <div class="section-label fade-up">Career</div>
+    <h2 class="fade-up">Zolomon Kaliser: work experience</h2>
+    <div class="experience-list">
+      <div class="exp-item fade-up">
+        <div class="exp-role">Intern &middot; Software Testing Project</div>
+        <div class="exp-company">Resilient HC</div>
+        <div class="exp-date">May 2026 &ndash; August 2026</div>
+        <ul class="exp-bullets">
+          <li>Designed and executed test cases for healthcare software, validating functionality against project requirements.</li>
+          <li>Documented defects and findings to inform development priorities and release readiness.</li>
+        </ul>
+      </div>
+      <div class="exp-item fade-up">
+        <div class="exp-role">Intern</div>
+        <div class="exp-company">Teliatry</div>
+        <div class="exp-date">May 2026 &ndash; August 2026</div>
+        <ul class="exp-bullets">
+          <li>Contributed to engineering design and biomedical research projects across the device-development cycle.</li>
+          <li>Conducted regulatory and medical research to inform product planning and clinical context.</li>
+        </ul>
+      </div>
+      <div class="exp-item fade-up">
+        <div class="exp-role">Business Development Associate</div>
+        <div class="exp-company">SageSpectra</div>
+        <div class="exp-date">College Station, TX &middot; August 2025 &ndash; May 2026</div>
+        <ul class="exp-bullets">
+          <li>Analyzed medical-device markets, patient needs, and competitors to inform commercial research.</li>
+          <li>Assessed device functionality and clinical applications to support market-expansion research.</li>
+          <li>Built financial models projecting revenue, COGS, and operating expenses.</li>
+        </ul>
+      </div>
+      <div class="exp-item fade-up">
+        <div class="exp-role">Finance / Accounting Intern</div>
+        <div class="exp-company">Allied Professionals' Insurance Services</div>
+        <div class="exp-date">Frisco, TX &middot; January 2023 &ndash; May 2023</div>
+        <ul class="exp-bullets">
+          <li>Reconciled portfolios and improved financial-reporting accuracy.</li>
+          <li>Streamlined data transfers across systems using VLOOKUP and advanced Excel functions.</li>
+          <li>Queried SQL databases to generate portfolio-management insights.</li>
+        </ul>
+      </div>
+      <div class="exp-item fade-up">
+        <div class="exp-role">Property Tax Analyst</div>
+        <div class="exp-company">Longhorn IV Investments LLC</div>
+        <div class="exp-date">Dallas, TX &middot; June 2018 &ndash; December 2021</div>
+        <ul class="exp-bullets">
+          <li>Updated valuation records for more than 500 residential properties across DFW and Houston.</li>
+          <li>Maintained home-value data to support accurate property assessments.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  
+
+   <section id="contact" class="alt">
+    <div class="contact-grid">
+      <div class="fade-up">
+        <div class="section-label left">Get In Touch</div>
+        <p class="cta-headline" style="text-align:left;">Let's start a<br>conversation.</p>
+        <p style="color:var(--muted);font-size:.93rem;line-height:1.8;">
+          Every engagement starts with a free consultation. You work directly with Zolomon, Jad, or both,
+          depending on the scope.
+        </p>
+      </div>
+      <div class="fade-up">
+        <div class="contact-panel">
+          <a href="mailto:info@zkkconsulting.com" class="contact-link">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span><span class="lbl">Reaches both of us</span>info@zkkconsulting.com</span>
+          </a>
+          <a href="mailto:zolomon@zkkconsulting.com" class="contact-link">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span><span class="lbl">Zolomon</span>zolomon@zkkconsulting.com</span>
+          </a>
+          <a href="mailto:jad@zkkconsulting.com" class="contact-link">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span><span class="lbl">Jad</span>jad@zkkconsulting.com</span>
+          </a>
+          <a href="/intake/" class="contact-link">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <span><span class="lbl">Start a project</span>Book a free consultation &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  </div><!-- /panel-zolomon -->
+
+  
+     <div class="pf-panel" id="panel-jad" role="tabpanel" aria-labelledby="tab-jad" hidden>
+  <a id="jad" class="pf-anchor"></a>
+
+        <div class="founder-hero fade-up">
+      <div>
+        <div class="founder-hero-role">Co-Founder</div>
+        <div class="founder-hero-name">Jad<br>Haddad</div>
+        <p class="founder-hero-statement">I like taking things apart to understand how they actually work, then building something better. That's the instinct I bring to research: get hands-on with how a product is actually engineered, sourced, and certified, so the commercial analysis built on top of it is grounded in what's real, not just what's on paper.</p>
+      </div>
+      <div class="founder-hero-photo-col">
+        <img class="founder-hero-photo" src="/assets/jad.jpg" alt="Jad Haddad">
+      </div>
+    </div>
+
+  <section class="alt">
+    <div class="about-grid">
+
+
+      <div class="about-text fade-up">
+        <div class="section-label left">About</div>
+        <h2>Market research with engineering depth</h2>
+        <p>
+          Jad Haddad is the co-founder of ZKK Consulting LLC, trained in Electronic Systems Engineering at
+          Texas A&amp;M University. He leads engagements across market, competitive and financial research and
+          heads the firm's technical work: patent landscapes, electronics and embedded products, component
+          sourcing and BOM cost, and standards and certification pathways.
+        </p>
+        <p>
+          His perspective comes from hardware development as well as research. Before co-founding ZKK, Jad
+          originated and led technical design and R&amp;D for Vyrex, an internal wrist-worn fall-detection
+          wearable program. The work included a Version 3.0.0 PCB design, a bench prototype, a sourcing
+          migration across two supply chains, and prior-art research. That experience informs ZKK's hardware
+          work, which uses current supplier, vendor-stock, and minimum-order-quantity research rather than
+          relying on list prices alone.
+        </p>
+      </div>
+      <div class="about-skills fade-up">
+        <div class="section-label left">Core Competencies</div>
+        <div class="skills-grid">
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Patent Landscape &amp; Prior-Art Research</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9zM4 9h5M4 15h5M15 9h5M15 15h5M9 4v5M15 4v5M9 15v5M15 15v5"/></svg>Electronics &amp; Embedded Product Research</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>Component Sourcing &amp; BOM Cost Research</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Standards &amp; Certification Pathway Research</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></svg>Competitive Product Teardown &amp; Benchmarking</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>Sensor &amp; Semiconductor Supplier Research</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><path d="M2.5 14l5-4.5 4 3.5 3.5-3 6.5 5.5"/></svg>Technical Illustrations &amp; Renders</div>
+          <div class="skill-chip"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H7l-3 3z"/></svg>Decision-Ready Technical Communication</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label fade-up">Education</div>
+    <h2 class="fade-up">Jad Haddad: academics</h2>
+    <div class="timeline">
+      <div class="timeline-item fade-up">
+        <div class="card">
+          <div class="timeline-degree">Electronic Systems Engineering, B.S. program</div>
+          <div class="timeline-school">Texas A&amp;M University &middot; College Station, TX</div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="section-label fade-up">Experience</div>
+    <h2 class="fade-up">Jad Haddad: engineering projects</h2>
+    
+    <div class="proj-grid">
+
+      <div class="card proj-card fade-up">
+        <div class="proj-title">Vyrex Wrist Wearable</div>
+        <div class="logo-small-slot.filled"><img src="/assets/logos/vyrex.png" style="height: 40px; margin-top: 5px; margin-bottom: 10px;" alt="Vyrex" ></div>
+
+        <p class="proj-desc">Originated the concept for and led the technical design and R&amp;D on an internal
+        wrist-worn fall-detection wearable program. Directed the hardware architecture: a PCB design carried through
+        Version 3.0.0, a bench prototype built on an ESP32 development board with an Adafruit LSM6DSOXTR six-axis
+        IMU breakout, and a complete component specification covering the BLE MCU, inertial sensing, lithium-polymer
+        charge management, USB-C power input, regulation, and MOSFET-driven haptic feedback with flyback protection.
+        Led the IMU migration from the STM LSM6DSOXTR to the LSM6DSV16XTR for lower power draw, stronger on-chip
+        machine-learning inference, and higher onboard storage, which reduced how often the device had to offload
+        data and interrupt the MCU's deep-sleep state. Also led the MCU migration from a prototyping ESP32 devkit to
+        an nRF52805 BLE 5.4 module before ultimately settling on an ESP32-C3 Mini, weighing assembler stock
+        availability, power consumption, and pin compatibility. That final choice also avoided FCC 47 CFR Part 15C
+        intentional-radiator testing, saving thousands of dollars. Also developed a companion app with a custom
+        machine-learning algorithm: the device offloaded stored user gait data to the app, which retrained the model
+        and adjusted the user's fall-detection parameters, then sent the updated parameters back to the device over
+        Bluetooth into a fully custom, power-efficient deep-sleep interrupt system. Researched prior art and
+        competitive patents in the fall-detection wearable space to inform the program's IP strategy. Vyrex was an
+        internal research program and was ultimately not commercialized.
+        </p>
+        <div class="proj-tags"><span class="proj-tag">ORIGINATOR</span><span class="proj-tag">SUPPLY-SIDE ENGINEERING</span><span class="proj-tag">PCB Design v3.0.0</span>
+        <span class="proj-tag">Compliance-Conscious Design</span><span class="proj-tag">Prior-Art &amp; Patent Research</span></div>
+        <div class="cert-issuer"><span class="ff-text">COLLEGE STATION, TX</span></br>FEB. 2026 - MAY 2026</div>
+      </div>
+
+
+
+      <div class="card proj-card fade-up">
+        <div class="proj-title">Capacitor Banks: The Fundamentals of Theory and Application</div>
+        <div class="logo-small-slot.filled"><img src="/assets/logos/OncorLogo.png" style="height: 80px;" alt="Oncor" ></div>
+
+        <p class="proj-desc">Researched capacitor bank theory and fault-response behavior for high-voltage
+        transmission systems tied to the Comanche Peak Nuclear Power Plant. Covered
+        series vs. parallel bank configurations, tap-sensing & unbalance protection, and relay-based fault
+        response. Built a set of interactive animations from scratch in HTML/SVG to explain the concepts, including
+        a phase-correction fault-response diagram, a sensing-circuit walkthrough, a series/parallel configuration
+        comparison, and a power-triangle explainer using a beer-pour analogy for real vs. reactive power. This later became 
+        part of the team's new standard for explaining capacitor-bank behavior, enhancing on prior
+        approaches to onboarding and training on the subject.
+        </p>
+        <div class="viz-embed">
+          <div class="viz-tabs-mini">
+            <button class="viz-tab-mini is-active" data-viz-src="/assets/jad_animations/capBank.html" type="button">Phase Correction</button>
+            <button class="viz-tab-mini" data-viz-src="/assets/jad_animations/capWNew.html" type="button">Relaying</button>
+            <button class="viz-tab-mini" data-viz-src="/assets/jad_animations/capConfig.html" type="button">Series &amp; Parallel Configurations</button>
+            <button class="viz-tab-mini" data-viz-src="/assets/jad_animations/beerDemo.html" type="button">Power Triangle with Soda Analogy</button>
+          </div>
+          <div class="viz-frame-mini">
+            <iframe src="/assets/jad_animations/capBank.html" title="Capacitor bank visualization" loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <div class="cert-issuer" style="margin-top: 20px"><span class="ff-text">Glen Rose, TX</span></br>MAY 2026 - AUG. 2026</div>
+      </div>
+
+      <div class="card proj-card fade-up">
+        <div class="proj-title">Smart Table Solutions</div>
+        <p class="proj-desc">Designed and sold an automated height-adjustable desk-control system built
+          around an STM32 microcontroller. Led the hardware lifecycle in KiCad, including modular PCB
+          schematics and layouts, motor-control circuitry, power management, and expansion interfaces.
+          Modeled circuit behavior in Multisim, validated component selections, programmed the firmware, and
+          completed enclosure modeling and integration.</p>
+        <div class="proj-tags"><span class="proj-tag">STM32</span><span class="proj-tag">SOLID EDGE</span><span class="proj-tag">MULTISIM</span></div>
+        <div class="cert-issuer"><span class="ff-text">McKINNEY, TX</span></br>MAY 2025 - JUL. 2025</div>
+      </div>
+
+      <div class="card proj-card fade-up">
+        <div class="proj-title">SoilSense</div>
+        <p class="proj-desc">Designed and built an automated irrigation controller around an Arduino Uno R3
+          with custom C++ firmware. Integrated capacitive soil-moisture monitoring, a passive water-safety
+          shutoff, two-channel MOSFET switching, and ultrasonic sensors to track fluid levels. Added
+          programmable LED alerts for pump activation and dry-run conditions.</p>
+        <div class="proj-tags"><span class="proj-tag">C++</span><span class="proj-tag">Arduino</span><span class="proj-tag">Sensor-based systems</span></div>
+        <div class="cert-issuer"><span class="ff-text">MCKINNEY, TX</span></br>APR. 2025 - JUL. 2025</div>
+      </div>
+
+      <div class="card proj-card fade-up">
+        <div class="proj-title">Wi-Fi Desk Buddy</div>
+        <p class="proj-desc">Developed a Wi-Fi-connected desktop clock and productivity tool using a
+          Raspberry Pi Pico 2 W and Python. Implemented NTP-based time synchronization over Wi-Fi,
+          configurable 12- and 24-hour display modes, dynamic RGB status lighting, and a Pomodoro timer for
+          work and rest intervals.</p>
+        <div class="proj-tags"><span class="proj-tag">Raspberry Pi Pico</span><span class="proj-tag">NTP</span><span class="proj-tag">PYTHON</span></div>
+        <div class="cert-issuer"><span class="ff-text">COLLEGE STATION, TX</span></br>DEC. 2024 - FEB. 2025</div>
+
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label fade-up">Career</div>
+    <h2 class="fade-up">Jad Haddad: work experience</h2>
+    <div class="timeline">
+      <div class="timeline-item fade-up">
+        <div class="timeline-date">Aug. 2026 &ndash; Present</div>
+        <div class="card">
+          <div class="timeline-degree">Co-Founder</div>
+          <div class="timeline-school">ZKK Consulting LLC &middot; Texas</div>
+          <p class="timeline-desc">
+            Co-founded ZKK Consulting LLC. Leads research engagements across electronics, embedded systems,
+            technology markets, component and supply-base landscapes, and market sizing for engineering-led
+            products.
+          </p>
+        </div>
+      </div>
+      <div class="timeline-item fade-up">
+        <div class="timeline-date">May 2026 &ndash; Aug. 2026</div>
+        <div class="card">
+          <div class="timeline-degree">Protection and Control Engineering Intern</div>
+          <div class="timeline-school">Oncor Electric Delivery &middot; Glen Rose, Texas</div>
+          <p class = "timeline-desc">
+          Supported substation commissioning and configured SEL protective relays for grid reliability.
+           Studied fault response and protection schemes for high-voltage transmission systems connected to
+           the Comanche Peak Nuclear Power Plant, with a focus on capacitor-bank protection. Presented
+           technical findings on capacitor-bank theory and system-protection relaying to an internal board.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  
+
+<!--
+  </div>
+
+
+  <section id="advisors" class="alt">
+    <div class="section-label fade-up">Advisors &amp; Affiliations</div>
+    <h2 class="fade-up">Who we learn from</h2>
+    <p class="section-intro fade-up">
+      Reserved for advisors, mentors, and institutional affiliations. Use wording such as
+      &ldquo;As advised by&rdquo; only for people who have agreed in writing to be named.
+    </p>
+-->
+
+
+<!--  
+      <div class="cert-grid fade-up">
+      <div class="card cert-card slot-card">
+        <svg class="cert-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 22l5-3 5 3-1.5-9.5"/></svg>
+        <div>
+          <div class="cert-name">Advisor slot</div>
+          <div class="cert-issuer">Placeholder &middot; replace or delete</div>
+        </div>
+      </div>
+      <div class="card cert-card slot-card">
+        <svg class="cert-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 22l5-3 5 3-1.5-9.5"/></svg>
+        <div>
+          <div class="cert-name">Affiliation slot</div>
+          <div class="cert-issuer">Placeholder &middot; replace or delete</div>
+        </div>
+      </div>
+    </div>
+  </section>
+-->
+
+  <section id="contact" class="alt">
+    <div class="contact-grid">
+      <div class="fade-up">
+        <div class="section-label left">Get In Touch</div>
+        <p class="cta-headline" style="text-align:left;">Let's start a<br>conversation.</p>
+        <p style="color:var(--muted);font-size:.93rem;line-height:1.8;">
+          Every engagement starts with a free consultation. You work directly with Zolomon, Jad, or both,
+          depending on the scope.
+        </p>
+      </div>
+      <div class="fade-up">
+        <div class="contact-panel">
+          <a href="mailto:info@zkkconsulting.com" class="contact-link">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span><span class="lbl">Reaches both of us</span>info@zkkconsulting.com</span>
+          </a>
+          <a href="mailto:zolomon@zkkconsulting.com" class="contact-link">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span><span class="lbl">Zolomon</span>zolomon@zkkconsulting.com</span>
+          </a>
+          <a href="mailto:jad@zkkconsulting.com" class="contact-link">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span><span class="lbl">Jad</span>jad@zkkconsulting.com</span>
+          </a>
+          <a href="/intake/" class="contact-link">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <span><span class="lbl">Start a project</span>Book a free consultation &rarr;</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -371,7 +853,6 @@ section.alt .viz-tab-mini.is-active {
           <li><a href="/patent-landscape-research/">Patent landscape research</a></li>
           <li><a href="/market-sizing-for-startups/">Market sizing</a></li>
           <li><a href="/medical-device-competitive-landscape/">Competitive landscapes</a></li>
-          <li><a href="/engineering-led-product-consulting/">Engineering-led product consulting</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -380,7 +861,6 @@ section.alt .viz-tab-mini.is-active {
           <li><a href="/work/">Samples</a></li>
           <li><a href="/team/">Team</a></li>
           <li><a href="/about/">About</a></li>
-          <li><a href="/expertise/">Expertise</a></li>
           <li><a href="/insights/">Guides</a></li>
           <li><a href="/referrals/">Referral program</a></li>
           <li><a href="/faq/">FAQ</a></li>
@@ -406,9 +886,107 @@ section.alt .viz-tab-mini.is-active {
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="/assets/site.js?v=20261111h"></script>
+  <script src="/assets/site.js?v=20261112d"></script>
   <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
+  <script>
+    document.querySelectorAll('.who-card').forEach(function (t) {
+      t.addEventListener('click', function () {
+        setTimeout(function () { if (window.ZKK && ZKK.buildRail) ZKK.buildRail(); }, 80);
+        var hint = document.getElementById('pfHint'); if (hint) hint.hidden = true;
+      });
+    });
+  </script>
 
+  <script>
+    (function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.who-card'));
+  if (!tabs.length) return;
+
+  var reduceMotion = window.ZKK && window.ZKK.reduceMotion;
+  var hasGSAP = typeof window.gsap !== 'undefined';
+
+  function animatePanel(panel) {
+    if (!panel || !hasGSAP || reduceMotion) return;
+    var els = panel.querySelectorAll('.fade-up');
+    if (!els.length) return;
+    gsap.fromTo(els,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.08, overwrite: true }
+    );
+  }
+
+  var scrollTimers = [];
+  function show(key, shouldScroll, instant) {
+    var wasOpen = !!document.querySelector('.pf-panel:not([hidden])');
+    tabs.forEach(function (t) {
+      var on = t.getAttribute('data-panel') === key;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+
+    var shownPanel = null;
+    ['zolomon', 'jad'].forEach(function (k) {
+      var panel = document.getElementById('panel-' + k);
+      if (!panel) return;
+      panel.hidden = (k !== key);
+      if (k === key) shownPanel = panel;
+    });
+
+        if (history.replaceState) history.replaceState(null, '', '#' + key);
+
+    // Recalculate trigger positions now that the panel is visible, in "safe"
+    // mode so it doesn't fight the smooth scroll below.
+    if (window.ZKK && window.ZKK.buildRail) window.ZKK.buildRail(); // side dots follow the open founder panel
+    if (window.ScrollTrigger && ScrollTrigger.refresh) ScrollTrigger.refresh(true);
+
+
+    if (shouldScroll) {
+      var anchor = document.getElementById(key);
+      if (anchor) {
+        // WHERE THE FOUNDER JUMP LANDS (edit these two numbers) ▼▼
+        var navH = window.innerWidth <= 700 ? 260 : 72;       // px kept above the panel's top: phones | desktop/tablet (desktop = just under the top bar, hero fully scrolled away)
+        var extraDown = window.innerWidth <= 700 ? 300 : 110;  // extra px to scroll PAST the panel's top (phones: 300 | desktop/tablet: 110, raise to scroll further down)
+        var want = function () { return anchor.getBoundingClientRect().top + window.pageYOffset - navH + 1 + extraDown; };
+        // one scroll at a time: cancel re-aims from any earlier click; smooth only when opening, instant when swapping tabs or on load
+        scrollTimers.forEach(clearTimeout); scrollTimers = [];
+        window.scrollTo({ top: want(), behavior: 'auto' });
+        [500, 1100].forEach(function (ms) { scrollTimers.push(setTimeout(function () { var w = want(); if (Math.abs(w - (window.pageYOffset || 0)) > 4) window.scrollTo({ top: w, behavior: 'auto' }); }, ms)); });
+      }
+    }
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      show(t.getAttribute('data-panel'), true);
+    });
+  });
+
+  var h = (window.location.hash || '').replace('#', '');
+  if (h === 'jad' || h === 'zolomon') {
+    show(h, true, true);
+    // reveal once images/layout have settled and the final re-aim has run
+    var reveal = function () { document.documentElement.classList.remove('pf-boot'); };
+    if (document.readyState === 'complete') setTimeout(reveal, 600);
+    else window.addEventListener('load', function () { setTimeout(reveal, 600); });
+  }
+  // No hash on arrival: both panels stay closed until a tab is clicked.
+})();
+
+(function () {
+  document.querySelectorAll('.viz-tabs-mini').forEach(function (group) {
+    var frame = group.nextElementSibling ? group.nextElementSibling.querySelector('iframe') : null;
+    if (!frame) return;
+    group.querySelectorAll('.viz-tab-mini').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        group.querySelectorAll('.viz-tab-mini').forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        frame.src = btn.dataset.vizSrc;
+      });
+    });
+  });
+})();
+
+  </script>
 
 </body>
 </html>
