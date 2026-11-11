@@ -2438,3 +2438,46 @@ body.home main #founders > h2 { text-align: center; }
 body.light-pg:has(.pz-sec) .light-hero { padding-left: 5vw; padding-right: 5vw; }
 body.light-pg:has(.pz-sec) .light-hero .page-hero-inner { max-width: 1100px; margin: 0 auto; padding-left: 0; padding-right: 0; }
 main li > a, main a[href^="mailto:"], nav.legal-toc a { display: inline-block; padding-block: 3px; }
+
+/* ── Layout system (design-is pass, Nov 2026) ──
+   One tone per page, one section rhythm, content edge = hero edge, one type scale. */
+:root { --sec-y: clamp(72px, 9vw, 120px); --edge: var(--hero-x, 6vw); }
+body.home main section.hs { background: transparent !important; border: 0 !important; padding: var(--sec-y) var(--edge) !important; margin: 0; }
+body.home main section.hs + section.hs { padding-top: 0 !important; }
+body.home main section.hs > h2, body.home .h-people-wrap h2 { font-size: clamp(1.9rem, 2.8vw, 2.6rem); line-height: 1.12; margin: 0 0 1.75rem; max-width: none; text-align: left; color: #fff; }
+body.home :is(.h-tiles, .h-prices, .h-steps, .h-people, .h-note, .h-patent) { max-width: none; margin-left: 0; margin-right: 0; }
+body.home .h-tile h3, body.home .h-steps h3 { font-size: 1.15rem; color: #fff; }
+body.home .h-tile p, body.home .h-steps p, body.home .h-pd, body.home .h-note, body.home .h-lede, body.home .h-role { font-size: 1rem; line-height: 1.6; color: rgba(245,245,247,.74); }
+body.home .h-note a { color: #7fe0b8; }
+/* glass surfaces on the dark page */
+body.home :is(.h-price, .h-patent) { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); color: #fff;
+  -webkit-backdrop-filter: blur(10px) saturate(150%); backdrop-filter: blur(10px) saturate(150%); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
+body.home .h-price:hover, body.home .h-patent:hover { border-color: rgba(127,224,184,.6); box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 16px 40px rgba(0,0,0,.35); }
+body.home .h-price.feat { border: 1px solid rgba(212,163,42,.75); }
+body.home .h-flag { background: #d4a32a; color: #0b0f0d; }
+body.home .h-pn { color: rgba(245,245,247,.85); }
+body.home .h-steps li { border-top-color: rgba(255,255,255,.16); }
+body.home .h-steps span { color: #ffd36b; }
+/* founders: heading left, people right, so the row fills the width */
+.h-people-wrap { display: grid; grid-template-columns: 1fr auto; gap: 2.5rem 4rem; align-items: center; }
+.h-people-wrap h2 { margin-bottom: .6rem !important; }
+.h-lede { margin: 0; max-width: 34ch; }
+body.home .h-people { justify-content: flex-end; gap: 2.5rem; }
+body.home .h-name { color: #fff; }
+body.home .h-person img { border-color: rgba(255,255,255,.18); }
+body.home .h-person:hover img { border-color: #d4a32a; }
+body.home #reviews .reviews-grid { max-width: none; margin: 0; }
+@media (max-width: 860px) { .h-people-wrap { grid-template-columns: 1fr; } body.home .h-people { justify-content: flex-start; } }
+
+/* Light reading pages keep one light tone, closing band included */
+body.light-pg .cta-band { background: #eef2ef !important; color: #0d1612 !important; border-top: 1px solid #e2e6e3; }
+body.light-pg .cta-band .aurora, body.light-pg .cta-band .bg-paths { display: none !important; }
+body.light-pg .cta-band .cta-headline { color: #0d1612 !important; }
+body.light-pg .cta-band .btn-outline { color: #0b4a32 !important; border-color: #0b4a32 !important; background: transparent !important; }
+body.light-pg .cta-band .btn-primary { color: #fff !important; background: #0b6b45 !important; border-color: #0b6b45 !important; }
+
+/* Quiet scroll reveal: once, short, off for reduced motion. Content is visible without JS. */
+html.rv-on .rv { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1); transition-delay: var(--rv-d, 0s); }
+html.rv-on .rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { html.rv-on .rv { opacity: 1; transform: none; transition: none; } }
+@media (max-width: 520px) { body.home .h-people { flex-wrap: nowrap; gap: 1rem; justify-content: center; } body.home .h-person { width: 50%; } body.home .h-person img { width: 96px; height: 96px; } }

@@ -13,6 +13,7 @@
   var intro = root.querySelector('.tour-intro');
   var leaves = gsap.utils.toArray(root.querySelectorAll('.leaf'));
   var caps = gsap.utils.toArray(root.querySelectorAll('.tour-cap'));
+  var nav = document.getElementById('nav');
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var N = leaves.length, PW = 612, PH = 792, W = 0, H = 0, P = 1800;
   var STEP_TIME = still ? 0.5 : 1.9;  // seconds per step, whatever the scroll speed
@@ -55,10 +56,10 @@
     x: function () { return narrow() ? 0 : innerWidth * .2; },
     y: function () { return narrow() ? innerHeight * .2 : innerHeight * .04; },
     scale: function () { return narrow() ? .58 : .82; },
-    rotationX: rot(48), rotationY: rot(-12), transformOrigin: '50% 100%'
+    transformOrigin: '50% 50%'   // upright beside the title, no tilt
   });
   tl.to(intro, { autoAlpha: 0, y: -40, duration: .7, ease: 'power1.in' }, 0)
-    .to(book, { x: 0, y: 0, scale: 1, rotationX: 0, rotationY: 0, duration: 1.4, ease: 'power3.out' }, 0.1);
+    .to(book, { x: 0, y: 0, scale: 1, duration: 1.3, ease: 'power3.inOut' }, 0.1);
 
   leaves.forEach(function (leaf, i) {
     var sheet = leaf.querySelector('.sheet'), shade = sheet.querySelector('.leaf-shade');
@@ -118,11 +119,13 @@
     intent.enable();
     addEventListener('scroll', hold, { passive: true });
     document.body.classList.add('in-tour');
+    if (nav) nav.classList.add('on-hero'); // transparent only while the walkthrough is pinned
   }
   function unlock() {
     intent.disable();
     removeEventListener('scroll', hold);
     document.body.classList.remove('in-tour');
+    if (nav) nav.classList.remove('on-hero');
   }
   function leave(dir) {
     unlock();

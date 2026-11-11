@@ -231,3 +231,22 @@
     sections.forEach(function (s) { navObs.observe(s); });
   }
 })();
+
+/* ── Quiet scroll reveal (new components only): fade and rise once, staggered within a group ── */
+(function () {
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var groups = ['.h-tiles > *', '.h-prices > *', '.h-steps > *', '.h-people > *', '.pz-grid > *', '.pz-caps > *', '.pz-terms > *', '.smp-grid > *',
+                'section.hs > h2', '.h-patent', '.pz-patent', '.pz-table', '.smp-sec > h2', '.pz-sec > h2'];
+  var els = document.querySelectorAll(groups.join(','));
+  if (!els.length) return;
+  document.documentElement.classList.add('rv-on');
+  els.forEach(function (el) {
+    var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+    el.classList.add('rv');
+    el.style.setProperty('--rv-d', Math.min(i, 6) * 0.06 + 's');
+  });
+  var io = new IntersectionObserver(function (en) {
+    en.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function (el) { io.observe(el); });
+})();
