@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/blueprint.css?v=5">
-  <link rel="stylesheet" href="/assets/site.css?v=20261121w">
+  <link rel="stylesheet" href="/assets/site.css?v=20261121x">
   <style>
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.2rem; align-items: stretch; max-width: 1100px; margin: 0 auto; }
     .about-text h2 { text-align: left; margin-bottom: 1.4rem; }
@@ -903,29 +903,30 @@ section.alt .viz-tab-mini.is-active {
     // Recalculate trigger positions now that the panel is visible, in "safe"
     // mode so it doesn't fight the smooth scroll below.
     if (window.ZKK && window.ZKK.buildRail) window.ZKK.buildRail(); // side dots follow the open founder panel
-    if (window.ScrollTrigger && ScrollTrigger.refresh) ScrollTrigger.refresh(true);
+    if (window.ScrollTrigger && ScrollTrigger.refresh) ScrollTrigger.refresh();   // synchronous, before any scrolling starts, so it can't move the page afterwards
 
 
     if (shouldScroll) {
       var anchor = document.getElementById(key);
-      if (anchor) {
+      if (anchor && shownPanel) {
         // WHERE THE FOUNDER JUMP LANDS (edit these two numbers) ▼▼
         var navH = window.innerWidth <= 700 ? 260 : 72;       // px kept above the panel's top: phones | desktop/tablet (desktop = just under the top bar, hero fully scrolled away)
         var extraDown = window.innerWidth <= 700 ? 300 : 110;  // extra px to scroll PAST the panel's top (phones: 300 | desktop/tablet: 110, raise to scroll further down)
-        var want = function () { return anchor.getBoundingClientRect().top + window.pageYOffset - navH + 1 + extraDown; };
-        // one smooth scroll, then a single re-aim only if layout shifted and the visitor has not scrolled themselves
-        scrollTimers.forEach(clearTimeout); scrollTimers = [];
-        var userMoved = false, stop = function () { userMoved = true; };
-        ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.addEventListener(ev, stop, { once: true, passive: true }); });
-        window.scrollTo({ top: want(), behavior: instant ? 'instant' : 'smooth' });
-        var settle = function () {
-          scrollTimers.forEach(clearTimeout); scrollTimers = []; window.removeEventListener('scrollend', settle);
-          ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.removeEventListener(ev, stop); });
-          if (userMoved) return;
-          var w = want(); if (Math.abs(w - (window.pageYOffset || 0)) > 40) window.scrollTo({ top: w, behavior: 'instant' });
-        };
-        window.addEventListener('scrollend', settle, { once: true });
-        scrollTimers.push(setTimeout(settle, 1600));   // browsers without scrollend
+        var want = function () { return Math.round(shownPanel.getBoundingClientRect().top + window.pageYOffset); };   // panel top lands at the very top, so no hero strip shows around the nav
+        // one eased scroll that re-reads the panel position every frame; any wheel, touch, key or click hands control back
+        scrollTimers.forEach(cancelAnimationFrame); scrollTimers = [];
+        var root = document.documentElement, from = window.pageYOffset || 0, done = false;
+        var stop = function () { done = true; root.style.scrollBehavior = ''; ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.removeEventListener(ev, stop); }); };
+        if (instant || reduceMotion) { root.style.scrollBehavior = 'auto'; window.scrollTo(0, want()); root.style.scrollBehavior = ''; return; }
+        ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.addEventListener(ev, stop, { passive: true }); });
+        root.style.scrollBehavior = 'auto';
+        var t0 = performance.now(), dur = Math.min(1200, 550 + Math.abs(want() - from) * 0.3);
+        (function step(now) {
+          if (done) return;
+          var p = Math.min(1, (now - t0) / dur), e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+          window.scrollTo(0, from + (want() - from) * e);
+          if (p < 1) scrollTimers.push(requestAnimationFrame(step)); else stop();
+        })(t0);
       }
     }
   }

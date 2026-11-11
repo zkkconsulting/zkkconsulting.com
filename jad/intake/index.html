@@ -1,0 +1,727 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Discovery Call | ZKK Consulting</title>
+
+  <meta name="description" content="Tell us about your business and the research question you need answered. Structured intake for market research, patent landscape, and custom consulting engagements with ZKK Consulting." />
+  <meta name="author" content="ZKK Consulting" />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#013220">
+  
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ZKK Consulting" />
+  <meta property="og:title" content="Book a Discovery Call" />
+  <meta property="og:description" content="Tell us about your business and the research question you need answered. Structured intake for market research, patent landscape, and custom consulting engagements with ZKK Consulting." />
+  <meta property="og:url" content="https://zkkconsulting.com/intake/" />
+  <meta property="og:image" content="https://zkkconsulting.com/og-image.jpg?v=3" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="ZKK Consulting: Research that makes the next decision clearer." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Book a Discovery Call" />
+  <meta name="twitter:description" content="Tell us about your business and the research question you need answered. Structured intake for market research, patent landscape, and custom consulting engagements with ZKK Consulting." />
+  <meta name="twitter:image" content="https://zkkconsulting.com/og-image.jpg?v=3" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
+  
+  
+  <style>
+    .intake-layout { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; max-width: 1040px; margin: 0 auto; align-items: start; }
+
+    /* stepper */
+    .stepper { position: sticky; top: 108px; display: flex; flex-direction: column; gap: 0; }
+    .step-item { display: flex; gap: .9rem; align-items: flex-start; }
+    .step-dot {
+      width: 30px; height: 30px; flex: none; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .78rem; font-weight: 600; color: var(--muted);
+      transition: all .25s;
+    }
+    .step-rail { width: 1px; flex: none; background: var(--border); margin-left: 15px; height: 26px; }
+    .step-item.is-active .step-dot { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .step-item.is-done .step-dot { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .step-text { padding-top: .25rem; }
+    .step-name { font-size: .87rem; font-weight: 600; color: var(--muted); line-height: 1.3; transition: color .25s; }
+    .step-item.is-active .step-name, .step-item.is-done .step-name { color: var(--ink); }
+    .step-hint { font-size: .74rem; color: var(--muted); margin-top: .1rem; }
+
+    .stepper-aside {
+      margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+      font-size: .8rem; color: var(--muted); line-height: 1.7;
+    }
+    .stepper-aside strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: .3rem; }
+
+    /* form panel */
+    .intake-panel { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 2.2rem 2.3rem; }
+    .fstep { display: flex; flex-direction: column; gap: 1.3rem; }
+    .fstep[hidden] { display: none; }
+    /* Multi-step chrome only appears once JS is running. Without it the form
+       renders as one long page and still submits correctly. */
+    .nav-only { display: none; }
+    .js-steps .nav-only { display: inline-flex; align-items: center; }
+    .js-steps .fstep:not([data-step="1"]) { display: none; }
+    .js-steps .fstep[data-step]:not([hidden]) { display: flex; }
+    .fstep-head { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: .2rem; }
+    .fstep-num { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: .35rem; }
+    .fstep-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; color: var(--ink); line-height: 1.25; }
+    .fstep-sub { font-size: .87rem; color: var(--muted); line-height: 1.65; margin-top: .35rem; }
+
+    .fgroup-label {
+      font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); font-weight: 700; margin-top: .4rem;
+    }
+
+    .form-actions { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding-top: 1.4rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .form-actions .spacer { flex: 1; }
+    .step-count { font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+    .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 1.8rem; }
+    .progress-bar i { display: block; height: 100%; background: var(--accent); width: 25%; transition: width .3s ease; }
+
+    .cond { display: none; }
+    .cond.is-shown { display: flex; }
+
+    .confid-note {
+      display: flex; gap: .8rem; align-items: flex-start;
+      background: var(--bg-alt); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.1rem 1.2rem;
+      font-size: .84rem; color: var(--muted); line-height: 1.7;
+    }
+    .confid-note svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.6; flex-shrink: 0; margin-top: 2px; }
+    .confid-note strong { color: var(--ink); font-weight: 600; }
+
+    .next-strip { background: rgba(255,255,255,.05); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem 1.7rem; margin-top: 2rem; }
+    .next-title { font-family: var(--serif); font-size: 1.06rem; font-weight: 600; color: var(--ink); margin-bottom: .7rem; }
+    .next-strip ol { margin-left: 1.2rem; color: var(--muted); font-size: .89rem; display: flex; flex-direction: column; gap: .4rem; line-height: 1.65; }
+    .next-strip li strong { color: var(--ink); font-weight: 600; }
+
+    .deposit-strip { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 1.7rem 1.8rem; margin-top: 1.5rem; }
+    .deposit-head { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-size: 1.08rem; font-weight: 600; color: var(--ink); margin-bottom: .8rem; }
+    .deposit-head svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.6; flex-shrink: 0; }
+    .deposit-strip p { font-size: .88rem; color: var(--muted); line-height: 1.7; margin-bottom: .9rem; }
+    .deposit-strip p:last-child { margin-bottom: 0; }
+    .deposit-strip strong { color: var(--ink); font-weight: 600; }
+    .deposit-strip a { color: var(--navy); font-weight: 500; text-decoration: none; }
+    .deposit-secure { display: flex; align-items: center; gap: .45rem; font-size: .78rem; color: var(--muted); }
+    .deposit-secure svg { width: 15px; height: 15px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+
+    @media (max-width: 900px) {
+      .intake-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .stepper { position: static; flex-direction: row; flex-wrap: wrap; gap: 1rem; }
+      .step-rail { display: none; }
+      .step-item { flex: 1 1 auto; }
+      .step-hint { display: none; }
+      .stepper-aside { display: none; }
+      .intake-panel { padding: 1.6rem 1.4rem; }
+    }
+
+  </style>
+<meta name="robots" content="noindex"><link rel="stylesheet" href="/jad/jad.css"></head><body class="jpage"><a class="skip-link" href="#main">Skip to content</a>
+<div class="jprog" id="jprog"></div>
+<header class="jnav" id="jnav"><a href="/jad/" class="logo-chip" aria-label="ZKK Consulting, home"><img src="/ZKK_logo.png" alt="ZKK Consulting"></a>
+<ul class="jlinks"><li><a href="/jad/services/">Services</a></li><li><a href="/jad/work/">Our Work</a></li><li><a href="/jad/expertise/">Expertise</a></li><li><a href="/jad/team/">Team</a></li><li><a href="/jad/insights/">Insights</a></li><li><a href="/jad/faq/">FAQ</a></li><li><a href="/jad/ads/">Campaigns</a></li></ul><a class="jcta" href="/jad/intake/">Book a Discovery Call</a>
+<button class="jburger" id="jburger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button></header>
+<div class="jmenu" id="jmenu" data-lenis-prevent><button class="jclose" id="jclose" aria-label="Close menu">&#10005;</button><ul><li><a href="/jad/services/">Services</a></li><li><a href="/jad/work/">Our Work</a></li><li><a href="/jad/expertise/">Expertise</a></li><li><a href="/jad/team/">Team</a></li><li><a href="/jad/insights/">Insights</a></li><li><a href="/jad/faq/">FAQ</a></li><li><a href="/jad/ads/">Campaigns</a></li><li><a href="/jad/referrals/">Referral Program</a></li><li><a href="/jad/legal/">Legal</a></li><li><a class="gold" href="/jad/intake/">Book a Discovery Call</a></li><li><a href="mailto:info@zkkconsulting.com">Email Us</a></li></ul></div><main id="main">
+  <section class="page-hero">
+    <div class="jplate" aria-hidden="true"></div>
+    <div class="page-hero-inner">
+      <div class="eyebrow">Start a Project</div>
+      <h1>Book a discovery call.</h1>
+      <p class="lede">
+        Tell us a little about what you need so we can understand the question and make the discovery call
+        useful. Most fields are optional. Answer what you can, and we will work through the rest together.
+      </p>
+      <p class="price-anchor">
+        <span>Research engagements start at <strong>$999</strong>.</span>
+        <a href="/jad/services/">See services &amp; pricing</a>
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="form-success" id="formSuccess" hidden style="max-width:680px;margin:0 auto 2rem;">
+      <strong>Received. Thank you.</strong> We will reply within one business day to confirm fit, suggest a
+      scope, and offer a few times for a discovery call.
+    </div>
+
+    <div class="intake-layout">
+
+      <aside class="stepper" id="stepper" aria-hidden="true">
+        <div class="step-item is-active" data-step="1">
+          <div><div class="step-dot">1</div><div class="step-rail"></div></div>
+          <div class="step-text"><div class="step-name">About you</div><div class="step-hint">Contact details</div></div>
+        </div>
+        <div class="step-item" data-step="2">
+          <div><div class="step-dot">2</div><div class="step-rail"></div></div>
+          <div class="step-text"><div class="step-name">Your business</div><div class="step-hint">Organization, market, and offering</div></div>
+        </div>
+        <div class="step-item" data-step="3">
+          <div><div class="step-dot">3</div><div class="step-rail"></div></div>
+          <div class="step-text"><div class="step-name">Your research question</div><div class="step-hint">The decision or question</div></div>
+        </div>
+        <div class="step-item" data-step="4">
+          <div><div class="step-dot">4</div></div>
+          <div class="step-text"><div class="step-name">Scope &amp; timing</div><div class="step-hint">Budget, timing, and materials</div></div>
+        </div>
+
+        <div class="stepper-aside">
+          <strong>We work across industries.</strong>
+          Your industry, service, or role does not need to be listed here. Choose the closest option or
+          describe your need in your own words. Custom research is welcome.
+        </div>
+      </aside>
+
+      <div>
+        <div class="progress-bar" id="progressBar" hidden><i></i></div>
+
+        <form class="zform intake-panel" id="intakeForm"
+              action="https://formsubmit.co/info@zkkconsulting.com" method="POST"
+              enctype="multipart/form-data">
+
+          <input type="hidden" name="_subject" value="New client intake from zkkconsulting.com" />
+          <input type="hidden" name="_cc" value="zolomon@zkkconsulting.com,jad@zkkconsulting.com" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://zkkconsulting.com/intake/?sent=1" />
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <!-- ══ STEP 1 ══ -->
+          <fieldset class="fstep" data-step="1" style="border:none;">
+            <div class="fstep-head">
+              <div class="fstep-num">Step 1 of 4</div>
+              <div class="fstep-title">About you</div>
+              <p class="fstep-sub">So we know who we are speaking with and how to reach you.</p>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="fName">Your name</label>
+                <input type="text" id="fName" name="name" required maxlength="80" autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="fEmail">Email</label>
+                <input type="email" id="fEmail" name="email" required maxlength="120" autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="fPhone">Phone <span class="opt">(optional)</span></label>
+                <input type="tel" id="fPhone" name="phone" maxlength="40" autocomplete="tel" />
+              </div>
+              <div class="field">
+                <label for="fRole">Your role <span class="opt">(optional)</span></label>
+                <input type="text" id="fRole" name="role" maxlength="80" placeholder="e.g., Owner, product lead, director" autocomplete="organization-title" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="fHasCompany">Are you inquiring on behalf of a company or organization?</label>
+              <select id="fHasCompany" name="has_company" required>
+                <option value="" disabled selected>Select one&hellip;</option>
+                <option value="Yes, an operating company">Yes, an operating company</option>
+                <option value="Yes, recently formed">Yes, recently formed</option>
+                <option value="Not yet, an idea or concept">Not yet, an idea or concept</option>
+                <option value="Asking on behalf of someone else">Asking on behalf of someone else</option>
+              </select>
+            </div>
+
+            <div class="field cond" id="condCompany">
+              <label for="fCompany">Company name</label>
+              <input type="text" id="fCompany" name="company_name" maxlength="120" autocomplete="organization" />
+            </div>
+
+            <div class="field cond" id="condFounder">
+              <span class="flabel">No company yet? No problem.</span>
+              <span class="hint">We will use your name above as the engagement contact. Plenty of our work starts before a company exists.</span>
+            </div>
+
+            <div class="field cond" id="condWebsite">
+              <label for="fWebsite">Company website <span class="opt">(optional)</span></label>
+              <input type="url" id="fWebsite" name="company_website" maxlength="200" placeholder="https://" autocomplete="url" />
+            </div>
+
+            <div class="form-actions">
+              <span class="step-count nav-only">Step 1 of 4</span>
+              <span class="spacer"></span>
+              <button type="button" class="btn btn-primary btn-sm nav-only" data-next="2">Continue</button>
+            </div>
+          </fieldset>
+
+          <!-- ══ STEP 2 ══ -->
+          <fieldset class="fstep" data-step="2" style="border:none;">
+            <div class="fstep-head">
+              <div class="fstep-num">Step 2 of 4</div>
+              <div class="fstep-title">Your business</div>
+              <p class="fstep-sub">Share enough context to help us understand the market, offering, and research question.</p>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="fStage">Business or project stage</label>
+                <select id="fStage" name="company_stage" required>
+                  <option value="" disabled selected>Select a stage&hellip;</option>
+                  <option>Idea or concept</option>
+                  <option>Pre-revenue, building</option>
+                  <option>Early revenue</option>
+                  <option>Growing, established revenue</option>
+                  <option>Mature or enterprise</option>
+                  <option>Non-profit, academic, or public sector</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="fRevenue">Approximate annual revenue <span class="opt">(optional)</span></label>
+                <select id="fRevenue" name="revenue_range">
+                  <option value="" selected>Prefer not to say</option>
+                  <option>Pre-revenue</option>
+                  <option>Under $250K</option>
+                  <option>$250K &ndash; $1M</option>
+                  <option>$1M &ndash; $10M</option>
+                  <option>$10M &ndash; $50M</option>
+                  <option>Over $50M</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="fIndustry">Industry or market</label>
+                <select id="fIndustry" name="industry" required>
+                  <option value="" disabled selected>Select the closest fit&hellip;</option>
+                  <option>Medical devices / medtech</option>
+                  <option>Healthcare services / life sciences</option>
+                  <option>Electronics / embedded / connected devices</option>
+                  <option>Industrial equipment / manufacturing</option>
+                  <option>Consumer products</option>
+                  <option>Software / SaaS</option>
+                  <option>Energy / environmental / agriculture</option>
+                  <option>Professional or financial services</option>
+                  <option>Other (please specify)</option>
+                </select>
+                <span class="hint">Do not see your industry? Choose &ldquo;Other.&rdquo; We research across industries.</span>
+              </div>
+              <div class="field">
+                <label for="fGeo">Primary geographic market</label>
+                <select id="fGeo" name="primary_geography" required>
+                  <option value="" disabled selected>Select one&hellip;</option>
+                  <option>United States</option>
+                  <option>Canada</option>
+                  <option>Europe / UK</option>
+                  <option>Latin America</option>
+                  <option>Asia Pacific</option>
+                  <option>Middle East / Africa</option>
+                  <option>Global</option>
+                  <option>Not decided yet</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field cond" id="condIndustryOther">
+              <label for="fIndustryOther">Tell us the industry</label>
+              <input type="text" id="fIndustryOther" name="industry_other" maxlength="120" placeholder="e.g. commercial aquaculture equipment" />
+            </div>
+
+            <div class="field">
+              <span class="fgroup-label">Additional markets of interest <span class="opt" style="text-transform:none;letter-spacing:0;">(optional)</span></span>
+              <div class="checkgrid">
+                <label class="checkopt"><input type="checkbox" name="other_markets" value="United States"> United States</label>
+                <label class="checkopt"><input type="checkbox" name="other_markets" value="Canada"> Canada</label>
+                <label class="checkopt"><input type="checkbox" name="other_markets" value="Europe / UK"> Europe / UK</label>
+                <label class="checkopt"><input type="checkbox" name="other_markets" value="Latin America"> Latin America</label>
+                <label class="checkopt"><input type="checkbox" name="other_markets" value="Asia Pacific"> Asia Pacific</label>
+                <label class="checkopt"><input type="checkbox" name="other_markets" value="Middle East / Africa"> Middle East / Africa</label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="fProduct">What is the product, service, business, or topic?</label>
+              <textarea id="fProduct" name="product_description" required maxlength="800" placeholder="A few sentences is enough: what it is, who it serves, and the research question or decision behind it."></textarea>
+              <span class="hint">High level is fine. Please do not share proprietary details until a mutual NDA is in place.</span>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline btn-sm nav-only" data-prev="1">Back</button>
+              <span class="spacer"></span>
+              <span class="step-count nav-only">Step 2 of 4</span>
+              <button type="button" class="btn btn-primary btn-sm nav-only" data-next="3">Continue</button>
+            </div>
+          </fieldset>
+
+          <!-- ══ STEP 3 ══ -->
+          <fieldset class="fstep" data-step="3" style="border:none;">
+            <div class="fstep-head">
+              <div class="fstep-num">Step 3 of 4</div>
+              <div class="fstep-title">Your research question</div>
+              <p class="fstep-sub">The most useful starting point is the decision the research needs to support.</p>
+            </div>
+
+            <div class="field">
+              <label for="fQuestion">What is the research problem or question?</label>
+              <textarea id="fQuestion" name="research_question" required maxlength="900" placeholder="e.g., &ldquo;We need a market-size estimate for an investor conversation,&rdquo; or &ldquo;We are deciding which customer segment to prioritize.&rdquo;"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="fBackground">Project background <span class="opt">(optional)</span></label>
+              <textarea id="fBackground" name="project_background" maxlength="900" placeholder="What has already been tried, what you already know, what prompted this now."></textarea>
+            </div>
+
+            <div class="field">
+              <label for="fDeliverables">What deliverables would be most useful? <span class="opt">(optional)</span></label>
+              <textarea id="fDeliverables" name="desired_deliverables" maxlength="600" placeholder="e.g., written analysis, a competitor matrix, a market-size model, or presentation-ready slides."></textarea>
+            </div>
+
+            <div class="field">
+              <label for="fPackage">Which service or package looks closest?</label>
+              <select id="fPackage" name="desired_package" required>
+                <option value="" disabled selected>Select one&hellip;</option>
+                <option>Launchpad ($999)</option>
+                <option>Growth ($1,999)</option>
+                <option>Comprehensive ($3,499)</option>
+                <option>Patent Landscape Research ($1,349)</option>
+                <option>Market + Patent Bundle ($2,149)</option>
+                <option>Investor Readiness Bundle ($3,199)</option>
+                <option>Document formatting only</option>
+                <option>Custom scope, something outside the packages</option>
+                <option>Not sure yet, help me pick</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <span class="fgroup-label">Add-ons you may be interested in <span class="opt" style="text-transform:none;letter-spacing:0;">(optional)</span></span>
+              <div class="checkgrid">
+                <label class="checkopt"><input type="checkbox" name="addons" value="Competitor Matrix"> <span>Competitor Matrix<span class="co-price">generally $250</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Pitch Deck Review"> <span>Pitch Deck Review<span class="co-price">generally $250</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Investor &amp; Partner Target List"> <span>Investor &amp; Partner Target List<span class="co-price">generally $250</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Competitor Deep Dive"> <span>Competitor Deep Dive<span class="co-price">generally $250</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Adjacent Market Screen"> <span>Adjacent Market Screen<span class="co-price">generally $250</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Supply &amp; Vendor Snapshot"> <span>Supply &amp; Vendor Snapshot<span class="co-price">generally $250</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Custom Pitch Deck Creation"> <span>Custom Pitch Deck Creation<span class="co-price">from $499</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Explainer Animation or Video"> <span>Explainer Animation or Video<span class="co-price">from $499</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Specialized Industry or Regulatory Research"> <span>Specialized Industry or Regulatory Research<span class="co-price">from $499</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Reimbursement &amp; Pricing Landscape"> <span>Reimbursement &amp; Pricing Landscape<span class="co-price">from $499</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Scenario &amp; Sensitivity Modeling"> <span>Scenario &amp; Sensitivity Modeling<span class="co-price">from $499</span></span></label>
+                <label class="checkopt"><input type="checkbox" name="addons" value="Document Formatting &amp; Redesign"> <span>Document Formatting &amp; Redesign<span class="co-price">from $249</span></span></label>
+              </div>
+              <span class="hint">Growth includes one add-on and Comprehensive includes two. Choosing an option here is not a commitment.</span>
+            </div>
+
+            <div class="field">
+              <label for="fCustom">Other research or services you need? <span class="opt">(optional)</span></label>
+              <textarea id="fCustom" name="custom_request" maxlength="700" placeholder="Describe it in your own words. If the work fits our scope, we will discuss a custom option."></textarea>
+              <span class="hint">The services listed here are examples, not a fixed catalog. Unusual scopes may need additional information and a custom quote.</span>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline btn-sm nav-only" data-prev="2">Back</button>
+              <span class="spacer"></span>
+              <span class="step-count nav-only">Step 3 of 4</span>
+              <button type="button" class="btn btn-primary btn-sm nav-only" data-next="4">Continue</button>
+            </div>
+          </fieldset>
+
+          <!-- ══ STEP 4 ══ -->
+          <fieldset class="fstep" data-step="4" style="border:none;">
+            <div class="fstep-head">
+              <div class="fstep-num">Step 4 of 4</div>
+              <div class="fstep-title">Scope &amp; timing</div>
+              <p class="fstep-sub">Timelines are set individually with each client. Sharing any deadline or timing constraint helps us scope the work realistically.</p>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="fBudget">Budget range <span class="opt">(optional)</span></label>
+                <select id="fBudget" name="budget_range">
+                  <option value="" selected>Prefer not to say</option>
+                  <option>Under $1,000</option>
+                  <option>$1,000 &ndash; $2,500</option>
+                  <option>$2,500 &ndash; $5,000</option>
+                  <option>$5,000 &ndash; $10,000</option>
+                  <option>Over $10,000</option>
+                  <option>Not sure, advise me</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="fTiming">Timing</label>
+                <select id="fTiming" name="timing" required>
+                  <option value="" disabled selected>Select one&hellip;</option>
+                  <option>Urgent, working toward a fixed date</option>
+                  <option>Soon, within a few weeks</option>
+                  <option>Next month or two</option>
+                  <option>Flexible, planning ahead</option>
+                  <option>Exploring options</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field cond" id="condDeadline">
+              <label for="fDeadline">What is the date you are working toward?</label>
+              <input type="date" id="fDeadline" name="deadline" />
+              <span class="hint">Investor meeting, board review, submission, launch. Whatever the deadline actually is.</span>
+            </div>
+
+            <div class="field">
+              <label for="fLinks">Links to relevant materials <span class="opt">(optional)</span></label>
+              <textarea id="fLinks" name="material_links" maxlength="600" placeholder="Links to a shared folder, deck, product page, or relevant public materials. One per line."></textarea>
+            </div>
+
+            <div class="field">
+              <label for="fFiles">Attach files <span class="opt">(optional)</span></label>
+              <input type="file" id="fFiles" name="attachment" multiple />
+              <span class="hint">Small files only. For large or sensitive materials, share a link above or send them after a mutual NDA is in place.</span>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="fHeard">How did you hear about us? <span class="opt">(optional)</span></label>
+                <select id="fHeard" name="how_heard">
+                  <option value="" selected>Select one&hellip;</option>
+                  <option>Referral from someone we worked with</option>
+                  <option>Personal or professional network</option>
+                  <option>Browser Search</option>
+                  <option>AI Search</option>
+                  <option>LinkedIn</option>
+                  <option>University or industry group</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="fReferrer">Who referred you? <span class="opt">(optional)</span></label>
+                <input type="text" id="fReferrer" name="referred_by" maxlength="100" placeholder="So we can credit their referral reward" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="fNotes">Anything else we should know? <span class="opt">(optional)</span></label>
+              <textarea id="fNotes" name="anything_else" maxlength="700" placeholder="NDA requests, confidentiality constraints, internal stakeholders, deadlines, or anything else that may shape the work."></textarea>
+            </div>
+
+            <div class="confid-note">
+              <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V7z"/></svg>
+              <span>
+                <strong>Before you share proprietary information.</strong> Information submitted through this
+                form is treated as private. This form does not itself create an NDA or other confidentiality
+                agreement, so please provide a general description only and hold proprietary information
+                until a mutual NDA is in place. If we move forward, work begins once the Statement of Work is
+                signed and the deposit is received by ZKK Consulting LLC.
+              </span>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline btn-sm nav-only" data-prev="3">Back</button>
+              <span class="spacer"></span>
+              <button type="submit" class="btn btn-primary btn-sm">Submit &amp; Request a Discovery Call</button>
+            </div>
+            <p class="form-note">Your intake goes straight to our inbox. We reply within one business day.</p>
+          </fieldset>
+
+        </form>
+        <script>
+          /* Hide steps 2-4 immediately so the multi-step form does not flash.
+             With JavaScript disabled every step stays visible and the form
+             still submits in one pass. */
+          (function () {
+            var f = document.getElementById('intakeForm');
+            if (f) f.classList.add('js-steps');
+          })();
+        </script>
+
+        <div class="next-strip fade-up">
+          <div class="next-title">What happens next</div>
+          <ol>
+            <li><strong>Within one business day:</strong> We review your request and reply to confirm whether it is a fit.</li>
+            <li><strong>Discovery call:</strong> We discuss your business, market, and the decision the research needs to support.</li>
+            <li><strong>Scope and agreement:</strong> If we move forward, we send a Statement of Work covering the scope, deliverables, price, and proposed timeline.</li>
+            <li><strong>Delivery:</strong> We provide the agreed deliverables, walk through the findings, and invoice the remaining 50% on completion.</li>
+          </ol>
+        </div>
+
+        <div class="deposit-strip fade-up" id="payment">
+          <div class="deposit-head">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+            How payment works
+          </div>
+          <p>
+            Nothing is payable through this form. If we agree to move forward, we send a
+            <strong>Statement of Work</strong> confirming the scope, deliverables, timeline, and price. After
+            it is signed, we send a Stripe invoice for the 50% deposit. Work begins once we have the signed
+            SOW, the deposit, and the materials needed to begin. The <strong>remaining 50% is invoiced on
+            completion</strong>, after the agreed deliverable is provided.
+          </p>
+          <p class="deposit-secure">
+            <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+          <strong>Invoices are processed securely through Stripe. ZKK Consulting does not receive or store your card details.
+          </p>
+          <p>
+            Do not make a payment before the scope is agreed and the SOW is signed. If you receive a payment
+            request from any address other than
+            <a href="mailto:info@zkkconsulting.com" style="text-decoration: underline; color: #ffd36b;">info@zkkconsulting.com</a>,
+            <a href="mailto:zolomon@zkkconsulting.com" style="text-decoration: underline; color: #ffd36b;">zolomon@zkkconsulting.com</a>, or
+            <a href="mailto:jad@zkkconsulting.com" style="text-decoration: underline; color: #ffd36b;">jad@zkkconsulting.com</a>, treat it as suspicious and
+            email us directly. Payment, cancellation, and refund terms are set out in the Statement of Work.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main><div class="jfoot" role="contentinfo"><div class="jfoot-grid"><div><a href="/jad/" class="logo-chip"><img src="/ZKK_logo.png" alt="ZKK Consulting"></a>
+<p>Market research and business growth consulting. We research the market, the competition, and the landscape around a decision, then hand you the organized analysis behind it.</p>
+<address><a href="mailto:info@zkkconsulting.com">info@zkkconsulting.com</a><a href="mailto:zolomon@zkkconsulting.com">zolomon@zkkconsulting.com</a><a href="mailto:jad@zkkconsulting.com">jad@zkkconsulting.com</a></address></div>
+<div><h5>Services</h5><ul><li><a href="/jad/services/#packages">Core packages</a></li><li><a href="/jad/services/#patent">Patent landscape research</a></li><li><a href="/jad/services/#addons">Add-ons</a></li><li><a href="/jad/services/#bundles">Bundles</a></li></ul></div>
+<div><h5>Company</h5><ul><li><a href="/jad/work/">Our work</a></li><li><a href="/jad/expertise/">Specialized expertise</a></li><li><a href="/jad/team/">Team</a></li><li><a href="/jad/insights/">Insights</a></li><li><a href="/jad/referrals/">Referral program</a></li><li><a href="/jad/faq/">FAQ</a></li></ul></div>
+<div><h5>Connect</h5><ul><li><a href="/jad/intake/">Book a discovery call</a></li><li><a href="https://www.linkedin.com/company/zkk-consulting" target="_blank" rel="noopener">LinkedIn ↗</a></li><li><a href="/jad/legal/">Legal &amp; disclaimers</a></li></ul></div></div>
+<p class="jlegal"><b>ZKK Consulting LLC</b> is a Texas limited liability company, co-founded by Zolomon Kaliser and Jad Haddad. © 2026 ZKK Consulting LLC. All rights reserved. Reports, models, and other deliverables are business research and analysis only, not legal, regulatory, medical, clinical, tax, accounting, or investment advice.</p></div><script type="module" src="/jad/jad.js"></script><script>
+    (function () {
+      'use strict';
+      var form = document.getElementById('intakeForm');
+      if (!form) return;
+
+      var params = new URLSearchParams(window.location.search);
+
+      /* ── SUCCESS STATE AFTER REDIRECT ── */
+      if (params.get('sent') === '1') {
+        var success = document.getElementById('formSuccess');
+        if (success) {
+          success.hidden = false;
+          form.hidden = true;
+          var pb0 = document.getElementById('progressBar');
+          if (pb0) pb0.hidden = true;
+          var sp0 = document.getElementById('stepper');
+          if (sp0) sp0.style.display = 'none';
+          success.scrollIntoView({ block: 'center' });
+        }
+      }
+
+      /* ── PRE-SELECT A SERVICE FROM ?package= ── */
+      var pkgMap = {
+        launchpad: 'Launchpad',
+        growth: 'Growth',
+        enterprise: 'Comprehensive',
+        patent: 'Patent Landscape Research',
+        'bundle-market-patent': 'Market + Patent Bundle',
+        'bundle-investor': 'Investor Readiness Bundle',
+        formatting: 'Document formatting only'
+      };
+      var wanted = pkgMap[(params.get('package') || '').toLowerCase()];
+      if (wanted) {
+        var sel = document.getElementById('fPackage');
+        for (var i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].text.indexOf(wanted) === 0) { sel.selectedIndex = i; break; }
+        }
+      }
+
+      /* ── CONDITIONAL FIELDS ── */
+      function toggle(el, on) {
+        if (!el) return;
+        el.classList.toggle('is-shown', !!on);
+        var input = el.querySelector('input, select, textarea');
+        if (input && !on) { if (input.type !== 'checkbox') input.value = ''; }
+      }
+      var hasCompany = document.getElementById('fHasCompany');
+      function syncCompany() {
+        var v = hasCompany.value;
+        var noCompany = (v === 'Not yet, an idea or concept');
+        toggle(document.getElementById('condCompany'), v && !noCompany);
+        toggle(document.getElementById('condWebsite'), v && !noCompany);
+        toggle(document.getElementById('condFounder'), noCompany);
+        var ci = document.getElementById('fCompany');
+        if (ci) ci.required = !!(v && !noCompany);
+      }
+      hasCompany.addEventListener('change', syncCompany);
+      syncCompany();
+
+      var industry = document.getElementById('fIndustry');
+      function syncIndustry() {
+        var other = industry.value === 'Other (please specify)';
+        toggle(document.getElementById('condIndustryOther'), other);
+        var oi = document.getElementById('fIndustryOther');
+        if (oi) oi.required = other;
+      }
+      industry.addEventListener('change', syncIndustry);
+      syncIndustry();
+
+      var timing = document.getElementById('fTiming');
+      function syncTiming() {
+        toggle(document.getElementById('condDeadline'), timing.value === 'Urgent, working toward a fixed date');
+      }
+      timing.addEventListener('change', syncTiming);
+      syncTiming();
+
+      /* ── MULTI-STEP (progressive enhancement: without JS every step is visible) ── */
+      var steps = [].slice.call(form.querySelectorAll('.fstep'));
+      var stepper = document.getElementById('stepper');
+      var stepItems = stepper ? [].slice.call(stepper.querySelectorAll('.step-item')) : [];
+      var bar = document.getElementById('progressBar');
+      var current = 1;
+
+      if (bar) bar.hidden = false;
+      if (stepper) stepper.setAttribute('aria-hidden', 'false');
+
+      function render() {
+        steps.forEach(function (s) { s.hidden = (+s.getAttribute('data-step') !== current); });
+        stepItems.forEach(function (it) {
+          var n = +it.getAttribute('data-step');
+          it.classList.toggle('is-active', n === current);
+          it.classList.toggle('is-done', n < current);
+        });
+        if (bar) bar.querySelector('i').style.width = (current / steps.length * 100) + '%';
+        var panel = form;
+        var top = panel.getBoundingClientRect().top + window.pageYOffset - 96;
+        window.scrollTo({ top: top, behavior: (window.ZKK && window.ZKK.reduceMotion) ? 'auto' : 'smooth' });
+      }
+
+      function validStep(n) {
+        var step = steps.filter(function (s) { return +s.getAttribute('data-step') === n; })[0];
+        if (!step) return true;
+        var fields = [].slice.call(step.querySelectorAll('input, select, textarea'));
+        for (var i = 0; i < fields.length; i++) {
+          var f = fields[i];
+          if (f.offsetParent === null && f.type !== 'hidden') continue;
+          if (!f.checkValidity()) { f.reportValidity(); return false; }
+        }
+        return true;
+      }
+
+      form.addEventListener('click', function (e) {
+        var next = e.target.closest('[data-next]');
+        var prev = e.target.closest('[data-prev]');
+        if (next) {
+          if (!validStep(current)) return;
+          current = +next.getAttribute('data-next');
+          render();
+        } else if (prev) {
+          current = +prev.getAttribute('data-prev');
+          render();
+        }
+      });
+
+      form.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && current < steps.length) {
+          e.preventDefault();
+          if (validStep(current)) { current++; render(); }
+        }
+      });
+
+      form.addEventListener('submit', function (e) {
+        for (var n = 1; n <= steps.length; n++) {
+          var step = steps.filter(function (s) { return +s.getAttribute('data-step') === n; })[0];
+          var wasHidden = step.hidden;
+          step.hidden = false;
+          var ok = validStep(n);
+          step.hidden = wasHidden;
+          if (!ok) { e.preventDefault(); current = n; render(); return; }
+        }
+      });
+
+      form.classList.add('js-steps');
+      steps.forEach(function (s) { s.hidden = (+s.getAttribute('data-step') !== 1); });
+      if (bar) bar.querySelector('i').style.width = (1 / steps.length * 100) + '%';
+    })();
+
+  </script></body></html>
