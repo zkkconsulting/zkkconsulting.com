@@ -109,3 +109,12 @@ section.smp-sec { background: radial-gradient(ellipse 70% 60% at 50% 0%, #17211d
 .sheet { overflow: visible !important; box-shadow: none !important; background: transparent !important; }
 .sheet-lens { background: #fff; border-radius: 2px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,.18), 0 12px 28px rgba(0,0,0,.3), 0 44px 90px rgba(0,0,0,.45); }
 .sheet-lens .sheet-hl { box-shadow: 0 0 0 9px rgba(242,211,90,.18) !important; }
+/* Intro styled like the other heroes */
+@media (min-width: 861px) {
+  .tour-intro { left: max(6vw, calc((100vw - 1120px) / 2)); max-width: min(600px, 42vw); }
+  .tour-intro h1 { font-size: clamp(2.6rem, 4.4vw, 3.95rem); line-height: 1.05; letter-spacing: -.03em; font-weight: 600; margin: 0 0 1rem; }
+}
+.tour-intro .eyebrow { color: #f2d35a; letter-spacing: .18em; font-size: .75rem; margin-bottom: 1.3rem; }
+.tour-intro p { color: rgba(240,244,250,.84); font-size: 1.1rem; }
+.tour-intro-foot { display: flex; align-items: center; gap: 1.6rem; margin-top: 1.8rem; }
+.tour-intro-foot .tour-cue, .tour-intro-foot .tour-skip { margin: 0 !important; }

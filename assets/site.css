@@ -2912,3 +2912,16 @@ body.light-pg main > section.alt:not(.cta-band):not(.tone-green), body.light-pg 
 .ig-sec > :is(h2, .pz-sub) { max-width: 1120px !important; text-align: left !important; padding-left: 0 !important; padding-right: 0 !important; }
 .ig-list { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; grid-auto-rows: 1fr; }
 .ig-list li, .ig-list a { height: 100%; }
+
+/* ── Neutral pass: dark gray, white and gray sections; black and gray hero buttons; italic highlights ── */
+:root body main > section.tone-gold.tone-gold { background-color: #f7f7f4 !important; }
+:root body main > section.tone-green.tone-green { background-color: #23282a !important; }
+body.light-pg main > section.alt:not(.cta-band):not(.tone-green), body.light-pg main > section.pz-alt:not(.tone-green) { background-color: #f7f7f4 !important; }
+:root body main > section.tone-green.tone-green > :is(p, .pz-sub) a { color: #fff !important; text-decoration: underline; }
+/* Every hero: black primary, gray secondary */
+:root body section:is(.bp-hero, .page-hero) .hero-ctas .btn-primary { background: #0d1612 !important; color: #fff !important; border: 1px solid rgba(255,255,255,.28) !important; box-shadow: none !important; }
+:root body section:is(.bp-hero, .page-hero) .hero-ctas .btn-primary:hover { background: #26312b !important; }
+:root body section:is(.bp-hero, .page-hero) .hero-ctas .btn-outline { background: #d6d6cf !important; color: #0d1612 !important; border: 1px solid #c4c4bc !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+:root body section:is(.bp-hero, .page-hero) .hero-ctas .btn-outline:hover { background: #cacac2 !important; }
+/* Highlighted words in any heading are italic */
+:is(h1, h2, h3) mark.hl, :is(h1, h2, h3) mark.hl * { font-style: italic !important; }
