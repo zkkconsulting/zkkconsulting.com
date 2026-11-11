@@ -4,11 +4,11 @@
 
 ## Services and pricing
 
-- [Services and pricing](https://zkkconsulting.com/services/): Launchpad $2,500, Growth $4,500, Comprehensive $7,500, Patent Landscape $2,000, bundles from $3,999
-- [Patent landscape analysis for startups](https://zkkconsulting.com/patent-landscape-research/): up to 15 patents, $2,000, business research only
-- [Medical device patent landscape research](https://zkkconsulting.com/medical-device-patent-landscape/): $2,000 for up to 15 identified patents
-- [Medical device competitive landscape analysis](https://zkkconsulting.com/medical-device-competitive-landscape/): Launchpad package, $2,500
-- [Market sizing for startups](https://zkkconsulting.com/market-sizing-for-startups/): TAM, SAM and SOM in the $4,500 Growth package
+- [Services and pricing](https://zkkconsulting.com/services/): Launchpad $2,499, Growth $4,499, Comprehensive $7,499, Patent Landscape $1,999, bundles from $3,999
+- [Patent landscape analysis for startups](https://zkkconsulting.com/patent-landscape-research/): up to 15 patents, $1,999, business research only
+- [Medical device patent landscape research](https://zkkconsulting.com/medical-device-patent-landscape/): $1,999 for up to 15 identified patents
+- [Medical device competitive landscape analysis](https://zkkconsulting.com/medical-device-competitive-landscape/): Launchpad package, $2,499
+- [Market sizing for startups](https://zkkconsulting.com/market-sizing-for-startups/): TAM, SAM and SOM in the $4,499 Growth package
 - [What market research costs for a startup](https://zkkconsulting.com/services/#prices): fixed prices, terms and what drives cost
 - [Medical device and electronics expertise](https://zkkconsulting.com/expertise/): FDA, FCC and engineering-heavy markets
 
