@@ -3313,3 +3313,12 @@ footer .footer-brand .footer-pills a.footer-social { margin: 0 !important; white
   :root body.home #reviews .rv-flat > .rv-card { flex: 0 0 86%; scroll-snap-align: start; cursor: default; box-shadow: 0 10px 24px rgba(13,22,18,.07); }
   :root body.home #reviews .rv-flat > .rv-card:only-child { flex-basis: 100%; }
 }
+/* Reviews: two per row, an odd last card spans the full width; Trusted by row sits at the foot of the section */
+@media (min-width: 761px) {
+  :root body.home #reviews .rv-flat { grid-template-columns: 1fr 1fr; }
+  :root body.home #reviews .rv-flat > .rv-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+:root body.home #reviews .rv-trust { margin-top: clamp(2.4rem, 5vw, 3.6rem); padding-top: 1.4rem; border-top: 1px solid rgba(13,22,18,.12); gap: 1.2rem; }
+:root body.home #reviews .rv-logos img { max-width: none; }
+@media (max-width: 600px) { :root body.home #reviews .rv-logos img { zoom: .8; } }
+:root body.home main > section#reviews.hs.hs.hs.hs { padding-bottom: clamp(1.6rem, 3vw, 2.4rem) !important; }
