@@ -3157,3 +3157,12 @@ nav#nav .nav-links a:not(.nav-cta)::after { top: calc(50% + .85em); bottom: auto
   :root body .mobile-menu ul li:last-child .mobile-link.is-cta { background: #fff !important; color: #000 !important; }
   :root body .mobile-menu .mobile-link.is-cta span { padding: 0 .12em; background: linear-gradient(transparent 8%, #f2d35a 8%, #f2d35a 94%, transparent 94%); }
 }
+/* Phone menu CTA: a hand-drawn highlighter swipe that sweeps in when the menu opens */
+@media (max-width: 860px) {
+  :root body .mobile-menu .mobile-link.is-cta span { position: relative; display: inline-block; padding: .14em .5em .12em .4em; font-style: italic; font-weight: 700; background: none !important; isolation: isolate; }
+  :root body .mobile-menu .mobile-link.is-cta span::before { content: ""; position: absolute; z-index: -1; inset: .06em -.05em .02em -.1em;
+    background: linear-gradient(100deg, rgba(242,211,90,.85), #f2d35a 12%, #f5cf45 55%, rgba(242,211,90,.9) 92%, rgba(242,211,90,.6));
+    border-radius: .5em .2em .45em .15em / .3em .5em .25em .55em; transform: rotate(-1.6deg) skewX(-8deg) scaleX(0); transform-origin: left center; transition: transform .45s cubic-bezier(.3,.9,.3,1) .22s; }
+  :root body .mobile-menu.open .mobile-link.is-cta span::before { transform: rotate(-1.6deg) skewX(-8deg) scaleX(1); }
+}
+@media (max-width: 860px) and (prefers-reduced-motion: reduce) { :root body .mobile-menu .mobile-link.is-cta span::before { transition: none; } }
