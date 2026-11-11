@@ -3204,3 +3204,9 @@ nav#nav .nav-links a:not(.nav-cta)::after { top: calc(50% + .85em); bottom: auto
 /* Home: the first section is clean white so its peek reads clearly against the paper hero */
 :root body.home main section#research { background: #ffffff !important; }
 :root body.home main section#research .h-tile { background: #f5f6f3 !important; border-color: #e3e7e4 !important; box-shadow: none !important; }
+/* Phones: bigger, balanced home headline (Research that / makes the next / decision clearer.), smaller logos and buttons */
+@media (max-width: 760px) {
+  :root body.home .hero-paper h1 { font-size: min(10.6vw, 2.65rem) !important; line-height: 1.06 !important; max-width: none !important; text-wrap: balance; letter-spacing: -.02em; }
+  :root body.home .hero-paper .logo-row img { zoom: .8; }
+  :root body.home .hero-paper .hero-ctas .btn { min-height: 42px !important; font-size: .62rem !important; }
+}
