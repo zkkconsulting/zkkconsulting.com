@@ -19,7 +19,7 @@
     palette: ['blue', 'maroon', 'green', 'gray', 'amber', 'teal', 'ink'],   // every hero cycles all of these, starting from its page's first data-cuts theme
     heroCuts: ['blue', 'maroon', 'green', 'gray', 'amber', 'teal', 'ink'],
     t: { grid: [0, .6], s1: [.3, 1.3], s2: [.9, 1.8], s3: [1.4, 2.3], s4: [1.9, 2.8], s5: [2.4, 3.2], s6: [2.8, 3.6],
-         dims: [3.2, 3.9], labels: [3.5, 4.1], done: [4.4, 5.0], out: [7.1, 7.9] }   // out: the drawing fades away before the loop restarts
+         dims: [3.2, 3.9], labels: [3.5, 4.1], done: [4.4, 5.0] }
   };
   var NS = 'http://www.w3.org/2000/svg', V = ['--bp-bg', '--bp-g1', '--bp-g2', '--bp-ln', '--bp-hd', '--bp-dm', '--bp-lb', '--bp-ac'];
   var MONO = "font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'";
@@ -179,7 +179,7 @@
     });
     var fades = [].slice.call(svg.querySelectorAll('[data-f]')).map(function (el) { return { el: el, key: el.getAttribute('data-f') }; });
     var done = svg.querySelector('[data-done]'), loop = svg.querySelector('[data-loop]');
-    var lastShot = -1, cutN = -1;
+    var lastShot = -1, cutN = -1, built = false;
 
     // aim the camera at the drawing's centre
     function aim() {
@@ -189,11 +189,15 @@
       svg.style.transformOrigin = px.toFixed(0) + 'px ' + py.toFixed(0) + 'px';
     }
 
-    function render(t) {
-      draws.forEach(function (d) { d.el.style.strokeDashoffset = d.len * (1 - win(d.key, t)); });
-      fades.forEach(function (f) { f.el.style.opacity = win(f.key, t); });
+    // the drawing builds once (tDraw stops once it is finished); the camera and colours keep cycling on t
+    function render(t, tDraw) {
+      if (tDraw === undefined) tDraw = t;
+      if (!built) {
+        draws.forEach(function (d) { d.el.style.strokeDashoffset = d.len * (1 - win(d.key, tDraw)); });
+        fades.forEach(function (f) { f.el.style.opacity = win(f.key, tDraw); });
+        built = tDraw >= CONFIG.t.done[1];
+      }
       if (done) done.style.fillOpacity = 0;   // no filled highlight box
-      loop.style.opacity = (1 - win('out', t)).toFixed(3);
       if (!hero) return;
       var n = SHOTS.length, len = CONFIG.duration / n, i = Math.min(n - 1, Math.floor(t / len)), p = (t - i * len) / len, sh = SHOTS[i];
       if (i !== lastShot) { lastShot = i; cutN++; theme(host, cuts[cutN % cuts.length]); }   // the cut: new angle and new look in the same frame
@@ -203,10 +207,15 @@
     }
     aim(); addEventListener('resize', aim);
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(5.2); if (hero) svg.style.transform = 'none'; return; }
-    var t0 = null, raf = 0, visible = true;
-    function frame(now) { if (t0 === null) t0 = now; render(((now - t0) / 1000) % CONFIG.duration); raf = visible ? requestAnimationFrame(frame) : 0; }
+    var t0 = null, raf = 0, visible = true, held = 0, last = 0;
+    function frame(now) {
+      if (t0 === null) t0 = now - held;   // resume where it left off after being scrolled away, never rebuild
+      var el = (now - t0) / 1000; last = el;
+      render(el % CONFIG.duration, el);
+      raf = visible ? requestAnimationFrame(frame) : 0;
+    }
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible && !raf) { t0 = null; raf = requestAnimationFrame(frame); } }).observe(host);
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (!visible) { held = last * 1000; t0 = null; } else if (!raf) raf = requestAnimationFrame(frame); }).observe(host);
     } else raf = requestAnimationFrame(frame);
   }
 
