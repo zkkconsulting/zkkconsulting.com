@@ -52,3 +52,13 @@ section.bp-hero .btn-outline { background: rgba(255,255,255,.08) !important; col
   section.bp-hero h1 { font-size: clamp(2rem, 8.6vw, 2.6rem) !important; }
   :is(section.bp-hero, section.hero-paper) + :is(section, div) { border-radius: 22px 22px 0 0; margin-top: -22px !important; }
 }
+
+/* Hero camera: the grid is the hero's own background, the drawing moves through hard-cut shots */
+.bp-cam-host { perspective: 1300px; overflow: hidden;
+  background-color: var(--bp-bg, #0a1f3d) !important;
+  background-image: linear-gradient(var(--bp-g2) 1.2px, transparent 1.2px), linear-gradient(90deg, var(--bp-g2) 1.2px, transparent 1.2px),
+    linear-gradient(var(--bp-g1) 1px, transparent 1px), linear-gradient(90deg, var(--bp-g1) 1px, transparent 1px);
+  background-size: calc(64px * var(--bp-zoom, 1)) calc(64px * var(--bp-zoom, 1)), calc(64px * var(--bp-zoom, 1)) calc(64px * var(--bp-zoom, 1)),
+    calc(12.8px * var(--bp-zoom, 1)) calc(12.8px * var(--bp-zoom, 1)), calc(12.8px * var(--bp-zoom, 1)) calc(12.8px * var(--bp-zoom, 1));
+  background-position: 70% 45%; }
+.bp-cam-host svg { transform-style: flat; backface-visibility: hidden; }

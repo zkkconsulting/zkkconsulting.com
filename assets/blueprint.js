@@ -1,4 +1,4 @@
-/* Line-drawing heroes. Each drawing builds part by part in thin strokes, then a scan passes over it.
+/* Line-drawing heroes. Each drawing builds part by part in thin strokes while the camera hard-cuts between shots.
    <div data-blueprint data-preset="device"></div>                  framed 9:16 loop
    <div data-blueprint data-mode="hero" data-preset="bars"></div>  full-bleed hero background: the drawing
         holds its place while the whole look jump-cuts between themes, like the home page's match cut.
@@ -14,7 +14,7 @@
     },
     heroCuts: ['blue', 'green', 'ink', 'blue', 'green', 'ink'],
     t: { grid: [0, .6], s1: [.3, 1.3], s2: [.9, 1.8], s3: [1.4, 2.3], s4: [1.9, 2.8], s5: [2.4, 3.2], s6: [2.8, 3.6],
-         dims: [3.2, 3.9], labels: [3.5, 4.1], scan: [3.7, 4.8], done: [4.6, 5.2], out: [5.5, 6.0] }
+         dims: [3.2, 3.9], labels: [3.5, 4.1], done: [4.4, 5.0] }
   };
   var NS = 'http://www.w3.org/2000/svg', V = ['--bp-bg', '--bp-g1', '--bp-g2', '--bp-ln', '--bp-hd', '--bp-dm', '--bp-lb', '--bp-ac'];
   var MONO = "font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'";
@@ -127,18 +127,27 @@
     }
   };
 
+  // camera shots for hero mode: hard cuts, like the home page's match cut (s: zoom, rx/ry/rz: degrees, dx/dy: share of the frame)
+  var SHOTS = [
+    { s: 1.00, rx: 0,   ry: 0,   rz: 0,   dx: 0,    dy: 0 },      // wide
+    { s: 2.05, rx: 0,   ry: 0,   rz: 0,   dx: .02,  dy: .06 },    // tight
+    { s: 1.15, rx: 54,  ry: 0,   rz: -18, dx: 0,    dy: .04 },    // flat on the desk
+    { s: 1.35, rx: 8,   ry: -40, rz: 0,   dx: -.04, dy: 0 },      // side angle
+    { s: 2.90, rx: 0,   ry: 0,   rz: 4,   dx: -.06, dy: .12 },    // extreme close-up
+    { s: .88,  rx: -24, ry: 22,  rz: 0,   dx: .03,  dy: -.02 }    // low and wide
+  ];
+
   function markup(uid, hero, preset) {
-    var x0 = hero ? -1500 : 0, W = hero ? 2400 : 900;
     var draw = (PRESETS[preset] || PRESETS.device)();
+    if (preset !== 'device') draw = draw.replace(/<text[^>]*>[^<]*<\/text>/g, '').replace(/<polyline[^>]*data-d='labels'\/>/g, '');   // words only on the blueprint
+    if (hero) return "<g data-loop>" + draw + "</g>";   // grid lives on the hero itself so tilted shots never show an edge
     return "<defs>" +
       "<pattern id='g" + uid + "' width='20' height='20' patternUnits='userSpaceOnUse'><path d='M20 0H0V20' style='fill:none;stroke:var(--bp-g1)'/></pattern>" +
       "<pattern id='G" + uid + "' width='100' height='100' patternUnits='userSpaceOnUse'><rect width='100' height='100' fill='url(#g" + uid + ")'/><path d='M100 0H0V100' style='fill:none;stroke:var(--bp-g2);stroke-width:1.2'/></pattern>" +
-      "<linearGradient id='s" + uid + "' x1='0' y1='0' x2='0' y2='1'><stop offset='0' style='stop-color:var(--bp-ac)' stop-opacity='0'/><stop offset='.85' style='stop-color:var(--bp-ac)' stop-opacity='.2'/><stop offset='1' style='stop-color:var(--bp-ac)' stop-opacity='.65'/></linearGradient>" +
       "</defs>" +
-      "<rect x='" + x0 + "' y='0' width='" + W + "' height='1600' style='fill:var(--bp-bg)'/>" +
-      "<rect x='" + x0 + "' y='0' width='" + W + "' height='1600' fill='url(#G" + uid + ")' data-f='grid'/>" +
-      "<g data-loop>" + draw + "</g>" +
-      "<g data-scan><rect x='" + x0 + "' y='-140' width='" + W + "' height='140' fill='url(#s" + uid + ")'/><rect x='" + x0 + "' y='-2' width='" + W + "' height='2' style='fill:var(--bp-ac)' opacity='.9'/></g>";
+      "<rect x='0' y='0' width='900' height='1600' style='fill:var(--bp-bg)'/>" +
+      "<rect x='0' y='0' width='900' height='1600' fill='url(#G" + uid + ")' data-f='grid'/>" +
+      "<g data-loop>" + draw + "</g>";
   }
 
   function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
@@ -153,7 +162,7 @@
     var svg = document.createElementNS(NS, 'svg');
     svg.setAttribute('viewBox', hero ? (innerWidth > 860 ? '-1500 160 2400 1240' : '-200 160 1300 1240') : '0 0 900 1600');
     svg.setAttribute('preserveAspectRatio', hero ? 'xMidYMid slice' : 'xMidYMid meet');
-    if (hero) svg.setAttribute('aria-hidden', 'true');
+    if (hero) { svg.setAttribute('aria-hidden', 'true'); host.classList.add('bp-cam-host'); }
     else { svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', host.getAttribute('data-label') || 'Animated line drawing'); }
     theme(host, cuts[0]);
     svg.innerHTML = markup(uid, hero, preset);
@@ -163,19 +172,30 @@
       var len = el.getTotalLength(); el.style.strokeDasharray = len + ' ' + len; return { el: el, len: len, key: el.getAttribute('data-d') };
     });
     var fades = [].slice.call(svg.querySelectorAll('[data-f]')).map(function (el) { return { el: el, key: el.getAttribute('data-f') }; });
-    var loop = svg.querySelector('[data-loop]'), scan = svg.querySelector('[data-scan]'), done = svg.querySelector('[data-done]');
-    var lastCut = -1;
+    var done = svg.querySelector('[data-done]');
+    var lastShot = -1;
+
+    // aim the camera at the drawing's centre
+    function aim() {
+      var m = svg.getScreenCTM(), r = svg.getBoundingClientRect();
+      if (!m) return;
+      var px = 450 * m.a + 720 * m.c + m.e - r.left, py = 450 * m.b + 720 * m.d + m.f - r.top;
+      svg.style.transformOrigin = px.toFixed(0) + 'px ' + py.toFixed(0) + 'px';
+    }
 
     function render(t) {
       draws.forEach(function (d) { d.el.style.strokeDashoffset = d.len * (1 - win(d.key, t)); });
       fades.forEach(function (f) { f.el.style.opacity = win(f.key, t); });
-      var on = t >= CONFIG.t.scan[0] && t <= CONFIG.t.scan[1];
-      scan.setAttribute('transform', 'translate(0 ' + (220 + win('scan', t) * 1150) + ')'); scan.style.opacity = on ? 1 : 0;
       if (done) done.style.fillOpacity = (.08 * win('done', t)).toFixed(3);
-      loop.style.opacity = 1 - win('out', t);
-      if (hero) { var cut = Math.floor(t / CONFIG.duration * cuts.length); if (cut !== lastCut) { lastCut = cut; theme(host, cuts[cut]); } }
+      if (!hero) return;
+      var n = SHOTS.length, len = CONFIG.duration / n, i = Math.min(n - 1, Math.floor(t / len)), p = (t - i * len) / len, sh = SHOTS[i];
+      if (i !== lastShot) { lastShot = i; theme(host, cuts[i % cuts.length]); }   // the cut: new angle and new look in the same frame
+      var push = 1 + .06 * p, w = host.clientWidth, h = host.clientHeight;      // a slow push inside each shot
+      svg.style.transform = 'translate(' + (sh.dx * w).toFixed(1) + 'px,' + (sh.dy * h).toFixed(1) + 'px) rotateX(' + sh.rx + 'deg) rotateY(' + (sh.ry + 4 * p).toFixed(2) + 'deg) rotateZ(' + sh.rz + 'deg) scale(' + (sh.s * push).toFixed(3) + ')';
+      host.style.setProperty('--bp-zoom', (sh.s * push).toFixed(3));
     }
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(5.2); return; }
+    aim(); addEventListener('resize', aim);
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(5.2); if (hero) svg.style.transform = 'none'; return; }
     var t0 = null, raf = 0, visible = true;
     function frame(now) { if (t0 === null) t0 = now; render(((now - t0) / 1000) % CONFIG.duration); raf = visible ? requestAnimationFrame(frame) : 0; }
     if ('IntersectionObserver' in window) {
@@ -183,6 +203,6 @@
     } else raf = requestAnimationFrame(frame);
   }
 
-  window.ZKKBlueprint = { config: CONFIG, presets: PRESETS, mount: mount };
+  window.ZKKBlueprint = { config: CONFIG, presets: PRESETS, shots: SHOTS, mount: mount };
   [].slice.call(document.querySelectorAll('[data-blueprint]')).forEach(function (h, i) { mount(h, i); });
 })();
