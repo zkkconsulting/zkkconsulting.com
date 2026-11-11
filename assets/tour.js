@@ -155,10 +155,10 @@
   }
   var pin = ScrollTrigger.create({
     trigger: stage, start: 'top top', end: '+=15%', pin: true, anticipatePin: 1, onRefreshInit: size,
-    onEnter: function (self) { lock(self.start + 1); },
-    onEnterBack: function (self) { lock(self.end - 1); }
+    onEnter: function (self) { if (armed) lock(self.start + 1); },
+    onEnterBack: function (self) { if (armed) lock(self.end - 1); }
   });
-  var saved = 0;
+  var saved = 0, armed = false;   // the walkthrough only takes over scrolling after the visitor presses Play
   function hold() { window.scrollTo(0, saved); }
   var intent = ScrollTrigger.observe({
     type: 'wheel,touch', tolerance: 12, preventDefault: true, wheelSpeed: -1,   // -1 makes wheel match touch: a finger swiping up moves forward
@@ -180,13 +180,13 @@
     if (nav) nav.classList.remove('on-hero');
   }
   function leave(dir) {
-    unlock();
+    armed = false; unlock();
     var next = root.nextElementSibling, navH = (document.getElementById('nav') || {}).offsetHeight || 0;
     var y = dir > 0 ? (next ? next.getBoundingClientRect().top + scrollY - navH : pin.end + 2) : Math.max(0, pin.start - innerHeight * .6);
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
   // Keys: Escape leaves the walkthrough on its finished state; back keys step back; any other key steps forward.
-  function finish() { unlock(); if (step) step.kill(); busy = false; tl.progress(1); idx = N - 1; }
+  function finish() { armed = false; unlock(); if (step) step.kill(); busy = false; tl.progress(1); idx = N - 1; }
   var BACK = ['ArrowUp', 'ArrowLeft', 'PageUp', 'Backspace'];
   var IGNORE = /^(Tab|Shift|Control|Alt|Meta|CapsLock|Fn|ContextMenu|F\d{1,2}|Unidentified)$/;
   addEventListener('keydown', function (e) {
@@ -206,7 +206,15 @@
     a.addEventListener('click', finish);
   });
 
-  // The walkthrough opens the page, so lock straight away if we start inside it.
-  requestAnimationFrame(function () { if (scrollY >= pin.start && scrollY < pin.end) lock(Math.max(scrollY, pin.start)); });
+  // Play starts the walkthrough from the cover (or from the top again once it has finished).
+  root.querySelectorAll('.tour-play').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (step) step.kill(); busy = false;
+      if (idx >= N - 1) { tl.progress(0); idx = -1; }
+      armed = true;
+      lock(pin.start + 1);
+      go(1);
+    });
+  });
   addEventListener('load', function () { ScrollTrigger.refresh(); });
 })();

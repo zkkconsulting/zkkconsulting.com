@@ -131,3 +131,17 @@ section.smp-sec { background: radial-gradient(ellipse 70% 60% at 50% 0%, #17211d
 @media (hover: none) { .tour-keys, .tour-esc { display: none !important; } }
 .tour-stage { cursor: pointer; }
 .tour-cue { gap: 0 !important; } .tour-cue::after { margin-left: .45rem; } .tour-esc { margin-left: .4rem; }
+/* Opt-in walkthrough: a Play button, and the page scrolls normally until it is pressed */
+.tour-play { display: inline-flex; align-items: center; gap: .6rem; height: 46px; padding: 0 1.3rem 0 1.05rem; border: 0; border-radius: 8px; background: #fff; color: #071a12;
+  font: 600 .8rem/1 var(--sans, sans-serif); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+.tour-play svg { width: 14px; height: 14px; fill: currentColor; }
+.tour-play:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(0,0,0,.35); }
+.tour-play:focus-visible { outline: 2px solid #ffd36b; outline-offset: 3px; }
+body.in-tour .tour-play { visibility: hidden; }
+.tour-hint { margin: .9rem 0 0 !important; font-size: .82rem !important; color: rgba(240,244,250,.55) !important; }
+.tour-touch { display: none; }
+@media (hover: none) { .tour-touch { display: inline; } }
+.tour-skip-fixed { display: none !important; }
+body.in-tour .tour-skip-fixed { display: inline-block !important; }
+.tour-stage { cursor: auto; }
+body.in-tour .tour-stage { cursor: pointer; }
