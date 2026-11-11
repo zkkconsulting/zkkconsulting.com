@@ -2988,3 +2988,48 @@ body.light-pg main > section.alt:not(.cta-band):not(.tone-green), body.light-pg 
 /* Spacing pass: Book a call heading clears the nav; closing band gets even top and bottom room */
 :root body main > section.intake-top { padding-top: calc(var(--nav-h, 64px) + 2.6rem) !important; }
 @media (max-width: 760px) { :root body main > section.cta-band { padding-top: 3.4rem !important; padding-bottom: 3.4rem !important; } }
+
+/* Team profiles: each part is its own band (alternating tone + a hairline), moving lines instead of dots */
+.pf-panel::before, .pf-panel::after { display: none !important; }
+:root body .pf-panel > .founder-hero { background: #f7f7f4; border-bottom: 1px solid rgba(13,22,18,.12); }
+:root body .pf-panel > section { background: #ecede9 !important; border-top: 1px solid rgba(13,22,18,.12) !important; }
+:root body .pf-panel > section:nth-of-type(even) { background: #f7f7f4 !important; }
+:root body .pf-panel > section .section-label { margin-bottom: 1.4rem; }
+/* Moving lines replace the floating dots in every content section */
+:root body main > section:not(.page-hero):not(.bp-hero):not(.hero-paper):not(#tour) { background-image: none !important; animation: none !important; }
+:root body .bg-paths { opacity: .85 !important; }
+:root body .bg-paths path { stroke: #33443b !important; }
+:root body .cta-band .bg-paths path, :root body .tour .bg-paths path { stroke: #fff !important; }
+/* Dark heroes: white main button, light gray second button, no outlines; headline emphasis is plain white italic (no highlight box) */
+:root body section.bp-hero .hero-ctas .btn.btn-primary { background: #fff !important; color: #0d1612 !important; border: 0 !important; box-shadow: none !important; }
+:root body section.bp-hero .hero-ctas .btn.btn-primary:hover { background: #e9e9e4 !important; }
+:root body section.bp-hero .hero-ctas .btn.btn-outline { background: rgba(255,255,255,.14) !important; color: #fff !important; border: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+:root body section.bp-hero .hero-ctas .btn.btn-outline:hover { background: rgba(255,255,255,.24) !important; }
+:root body section.bp-hero h1 mark.hl { background: none !important; color: #fff !important; -webkit-text-fill-color: #fff !important; padding: 0 !important; margin: 0 !important; font-style: italic; }
+/* One content width everywhere: up to 1440px, with a 5% side margin on smaller screens (matches What clients say) */
+:root { --page-x: max(5vw, calc((100vw - 1440px) / 2)); }
+:root body main > section:not(.page-hero):not(.bp-hero):not(.hero-paper):not(#tour), :root body .pf-panel > section, :root body .pf-panel > .founder-hero { padding-left: var(--page-x) !important; padding-right: var(--page-x) !important; }
+:root body main section :is(.ig-feature, .ig-grid, .ig-list, .pz-grid, .pz-patent, .pz-bundles, .pz-caps, .pz-terms, .about-grid, .tamu-grid, .proj-grid, .contact-grid, .experience-list, .smp-grid),
+:root body main section:not(.bp-hero):not(.page-hero):not(.hero-paper) > h2 { max-width: none !important; }
+:root body main section .pz-sub { max-width: 760px !important; }
+/* Samples list (now on Services): light cards matching the rest of the site */
+#samples.smp-sec h2 { margin: 0 0 .6rem; }
+#samples .smp-intro a { color: #0b4a32; text-decoration: underline; text-underline-offset: 3px; }
+#samples .smp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+#samples .smp { background: #fff; border: 1px solid rgba(13,22,18,.1); border-radius: 16px; padding: 1.5rem 1.4rem 1.3rem; display: flex; flex-direction: column; box-shadow: 0 1px 2px rgba(13,22,18,.05); transition: box-shadow .2s ease, transform .2s ease; }
+#samples .smp:hover { box-shadow: 0 14px 34px rgba(13,22,18,.1); transform: translateY(-2px); }
+#samples .smp-tag { align-self: flex-start; font: 600 .72rem/1 var(--sans, sans-serif); letter-spacing: .08em; text-transform: uppercase; color: #0d1612; background: #f2d35a; border-radius: 999px; padding: .45rem .7rem; }
+#samples .smp h3 { font-size: 1.2rem; line-height: 1.25; color: #0d1612; margin: .9rem 0 .45rem; }
+#samples .smp p { color: #4a554f; font-size: .98rem; line-height: 1.55; margin: 0 0 1rem; }
+#samples .smp-chips { list-style: none; margin: 0 0 1.2rem; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+#samples .smp-chips li { font-size: .8rem; color: #24302a; background: #f1f2ef; border: 1px solid rgba(13,22,18,.08); border-radius: 6px; padding: .3rem .55rem; }
+#samples .smp-links { margin-top: auto; display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; padding-top: .9rem; border-top: 1px solid rgba(13,22,18,.08); }
+#samples .smp-links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: .95rem; color: #0b4a32; text-decoration: none; }
+#samples .smp-links a:hover { text-decoration: underline; }
+#samples .smp-visual .smp-bp { max-width: none; width: 100%; aspect-ratio: 9 / 12; border-radius: 12px; margin: .9rem 0 .8rem; box-shadow: none; }
+#samples .smp-note { margin: 1.6rem 0 0; font-size: .9rem; color: #4a554f; }
+#samples .smp-note a { color: #0b4a32; }
+#samples .smp-intro { text-align: left !important; margin-left: 0 !important; }
+#samples.smp-sec h2 { text-align: left !important; }
+@media (min-width: 1100px) { #samples .smp-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 640px) and (max-width: 1099px) { #samples .smp-grid { grid-template-columns: repeat(2, 1fr); } }
