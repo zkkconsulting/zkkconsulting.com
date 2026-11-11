@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="/assets/site.css?v=20261121m">
   <link rel="stylesheet" href="/assets/prose.css?v=20261113a">
   <link rel="stylesheet" href="/assets/blueprint.css?v=5">
-  <link rel="stylesheet" href="/assets/tour.css?v=25">
+  <link rel="stylesheet" href="/assets/tour.css?v=29">
   <style>
     /* ── DELIVERABLE PREVIEW DECK ── */
     .hero-deck {
@@ -221,10 +221,21 @@
     <div class="tour-stage">
       <div class="tour-intro">
         <div class="eyebrow">Samples</div>
-        <h1 id="tour-title">A real market research report, page by page</h1>
-        <p>Step through our wrist-worn fall-detection report for Vyrex Solutions, shared with the client's consent.</p>
+        <h1 id="tour-title">A <mark class="hl hl-on">real</mark> market research report, page by page</h1>
         <div class="tour-intro-foot"><button class="tour-play" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.2v9.6L12.6 8z"/></svg>Play the walkthrough</button><a class="tour-skip" href="#samples">Skip to all samples</a></div>
-        <p class="tour-hint"><span class="tour-keys">Once it plays, scroll, click or press any key to turn the page. Press Esc to exit.</span><span class="tour-touch">Once it plays, swipe to turn the page.</span></p>
+        <div class="tour-guide" aria-live="polite">
+          <p class="tour-desc">Step through our wrist-worn fall-detection report for Vyrex Solutions, shared with the client's consent.</p>
+          <ul class="tour-how tour-keys">
+            <li><span class="k"><kbd>Scroll</kbd><kbd>Click</kbd><kbd>Any key</kbd></span><span>Turn to the next page</span></li>
+            <li><span class="k"><kbd>&uarr;</kbd><kbd>&larr;</kbd></span><span>Go back a page</span></li>
+            <li><span class="k"><kbd>Esc</kbd></span><span>Close the walkthrough</span></li>
+          </ul>
+          <ul class="tour-how tour-touch">
+            <li><span class="k"><kbd>Swipe up</kbd></span><span>Turn to the next page</span></li>
+            <li><span class="k"><kbd>Swipe down</kbd></span><span>Go back a page</span></li>
+            <li><span class="k"><kbd>Skip</kbd></span><span>Close the walkthrough</span></li>
+          </ul>
+        </div>
       </div>
       <a class="tour-skip tour-skip-fixed" href="#samples">Skip</a>
       <div class="tour-book" aria-hidden="true">
@@ -351,7 +362,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="/assets/site.js?v=20261121a"></script>
   <script src="/assets/blueprint.js?v=9" defer></script>
-  <script src="/assets/tour.js?v=33"></script>
+  <script src="/assets/tour.js?v=34"></script>
   <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
 
 </body>

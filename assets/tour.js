@@ -180,19 +180,20 @@
     if (nav) nav.classList.remove('on-hero');
   }
   function leave(dir) {
-    armed = false; unlock();
+    reset();
     var next = root.nextElementSibling, navH = (document.getElementById('nav') || {}).offsetHeight || 0;
     var y = dir > 0 ? (next ? next.getBoundingClientRect().top + scrollY - navH : pin.end + 2) : Math.max(0, pin.start - innerHeight * .6);
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
   // Keys: Escape leaves the walkthrough on its finished state; back keys step back; any other key steps forward.
-  function finish() { armed = false; unlock(); if (step) step.kill(); busy = false; tl.progress(1); idx = N - 1; }
+  // Closing (Esc, Skip, or past the last page) puts the walkthrough back on its cover, ready to play again.
+  function reset() { armed = false; unlock(); if (step) step.kill(); busy = false; tl.progress(0); idx = -1; root.classList.remove('is-playing'); }
   var BACK = ['ArrowUp', 'ArrowLeft', 'PageUp', 'Backspace'];
   var IGNORE = /^(Tab|Shift|Control|Alt|Meta|CapsLock|Fn|ContextMenu|F\d{1,2}|Unidentified)$/;
   addEventListener('keydown', function (e) {
     if (!intent.isEnabled || e.metaKey || e.ctrlKey || e.altKey || IGNORE.test(e.key)) return;
     e.preventDefault();
-    if (e.key === 'Escape' || e.key === 'Esc') { finish(); leave(1); return; }
+    if (e.key === 'Escape' || e.key === 'Esc') { reset(); var pb = root.querySelector('.tour-play'); if (pb) pb.focus({ preventScroll: true }); return; }
     if (e.repeat) return;
     go(BACK.indexOf(e.key) > -1 ? -1 : 1);
   });
@@ -201,19 +202,18 @@
     if (!intent.isEnabled || (e.target.closest && e.target.closest('a, button'))) return;
     go(1);
   });
-  // Skip links jump past the walkthrough and land on the finished state.
+  // Skip links close the walkthrough and jump to the samples list.
   root.querySelectorAll('.tour-skip').forEach(function (a) {
-    a.addEventListener('click', finish);
+    a.addEventListener('click', reset);
   });
 
-  // Play starts the walkthrough from the cover (or from the top again once it has finished).
+  // Play locks the page onto the report; the first scroll, click or key turns the first page.
   root.querySelectorAll('.tour-play').forEach(function (b) {
     b.addEventListener('click', function () {
-      if (step) step.kill(); busy = false;
-      if (idx >= N - 1) { tl.progress(0); idx = -1; }
+      reset();
+      root.classList.add('is-playing');   // the intro swaps to the description and how to move through the report
       armed = true;
       lock(pin.start + 1);
-      go(1);
     });
   });
   addEventListener('load', function () { ScrollTrigger.refresh(); });
