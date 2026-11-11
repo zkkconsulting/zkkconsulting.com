@@ -31,7 +31,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/blueprint.css?v=5">
   <link rel="stylesheet" href="/assets/site.css?v=20261114c">
   
   <style>
@@ -115,6 +114,10 @@
     .deposit-secure { display: flex; align-items: center; gap: .45rem; font-size: .78rem; color: var(--muted); }
     .deposit-secure svg { width: 15px; height: 15px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
 
+    main > section.intake-top { padding-top: calc(var(--nav-h, 72px) + clamp(28px, 4vw, 56px)) !important; animation: none !important; background-image: none !important; }
+    .intake-head { max-width: 1040px; margin: 0 auto clamp(1.4rem, 3vw, 2.2rem); }
+    .intake-head h1 { font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.08; margin: 0 0 .5rem; text-align: left; }
+    .intake-head p { color: var(--muted); font-size: 1rem; margin: 0; text-align: left; }
     @media (max-width: 900px) {
       .intake-layout { grid-template-columns: 1fr; gap: 2rem; }
       .stepper { position: static; flex-direction: row; flex-wrap: wrap; gap: 1rem; }
@@ -181,24 +184,11 @@
   </div>
 
   <main id="main">
-  <section class="page-hero bp-hero">
-    <div class="bp-bg" data-blueprint data-mode="hero" data-preset="envelope" data-cuts="blue green ink blue green ink"></div>
-    <div class="page-hero-inner">
-      <div class="eyebrow">Start a Project</div>
-      <h1>Book a discovery call.</h1>
-      <p class="lede">
-        Tell us a little about what you need so we can understand the question and make the discovery call
-        useful. Most fields are optional. Answer what you can, and we will work through the rest together.
-      </p>
-      <div class="hero-ctas"><a href="#intakeForm" class="btn btn-primary">Start the form</a><a href="mailto:info@zkkconsulting.com" class="btn btn-outline">Email us</a></div>
-      <p class="price-anchor">
-        <span>Every project starts with a <strong>free consultation</strong>.</span>
-        <a href="/services/">See services &amp; pricing</a>
-      </p>
-    </div>
-  </section>
-
-  <section>
+  <section class="intake-top">
+    <header class="intake-head">
+      <h1>Book a free discovery call</h1>
+      <p>Answer what you can. We reply within one business day.</p>
+    </header>
     <div class="form-success" id="formSuccess" hidden style="max-width:680px;margin:0 auto 2rem;">
       <strong>Received. Thank you.</strong> We will reply within one business day to confirm fit, suggest a
       scope, and offer a few times for a discovery call.
@@ -679,7 +669,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="/assets/blueprint.js?v=5" defer></script>
   <script src="/assets/site.js?v=20261113a"></script>
   <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
   <script>
