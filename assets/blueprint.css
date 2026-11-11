@@ -10,3 +10,25 @@
 .bp-list li { position: relative; padding-left: 1.2rem; color: #24302a; font-size: 1rem; line-height: 1.55; }
 .bp-list li::before { content: ""; position: absolute; left: 0; top: .6em; width: 7px; height: 7px; border-radius: 2px; background: #2f7fd1; }
 @media (max-width: 860px) { .bp-show { grid-template-columns: 1fr; } [data-blueprint] { margin: 0 auto; max-width: 340px; } }
+
+/* Hero mode: the blueprint fills the hero behind the text */
+section.bp-hero { position: relative; overflow: hidden; background: #0a1f3d !important; }
+section.bp-hero .bp-bg { position: absolute; inset: 0; z-index: 0; aspect-ratio: auto; max-width: none; width: auto; border-radius: 0; box-shadow: none; background: var(--bp-bg, #0a1f3d); }
+section.bp-hero::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(5,12,20,.88) 0%, rgba(5,12,20,.72) 38%, rgba(5,12,20,.15) 64%, rgba(5,12,20,0) 80%), linear-gradient(0deg, rgba(5,12,20,.5) 0%, transparent 30%); }
+section.bp-hero .page-hero-inner { position: relative; z-index: 2; }
+section.bp-hero h1, body.light-pg section.bp-hero h1 { color: #fff !important; }
+section.bp-hero .lede, body.light-pg section.bp-hero .lede { color: rgba(240,244,250,.84) !important; }
+section.bp-hero .eyebrow, body.light-pg section.bp-hero .eyebrow { color: #f2d35a !important; }
+section.bp-hero .hl { color: #0b0f0d; }
+body.light-pg section.bp-hero .btn-primary { background: #fff !important; color: #071a12 !important; border-color: #fff !important; }
+body.light-pg section.bp-hero .btn-outline { background: rgba(255,255,255,.08) !important; color: #fff !important; border-color: rgba(255,255,255,.45) !important; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+@media (max-width: 860px) { section.bp-hero::after { background: linear-gradient(0deg, rgba(5,12,20,.9) 0%, rgba(5,12,20,.75) 55%, rgba(5,12,20,.2) 100%); } }
+/* Samples card */
+.smp-visual .smp-bp { max-width: none; width: 100%; aspect-ratio: 9 / 12; border-radius: 12px; margin: .9rem 0 .8rem; box-shadow: none; }
+.smp-visual .smp-bp svg { height: 100%; }
+section.bp-hero > .bp-bg { position: absolute !important; inset: 0 !important; z-index: 0 !important; width: auto !important; height: auto !important; margin: 0 !important; }
+section.bp-hero > .bp-bg svg { width: 100%; height: 100%; }
+section.bp-hero > .page-hero-inner { z-index: 2 !important; }
+section.bp-hero { min-height: min(78svh, 720px); display: flex; align-items: center; }
+section.bp-hero > .page-hero-inner { width: 100%; }

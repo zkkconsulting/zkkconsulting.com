@@ -271,3 +271,13 @@
   var cue = hero.querySelector('.hero-scroll');
   if (cue) cue.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); busy = false; window.scrollTo({ top: target(), behavior: 'smooth' }); }, true);
 })();
+
+/* ── Home: leaving the hero animates (headline lifts, video pushes in), the next section slides over it ── */
+(function () {
+  var hero = document.querySelector('body.home .hero-paper');
+  if (!hero || !window.gsap || !window.ScrollTrigger || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  gsap.registerPlugin(ScrollTrigger);
+  var tl = gsap.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .6 } });
+  tl.to(hero.querySelector('.page-hero-inner'), { y: -80, autoAlpha: 0, ease: 'none' }, 0)
+    .to(hero.querySelector('.hero-vid'), { scale: 1.12, filter: 'blur(2px) grayscale(.3)', ease: 'none' }, 0);
+})();

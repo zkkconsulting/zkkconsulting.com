@@ -27,7 +27,10 @@
     var r = sheet.dataset.rect.split(',').map(Number), hl = document.createElement('span');
     hl.className = 'sheet-hl';   // focus outline around the passage the caption describes
     hl.style.cssText = 'left:' + (r[0] / PW * 100) + '%;top:' + (r[1] / PH * 100) + '%;width:' + (r[2] / PW * 100) + '%;height:' + (r[3] / PH * 100) + '%';
-    sheet.appendChild(hl);
+    // lens: the page content zooms toward the outlined passage inside the paper frame
+    var lens = document.createElement('div'); lens.className = 'sheet-lens';
+    lens.appendChild(sheet.querySelector('img')); lens.appendChild(hl); sheet.appendChild(lens);
+    gsap.set(lens, { transformOrigin: ((r[0] + r[2] / 2) / PW * 100) + '% ' + ((r[1] + r[3] / 2) / PH * 100) + '%' });
     var shade = document.createElement('span'); shade.className = 'leaf-shade'; sheet.appendChild(shade);
     leaf.style.zIndex = N - i;
     gsap.set([leaf, sheet], { transformPerspective: P });
@@ -47,9 +50,9 @@
   }
   var poses = {
     zoom: function (i) { return { scale: function () { return cam(i).scale; }, x: function () { return cam(i).x; }, y: function () { return cam(i).y; } }; },
-    side: function () { return narrow() ? { y: vh(-.2), scale: .6 } : { x: vw(-.2), scale: .9, rotationY: rot(14) }; },
-    swing: function () { return narrow() ? { y: vh(-.14), scale: .7, rotationZ: rot(-4) } : { x: vw(-.12), scale: .92, rotationY: rot(-20), rotationZ: rot(-3) }; },
-    settle: function () { return narrow() ? { y: vh(-.14), scale: .7, rotationX: rot(8) } : { x: vw(.14), scale: .86, rotationX: rot(8), rotationY: rot(-10) }; }
+    side: function () { return narrow() ? { y: vh(-.16), scale: .74 } : { x: vw(-.2), scale: .9, rotationY: rot(14) }; },
+    swing: function () { return narrow() ? { y: vh(-.12), scale: .8, rotationZ: rot(-3) } : { x: vw(-.12), scale: .92, rotationY: rot(-20), rotationZ: rot(-3) }; },
+    settle: function () { return narrow() ? { y: vh(-.12), scale: .8, rotationX: rot(6) } : { x: vw(.14), scale: .86, rotationX: rot(8), rotationY: rot(-10) }; }
   };
   var rest = { x: 0, y: 0, scale: 1, rotationX: 0, rotationY: 0, rotationZ: 0 };
 
@@ -58,8 +61,8 @@
   tl.addLabel('s-1', 0);
   gsap.set(book, {
     x: function () { return narrow() ? 0 : innerWidth * .2; },
-    y: function () { return narrow() ? innerHeight * .2 : innerHeight * .04; },
-    scale: function () { return narrow() ? .58 : .82; },
+    y: function () { return narrow() ? innerHeight * .17 : innerHeight * .04; },
+    scale: function () { return narrow() ? .72 : .82; },
     transformOrigin: '50% 50%'   // upright beside the title, no tilt
   });
   tl.to(intro, { autoAlpha: 0, y: -40, duration: .7, ease: 'power1.in' }, 0)
@@ -67,6 +70,7 @@
 
   leaves.forEach(function (leaf, i) {
     var sheet = leaf.querySelector('.sheet'), shade = sheet.querySelector('.leaf-shade'), hl = sheet.querySelector('.sheet-hl');
+    var lens = sheet.querySelector('.sheet-lens');
     var cap = caps[i], move = cap.dataset.move, last = i === N - 1;
     var bars = cap.querySelectorAll('.tc-bar i'), sticks = cap.querySelectorAll('.tc-stick i');
     gsap.set(bars, { scaleX: 0 }); gsap.set(sticks, { scaleY: 0 });
@@ -76,12 +80,15 @@
     tl.fromTo(hl, { autoAlpha: 0, scale: 1.04 }, { autoAlpha: 1, scale: 1, duration: .5, ease: 'power2.out' }, '<');
     if (bars.length) tl.to(bars, { scaleX: 1, duration: .7, stagger: .07, ease: 'power3.out' }, '>-0.2');
     if (sticks.length) tl.to(sticks, { scaleY: 1, duration: .7, stagger: .09, ease: 'power3.out' }, '>-0.2');
+    // dynamic zoom: on non-zoom steps the content pushes in toward the outlined passage
+    if (move !== 'zoom' && !still) tl.to(lens, { scale: move === 'side' ? 1.18 : 1.28, duration: 1.1, ease: 'power2.inOut' }, '>-0.3');
     tl.addLabel('s' + i);
     if (last) return;
 
     tl.to(cap, { autoAlpha: 0, y: -20, duration: .4, ease: 'power1.in' })
       .to(hl, { autoAlpha: 0, duration: .3, ease: 'none' }, '<')
       .to(sheet, Object.assign({ duration: 1 }, rest), '<')
+      .to(lens, { scale: 1, duration: .8, ease: 'power2.inOut' }, '<')
       .set(leaves[i + 1], { autoAlpha: 1 }, '>-0.4');
     if (still) { tl.to(leaf, { autoAlpha: 0, duration: .6 }, '>-0.3'); return; }
     if (i % 2 === 0) {

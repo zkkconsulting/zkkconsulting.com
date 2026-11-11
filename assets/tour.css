@@ -96,3 +96,11 @@ section.smp-sec { background: radial-gradient(ellipse 70% 60% at 50% 0%, #17211d
 /* Focus outline on the passage the caption describes */
 .sheet-hl { position: absolute; z-index: 1; border-radius: 4px; pointer-events: none; opacity: 0; visibility: hidden;
   outline: 2px solid #d4a32a; outline-offset: 5px; box-shadow: 0 0 0 4000px rgba(11,15,13,.16), 0 0 0 9px rgba(242,211,90,.18); }
+.sheet-lens { position: absolute; inset: 0; transform-origin: 50% 50%; }
+.sheet-lens img { display: block; width: 100%; height: 100%; }
+.sheet-hl { outline-offset: 0 !important; border-radius: 6px; }
+@media (max-width: 860px) {
+  .tour-intro .tour-skip:not(.tour-skip-fixed) { display: none; }
+  .tour-cue { margin-top: 1.1rem; }
+  .tour-skip-fixed { top: calc(var(--nav-h, 60px) + 10px); right: 16px; min-height: 32px; }
+}

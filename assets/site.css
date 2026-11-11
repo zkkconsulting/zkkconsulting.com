@@ -2697,8 +2697,7 @@ body.home .hero-paper .lede { font-size: 1.15rem; margin-bottom: 1.6rem; }
 
 /* Home sections: gray newsprint paper, ink text, white glass cards, dark moving lines */
 body.home main section.hs { position: relative; background: #e5e5df !important; color: #0d1612; }
-body.home main section.hs::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07; background: url(/assets/hero/clearer-poster.jpg) center / cover no-repeat; filter: blur(1.5px) grayscale(1); }
-body.home main section.hs > * { position: relative; z-index: 1; }
+body.home main section.hs > :not(.bg-paths) { position: relative; z-index: 1; }
 body.home main section.hs:nth-of-type(odd) { background: #ecece6 !important; }
 body.home .bg-paths path { stroke: #0d1612 !important; }
 body.home .bg-paths { opacity: .35 !important; }
@@ -2734,3 +2733,51 @@ body.home #reviews .reviews-grid > * * { color: #2a352f !important; }
 body.home .h-steps span { color: #6b4c05 !important; }
 body.light-pg main .pz-sec .btn-primary { background: #0b4a32 !important; color: #fff !important; border: 1px solid #0b4a32 !important; }
 body.light-pg main .pz-sec .btn-primary:hover { background: #0b6b45 !important; }
+
+/* ── Home refinements: plain gray paper with the moving lines, glass hero buttons, hero exit ── */
+body.home main section.hs { overflow: hidden; }
+body.home .bg-paths { position: absolute !important; inset: 0; z-index: 0 !important; opacity: .55 !important; }
+body.home .bg-paths path { stroke: #2b3a33 !important; }
+body.home main section#research { border-radius: 28px 28px 0 0; margin-top: -28px !important; z-index: 2; box-shadow: 0 -18px 50px rgba(13,22,18,.12); }
+.btn-glass { position: relative; min-height: 52px !important; border-radius: 12px !important; padding: 0 1.5rem !important; letter-spacing: .07em;
+  -webkit-backdrop-filter: blur(14px) saturate(160%) !important; backdrop-filter: blur(14px) saturate(160%) !important; transition: transform .2s ease, box-shadow .2s ease, background .2s ease !important; }
+.btn-glass .sm { display: none; }
+.hero-paper .btn-glass.btn-primary { background: linear-gradient(180deg, rgba(14,92,62,.92), rgba(7,58,39,.92)) !important; color: #fff !important; border: 1px solid rgba(255,255,255,.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 10px 26px rgba(7,58,39,.28) !important; }
+.hero-paper .btn-glass.btn-outline { background: rgba(255,255,255,.42) !important; color: #0b4a32 !important; border: 1px solid rgba(255,255,255,.85) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 8px 22px rgba(13,22,18,.08) !important; }
+.hero-paper .btn-glass:hover { transform: translateY(-1px); }
+.hero-paper .btn-glass.btn-primary:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 14px 32px rgba(7,58,39,.36) !important; }
+.hero-paper .btn-glass.btn-outline:hover { background: rgba(255,255,255,.7) !important; }
+.hero-paper .hero-ctas { flex-wrap: nowrap; }
+@media (max-width: 860px) {
+  .btn-glass .lg { display: none; } .btn-glass .sm { display: inline; }
+  .hero-paper .hero-ctas .btn-glass { flex: 1 1 0 !important; min-width: 0; padding: 0 .8rem !important; font-size: .76rem !important; }
+}
+@media (min-width: 861px) and (max-width: 1100px) {
+  body.home .hero-paper .page-hero-inner { max-width: 500px; }
+  body.home .hero-paper h1 { font-size: clamp(2.4rem, 5vw, 3.4rem) !important; }
+  .hero-paper .hero-vid { width: 150% !important; right: -50% !important; }
+}
+@media (max-width: 860px) { .hero-paper .hero-ctas { flex-direction: row !important; align-items: stretch !important; width: 100%; } .hero-paper .hero-ctas .btn-glass { width: auto !important; max-width: none !important; } }
+/* Team: notable work as a plain list (no timeline bar), education under competencies */
+.experience-list { border-left: 0 !important; padding-left: 0 !important; display: grid !important; gap: 0; max-width: 900px; }
+.experience-list .exp-item { padding: 1.4rem 0 !important; border-bottom: 1px solid rgba(127,140,133,.25); }
+.experience-list .exp-item:last-child { border-bottom: 0; }
+.experience-list .exp-item::before, .timeline-item::before { display: none !important; }
+.exp-date { margin: .15rem 0 .6rem; opacity: .85; }
+.edu-sub { margin-top: 1.6rem !important; }
+.edu-grid { grid-auto-rows: auto !important; grid-template-columns: 1fr !important; flex: none !important; }
+
+/* ── Light pages: the home page's gray paper tones and its moving ink lines ── */
+body.light-pg main section:not(.cta-band):not(.bp-hero) { position: relative; overflow: hidden; }
+body.light-pg section.pz-sec { background: #ecece6 !important; }
+body.light-pg section.pz-sec.pz-alt { background: #e5e5df !important; }
+body.light-pg main section:not(.pz-sec):not(.light-hero):not(.cta-band) { background: #ecece6; }
+body.light-pg main section.alt:not(.pz-sec):not(.cta-band) { background: #e5e5df; }
+body.light-pg .bg-paths { position: absolute !important; inset: 0; z-index: 0 !important; opacity: .5 !important; }
+body.light-pg .bg-paths path { stroke: #2b3a33 !important; }
+body.light-pg main section > :not(.bg-paths):not(.bp-bg) { position: relative; z-index: 1; }
+body.light-pg :is(.pz-card, .pz-patent, .pz-caps li, .pz-bundles li, .ig-card, .ig-list a, .rf-terms li, .tm-cl:not(.tm-cl-primary), .smp) {
+  background: rgba(255,255,255,.72) !important; -webkit-backdrop-filter: blur(10px) saturate(140%); backdrop-filter: blur(10px) saturate(140%); border-color: rgba(13,22,18,.1) !important; }
+body.light-pg .pz-card.feat { border-color: #0b6b45 !important; }
