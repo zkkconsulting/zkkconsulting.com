@@ -2938,3 +2938,9 @@ body.light-pg main > section.alt:not(.cta-band):not(.tone-green), body.light-pg 
   section.cta-band .hero-ctas { justify-content: center !important; }
 }
 @media (max-width: 860px) { :root body main section.cta-band, :root body main section.cta-band .cta-headline { text-align: center !important; margin-left: auto !important; margin-right: auto !important; } }
+/* Team: clear space between the founder cards and the buttons */
+:root body section.team-hero .page-hero-inner .hero-ctas.team-ctas { margin-top: 2.2rem !important; }
+/* Phones: hero content sits in the middle of the screen */
+@media (max-width: 860px) {
+  :root body main > section.bp-hero { align-items: center !important; justify-content: flex-start !important; padding-top: calc(var(--nav-h, 64px) + 28px) !important; padding-bottom: 56px !important; }
+}

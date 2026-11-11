@@ -266,13 +266,20 @@
       if (busy || scrollY > 8) return;
       if (e && e.cancelable) e.preventDefault();
       busy = true;
-      window.scrollTo({ top: target(), behavior: still ? 'auto' : 'smooth' });
+      // an eased, animated glide (not a jump): slow start, quick middle, soft landing
+      var from = scrollY, to = target(), t0 = performance.now(), dur = still ? 0 : 1100, root = document.documentElement, prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      (function step(now) {
+        var k = dur ? Math.min((now - t0) / dur, 1) : 1, e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+        window.scrollTo(0, from + (to - from) * e);
+        if (k < 1) requestAnimationFrame(step); else root.style.scrollBehavior = prev;
+      })(t0);
       // the next section rises into place as the page glides down to it
       if (!still && next.animate) next.animate([
         { transform: 'translateY(90px) scale(.97)', opacity: .35, borderRadius: '40px 40px 0 0' },
         { transform: 'none', opacity: 1, borderRadius: '28px 28px 0 0' }
-      ], { duration: 950, easing: 'cubic-bezier(.2,.8,.2,1)' });
-      setTimeout(function () { busy = false; }, 950);
+      ], { duration: 1100, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      setTimeout(function () { busy = false; }, 1150);
     };
     addEventListener('wheel', function (e) { if (e.deltaY > 6) glide(e); }, { passive: false });
     addEventListener('touchstart', function (e) { ty = e.touches[0].clientY; }, { passive: true });
