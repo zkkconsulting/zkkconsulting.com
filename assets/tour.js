@@ -215,8 +215,14 @@
       armed = true;
       lock(pin.start + 1);
       root.classList.add('is-starting');   // headline and button fade out first, then the guide fades in
-      swap = setTimeout(function () { root.classList.remove('is-starting'); root.classList.add('is-playing'); }, 320);
+      swap = setTimeout(function () { root.classList.remove('is-starting'); root.classList.add('is-playing'); clearGuide(); }, 320);
     });
   });
+  // phones: the instruction list is taller than the headline it replaces, so drop the page below it if they would overlap
+  function clearGuide() {
+    if (!narrow()) return;
+    var d = intro.getBoundingClientRect().top + intro.offsetHeight + 24 - book.getBoundingClientRect().top;
+    if (d > 0) gsap.to(book, { y: '+=' + d, duration: .35, ease: 'power2.out', onComplete: function () { tl.invalidate(); } });
+  }
   addEventListener('load', function () { ScrollTrigger.refresh(); });
 })();

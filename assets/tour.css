@@ -196,3 +196,5 @@ body.in-tour .tour-stage { cursor: pointer; }
 /* Scroll hint: a rounded peek of the samples section at the bottom of the cover, gone once the walkthrough plays */
 .tour-stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: #f7f7f4; border-radius: 22px 22px 0 0; z-index: 20; pointer-events: none; transition: transform .32s ease; }
 .tour.is-starting .tour-stage::after, .tour.is-playing .tour-stage::after { transform: translateY(100%); }
+/* narrow screens always get the short two-row list (click or scroll), whatever the pointer */
+@media (max-width: 860px) { .tour-how.tour-keys { display: none !important; } .tour-how.tour-touch { display: grid !important; } }
