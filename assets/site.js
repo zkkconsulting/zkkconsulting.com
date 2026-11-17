@@ -307,3 +307,76 @@
       .then(function () { send.disabled = false; send.textContent = 'Submit review'; });
   });
 })();
+
+/* ── Referral price switch: every [data-price] on the page rolls to 10% off when it is on ── */
+(function () {
+  var sw = document.querySelectorAll('.ref-switch');
+  if (!sw.length) return;
+  var fmt = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
+  var calm = matchMedia('(prefers-reduced-motion: reduce)').matches || !window.gsap;
+  var set = function (on, quick) {
+    document.documentElement.classList.toggle('ref-on', on);
+    sw.forEach(function (b) { b.setAttribute('aria-checked', String(on)); });
+    document.querySelectorAll('[data-price]').forEach(function (el) {
+      var p = +el.getAttribute('data-price'), now = el.querySelector('.pkg-now');
+      if (!now) return;
+      var to = on ? Math.floor(p * 0.9) : p, from = +now.textContent.replace(/[^0-9]/g, '');
+      if (calm || quick) { now.textContent = fmt(to); return; }
+      var o = { v: from };
+      if (el._tw) el._tw.kill();
+      el._tw = gsap.to(o, { v: to, duration: 0.6, ease: 'power3.out', overwrite: true, onUpdate: function () { now.textContent = fmt(o.v); } });
+    });
+    // "One fixed price" under each package becomes "You save $X" (same line, so nothing moves)
+    document.querySelectorAll('.pkg .pkg-per').forEach(function (per) {
+      var pr = per.closest('.pkg').querySelector('[data-price]'); if (!pr) return;
+      if (!per.dataset.base) per.dataset.base = per.textContent;
+      var p = +pr.getAttribute('data-price');
+      per.textContent = on ? 'You save ' + fmt(p - Math.floor(p * 0.9)) : per.dataset.base;
+      per.classList.toggle('pkg-save', on);
+    });
+  };
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('.ref-switch, .ref-label');
+    if (!t) return;
+    var on = !document.documentElement.classList.contains('ref-on');
+    set(on);
+    try { localStorage.setItem('zkk-ref', on ? '1' : '0'); } catch (err) {}
+  });
+  // remember the switch across pages and visits
+  try { if (localStorage.getItem('zkk-ref') === '1') set(true, true); } catch (err) {}
+})();
+
+/* ── Home hero video: fetched only after the page loads, never on phones or with reduced motion (poster shows instead) ── */
+(function () {
+  var v = document.querySelector('video.hero-vid[data-mp4]');
+  if (!v || matchMedia('(max-width: 700px), (prefers-reduced-motion: reduce)').matches) return;
+  var go = function () {
+    [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (x) {
+      var s = document.createElement('source'); s.src = v.dataset[x[0]]; s.type = x[1]; v.appendChild(s);
+    });
+    v.load(); var p = v.play(); if (p && p.catch) p.catch(function () {});
+  };
+  if (document.readyState === 'complete') go(); else addEventListener('load', go);
+})();
+
+/* ── Lead source: how this visitor first found us, sent only with an intake form they submit (no cookies, stays in their browser) ── */
+(function () {
+  try {
+    var K = 'zkk-src', s = JSON.parse(localStorage.getItem(K) || 'null'), q = new URLSearchParams(location.search);
+    if (!s) {
+      var r = document.referrer, host = '';
+      try { host = r ? new URL(r).host : ''; } catch (e) {}
+      s = { from: q.get('utm_source') || q.get('ref') || (host && host !== location.host ? host : 'direct'),
+            campaign: q.get('utm_campaign') || '', landing: location.pathname, date: new Date().toISOString().slice(0, 10) };
+      localStorage.setItem(K, JSON.stringify(s));
+    }
+    var pages = JSON.parse(sessionStorage.getItem('zkk-pages') || '[]');
+    if (pages[pages.length - 1] !== location.pathname) { pages.push(location.pathname); sessionStorage.setItem('zkk-pages', JSON.stringify(pages.slice(-15))); }
+    var f = document.getElementById('intakeForm'); if (!f) return;
+    var add = function (n, v) { var i = document.createElement('input'); i.type = 'hidden'; i.name = n; i.value = v; f.appendChild(i); };
+    add('Lead source', s.from + (s.campaign ? ' / ' + s.campaign : ''));
+    add('First page', s.landing + ' (' + s.date + ')');
+    add('Pages this visit', pages.join(' > '));
+    add('Referral pricing on', localStorage.getItem('zkk-ref') === '1' ? 'yes' : 'no');
+  } catch (e) {}
+})();
