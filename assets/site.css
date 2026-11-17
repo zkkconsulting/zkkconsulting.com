@@ -3468,15 +3468,14 @@ body.light-pg .pkg { min-height: 0; }
 @media (hover: hover) { :root body :is(.related-grid .card, a.ig-card, .smp) { transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, border-color .25s; }
   :root body :is(.related-grid .card, a.ig-card, .smp):hover { transform: translateY(-3px); border-color: rgba(138,101,8,.35) !important; box-shadow: 0 14px 32px rgba(13,22,18,.09) !important; } }
 :root body .ig-top > :is(.ig-tag, .smp-tag) { align-self: center !important; white-space: nowrap; }
-/* ── Referral note: sits on the toggle row, never below it, so the cards hold their place ── */
+/* ── Referral note: centred under the toggle in reserved space, so the cards hold their place ── */
 :root body main section .ref-bar { position: relative; display: grid !important; grid-template-columns: minmax(0,1fr) auto auto minmax(0,1fr); align-items: center; column-gap: .75rem; margin-bottom: 1.4rem; }
 :root body main section .ref-bar .ref-switch { grid-column: 2; }
 :root body main section .ref-bar .ref-label { grid-column: 3; margin: 0; }
-:root body main section .ref-bar .ref-note { grid-column: 4; grid-row: 1; justify-self: start; white-space: nowrap; margin-left: .5rem; padding-left: 1rem; border-left: 1px solid rgba(13,22,18,.15); font-size: .85rem; text-align: left; }
-@media (max-width: 900px) {
-  :root body main section .ref-bar .ref-note { grid-column: 1 / -1; position: absolute; left: 0; right: 0; top: calc(100% + .35rem); margin: 0; padding: 0; border: 0; text-align: center; white-space: normal; }
-  :root body main section .ref-bar { margin-bottom: 2.2rem; }
-}
+:root body main section .ref-bar .ref-note { position: absolute; left: 50%; right: auto; top: calc(100% + .3rem); transform: translateX(-50%); width: max-content; max-width: calc(100vw - 40px); margin: 0; padding: 0; border: 0; font-size: .8rem; line-height: 1.4; text-align: center; white-space: normal; }
+/* small reserved room under the bar for the note, so toggling it never moves the cards */
+:root body main section .ref-bar { margin-bottom: 2.1rem; }
+@media (max-width: 900px) { :root body main section .ref-bar .ref-note { font-size: .76rem; } }
 
 
 /* ── Reviews: SageSpectra (featured) big on the left, the rest small and stacked on the right; phones swipe sideways ── */
@@ -3521,21 +3520,20 @@ body.light-pg .pkg { min-height: 0; }
   #reviews #reviewsGrid .rw-card .rw-q { margin-bottom: .9rem; }
   #reviews .rw-big { justify-content: flex-start; padding: 1.8rem 1.6rem; }
   #reviews .rw-big .rw-q { font-size: 1.2rem; }
-  #reviews #reviewsGrid .rw-wide { display: flex; padding: 1.5rem; }
+  #reviews #reviewsGrid .rw-wide { display: flex; align-items: stretch; padding: 1.5rem; }
   #reviews #reviewsGrid .rw-wide .rw-q { font-size: .95rem; }
-  #reviews #reviewsGrid .rw-wide .rw-who { padding: .8rem 0 0; border-left: 0; border-top: 2px solid #ffd36b; }
+  #reviews #reviewsGrid .rw-wide .rw-who { margin: auto 0 0; padding: .8rem 0 0; border-left: 0; border-top: 1px solid rgba(13,22,18,.08); font-size: .82rem; }
+  #reviews #reviewsGrid .rw-wide .rw-who b { font-size: inherit; }
+  #reviews #reviewsGrid .rw-wide .rw-q { font-size: .9rem; line-height: 1.6; color: #24302a; }
+  #reviews #reviewsGrid .rw-card:not(.rw-big) { background: #fff; border-color: rgba(13,22,18,.08); padding: 1.5rem; }
 }
 
 
-/* Footer buttons: quiet outline style (thin ring, no solid fill), filled only on hover */
-:root body footer.site-footer .footer-pills a.footer-social:not(.footer-review) { width: 40px !important; height: 40px !important; min-height: 40px !important; background: transparent !important; border: 1px solid rgba(255,255,255,.22) !important; color: rgba(255,255,255,.82) !important; transition: border-color .2s, background-color .2s, color .2s; }
-:root body footer.site-footer .footer-pills a.footer-social:not(.footer-review) svg { width: 17px !important; height: 17px !important; }
-:root body footer.site-footer .footer-pills a.footer-social:not(.footer-review) svg,
-:root body footer.site-footer .footer-pills a.footer-social:not(.footer-review) svg path { fill: currentColor !important; }
-:root body footer.site-footer .footer-pills a.footer-social:not(.footer-review):hover { border-color: rgba(255,255,255,.6) !important; background: rgba(255,255,255,.08) !important; color: #fff !important; }
-:root body footer.site-footer .footer-pills a.footer-review { height: 40px !important; min-height: 40px !important; padding: 0 1.1rem !important; background: transparent !important; border: 1px solid rgba(255,211,107,.5) !important; color: #ffd36b !important; font-weight: 500 !important; font-size: .88rem !important; transition: border-color .2s, background-color .2s; }
-:root body footer.site-footer .footer-pills a.footer-review svg { width: 14px !important; height: 14px !important; fill: currentColor !important; }
-:root body footer.site-footer .footer-pills a.footer-review:hover { background: rgba(255,211,107,.1) !important; border-color: #ffd36b !important; }
+/* Footer buttons: solid white, dark icons and text, no motion on load; hover only shifts the colour */
+:root body footer.site-footer .footer-pills a.footer-review { background: #fff !important; color: #0d1612 !important; border: 0 !important; }
+:root body footer.site-footer .footer-pills a.footer-review svg { fill: #0d1612 !important; }
+:root body footer.site-footer .footer-pills a:is(.footer-social, .footer-review) { transition: background-color .2s, color .2s; }
+:root body footer.site-footer .footer-pills a.footer-review:hover { background: #ffd36b !important; }
 
 /* Home "What we research" note: underline the links on hover */
 :root body.home main .h-note a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }

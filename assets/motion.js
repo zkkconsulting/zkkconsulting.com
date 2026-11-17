@@ -57,17 +57,15 @@
     ScrollTrigger.batch(icos, { start: 'top 96%', once: true,
       onEnter: function (els) { gsap.to(els, { scale: 1, autoAlpha: 1, duration: 0.45, ease: 'back.out(2)', delay: 0.15, stagger: 0.06, clearProps: 'transform,opacity,visibility' }); } });
 
-    /* ── Buttons at the bottom: CTA band, then footer icons in sequence ── */
+    /* ── Buttons at the bottom: CTA band fades up once ── */
     if (document.querySelector('.cta-band')) gsap.from('.cta-band .cta-headline, .cta-band .btn', { autoAlpha: 0, y: 14, stagger: 0.08, clearProps: 'transform,opacity,visibility',
       scrollTrigger: { trigger: '.cta-band', start: 'top 92%', once: true } });
 
-    if (document.querySelector('.footer-pills')) gsap.from('.footer-pills > a', { autoAlpha: 0, scale: 0.7, duration: 0.4, ease: 'back.out(1.7)', stagger: 0.05,
-      clearProps: 'transform,opacity,visibility',
-      scrollTrigger: { trigger: '.footer-pills', start: 'top 98%', once: true } });
+    // footer buttons: no load animation, they are simply there
 
     // hover: small lift on every bottom button (mouse only), one reusable tween per button
     if (ctx.conditions.hover) {
-      gsap.utils.toArray('.cta-band .btn, .footer-pills > a').forEach(function (b) {
+      gsap.utils.toArray('.cta-band .btn').forEach(function (b) {
         var lift = gsap.to(b, { y: -3, scale: 1.05, duration: 0.2, ease: 'power2.out', paused: true });
         b.addEventListener('mouseenter', function () { lift.play(); });
         b.addEventListener('mouseleave', function () { lift.reverse(); });
