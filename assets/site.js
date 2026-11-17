@@ -265,7 +265,7 @@
   btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>Leave us a review';
   var li = brand.querySelector('a.footer-social');   // sits in one row beside the LinkedIn pill
   var row = document.createElement('div'); row.className = 'footer-pills';
-  if (li) { li.parentNode.insertBefore(row, li); row.appendChild(li); } else brand.appendChild(row);
+  if (li) { li.parentNode.insertBefore(row, li); brand.querySelectorAll('a.footer-social').forEach(function (a) { row.appendChild(a); }); } else brand.appendChild(row);
   row.appendChild(btn);
   var dlg = document.createElement('dialog');
   dlg.className = 'rv-dialog'; dlg.setAttribute('aria-labelledby', 'rvTitle');

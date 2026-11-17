@@ -2574,7 +2574,7 @@ footer.site-footer a { color: rgba(255,255,255,.72) !important; text-decoration:
 footer.site-footer a:hover { color: #fff !important; }
 footer.site-footer .footer-about { font-size: .95rem; line-height: 1.6; color: rgba(255,255,255,.7); margin: .9rem 0 1.2rem; max-width: 34ch; }
 footer.site-footer .footerJad-logo { display: inline-flex; align-items: center; gap: .55rem; color: #fff !important; font-weight: 600; font-size: 1.05rem; }
-footer.site-footer .footerJad-mark { width: 18px; height: 18px; }
+footer.site-footer .footerJad-mark { width: auto; height: 26px; }
 footer.site-footer .footer-bottom { position: relative; margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid rgba(255,255,255,.1); display: grid; gap: .9rem; text-align: left; }
 footer.site-footer .footer-legal, footer.site-footer .footer-entity { margin: 0 !important; font-size: 13px !important; line-height: 1.65 !important; color: rgba(255,255,255,.58) !important; max-width: 110ch; text-align: left !important; }
 footer.site-footer .footer-legal a { color: var(--mint) !important; font-size: 13px !important; text-decoration: underline; text-underline-offset: 2px; }
@@ -3322,3 +3322,27 @@ footer .footer-brand .footer-pills a.footer-social { margin: 0 !important; white
 :root body.home #reviews .rv-logos img { max-width: none; }
 @media (max-width: 600px) { :root body.home #reviews .rv-logos img { zoom: .8; } }
 :root body.home main > section#reviews.hs.hs.hs.hs { padding-bottom: clamp(1.6rem, 3vw, 2.4rem) !important; }
+/* Footer: icon-only social buttons */
+footer.site-footer .footer-pills a.footer-social:not(.footer-review) { width: 40px; height: 40px; min-height: 40px; padding: 0 !important; justify-content: center; gap: 0; }
+footer.site-footer .footer-pills a.footer-social:not(.footer-review) svg { width: 18px; height: 18px; }
+/* How it works: icon badges */
+.h-steps li .h-ico { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 1rem; border-radius: 50%; background: #0d1612; color: #ffd36b; }
+.h-steps li .h-ico svg { width: 22px; height: 22px; }
+/* Footer social: solid circles, no outline */
+footer.site-footer .footer-pills a.footer-social:not(.footer-review) { border: 0 !important; background: #fff; color: #0d1612; width: 44px; height: 44px; min-height: 44px; }
+footer.site-footer .footer-pills a.footer-social:not(.footer-review):hover { background: #ffd36b; color: #0d1612; }
+footer.site-footer .footer-pills a.footer-social:not(.footer-review) svg { width: 20px; height: 20px; }
+/* Footer social icons: force visible dark glyph on white circle */
+footer.site-footer .footer-pills a.footer-social:not(.footer-review),
+footer.site-footer .footer-pills a.footer-social:not(.footer-review):hover { color: #0d1612 !important; }
+footer.site-footer .footer-pills a.footer-social:not(.footer-review) svg,
+footer.site-footer .footer-pills a.footer-social:not(.footer-review) svg path { fill: #0d1612 !important; }
+/* How it works: lighter icon chip, number tucked top-right */
+body.home .h-steps li { position: relative; }
+body.home .h-steps li .h-ico { width: 40px; height: 40px; margin-bottom: 1.1rem; background: rgba(138,101,8,.12); color: #6b4c05; }
+body.home .h-steps li .h-ico svg { width: 20px; height: 20px; stroke-width: 1.7; }
+body.home .h-steps li > span { position: absolute; top: clamp(1.2rem, 2.4vw, 1.9rem); right: clamp(1.2rem, 2.6vw, 2.1rem); font-size: .75rem; letter-spacing: .08em; color: rgba(13,22,18,.38) !important; }
+/* Footer: Leave us a review, solid gold pill */
+footer.site-footer .footer-pills a.footer-review { border: 0 !important; background: #ffd36b !important; color: #0d1612 !important; height: 44px; min-height: 44px; padding: 0 1.25rem !important; font-weight: 600; font-size: .9rem; gap: .5rem; }
+footer.site-footer .footer-pills a.footer-review svg { width: 16px; height: 16px; fill: #0d1612; }
+footer.site-footer .footer-pills a.footer-review:hover { background: #fff !important; }
