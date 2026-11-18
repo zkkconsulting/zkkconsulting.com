@@ -29,6 +29,17 @@
     row.appendChild(track); row.classList.add('is-belt');
   })();
 
+  /* ── Reviews "Trusted by" logos: same conveyor belt on phones; desktop keeps the static row ── */
+  (function () {
+    var row = document.querySelector('#reviews .rv-logos');
+    if (!row || !matchMedia('(max-width: 760px)').matches || reduceMotion) return;
+    var imgs = Array.prototype.slice.call(row.querySelectorAll('img'));
+    var track = document.createElement('div'); track.className = 'rv-track';
+    imgs.concat(imgs.map(function (im) { var c = im.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.alt = ''; return c; }))
+        .forEach(function (im) { im.loading = 'eager'; track.appendChild(im); });
+    row.appendChild(track); row.classList.add('is-belt');
+  })();
+
   /* ── FAQ: smooth open/close for <details> ── */
   document.querySelectorAll('.faq-item').forEach(function (d) {
     var sum = d.querySelector('summary'), ans = d.querySelector('.faq-answer');

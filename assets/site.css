@@ -3537,3 +3537,16 @@ body.light-pg .pkg { min-height: 0; }
 
 /* Home "What we research" note: underline the links on hover */
 :root body.home main .h-note a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+/* Reviews "Trusted by" on phones: label centred, logos run as a belt like the hero */
+@media (max-width: 760px) {
+  :root body.home #reviews .rv-trust { text-align: center; }
+  :root body.home #reviews .rv-trust-label { text-align: center; margin-bottom: .9rem; }
+  :root body.home #reviews .rv-logos.is-belt { display: block; overflow: hidden; width: 100vw; margin: 0 calc(50% - 50vw); padding: .4rem 0 .6rem;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  :root body.home #reviews .rv-track { display: flex; align-items: center; width: max-content; gap: 2.4rem; padding-right: 2.4rem; animation: beltMove 26s linear infinite; will-change: transform; }
+  :root body.home #reviews .rv-track img { flex: 0 0 auto; zoom: 1; height: 24px !important; width: auto; max-width: none; }
+  :root body.home #reviews .rv-track img[src*="longhorn"] { height: 30px !important; }
+  :root body.home #reviews .rv-track img[src*="leiskau"] { height: 22px !important; }
+}
+@keyframes beltMove { to { transform: translateX(-50%); } }
