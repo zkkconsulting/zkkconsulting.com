@@ -3609,3 +3609,5 @@ footer.site-footer.zf .footer-entity strong { color: rgba(255,255,255,.82); }
 footer.zf .zf-base { display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.1); }
 footer.zf .zf-about { margin: 1rem 0 1.4rem !important; }
 @media (max-width: 640px) { footer.zf .zf-base { flex-direction: column-reverse; align-items: flex-start; } }
+/* footer: one uniform body, no glass panel */
+footer.zf .zf-panel { padding: 0 0 2.4rem !important; border-radius: 0 !important; background: none !important; border: 0 !important; border-bottom: 1px solid rgba(255,255,255,.1) !important; box-shadow: none !important; }
