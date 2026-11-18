@@ -357,16 +357,27 @@
   try { if (localStorage.getItem('zkk-ref') === '1') set(true, true); } catch (err) {}
 })();
 
-/* ── Home hero video: always playing on every device; only paused while the tab is hidden ── */
+/* ── Home hero video: fetched after the page loads, on every device. Plays while the hero is on screen and the tab is open;
+      pauses otherwise so scrolling the rest of the page stays smooth ── */
 (function () {
-  var v = document.querySelector('video.hero-vid');
+  var v = document.querySelector('video.hero-vid[data-mp4]');
   if (!v) return;
-  var play = function () { if (!document.hidden && v.paused) { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); } };
-  document.addEventListener('visibilitychange', function () { if (document.hidden) v.pause(); else play(); });
-  v.addEventListener('pause', function () { setTimeout(play, 300); });     // browser paused it on its own: start again
-  ['touchstart', 'pointerdown', 'scroll'].forEach(function (e) { addEventListener(e, play, { passive: true }); });  // iOS Low Power Mode needs a gesture
-  addEventListener('pageshow', play);
-  play();
+  var seen = true;
+  var sync = function () {
+    if (seen && !document.hidden) { if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } }
+    else if (!v.paused) v.pause();
+  };
+  var go = function () {
+    [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (x) {
+      var s = document.createElement('source'); s.src = v.dataset[x[0]]; s.type = x[1]; v.appendChild(s);
+    });
+    v.load(); sync();
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { seen = e[0].isIntersecting; sync(); }).observe(v);
+    document.addEventListener('visibilitychange', sync);
+    addEventListener('pageshow', sync);
+    addEventListener('touchstart', sync, { once: true, passive: true });   // iOS Low Power Mode only plays after a touch
+  };
+  if (document.readyState === 'complete') go(); else addEventListener('load', go);
 })();
 
 /* ── Lead source: how this visitor first found us, sent only with an intake form they submit (no cookies, stays in their browser) ── */
