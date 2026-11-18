@@ -10,7 +10,7 @@
   document.documentElement.classList.remove('rv-on');
   document.querySelectorAll('.rv').forEach(function (el) { el.classList.remove('rv'); });
 
-  // pause the CSS line/aurora loops while the page moves (see gsap-sample.css)
+  // pause the CSS line/aurora loops while the page moves (rule in site.css)
   var root = document.documentElement, idle = 0;
   window.addEventListener('scroll', function () {
     if (!idle) root.classList.add('is-scrolling');
