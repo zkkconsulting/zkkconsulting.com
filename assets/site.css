@@ -3659,3 +3659,10 @@ footer.zf .zf-follow { margin-top: 2rem; }
 .ct-chip svg { width: 18px; height: 18px; color: #0b6b45; }
 .ct-chip:hover { border-color: #0b6b45; transform: translateY(-2px); }
 @media (max-width: 700px) { .ct-grid { grid-template-columns: 1fr; gap: .8rem; } .ct-people { margin-top: .8rem; } }
+/* contact: no big hero, straight to the cards */
+:root body main > section.ct-top { padding-top: calc(var(--nav-h, 64px) + 2.6rem) !important; }
+.ct-h1 { text-align: center; font-size: clamp(1.9rem, 3.4vw, 2.6rem); line-height: 1.1; letter-spacing: -.02em; color: #0d1612; margin: 0; }
+.ct-lede { text-align: center; color: #4a554f; font-size: 1.05rem; margin: .6rem auto 0; max-width: 36rem; }
+.ct-people.ct-first { margin-top: 1.8rem; }
+.ct-grid.ct-after { margin-top: 1rem; }
+@media (max-width: 700px) { .ct-people.ct-first { margin-top: 1.4rem; } .ct-grid.ct-after { margin-top: .8rem; } .ct-lede { font-size: 1rem; } }
