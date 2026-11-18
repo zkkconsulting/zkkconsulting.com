@@ -3631,3 +3631,17 @@ footer.zf .zf-follow { margin-top: 2rem; }
 /* blueprint heroes: same smoke gradient as /services/ on every screen (no flat overlay, no aurora) */
 :root body section.page-hero.bp-hero::before, :root body section.page-hero.bp-hero > .aurora { display: none !important; }
 :root body section.page-hero.bp-hero::after { opacity: 1 !important; }
+/* contact page action cards */
+.ct-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; max-width: 1120px; margin: 1.6rem auto 0; }
+.ct-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ct-card { display: flex !important; flex-direction: row !important; gap: 1rem; align-items: center; padding: 1.1rem 1.2rem; min-height: 76px; background: #fff; border: 1px solid #dcdcd4; border-radius: 16px; color: #0d1612 !important; text-decoration: none !important; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.ct-card:hover { border-color: #0b6b45; transform: translateY(-2px); box-shadow: 0 8px 22px rgba(13,22,18,.08); }
+.ct-card:focus-visible { outline: 2px solid #0b6b45; outline-offset: 3px; }
+.ct-ico { flex: 0 0 44px; width: 44px; height: 44px; border-radius: 12px; background: #e7f1ec; color: #0b6b45; display: grid; place-items: center; }
+.ct-ico svg { width: 20px; height: 20px; }
+.ct-x { display: flex; flex-direction: column; min-width: 0; }
+.ct-t { font-weight: 600; font-size: 1rem; line-height: 1.3; }
+.ct-s { font-size: .9rem; color: #4a554f; overflow-wrap: anywhere; }
+.ct-note { max-width: 1120px; margin: 1.6rem auto 0; color: #4a554f; }
+@media (max-width: 900px) { .ct-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .ct-grid, .ct-grid-4 { grid-template-columns: 1fr; } .ct-card { padding: .9rem 1rem; min-height: 64px; } }
