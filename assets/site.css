@@ -3611,3 +3611,13 @@ footer.zf .zf-about { margin: 1rem 0 1.4rem !important; }
 @media (max-width: 640px) { footer.zf .zf-base { flex-direction: column-reverse; align-items: flex-start; } }
 /* footer: one uniform body, no glass panel */
 footer.zf .zf-panel { padding: 0 0 2.4rem !important; border-radius: 0 !important; background: none !important; border: 0 !important; border-bottom: 1px solid rgba(255,255,255,.1) !important; box-shadow: none !important; }
+/* footer: calmer buttons (white primary, outline secondary); socials up front under the buttons */
+footer.site-footer.zf .footer-pills a.zf-cta { background: #fff !important; border-color: #fff !important; color: #0d1612 !important; }
+footer.site-footer.zf .footer-pills a.zf-cta:hover { background: #e8efe9 !important; border-color: #e8efe9 !important; }
+:root body footer.site-footer.zf .footer-pills a.footer-review { background: transparent !important; border: 1px solid rgba(255,255,255,.35) !important; color: #fff !important; }
+:root body footer.site-footer.zf .footer-pills a.footer-review:hover { background: rgba(255,255,255,.1) !important; border-color: #fff !important; }
+footer.zf .zf-follow { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem 1rem; margin-top: 1.6rem; }
+footer.zf .zf-follow-label { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.55); font-weight: 600; }
+footer.site-footer.zf .zf-follow .footer-socials a.footer-social { width: 44px; height: 44px; min-height: 44px; }
+footer.zf .zf-base-solo { justify-content: flex-start; }
+:root body footer.site-footer.zf .footer-pills a.footer-review svg { fill: #fff !important; }
