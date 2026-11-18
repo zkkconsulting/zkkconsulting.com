@@ -3625,3 +3625,6 @@ footer.zf .zf-base-solo { justify-content: flex-start; }
 :root body footer.site-footer.zf .footer-pills a.zf-cta { background: #e2c275 !important; border: 0 !important; color: #14140f !important; font-weight: 600; box-shadow: 0 6px 18px rgba(226,194,117,.18); }
 :root body footer.site-footer.zf .footer-pills a.zf-cta:hover { background: #ecd08e !important; }
 footer.zf .zf-follow { margin-top: 2.6rem; }
+/* footer: wider brand column so the two buttons share one row */
+@media (min-width: 1001px) { footer.zf .zf-panel { grid-template-columns: minmax(300px, 2.2fr) repeat(4, 1fr); } }
+footer.zf .zf-follow { margin-top: 2rem; }
