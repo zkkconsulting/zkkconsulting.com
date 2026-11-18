@@ -3674,3 +3674,4 @@ footer.zf .zf-follow { margin-top: 2rem; }
 .fc-btn:hover { border-color: #0b6b45; transform: translateY(-2px); }
 .fc-btn:focus-visible { outline: 2px solid #0b6b45; outline-offset: 3px; }
 @media (max-width: 860px) { .fc-row { justify-content: center; } }
+@media (max-width: 560px) { .fc-row { flex-direction: column; align-items: stretch; max-width: 360px; margin-left: auto; margin-right: auto; } .fc-btn { justify-content: center; } }
