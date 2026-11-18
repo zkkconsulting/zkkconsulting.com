@@ -3750,3 +3750,5 @@ footer.zf .zf-follow { margin-top: 2rem; }
   :root body .pw-stat { font-size: 2rem; }
   :root body .pw-desc { font-size: 1rem; line-height: 1.65; }
 }
+.pw-proof { font-size: .82rem; font-weight: 600; color: #0b4a32; padding-top: .8rem; margin-top: auto; border-top: 1px solid #e6e8e3; }
+@media (min-width: 901px) { :root body .pw-title { font-size: 1.35rem; line-height: 1.25; } :root body .pw-proof { font-size: .88rem; } }
