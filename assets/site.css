@@ -3741,3 +3741,12 @@ footer.zf .zf-follow { margin-top: 2rem; }
 }
 .pv-media img[src*="/logos/"] { max-width: 240px; }
 :root body main > section.alt.pv-sec { padding-top: 3.2rem !important; }
+/* team work cards: larger on desktop */
+.pw-stat { font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em; color: #0b4a32; line-height: 1.15; margin: .2rem 0 .1rem; }
+@media (min-width: 901px) {
+  :root body .pw-grid { max-width: 1280px; gap: 1.4rem; margin-top: 2.2rem; }
+  :root body .pw-card { padding: 2rem 2rem 2.2rem; min-height: 300px; gap: .7rem; border-radius: 20px; }
+  :root body .pw-title { font-size: 1.3rem; }
+  :root body .pw-stat { font-size: 2rem; }
+  :root body .pw-desc { font-size: 1rem; line-height: 1.65; }
+}
