@@ -3628,8 +3628,6 @@ footer.zf .zf-follow { margin-top: 2.6rem; }
 /* footer: wider brand column so the two buttons share one row */
 @media (min-width: 1001px) { footer.zf .zf-panel { grid-template-columns: minmax(300px, 2.2fr) repeat(4, 1fr); } }
 footer.zf .zf-follow { margin-top: 2rem; }
-/* blueprint heroes on mobile: same smoke gradient as /services/ (no flat overlay, no aurora) */
-@media (max-width: 860px) {
-  :root body section.page-hero.bp-hero::before, :root body section.page-hero.bp-hero > .aurora { display: none !important; }
-  :root body section.page-hero.bp-hero::after { opacity: 1 !important; }
-}
+/* blueprint heroes: same smoke gradient as /services/ on every screen (no flat overlay, no aurora) */
+:root body section.page-hero.bp-hero::before, :root body section.page-hero.bp-hero > .aurora { display: none !important; }
+:root body section.page-hero.bp-hero::after { opacity: 1 !important; }
