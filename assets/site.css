@@ -2539,7 +2539,6 @@ body.home .hero-paper .lede { color: #4a554f !important; font-size: 1.12rem; lin
 .hero-paper .cred-strip { margin-top: 3rem; padding-top: 1.4rem; border-top: 1px solid rgba(13,22,18,.12); }
 .hero-paper .logo-row img { filter: brightness(0) !important; opacity: .55 !important; }
 .hero-paper .cred-label { color: #4a554f !important; }
-@media (prefers-reduced-motion: reduce) { .hero-paper .hero-vid { display: none; } .hero-paper { background: var(--paper) url(/assets/hero/clearer-poster.jpg) right center / auto 100% no-repeat !important; } }
 @media (max-width: 860px) {
   body.home .page-hero.hero-paper { flex-direction: column; align-items: stretch; min-height: 0; padding: calc(var(--nav-h) + 30vh) var(--edge) 40px !important; }
   .hero-paper .hero-vid { width: 100%; height: 42vh; bottom: auto; -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%); mask-image: linear-gradient(180deg, #000 60%, transparent 100%); top: var(--nav-h); }

@@ -357,17 +357,16 @@
   try { if (localStorage.getItem('zkk-ref') === '1') set(true, true); } catch (err) {}
 })();
 
-/* ── Home hero video: fetched only after the page loads, never on phones or with reduced motion (poster shows instead) ── */
+/* ── Home hero video: always playing on every device; only paused while the tab is hidden ── */
 (function () {
-  var v = document.querySelector('video.hero-vid[data-mp4]');
-  if (!v || matchMedia('(max-width: 700px), (prefers-reduced-motion: reduce)').matches) return;
-  var go = function () {
-    [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (x) {
-      var s = document.createElement('source'); s.src = v.dataset[x[0]]; s.type = x[1]; v.appendChild(s);
-    });
-    v.load(); var p = v.play(); if (p && p.catch) p.catch(function () {});
-  };
-  if (document.readyState === 'complete') go(); else addEventListener('load', go);
+  var v = document.querySelector('video.hero-vid');
+  if (!v) return;
+  var play = function () { if (!document.hidden && v.paused) { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); } };
+  document.addEventListener('visibilitychange', function () { if (document.hidden) v.pause(); else play(); });
+  v.addEventListener('pause', function () { setTimeout(play, 300); });     // browser paused it on its own: start again
+  ['touchstart', 'pointerdown', 'scroll'].forEach(function (e) { addEventListener(e, play, { passive: true }); });  // iOS Low Power Mode needs a gesture
+  addEventListener('pageshow', play);
+  play();
 })();
 
 /* ── Lead source: how this visitor first found us, sent only with an intake form they submit (no cookies, stays in their browser) ── */
