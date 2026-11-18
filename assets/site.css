@@ -3621,3 +3621,7 @@ footer.zf .zf-follow-label { font-size: .72rem; letter-spacing: .16em; text-tran
 footer.site-footer.zf .zf-follow .footer-socials a.footer-social { width: 44px; height: 44px; min-height: 44px; }
 footer.zf .zf-base-solo { justify-content: flex-start; }
 :root body footer.site-footer.zf .footer-pills a.footer-review svg { fill: #fff !important; }
+/* consultation button in a soft gold */
+:root body footer.site-footer.zf .footer-pills a.zf-cta { background: #e2c275 !important; border: 0 !important; color: #14140f !important; font-weight: 600; box-shadow: 0 6px 18px rgba(226,194,117,.18); }
+:root body footer.site-footer.zf .footer-pills a.zf-cta:hover { background: #ecd08e !important; }
+footer.zf .zf-follow { margin-top: 2.6rem; }
