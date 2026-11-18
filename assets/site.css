@@ -3666,3 +3666,11 @@ footer.zf .zf-follow { margin-top: 2rem; }
 .ct-people.ct-first { margin-top: 1.8rem; }
 .ct-grid.ct-after { margin-top: 1rem; }
 @media (max-width: 700px) { .ct-people.ct-first { margin-top: 1.4rem; } .ct-grid.ct-after { margin-top: .8rem; } .ct-lede { font-size: 1rem; } }
+/* team page: phone + email under each founder statement */
+.fc-row { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.2rem; }
+.fc-btn { display: inline-flex !important; align-items: center; gap: .5rem; min-height: 44px; padding: 0 1rem !important; border-radius: 999px; background: #fff; border: 1px solid #dcdcd4; color: #0d1612 !important; font-size: .92rem; font-weight: 500; text-decoration: none !important; transition: border-color .2s, transform .2s; }
+.fc-btn svg { width: 17px; height: 17px; color: #0b6b45; flex: 0 0 17px; }
+.fc-btn span { overflow-wrap: anywhere; }
+.fc-btn:hover { border-color: #0b6b45; transform: translateY(-2px); }
+.fc-btn:focus-visible { outline: 2px solid #0b6b45; outline-offset: 3px; }
+@media (max-width: 860px) { .fc-row { justify-content: center; } }
