@@ -3857,3 +3857,22 @@ nav#nav .nav-logo:is(:hover, :focus-visible)::after { opacity: 1; }
 /* Services capabilities (10 items): one column, then two, then five across */
 @media (min-width: 600px) { :root body main .pz-caps { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
 @media (min-width: 1180px) { :root body main .pz-caps { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; } }
+
+/* Phones and tablets: the nav tucks up a little on scroll, like desktop */
+@media (max-width: 860px) {
+  nav#nav { transition: height .35s cubic-bezier(.2,.8,.2,1), top .35s cubic-bezier(.2,.8,.2,1) !important; }
+  nav#nav.shrink { top: 5px !important; height: 46px !important; }
+}
+
+/* Team: the first profile slides up over the hero with rounded corners, like every other page */
+:root body main > section.team-hero + .pf-panel { position: relative; z-index: 3; margin-top: -22px !important; border-radius: 22px 22px 0 0 !important; overflow: hidden !important; }
+:root body main > section.team-hero + .pf-panel > .founder-hero { border-radius: 22px 22px 0 0; }
+/* Team on phones: the hero content sits in the middle of the screen and reads larger */
+@media (max-width: 860px) {
+  :root body main > section.team-hero.team-hero { align-items: center !important; padding-top: calc(var(--nav-h, 64px) + 24px) !important; padding-bottom: 64px !important; }
+  :root body .team-hero.team-hero h1 { font-size: clamp(2.1rem, 8.4vw, 2.6rem) !important; line-height: 1.08 !important; margin-bottom: .2rem !important; }
+  :root body .team-hero.team-hero .who-pick { margin-top: 1.6rem !important; gap: .75rem !important; }
+  :root body .team-hero.team-hero .who-card { padding: 1rem 1.1rem !important; }
+  :root body .team-hero.team-hero .who-photo { width: 64px !important; height: 64px !important; }
+  :root body .team-hero.team-hero .team-ctas { margin-top: 1.6rem !important; }
+}

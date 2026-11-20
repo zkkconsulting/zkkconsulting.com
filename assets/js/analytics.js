@@ -152,8 +152,10 @@
       '.ck-sw:checked{background:#0b6b45}.ck-sw:checked::after{transform:translateX(18px)}' +
       '@media (max-width:560px){.ck-bar{right:0;left:0;bottom:0;width:auto;padding:2rem 1.4rem calc(1.3rem + env(safe-area-inset-bottom));border-radius:24px 24px 0 0}' +
         '.ck-bar p{font-size:1rem;line-height:1.6}.ck-row{flex-direction:column-reverse;gap:.5rem;margin-top:1.7rem}.ck-row .ck-yes{width:100%;min-height:56px;font-size:1.02rem}}' +
-      '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .4s cubic-bezier(.2,.8,.2,1)}.ck-bar{transition:opacity .35s ease,transform .35s ease}.ck-bar.ck-out{opacity:0;transform:translateY(20px);pointer-events:none}}' +
-      '@keyframes ck-in{from{opacity:0;transform:translateY(16px)}}';
+      '@media (prefers-reduced-motion:no-preference){.ck-bar{will-change:transform,opacity;animation:ck-in .6s cubic-bezier(.22,1,.36,1) both}.ck-bar{transition:opacity .45s ease,transform .45s cubic-bezier(.4,0,.2,1)}.ck-bar.ck-out{animation:none;opacity:0;transform:translateY(24px);pointer-events:none}}' +
+      // phones: the sheet glides up from below the screen instead of popping in
+      '@media (prefers-reduced-motion:no-preference) and (max-width:560px){.ck-bar{animation:ck-up .75s cubic-bezier(.22,1,.36,1) both}.ck-bar.ck-out{animation:none;transform:translateY(100%);opacity:1;transition:transform .5s cubic-bezier(.4,0,.2,1)}}' +
+      '@keyframes ck-in{from{opacity:0;transform:translateY(16px)}}@keyframes ck-up{from{transform:translateY(100%)}}';
     document.head.appendChild(css);
     var bar = document.createElement('section');
     bar.className = 'ck-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Cookie choice');
@@ -174,7 +176,7 @@
       gtag('consent', 'update', consentState(consent));
       bar.classList.add('ck-out');   // fade and drop, then remove once the fade has finished
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) bar.remove();
-      else { bar.addEventListener('transitionend', function () { bar.remove(); }); setTimeout(function () { bar.remove(); }, 700); }
+      else { bar.addEventListener('transitionend', function (e) { if (e.target === bar && e.propertyName === 'transform') bar.remove(); }); setTimeout(function () { bar.remove(); }, 900); }
     }
     bar.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;

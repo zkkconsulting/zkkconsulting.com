@@ -63,11 +63,13 @@ section.bp-hero .btn-outline { background: rgba(255,255,255,.08) !important; col
   background-position: 70% 45%; }
 .bp-cam-host svg { transform-style: flat; backface-visibility: hidden; }
 
-/* Tablets in portrait (and squarish windows): text sits low, the drawing fills the top */
-@media (min-width: 861px) and (max-aspect-ratio: 13/10) {
-  section.bp-hero { align-items: flex-end !important; padding-bottom: 72px !important; }
-  section.bp-hero::after { background: linear-gradient(0deg, rgba(5,12,20,.92) 0%, rgba(5,12,20,.78) 40%, rgba(5,12,20,.15) 75%, rgba(5,12,20,0) 100%); }
-}
-@media (min-width: 600px) and (max-width: 860px) {
-  section.bp-hero::after { background: linear-gradient(0deg, rgba(5,12,20,.92) 0%, rgba(5,12,20,.78) 40%, rgba(5,12,20,.15) 75%, rgba(5,12,20,0) 100%); }
+/* Tablets in portrait: big headline in the upper part, the drawing fills the lower part (framed in blueprint.js) */
+@media (min-width: 600px) and (max-width: 1200px) and (max-aspect-ratio: 13/10) {
+  :root body main > section.bp-hero.bp-hero:not(.team-hero) { align-items: flex-start !important; padding-top: calc(var(--nav-h, 64px) + 14vh) !important; padding-bottom: 72px !important; }
+  :root body section.bp-hero.bp-hero:not(.team-hero) > .page-hero-inner > * { max-width: 760px; }
+  :root body section.bp-hero.bp-hero:not(.team-hero) h1 { font-size: clamp(3rem, 6.6vw, 4.4rem) !important; line-height: 1.04 !important; margin: .9rem 0 1.4rem !important; }
+  :root body section.bp-hero.bp-hero:not(.team-hero) .eyebrow { font-size: .9rem !important; }
+  :root body section.bp-hero.bp-hero:not(.team-hero) .lede { font-size: 1.25rem !important; max-width: 36em; }
+  :root body section.bp-hero.bp-hero:not(.team-hero) .hero-ctas .btn { min-height: 54px; padding-left: 1.6rem !important; padding-right: 1.6rem !important; font-size: .95rem !important; }
+  section.bp-hero:not(.team-hero)::after { background: linear-gradient(180deg, rgba(5,12,20,.9) 0%, rgba(5,12,20,.78) 38%, rgba(5,12,20,.2) 62%, rgba(5,12,20,0) 80%) !important; }
 }
