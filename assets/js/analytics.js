@@ -132,29 +132,25 @@
     }
   });
 
-  /* ── Cookie banner: Accept or Decline, asked once a year. A frosted glass circle in the corner, tinted like the home hero's paper. ── */
+  /* ── Cookie banner: Accept or Decline, asked once a year. A black rounded card in the bottom-right corner with two white pill buttons. ── */
   function cookieBanner() {
     var css = document.createElement('style');
     css.textContent =
-      '.ck-bar{position:fixed;z-index:9500;right:28px;bottom:28px;width:360px;height:360px;border-radius:50%;box-sizing:border-box;padding:0 46px;' +
-        'display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:var(--sans);color:#0d1612;' +
-        'background:rgba(233,233,227,.62);-webkit-backdrop-filter:blur(22px) saturate(140%);backdrop-filter:blur(22px) saturate(140%);' +
-        'border:1px solid rgba(255,255,255,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 30px 70px rgba(13,22,18,.22)}' +
-      '.ck-bar h2{margin:0 0 .7rem!important;font:600 1.75rem/1.08 var(--sans)!important;letter-spacing:-.03em;color:#0d1612!important;text-align:center!important}' +
-      '.ck-bar p{margin:0 0 1.1rem;font-size:.9rem;line-height:1.5;color:#24302a}.ck-bar a{color:#0d1612;text-decoration:underline;text-underline-offset:3px}' +
-      ':root body .ck-bar .ck-yes{min-height:46px;max-width:none;width:auto;padding:0 1.6rem;background:#0d1612!important;color:#fff!important;border:1px solid #0d1612!important;box-shadow:none}' +
-      ':root body .ck-bar .ck-yes:hover{background:#26302b!important}' +
-      '.ck-bar .ck-no{margin-top:.55rem;min-height:44px;padding:0 .6rem;border:0;background:none;font:500 .82rem var(--sans);color:#24302a;text-decoration:underline;text-underline-offset:4px;cursor:pointer}.ck-bar .ck-no:hover{color:#0d1612}' +
-      '.ck-bar :focus-visible{outline:2px solid #0b6b45;outline-offset:2px}' +
-      '@media (max-width:560px){.ck-bar{right:50%;bottom:12px;transform:translateX(50%);width:290px;height:290px;padding:0 34px}.ck-bar h2{font-size:1.4rem!important;margin-bottom:.5rem!important}.ck-bar p{font-size:.8rem;margin-bottom:.8rem}}' +
-      '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .45s cubic-bezier(.2,.8,.2,1)}.ck-bar.ck-out{animation:ck-in .25s ease-in reverse forwards}}' +
-      '@keyframes ck-in{from{opacity:0;scale:.9}}';
+      '.ck-bar{position:fixed;z-index:9500;right:28px;bottom:28px;width:min(620px,calc(100% - 56px));box-sizing:border-box;padding:1.5rem 1.6rem 1.3rem;' +
+        'border-radius:22px;background:#000;color:#fff;font-family:var(--sans);box-shadow:0 24px 60px rgba(0,0,0,.28)}' +
+      '.ck-bar p{margin:0;font-size:.95rem;line-height:1.55;color:#fff}.ck-bar a{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px}' +
+      '.ck-row{display:flex;justify-content:flex-end;gap:.75rem;margin-top:1.1rem}' +
+      '.ck-row button{min-height:44px;padding:0 1.3rem;border:0;border-radius:999px;background:#fff;color:#0d1612;font:600 .92rem var(--sans);letter-spacing:.01em;cursor:pointer;transition:background .2s}' +
+      '.ck-row button:hover{background:#e9e9e3}.ck-bar :focus-visible{outline:2px solid #f2d35a;outline-offset:2px}' +
+      '@media (max-width:560px){.ck-bar{right:12px;left:12px;bottom:12px;width:auto;padding:1.15rem 1.15rem 1rem;border-radius:18px}.ck-bar p{font-size:.86rem}.ck-row button{flex:1 1 0;padding:0 .8rem}}' +
+      '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .4s cubic-bezier(.2,.8,.2,1)}.ck-bar.ck-out{animation:ck-in .25s ease-in reverse forwards}}' +
+      '@keyframes ck-in{from{opacity:0;transform:translateY(16px)}}';
     document.head.appendChild(css);
     var bar = document.createElement('section');
-    bar.className = 'ck-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-labelledby', 'ckTitle');
-    bar.innerHTML = '<h2 id="ckTitle">Cookies?<br>Only to count visits.</h2>' +
-      '<p>They show us which pages help. We never sell your data. See <a href="/legal/#s13">Privacy details</a>.</p>' +
-      '<button type="button" class="btn ck-yes">Accept cookies</button><button type="button" class="ck-no">Decline cookies</button>';
+    bar.className = 'ck-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Cookie choice');
+    bar.innerHTML = '<p>We use cookies to count visits and see which pages help visitors. We never sell your data. ' +
+      'Please let us know if you agree. <a href="/legal/#s13">Click here to find out more.</a></p>' +
+      '<div class="ck-row"><button type="button" class="ck-no">No, thanks</button><button type="button" class="ck-yes">Yes, I agree</button></div>';
     document.body.appendChild(bar);
     bar.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
