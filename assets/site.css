@@ -3859,23 +3859,27 @@ nav#nav .nav-logo:is(:hover, :focus-visible)::after { opacity: 1; }
 @media (min-width: 1180px) { :root body main .pz-caps { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; } }
 
 /* Phones and tablets: the nav tucks up a little on scroll, like desktop */
-/* Phone nav: tucks up on scroll, and the open menu always starts right under the bar at its current size */
+/* Phone nav: the box never moves or resizes (no layout work while scrolling). A black shape clipped to a pill
+   floats 8px down; on scroll the clip opens to a full-width bar flush with the top edge, and the logo and
+   menu button glide up 9px on the GPU. The open menu always starts right under the shape. */
 @media (max-width: 860px) {
-  body { --nav-t: 8px; --nav-h2: 52px; }
-  body:has(nav#nav.shrink) { --nav-t: 5px; --nav-h2: 46px; }
-  nav#nav, nav#nav.shrink, nav#nav.on-hero, nav#nav.hero-home { top: var(--nav-t) !important; height: var(--nav-h2) !important;
-    transition: top .4s cubic-bezier(.22,1,.36,1), height .4s cubic-bezier(.22,1,.36,1), border-radius .2s ease, box-shadow .3s ease !important; }
-  nav#nav.shrink { box-shadow: 0 6px 20px rgba(0,0,0,.24) !important; }
-  :root body .mobile-menu { padding-top: calc(var(--nav-t) + var(--nav-h2) - 1px) !important; }
-  /* once scrolled, the bar docks flush to the top edge, full width, so no page shows between it and the browser bar; logo and menu button keep their place */
-  body:has(nav#nav.shrink) { --nav-t: 0px; --nav-h2: 50px; }
-  nav#nav { transition: top .4s cubic-bezier(.22,1,.36,1), height .4s cubic-bezier(.22,1,.36,1), left .4s cubic-bezier(.22,1,.36,1), right .4s cubic-bezier(.22,1,.36,1),
-    padding .4s cubic-bezier(.22,1,.36,1), border-radius .4s cubic-bezier(.22,1,.36,1), box-shadow .3s ease !important; }
-  nav#nav.shrink { left: 0 !important; right: 0 !important; padding: 0 calc(.6rem + 12px) 0 calc(1.1rem + 12px) !important; border-radius: 0 0 22px 22px !important; border-top-color: transparent !important; }
-  body:has(nav#nav.shrink) .mobile-menu { padding-left: 0 !important; padding-right: 0 !important; }
-  body:has(nav#nav.shrink):has(.mobile-menu.open) nav#nav { border-radius: 0 !important; }
+  nav#nav, nav#nav.shrink, nav#nav.on-hero, nav#nav.hero-home {
+    top: 0 !important; left: 0 !important; right: 0 !important; height: 60px !important; padding: 8px calc(.6rem + 12px) 0 calc(1.1rem + 12px) !important;
+    background: transparent !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; transition: none !important; pointer-events: none;
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  nav#nav > * { pointer-events: auto; transition: transform .45s cubic-bezier(.22,1,.36,1); }
+  nav#nav.shrink > * { transform: translateY(-9px); }
+  nav#nav::before, nav#nav::after, nav#nav.on-hero::before, nav#nav.on-hero::after { opacity: 1 !important;
+    clip-path: inset(8px 12px 0 12px round 26px); transition: clip-path .45s cubic-bezier(.22,1,.36,1) !important; }
+  nav#nav::before { background: #000 !important; }
+  nav#nav.shrink::before, nav#nav.shrink::after { clip-path: inset(0 0 10px 0 round 0 0 22px 22px); }
+  body:has(.mobile-menu.open) nav#nav::before, body:has(.mobile-menu.open) nav#nav::after { clip-path: inset(8px 12px 0 12px round 26px 26px 0 0); }
+  body:has(.mobile-menu.open) nav#nav.shrink::before, body:has(.mobile-menu.open) nav#nav.shrink::after { clip-path: inset(0 0 10px 0 round 0); }
+  :root body .mobile-menu { padding-top: 59px !important; }
+  body:has(nav#nav.shrink) .mobile-menu { padding: 49px 0 max(16px, env(safe-area-inset-bottom)) !important; }
   body:has(nav#nav.shrink) .mobile-menu ul { padding-left: calc(1.1rem + 12px) !important; padding-right: calc(1.1rem + 12px) !important; }
 }
+@media (max-width: 860px) and (prefers-reduced-motion: reduce) { nav#nav > *, nav#nav::before, nav#nav::after { transition: none !important; } }
 
 /* Team: the first profile slides up over the hero with rounded corners, like every other page */
 :root body main > section.team-hero + .pf-panel { position: relative; z-index: 3; margin-top: -22px !important; border-radius: 22px 22px 0 0 !important; overflow: hidden !important; }
