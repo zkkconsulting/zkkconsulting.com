@@ -34,18 +34,16 @@
     // layout follows the card's own width (container queries), so it never squeezes the heading into a sliver
     '.lm-inline{padding:clamp(2rem,5vw,3.5rem) var(--edge,6vw)!important;container-type:inline-size}' +
     '.lm-card{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"pages copy" "act act";gap:1.4rem 2rem;align-items:center;' +
-      'position:relative;overflow:hidden;isolation:isolate;padding:clamp(1.3rem,3cqi,2rem);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
+      'padding:clamp(1.3rem,3cqi,2rem);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
       'box-shadow:inset 0 1px 0 #fff,0 24px 60px rgba(13,22,18,.12);text-align:left}' +
-    // live backdrop: the hero loop, heavily blurred under a paper screen, so the card keeps its color
-    '.lm-bg{position:absolute;inset:-60px;width:calc(100% + 120px);height:calc(100% + 120px);object-fit:cover;filter:blur(30px) saturate(1.3);opacity:.7;z-index:-2;pointer-events:none}' +
-    '.lm-card::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(229,229,223,.55);pointer-events:none}' +
     '.lm-pages{grid-area:pages;display:flex;gap:.7rem}.lm-card .lm-copy{grid-area:copy}.lm-card .lm-act{grid-area:act}' +
     '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(300px,380px);grid-template-areas:"pages copy act";gap:1.6rem 2.6rem}}' +
     '@container (max-width:700px){.lm-card{grid-template-columns:minmax(0,1fr);grid-template-areas:"pages" "copy" "act"}.lm-pages img{width:96px!important}}' +
     '.lm-pages img{width:120px;height:auto;border-radius:3px;background:#fff;box-shadow:0 1px 0 rgba(13,22,18,.08),0 14px 30px rgba(13,22,18,.2)}' +
-    '.lm-kicker{display:block;margin-bottom:.45rem;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#775406}' +
-    ':root body .lm-card h2{margin:0;font:600 clamp(1.3rem,2.4cqi,1.75rem)/1.15 var(--sans)!important;letter-spacing:-.02em;color:#0d1612!important;text-align:left!important}' +
-    '.lm-card .lm-sub{margin:.5rem 0 0;color:#4a554f;font-size:1rem;line-height:1.5}' +
+    '.lm-kicker{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem;font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#775406}' +
+    '.lm-kicker::before{content:"";width:22px;height:1px;background:currentColor}' +
+    ':root body .lm-card h2{margin:0;font:500 clamp(1.35rem,2.5cqi,1.85rem)/1.18 var(--sans)!important;letter-spacing:-.025em;text-wrap:balance;max-width:24ch;color:#0d1612!important;text-align:left!important}' +
+    '.lm-card .lm-sub{margin:.7rem 0 0;color:#5a645e;font-size:.98rem;line-height:1.55;text-wrap:pretty}' +
     '.lm-form{display:flex;flex-direction:column;gap:.55rem}' +
     '.lm-form input[type="email"]{min-height:50px;padding:0 .95rem;font:400 1rem var(--sans);color:#0d1612;color-scheme:light;background:rgba(255,255,255,.75);' +
       'border:1px solid rgba(255,255,255,.95);border-radius:4px;box-shadow:inset 0 1px 0 #fff,0 6px 18px rgba(13,22,18,.06)}' +
@@ -54,7 +52,7 @@
     ':root body .lm-card .btn-primary{width:100%;max-width:none;min-height:50px;background:#0d1612!important;color:#fff!important;border:1px solid #0d1612!important}' +
     ':root body .lm-card .btn-primary:hover{background:#3a423e!important;border-color:#3a423e!important;transform:translateY(-1px);box-shadow:0 10px 24px rgba(13,22,18,.2)}' +
     '.lm-card :focus-visible,.lm-form input:focus{outline:2px solid #0b6b45;outline-offset:2px}' +
-    '.lm-card .rv-note{margin:.1rem 0 0;color:#6a756f;font-size:.75rem}' +
+    '.lm-card .rv-note{margin:.2rem 0 0;color:#6a756f;font-size:.78rem;line-height:1.5;text-wrap:pretty}' +
     '.lm-done{display:flex;flex-direction:column;gap:.55rem}.lm-done p{margin:0;color:#0d1612;font-size:.95rem}' +
     '';
   document.head.appendChild(css);
@@ -82,8 +80,6 @@
   sec.setAttribute('data-lm', 'inline');
   sec.setAttribute('aria-labelledby', 'lmTitle');
   sec.innerHTML = '<div class="lm-card">' +
-      '<video class="lm-bg" muted loop playsinline preload="none" poster="/assets/hero/clearer-poster.jpg" aria-hidden="true" tabindex="-1">' +
-        '<source src="/assets/hero/clearer.webm" type="video/webm"><source src="/assets/hero/clearer.mp4" type="video/mp4"></video>' +
       '<div class="lm-pages" aria-hidden="true"><img src="' + PAGES[0] + '" alt="" width="120" height="155" loading="lazy"><img src="' + PAGES[1] + '" alt="" width="120" height="155" loading="lazy"></div>' +
       '<div class="lm-copy"><span class="lm-kicker">Free checklist</span><h2 id="lmTitle">Get the free Market Readiness Checklist when you sign up with your email.</h2>' +
       '<p class="lm-sub">20 questions to answer before you pitch to investors.</p></div>' +
@@ -96,11 +92,6 @@
     if (es[0].intersectionRatio >= 0.5) { io.disconnect(); Z.track('lead_magnet_view', { form_location: 'inline' }); }
   }, { threshold: 0.5 });
   io.observe(card);
-  // play the backdrop only while the card is on screen, never for reduced motion
-  var vid = card.querySelector('.lm-bg');
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) new IntersectionObserver(function (es) {
-    if (es[0].isIntersecting) { var p = vid.play(); if (p) p.catch(function () {}); } else vid.pause();
-  }).observe(card);
 
   card.addEventListener('submit', function (e) {
     e.preventDefault();
