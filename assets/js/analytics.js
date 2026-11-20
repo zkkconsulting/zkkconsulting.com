@@ -142,7 +142,10 @@
       '.ck-row{display:flex;justify-content:flex-end;gap:.75rem;margin-top:1.1rem}' +
       '.ck-row button{min-height:44px;padding:0 1.3rem;border:0;border-radius:999px;background:#fff;color:#0d1612;font:600 .92rem var(--sans);letter-spacing:.01em;cursor:pointer;transition:background .2s}' +
       '.ck-row button:hover{background:#e9e9e3}.ck-bar :focus-visible{outline:2px solid #f2d35a;outline-offset:2px}' +
-      '@media (max-width:560px){.ck-bar{right:12px;left:12px;bottom:12px;width:auto;padding:1.15rem 1.15rem 1rem;border-radius:18px}.ck-bar p{font-size:.86rem}.ck-row button{flex:1 1 0;padding:0 .8rem}}' +
+      // phones: a sheet on the bottom edge, "Yes, I agree" full width, decline reduced to a quiet text link under it
+      '@media (max-width:560px){.ck-bar{right:0;left:0;bottom:0;width:auto;padding:1.4rem 1.2rem calc(.6rem + env(safe-area-inset-bottom));border-radius:24px 24px 0 0}' +
+        '.ck-bar p{font-size:.95rem}.ck-row{flex-direction:column-reverse;gap:.15rem;margin-top:1.1rem}.ck-row .ck-yes{width:100%;min-height:48px;font-size:1rem}' +
+        '.ck-row .ck-no{align-self:center;background:none;color:rgba(255,255,255,.5);font-weight:400;font-size:.78rem;text-decoration:underline;text-underline-offset:3px}.ck-row .ck-no:hover{background:none;color:#fff}}' +
       '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .4s cubic-bezier(.2,.8,.2,1)}.ck-bar.ck-out{animation:ck-in .25s ease-in reverse forwards}}' +
       '@keyframes ck-in{from{opacity:0;transform:translateY(16px)}}';
     document.head.appendChild(css);
