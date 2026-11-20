@@ -7,6 +7,7 @@
   var root = document.getElementById('tour');
   if (!root || !window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });   // the phone address bar showing or hiding must not re-measure mid-scroll
 
   var stage = root.querySelector('.tour-stage');
   var book = root.querySelector('.tour-book');
@@ -154,7 +155,8 @@
     play(to);
   }
   var pin = ScrollTrigger.create({
-    trigger: stage, start: 'top top', end: '+=15%', pin: true, anticipatePin: 1, onRefreshInit: size,
+    // no pin: the lock below already holds the page still while playing, and a pin made plain scrolling past the walkthrough stutter
+    trigger: stage, start: 'top top', end: '+=15%', onRefreshInit: size,
     onEnter: function (self) { if (armed) lock(self.start + 1); },
     onEnterBack: function (self) { if (armed) lock(self.end - 1); }
   });

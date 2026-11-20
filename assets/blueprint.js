@@ -182,8 +182,8 @@
       var a = host.clientWidth / Math.max(1, host.clientHeight);
       if (a >= 1.3) return '-1500 160 2400 1240';
       if (a < .6) return '-200 160 1300 1240';
-      var H = 1240 / .62, W = H * a;
-      return (450 - W / 2).toFixed(0) + ' 100 ' + W.toFixed(0) + ' ' + H.toFixed(0);
+      var H = 1240 / .55, W = H * a;   // drawing takes the lower part, under the headline
+      return (450 - W / 2).toFixed(0) + ' ' + (1460 - H).toFixed(0) + ' ' + W.toFixed(0) + ' ' + H.toFixed(0);
     }
     svg.setAttribute('viewBox', frameBox());
     svg.setAttribute('preserveAspectRatio', hero ? 'xMidYMid slice' : 'xMidYMid meet');
