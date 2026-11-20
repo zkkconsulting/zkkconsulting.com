@@ -150,20 +150,21 @@
       '.ck-sw{position:relative;flex:none;width:44px;height:26px;margin:0;appearance:none;-webkit-appearance:none;border-radius:999px;background:rgba(255,255,255,.25);cursor:pointer;transition:background .2s}' +
       '.ck-sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s}' +
       '.ck-sw:checked{background:#0b6b45}.ck-sw:checked::after{transform:translateX(18px)}' +
-      '@media (max-width:560px){.ck-bar{right:0;left:0;bottom:0;width:auto;padding:1.4rem 1.2rem calc(.6rem + env(safe-area-inset-bottom));border-radius:24px 24px 0 0}' +
+      '@media (max-width:560px){.ck-bar{right:12px;left:12px;bottom:calc(20px + env(safe-area-inset-bottom));width:auto;padding:1.3rem 1.2rem .6rem;border-radius:22px}' +
         '.ck-row{flex-direction:column-reverse;gap:.15rem}.ck-row .ck-yes{width:100%;min-height:48px;font-size:1rem}}' +
-      '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .4s cubic-bezier(.2,.8,.2,1)}.ck-bar.ck-out{animation:ck-in .25s ease-in reverse forwards}}' +
+      '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .4s cubic-bezier(.2,.8,.2,1)}.ck-bar{transition:opacity .35s ease,transform .35s ease}.ck-bar.ck-out{opacity:0;transform:translateY(20px);pointer-events:none}}' +
       '@keyframes ck-in{from{opacity:0;transform:translateY(16px)}}';
     document.head.appendChild(css);
     var bar = document.createElement('section');
     bar.className = 'ck-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Cookie choice');
-    bar.innerHTML = '<p>We use cookies to see which pages help visitors. <a href="/legal/#s13">Privacy</a></p>' +
+    bar.innerHTML = '<p>We use cookies to improve your experience, enhance site navigation, analyze site usage and assist in our marketing efforts. ' +
+      '<a href="/legal/#s13">Click here to view ZKK\u2019s cookie policy.</a></p>' +
       '<div class="ck-set" id="ckSet">' +
         '<div class="ck-opt"><span>Essential<small>Remember your choices.</small></span><span class="ck-on">Always on</span></div>' +
         '<label class="ck-opt" for="ckAn"><span>Analytics<small>Count visits and pages. Never sold.</small></span><input class="ck-sw" id="ckAn" type="checkbox" checked></label>' +
       '</div>' +
-      '<div class="ck-row"><button type="button" class="ck-quiet ck-settings" aria-controls="ckSet" aria-expanded="false">Settings</button>' +
-        '<button type="button" class="ck-quiet ck-save">Save choices</button><button type="button" class="ck-yes">Accept</button></div>';
+      '<div class="ck-row"><button type="button" class="ck-quiet ck-settings" aria-controls="ckSet" aria-expanded="false">Cookie settings</button>' +
+        '<button type="button" class="ck-quiet ck-save">Save choices</button><button type="button" class="ck-yes">Accept all</button></div>';
     bar.querySelector('.ck-save').style.display = 'none';
     document.body.appendChild(bar);
     function choose(v) {
@@ -171,13 +172,15 @@
       setCookie('zkk_consent', consent, YEAR);
       ls(function (s) { s.setItem('zkk_consent', consent); });
       gtag('consent', 'update', consentState(consent));
-      bar.classList.add('ck-out'); setTimeout(function () { bar.remove(); }, 250);
+      bar.classList.add('ck-out');   // fade and drop, then remove once the fade has finished
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) bar.remove();
+      else { bar.addEventListener('transitionend', function () { bar.remove(); }); setTimeout(function () { bar.remove(); }, 700); }
     }
     bar.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
       if (b.classList.contains('ck-settings')) {
         bar.classList.add('ck-open'); b.setAttribute('aria-expanded', 'true');
-        bar.querySelector('.ck-save').style.display = ''; bar.querySelector('.ck-yes').textContent = 'Accept all';
+        bar.querySelector('.ck-save').style.display = '';
         bar.querySelector('#ckAn').focus();
       } else if (b.classList.contains('ck-save')) choose(bar.querySelector('#ckAn').checked ? 'granted' : 'denied');
       else if (b.classList.contains('ck-yes')) choose('granted');
