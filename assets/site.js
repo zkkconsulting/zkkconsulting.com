@@ -310,11 +310,19 @@
       '<button type="submit" class="btn btn-primary">Submit review</button>' +
       '<p class="rv-note">Reviews are checked against real engagements before we publish them. By submitting, you allow ZKK Consulting LLC to publish your review, name and company on this site.</p>' +
     '</form>' +
-    '<div class="rv-done" hidden><h2>Thank you.</h2><p>We received your review and will check it before publishing.</p><button type="button" class="btn btn-primary rv-close">Close</button></div>';
+    '<div class="rv-done" hidden><h2 class="rv-thanks"><span>Thank you</span></h2><p>Your feedback is highly appreciated.</p><button type="button" class="btn btn-primary rv-close">Close</button></div>';
   document.body.appendChild(dlg);
   var form = dlg.querySelector('form'), done = dlg.querySelector('.rv-done'), send = form.querySelector('[type="submit"]');
-  function open() { if (dlg.open) return; form.hidden = false; done.hidden = true; dlg.showModal(); }
-  function close() { dlg.close(); }
+  // opens and closes slowly: CSS fades and lifts it in, and close() plays the reverse before the dialog actually closes
+  var calm = matchMedia('(prefers-reduced-motion: reduce)').matches, closing = 0;
+  function open() { if (dlg.open) return; clearTimeout(closing); dlg.classList.remove('rv-out'); form.hidden = false; done.hidden = true; done.classList.remove('is-on'); dlg.showModal(); }
+  function close() {
+    if (!dlg.open || dlg.classList.contains('rv-out')) return;
+    if (calm) return dlg.close();
+    dlg.classList.add('rv-out');
+    closing = setTimeout(function () { dlg.close(); dlg.classList.remove('rv-out'); }, 450);
+  }
+  dlg.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
   dlg.addEventListener('close', function () { if (location.hash === HASH && history.replaceState) history.replaceState(null, '', location.pathname + location.search); });
   btn.addEventListener('click', function (e) { e.preventDefault(); if (history.replaceState) history.replaceState(null, '', HASH); open(); });
   window.addEventListener('hashchange', function () { if (location.hash === HASH) open(); });
@@ -331,7 +339,8 @@
     data.append('_template', 'table'); data.append('_captcha', 'false');
     send.disabled = true; send.textContent = 'Sending…';
     fetch(FORM_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); form.reset(); form.hidden = true; done.hidden = false; })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); form.reset(); form.hidden = true; done.hidden = false;
+        requestAnimationFrame(function () { requestAnimationFrame(function () { done.classList.add('is-on'); }); }); })   // highlighter swipes in, like Book a call
       .catch(function () { alert('That did not send. Please try again, or email info@zkkconsulting.com.'); })
       .then(function () { send.disabled = false; send.textContent = 'Submit review'; });
   });

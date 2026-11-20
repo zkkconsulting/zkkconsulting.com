@@ -3789,3 +3789,54 @@ footer.zf .zf-follow { margin-top: 2rem; }
 :root body .pv-media .viz-tab-mini:focus-visible { outline: 2px solid #0b6b45; outline-offset: 2px; }
 :root body .pv-media .viz-frame-mini { border-radius: 12px; border: 1px solid #dfe3df; }
 :root body .pv-media .viz-frame-mini { background: #4182c3; }
+
+/* Review dialog: slow fade-and-lift in and out, and a "Thank you" with the Book a call highlighter swipe */
+@media (prefers-reduced-motion: no-preference) {
+  .rv-dialog[open] { animation: rvIn .55s cubic-bezier(.2,.8,.2,1); }
+  .rv-dialog[open]::backdrop { animation: rvFade .55s ease-out; }
+  .rv-dialog { transition: opacity .45s ease, transform .45s cubic-bezier(.4,0,.2,1); }
+  .rv-dialog::backdrop { transition: opacity .45s ease; }
+  .rv-dialog.rv-out { opacity: 0; transform: translateY(14px) scale(.98); }
+  .rv-dialog.rv-out::backdrop { opacity: 0; }
+  .rv-done:not([hidden]) { animation: rvFade .5s ease-out; }
+}
+@keyframes rvIn { from { opacity: 0; transform: translateY(18px) scale(.98); } }
+@keyframes rvFade { from { opacity: 0; } }
+.rv-done { align-items: flex-start; }
+:root body .rv-dialog h2.rv-thanks { font-size: clamp(2rem, 5vw, 2.6rem); letter-spacing: -.03em; line-height: 1.1; margin: .4rem 0 .2rem; }
+.rv-thanks span { position: relative; isolation: isolate; padding: 0 .12em; }
+.rv-thanks span::before { content: ""; position: absolute; z-index: -1; inset: .14em -.05em .06em -.08em; background: #f2d35a;
+  border-radius: .45em .15em .4em .12em / .25em .45em .2em .5em; transform: rotate(-1.4deg) skewX(-8deg) scaleX(0); transform-origin: left center;
+  transition: transform .7s cubic-bezier(.3,.9,.3,1) .25s; }
+.rv-done.is-on .rv-thanks span::before { transform: rotate(-1.4deg) skewX(-8deg) scaleX(1); }
+.rv-done p { margin: 0 0 .6rem !important; font-size: 1rem !important; }
+
+/* Footer Book a call / Leave us a review: slower, eased hover */
+:root body footer.site-footer .footer-pills a:is(.zf-cta, .footer-review) { transition: background-color .45s ease, border-color .45s ease, color .45s ease, transform .45s ease, box-shadow .45s ease !important; }
+:root body footer.site-footer .footer-pills a:is(.zf-cta, .footer-review):hover { transform: translateY(-1px); }
+
+/* ZKK logo in the nav: thin white line on hover, like the nav links */
+nav#nav .nav-logo { position: relative; }
+nav#nav .nav-logo::after { content: ""; position: absolute; left: 0; top: calc(100% + 6px); width: 0; height: 1.5px; border-radius: 1px; background: #fff; transition: width .25s; }
+nav#nav .nav-logo:hover::after, nav#nav .nav-logo:focus-visible::after { width: 100%; }
+
+/* Book a call thank-you highlighter. To revert: delete this block (the span in intake/index.html is harmless on its own). */
+.ty-hl { position: relative; isolation: isolate; padding: 0 .12em; }
+.ty-hl::before { content: ""; position: absolute; z-index: -1; inset: .14em -.05em .06em -.08em; background: #f2d35a;
+  border-radius: .45em .15em .4em .12em / .25em .45em .2em .5em; transform: rotate(-1.4deg) skewX(-8deg) scaleX(0); transform-origin: left center; }
+.form-success:not([hidden]) .ty-hl::before { animation: tyHl .7s cubic-bezier(.3,.9,.3,1) .35s forwards; }
+@keyframes tyHl { to { transform: rotate(-1.4deg) skewX(-8deg) scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .form-success:not([hidden]) .ty-hl::before { animation: none; transform: rotate(-1.4deg) skewX(-8deg) scaleX(1); } }
+/* end Book a call thank-you highlighter */
+
+/* Book a call thank-you: replaces the form card in place. To revert: delete this block. */
+.intake-layout:has(#formSuccess:not([hidden])) { grid-template-columns: 1fr; max-width: 760px; }
+:root body .form-success.ty-screen { max-width: none; margin: 0 0 2rem; padding: clamp(2rem, 5vw, 3.2rem) clamp(1.4rem, 4vw, 2.6rem); display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--white, #fff) !important; border: 1px solid var(--border, rgba(13,22,18,.12)) !important; border-radius: 10px; box-shadow: none !important; }
+.form-success.ty-screen[hidden] { display: none; }
+.intake-layout:has(#formSuccess:not([hidden])) .progress-bar { display: none !important; }
+:root body .form-success.ty-screen h2 { margin: 0 0 1rem; font: 600 clamp(2rem, 5vw, 2.8rem)/1.1 var(--sans); letter-spacing: -.03em; color: #0d1612; }
+:root body .form-success.ty-screen p { margin: 0 0 1.6rem; max-width: 34em; font-size: 1.02rem; line-height: 1.65; color: #4a554f; }
+:root body .form-success.ty-screen .btn-primary { background: #0d1612 !important; color: #fff !important; border: 1px solid #0d1612 !important; transition: background-color .35s ease, border-color .35s ease, color .35s ease, box-shadow .35s ease !important; }
+:root body .form-success.ty-screen .btn-primary:hover { background: #3a423e !important; border-color: #3a423e !important; color: #fff !important; box-shadow: none !important; }
+.form-success.ty-screen:not([hidden]) { animation: rvFade .6s ease-out; }
+/* end Book a call thank-you */

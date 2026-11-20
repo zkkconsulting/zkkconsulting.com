@@ -124,10 +124,10 @@
       if (!ok.hidden && q.get('sent') === '1') qualify();
       new MutationObserver(function () { if (!ok.hidden) qualify(); }).observe(ok, { attributes: true, attributeFilter: ['hidden'] });
     }
-    if (!consent) cookieBanner();
+    if (!consent) setTimeout(cookieBanner, 4000);   // let the page land first, then ask
     if (LEAD_MAGNET_ENABLED) {
       var lm = document.createElement('script');
-      lm.src = '/assets/js/lead-magnet.js?v=6'; lm.defer = true;
+      lm.src = '/assets/js/lead-magnet.js?v=7'; lm.defer = true;
       document.body.appendChild(lm);
     }
   });
@@ -150,14 +150,14 @@
       '.ck-sw{position:relative;flex:none;width:44px;height:26px;margin:0;appearance:none;-webkit-appearance:none;border-radius:999px;background:rgba(255,255,255,.25);cursor:pointer;transition:background .2s}' +
       '.ck-sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s}' +
       '.ck-sw:checked{background:#0b6b45}.ck-sw:checked::after{transform:translateX(18px)}' +
-      '@media (max-width:560px){.ck-bar{right:12px;left:12px;bottom:calc(20px + env(safe-area-inset-bottom));width:auto;padding:1.3rem 1.2rem .6rem;border-radius:22px}' +
-        '.ck-row{flex-direction:column-reverse;gap:.15rem}.ck-row .ck-yes{width:100%;min-height:48px;font-size:1rem}}' +
+      '@media (max-width:560px){.ck-bar{right:0;left:0;bottom:0;width:auto;padding:2rem 1.4rem calc(1.3rem + env(safe-area-inset-bottom));border-radius:24px 24px 0 0}' +
+        '.ck-bar p{font-size:1rem;line-height:1.6}.ck-row{flex-direction:column-reverse;gap:.5rem;margin-top:1.7rem}.ck-row .ck-yes{width:100%;min-height:56px;font-size:1.02rem}}' +
       '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .4s cubic-bezier(.2,.8,.2,1)}.ck-bar{transition:opacity .35s ease,transform .35s ease}.ck-bar.ck-out{opacity:0;transform:translateY(20px);pointer-events:none}}' +
       '@keyframes ck-in{from{opacity:0;transform:translateY(16px)}}';
     document.head.appendChild(css);
     var bar = document.createElement('section');
     bar.className = 'ck-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Cookie choice');
-    bar.innerHTML = '<p>We use cookies to improve your experience, enhance site navigation, analyze site usage and assist in our marketing efforts. ' +
+    bar.innerHTML = '<p>We use cookies to improve your browsing experience, enhance site navigation, analyze site usage and assist in our marketing efforts. ' +
       '<a href="/legal/#s13">Click here to view ZKK\u2019s cookie policy.</a></p>' +
       '<div class="ck-set" id="ckSet">' +
         '<div class="ck-opt"><span>Essential<small>Remember your choices.</small></span><span class="ck-on">Always on</span></div>' +

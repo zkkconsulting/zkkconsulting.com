@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css?v=20261120bt">
+  <link rel="stylesheet" href="/assets/site.css?v=20261120i">
   
   <style>
     .intake-layout { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; max-width: 1040px; margin: 0 auto; align-items: start; }
@@ -190,10 +190,7 @@
       <h1>Book a free discovery call</h1>
       <p>Answer what you can. We reply within one business day.</p>
     </header>
-    <div class="form-success" id="formSuccess" hidden style="max-width:680px;margin:0 auto 2rem;">
-      <strong>Received. Thank you.</strong> We will reply within one business day to confirm fit, suggest a
-      scope, and offer a few times for a discovery call.
-    </div>
+    
 
     <div class="intake-layout">
 
@@ -224,6 +221,11 @@
 
       <div>
         <div class="progress-bar" id="progressBar" hidden><i></i></div>
+        <div class="form-success ty-screen intake-panel" id="formSuccess" hidden role="status">
+          <h2><span class="ty-hl">Thank You!</span></h2>
+          <p>Your inquiry has been successfully submitted. Our team will review the information you've provided and follow up to discuss your business objectives, research needs, and how we may be able to support your next steps.</p>
+          <a class="btn btn-primary" href="/">Back to home</a>
+        </div>
 
         <form class="zform intake-panel" id="intakeForm"
               action="https://formsubmit.co/info@zkkconsulting.com" method="POST"
@@ -678,7 +680,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
-  <script src="/assets/site.js?v=20261120"></script>
+  <script src="/assets/site.js?v=20261120b"></script>
   <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
   <script>
     (function () {

@@ -68,7 +68,7 @@
   function showDownload(again) {
     var f = card.querySelector('.lm-form'); if (!f) return;
     f.outerHTML = '<div class="lm-done">' + (again || !SIGNUP_URL ? '' : '<p role="status">Sent. Check your inbox.</p>') +
-      '<a class="btn btn-primary" href="' + PDF + '" download>' + (again ? 'Download again' : 'Download now') + '</a></div>';
+      '<a class="btn btn-primary" href="' + PDF + '" download>' + (again ? 'Download' : 'Download now') + '</a></div>';
   }
 
   var bands = document.querySelectorAll('main .cta-band');
