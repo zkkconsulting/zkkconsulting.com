@@ -3859,9 +3859,14 @@ nav#nav .nav-logo:is(:hover, :focus-visible)::after { opacity: 1; }
 @media (min-width: 1180px) { :root body main .pz-caps { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; } }
 
 /* Phones and tablets: the nav tucks up a little on scroll, like desktop */
+/* Phone nav: tucks up on scroll, and the open menu always starts right under the bar at its current size */
 @media (max-width: 860px) {
-  nav#nav { transition: height .35s cubic-bezier(.2,.8,.2,1), top .35s cubic-bezier(.2,.8,.2,1) !important; }
-  nav#nav.shrink { top: 5px !important; height: 46px !important; }
+  body { --nav-t: 8px; --nav-h2: 52px; }
+  body:has(nav#nav.shrink) { --nav-t: 5px; --nav-h2: 46px; }
+  nav#nav, nav#nav.shrink, nav#nav.on-hero, nav#nav.hero-home { top: var(--nav-t) !important; height: var(--nav-h2) !important;
+    transition: top .4s cubic-bezier(.22,1,.36,1), height .4s cubic-bezier(.22,1,.36,1), border-radius .2s ease, box-shadow .3s ease !important; }
+  nav#nav.shrink { box-shadow: 0 6px 20px rgba(0,0,0,.24) !important; }
+  :root body .mobile-menu { padding-top: calc(var(--nav-t) + var(--nav-h2) - 1px) !important; }
 }
 
 /* Team: the first profile slides up over the hero with rounded corners, like every other page */
