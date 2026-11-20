@@ -124,10 +124,15 @@
       if (!ok.hidden && q.get('sent') === '1') qualify();
       new MutationObserver(function () { if (!ok.hidden) qualify(); }).observe(ok, { attributes: true, attributeFilter: ['hidden'] });
     }
-    if (!consent) setTimeout(cookieBanner, 4000);   // let the page land first, then ask
+    // ask once: desktop on first scroll or after 1.2s, phones after 4s so the page lands first
+    if (!consent) {
+      var asked = false, ask = function () { if (asked) return; asked = true; removeEventListener('scroll', ask); cookieBanner(); };
+      if (matchMedia('(min-width: 861px)').matches) { addEventListener('scroll', ask, { passive: true }); setTimeout(ask, 1200); }
+      else setTimeout(ask, 4000);
+    }
     if (LEAD_MAGNET_ENABLED) {
       var lm = document.createElement('script');
-      lm.src = '/assets/js/lead-magnet.js?v=7'; lm.defer = true;
+      lm.src = '/assets/js/lead-magnet.js?v=8'; lm.defer = true;
       document.body.appendChild(lm);
     }
   });

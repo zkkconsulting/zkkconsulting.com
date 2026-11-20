@@ -34,8 +34,11 @@
     // layout follows the card's own width (container queries), so it never squeezes the heading into a sliver
     '.lm-inline{padding:clamp(2rem,5vw,3.5rem) var(--edge,6vw)!important;container-type:inline-size}' +
     '.lm-card{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"pages copy" "act act";gap:1.4rem 2rem;align-items:center;' +
-      'padding:clamp(1.3rem,3cqi,2rem);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
+      'position:relative;overflow:hidden;isolation:isolate;padding:clamp(1.3rem,3cqi,2rem);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
       'box-shadow:inset 0 1px 0 #fff,0 24px 60px rgba(13,22,18,.12);text-align:left}' +
+    // live backdrop: the hero loop, heavily blurred under a paper screen, so the card keeps its color
+    '.lm-bg{position:absolute;inset:-60px;width:calc(100% + 120px);height:calc(100% + 120px);object-fit:cover;filter:blur(30px) saturate(1.3);opacity:.7;z-index:-2;pointer-events:none}' +
+    '.lm-card::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(229,229,223,.55);pointer-events:none}' +
     '.lm-pages{grid-area:pages;display:flex;gap:.7rem}.lm-card .lm-copy{grid-area:copy}.lm-card .lm-act{grid-area:act}' +
     '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(300px,380px);grid-template-areas:"pages copy act";gap:1.6rem 2.6rem}}' +
     '@container (max-width:700px){.lm-card{grid-template-columns:minmax(0,1fr);grid-template-areas:"pages" "copy" "act"}.lm-pages img{width:96px!important}}' +
@@ -62,7 +65,7 @@
         '<input id="lmEmail" type="email" name="email" required maxlength="120" autocomplete="email" placeholder="you@company.com">' +
         '<input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">' +
         '<button type="submit" class="btn btn-primary">Send me the checklist</button>' +
-        '<p class="rv-note" aria-live="polite">' + (SIGNUP_URL ? 'We email you the PDF. No spam.' : 'No spam. Unsubscribe anytime.') + '</p>' +
+        '<p class="rv-note" aria-live="polite">' + 'No spam. We\'ll use your email to personally reach out and explore how we can help.' + '</p>' +
       '</form>';
   }
   function showDownload(again) {
@@ -79,6 +82,8 @@
   sec.setAttribute('data-lm', 'inline');
   sec.setAttribute('aria-labelledby', 'lmTitle');
   sec.innerHTML = '<div class="lm-card">' +
+      '<video class="lm-bg" muted loop playsinline preload="none" poster="/assets/hero/clearer-poster.jpg" aria-hidden="true" tabindex="-1">' +
+        '<source src="/assets/hero/clearer.webm" type="video/webm"><source src="/assets/hero/clearer.mp4" type="video/mp4"></video>' +
       '<div class="lm-pages" aria-hidden="true"><img src="' + PAGES[0] + '" alt="" width="120" height="155" loading="lazy"><img src="' + PAGES[1] + '" alt="" width="120" height="155" loading="lazy"></div>' +
       '<div class="lm-copy"><span class="lm-kicker">Free checklist</span><h2 id="lmTitle">Get the free Market Readiness Checklist when you sign up with your email.</h2>' +
       '<p class="lm-sub">20 questions to answer before you pitch to investors.</p></div>' +
@@ -91,6 +96,11 @@
     if (es[0].intersectionRatio >= 0.5) { io.disconnect(); Z.track('lead_magnet_view', { form_location: 'inline' }); }
   }, { threshold: 0.5 });
   io.observe(card);
+  // play the backdrop only while the card is on screen, never for reduced motion
+  var vid = card.querySelector('.lm-bg');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) new IntersectionObserver(function (es) {
+    if (es[0].isIntersecting) { var p = vid.play(); if (p) p.catch(function () {}); } else vid.pause();
+  }).observe(card);
 
   card.addEventListener('submit', function (e) {
     e.preventDefault();
