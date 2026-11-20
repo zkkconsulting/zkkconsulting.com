@@ -39,8 +39,8 @@
     '.lm-pages{grid-area:pages;position:relative;width:196px;height:190px}.lm-card .lm-copy{grid-area:copy}.lm-card .lm-act{grid-area:act}' +
     // desktop: light story on the left, a black panel on the right with the Services hero drawing animating behind the form
     '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(320px,360px);grid-template-areas:"pages copy act";gap:1.6rem 2.6rem;overflow:hidden}' +
-      '.lm-card .lm-act{position:relative;isolation:isolate;overflow:hidden;align-self:stretch;display:flex;flex-direction:column;justify-content:center;' +
-        'margin:calc(var(--py) * -1) calc(var(--px) * -1) calc(var(--py) * -1) 0;padding:calc(var(--py) + 1.4rem) var(--px) var(--py);background:#000}' +
+      '.lm-card .lm-act{position:relative;isolation:isolate;overflow:hidden;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-start;' +
+        'margin:calc(var(--py) * -1) calc(var(--px) * -1) calc(var(--py) * -1) 0;padding:calc(var(--py) + 4.1rem) var(--px) var(--py);background:#000}' +
       '.lm-card .lm-act::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.4))}' +
       '.lm-act .lm-form input[type="email"]{background:#fff;border-color:#fff}' +
       ':root body .lm-card.lm-card h2{font-size:clamp(1.5rem,2.1cqi,1.75rem)!important;max-width:none}' +
