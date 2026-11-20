@@ -135,6 +135,50 @@
       .intake-head p { font-size: .92rem; }
     }
 
+    /* ── Progress: four gold steps with dots and names (built by the script below) ── */
+    .progress-bar.pbar { height: auto; background: none; overflow: visible; border-radius: 0; margin-bottom: 1.4rem; display: grid; grid-template-columns: repeat(4, 1fr); }
+    .pseg { position: relative; display: flex; flex-direction: column; align-items: center; gap: .4rem; text-align: center; }
+    .pseg::before { content: ""; position: absolute; top: 13px; left: calc(-50% + 18px); right: calc(50% + 18px); height: 2px; border-radius: 2px; background: #dcd8cb; transition: background .4s ease; }
+    .pseg:first-child::before { display: none; }
+    .pseg.is-done::before, .pseg.is-active::before { background: #d9b45a; }
+    .pdot { position: relative; z-index: 1; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: #fff; border: 2px solid #dcd8cb; color: #6a756f; font: 600 .78rem/1 var(--sans); transition: background .4s ease, border-color .4s ease, color .4s ease, box-shadow .4s ease; }
+    .pseg.is-active .pdot { background: #e2c275; border-color: #e2c275; color: #14140f; box-shadow: 0 0 0 5px rgba(226,194,117,.25); }
+    .pseg.is-done .pdot { background: #e2c275; border-color: #e2c275; color: #14140f; }
+    .plabel { font-size: .74rem; font-weight: 600; color: #8a938e; line-height: 1.25; transition: color .3s; }
+    .pseg.is-active .plabel, .pseg.is-done .plabel { color: var(--ink); }
+    /* the sidebar steps turn gold too */
+    .step-item.is-active .step-dot, .step-item.is-done .step-dot { background: #e2c275 !important; border-color: #e2c275 !important; color: #14140f !important; }
+    /* Continue and Submit are gold; hover lightens */
+    :root body.light-pg .zform .btn-primary.btn-sm { background: #e2c275 !important; border: 1px solid #e2c275 !important; color: #14140f !important; font-weight: 600; transition: background-color .3s ease, border-color .3s ease, transform .3s ease; }
+    :root body.light-pg .zform .btn-primary.btn-sm:hover { background: #ecd08e !important; border-color: #ecd08e !important; transform: translateY(-1px); }
+    .fstep-num, .form-actions .step-count { display: none !important; }   /* the gold steps already show where you are */
+    @media (min-width: 901px) { .progress-bar.pbar { display: none !important; } }   /* desktop: the gold sidebar steps show progress */
+    @media (max-width: 900px) {
+      .intake-layout > .stepper { display: none !important; }   /* the gold step dots above the form replace it */
+    }
+    /* Phones: a compact form that uses the full width */
+    @media (max-width: 600px) {
+      main > section.intake-top { padding-left: 12px !important; padding-right: 12px !important; }
+      .intake-head { padding: 0 6px; margin-bottom: .8rem !important; }
+      .intake-head h1 { font-size: 1.5rem !important; margin-bottom: .15rem !important; }
+      .intake-head p { font-size: .85rem !important; }
+      .intake-panel { padding: 1.15rem 1rem 1.1rem; border-radius: 14px; }
+      .fstep { gap: .85rem; }
+      .fstep-head { padding-bottom: .7rem; }
+      .fstep-title { font-size: 1.2rem; }
+      .fstep-sub { font-size: .82rem; line-height: 1.5; margin-top: .2rem; }
+      .zform .row, .zform .row-3 { gap: .85rem; }
+      .field { gap: .3rem; }
+      .zform input[type="text"], .zform input[type="email"], .zform input[type="tel"], .zform input[type="url"], .zform input[type="date"], .zform select { padding: .62rem .85rem; font-size: 16px; }
+      .zform textarea { min-height: 84px; font-size: 16px; }
+      .form-actions { padding-top: .9rem; }
+      .form-actions .btn { min-height: 46px; }
+      .progress-bar.pbar { margin-bottom: 1rem; padding: 0 2px; }
+      .plabel { font-size: .68rem; }
+      .checkgrid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: .5rem !important; }
+      .checkgrid .checkopt { padding: .55rem .7rem !important; font-size: .82rem !important; min-height: 0 !important; }
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -194,7 +238,7 @@
   <section class="intake-top">
     <header class="intake-head">
       <h1>Book a free discovery call</h1>
-      <p>Answer what you can. We reply within one business day.</p>
+      <p>Let us know more about your question.</p>
     </header>
     
 
@@ -799,7 +843,13 @@
       var bar = document.getElementById('progressBar');
       var current = 1;
 
-      if (bar) bar.hidden = false;
+      if (bar) {   // four gold steps with dots and names, taken from the sidebar steps
+        bar.hidden = false; bar.classList.add('pbar'); bar.setAttribute('aria-hidden', 'true');
+        bar.innerHTML = steps.map(function (s, i) {
+          var names = ['About you', 'Business', 'Question', 'Scope'];
+          return '<div class="pseg" data-step="' + (i + 1) + '"><span class="pdot">' + (i + 1) + '</span><span class="plabel">' + (names[i] || 'Step ' + (i + 1)) + '</span></div>';
+        }).join('');
+      }
       if (stepper) stepper.setAttribute('aria-hidden', 'false');
 
       function render(noScroll) {
@@ -809,11 +859,16 @@
           it.classList.toggle('is-active', n === current);
           it.classList.toggle('is-done', n < current);
         });
-        if (bar) bar.querySelector('i').style.width = (current / steps.length * 100) + '%';
+        if (bar) [].forEach.call(bar.querySelectorAll('.pseg'), function (g) {
+          var n = +g.getAttribute('data-step');
+          g.classList.toggle('is-active', n === current); g.classList.toggle('is-done', n < current);
+          g.querySelector('.pdot').innerHTML = n < current ? '&#10003;' : n;
+        });
         if (typeof saveDraft === 'function') saveDraft();
         if (noScroll) return;
-        var panel = form;
-        var top = panel.getBoundingClientRect().top + window.pageYOffset - 96;
+        var panel = (bar && bar.offsetParent) ? bar : form;   // the gold step dots stay in view under the nav
+        var navH = (document.getElementById('nav') || {}).offsetHeight || 0;
+        var top = panel.getBoundingClientRect().top + window.pageYOffset - navH - 24;
         window.scrollTo({ top: top, behavior: (window.ZKK && window.ZKK.reduceMotion) ? 'auto' : 'smooth' });
       }
 
@@ -883,7 +938,7 @@
       if (saved && saved.step > 1 && saved.step <= steps.length && params.get('sent') !== '1') { current = saved.step; render(true); }
       else {
         steps.forEach(function (s) { s.hidden = (+s.getAttribute('data-step') !== 1); });
-        if (bar) bar.querySelector('i').style.width = (1 / steps.length * 100) + '%';
+        render(true);
       }
     })();
 
