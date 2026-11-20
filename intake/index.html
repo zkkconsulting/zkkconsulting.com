@@ -83,7 +83,6 @@
 
     .form-actions { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding-top: 1.4rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
     .form-actions .spacer { flex: 1; }
-    .step-count { font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 
     .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 1.8rem; }
     .progress-bar i { display: block; height: 100%; background: var(--accent); width: 25%; transition: width .3s ease; }
@@ -138,20 +137,19 @@
     /* ── Progress: four gold steps with dots and names (built by the script below) ── */
     .progress-bar.pbar { height: auto; background: none; overflow: visible; border-radius: 0; margin-bottom: 1.4rem; display: grid; grid-template-columns: repeat(4, 1fr); }
     .pseg { position: relative; display: flex; flex-direction: column; align-items: center; gap: .4rem; text-align: center; }
-    .pseg::before { content: ""; position: absolute; top: 13px; left: calc(-50% + 18px); right: calc(50% + 18px); height: 2px; border-radius: 2px; background: #dcd8cb; transition: background .4s ease; }
+    .pseg::before { content: ""; position: absolute; top: 11px; left: calc(-50% + 16px); right: calc(50% + 16px); height: 1.5px; border-radius: 2px; background: #dcd8cb; transition: background .4s ease; }
     .pseg:first-child::before { display: none; }
     .pseg.is-done::before, .pseg.is-active::before { background: #d9b45a; }
-    .pdot { position: relative; z-index: 1; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: #fff; border: 2px solid #dcd8cb; color: #6a756f; font: 600 .78rem/1 var(--sans); transition: background .4s ease, border-color .4s ease, color .4s ease, box-shadow .4s ease; }
-    .pseg.is-active .pdot { background: #e2c275; border-color: #e2c275; color: #14140f; box-shadow: 0 0 0 5px rgba(226,194,117,.25); }
+    .pdot { position: relative; z-index: 1; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: #fff; border: 2px solid #dcd8cb; color: #6a756f; font: 600 .78rem/1 var(--sans); transition: background .4s ease, border-color .4s ease, color .4s ease, box-shadow .4s ease; }
+    .pseg.is-active .pdot { background: #e2c275; border-color: #e2c275; color: #14140f; }
     .pseg.is-done .pdot { background: #e2c275; border-color: #e2c275; color: #14140f; }
     .plabel { font-size: .74rem; font-weight: 600; color: #8a938e; line-height: 1.25; transition: color .3s; }
     .pseg.is-active .plabel, .pseg.is-done .plabel { color: var(--ink); }
     /* the sidebar steps turn gold too */
     .step-item.is-active .step-dot, .step-item.is-done .step-dot { background: #e2c275 !important; border-color: #e2c275 !important; color: #14140f !important; }
-    /* Continue and Submit are gold; hover lightens */
-    :root body.light-pg .zform .btn-primary.btn-sm { background: #e2c275 !important; border: 1px solid #e2c275 !important; color: #14140f !important; font-weight: 600; transition: background-color .3s ease, border-color .3s ease, transform .3s ease; }
-    :root body.light-pg .zform .btn-primary.btn-sm:hover { background: #ecd08e !important; border-color: #ecd08e !important; transform: translateY(-1px); }
-    .fstep-num, .form-actions .step-count { display: none !important; }   /* the gold steps already show where you are */
+    /* Continue and Submit: clean black, gray on hover, no glow */
+    :root body.light-pg .zform .btn-primary.btn-sm { background: #0d1612 !important; border: 1px solid #0d1612 !important; color: #fff !important; font-weight: 600; box-shadow: none !important; transition: background-color .3s ease, border-color .3s ease; }
+    :root body.light-pg .zform .btn-primary.btn-sm:hover { background: #3a423e !important; border-color: #3a423e !important; box-shadow: none !important; transform: none !important; }
     @media (min-width: 901px) { .progress-bar.pbar { display: none !important; } }   /* desktop: the gold sidebar steps show progress */
     @media (max-width: 900px) {
       .intake-layout > .stepper { display: none !important; }   /* the gold step dots above the form replace it */
@@ -291,7 +289,7 @@
           <!-- ══ STEP 1 ══ -->
           <fieldset class="fstep" data-step="1" style="border:none;">
             <div class="fstep-head">
-              <div class="fstep-num">Step 1 of 4</div>
+              <div class="fstep-num">1 of 4</div>
               <h2 class="fstep-title">About you</h2>
               <p class="fstep-sub">So we know who we are speaking with and how to reach you.</p>
             </div>
@@ -341,11 +339,10 @@
 
             <div class="field cond" id="condWebsite">
               <label for="fWebsite">Company website <span class="opt">(optional)</span></label>
-              <input type="url" id="fWebsite" name="company_website" maxlength="200" placeholder="https://" autocomplete="url" />
+              <input type="text" inputmode="url" id="fWebsite" name="company_website" maxlength="200" placeholder="yourcompany.com" autocomplete="url" autocapitalize="off" spellcheck="false" />
             </div>
 
             <div class="form-actions">
-              <span class="step-count nav-only">Step 1 of 4</span>
               <span class="spacer"></span>
               <button type="button" class="btn btn-primary btn-sm nav-only" data-next="2">Continue</button>
             </div>
@@ -354,7 +351,7 @@
           <!-- ══ STEP 2 ══ -->
           <fieldset class="fstep" data-step="2" style="border:none;">
             <div class="fstep-head">
-              <div class="fstep-num">Step 2 of 4</div>
+              <div class="fstep-num">2 of 4</div>
               <h2 class="fstep-title">Your business</h2>
               <p class="fstep-sub">Share enough context to help us understand the market, offering, and research question.</p>
             </div>
@@ -445,7 +442,6 @@
             <div class="form-actions">
               <button type="button" class="btn btn-outline btn-sm nav-only" data-prev="1">Back</button>
               <span class="spacer"></span>
-              <span class="step-count nav-only">Step 2 of 4</span>
               <button type="button" class="btn btn-primary btn-sm nav-only" data-next="3">Continue</button>
             </div>
           </fieldset>
@@ -453,7 +449,7 @@
           <!-- ══ STEP 3 ══ -->
           <fieldset class="fstep" data-step="3" style="border:none;">
             <div class="fstep-head">
-              <div class="fstep-num">Step 3 of 4</div>
+              <div class="fstep-num">3 of 4</div>
               <h2 class="fstep-title">Your research question</h2>
               <p class="fstep-sub">The most useful starting point is the decision the research needs to support.</p>
             </div>
@@ -517,7 +513,6 @@
             <div class="form-actions">
               <button type="button" class="btn btn-outline btn-sm nav-only" data-prev="2">Back</button>
               <span class="spacer"></span>
-              <span class="step-count nav-only">Step 3 of 4</span>
               <button type="button" class="btn btn-primary btn-sm nav-only" data-next="4">Continue</button>
             </div>
           </fieldset>
@@ -525,7 +520,7 @@
           <!-- ══ STEP 4 ══ -->
           <fieldset class="fstep" data-step="4" style="border:none;">
             <div class="fstep-head">
-              <div class="fstep-num">Step 4 of 4</div>
+              <div class="fstep-num">4 of 4</div>
               <h2 class="fstep-title">Scope &amp; timing</h2>
               <p class="fstep-sub">Timelines are set individually with each client. Sharing any deadline or timing constraint helps us scope the work realistically.</p>
             </div>
