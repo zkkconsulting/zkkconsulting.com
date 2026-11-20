@@ -29,15 +29,33 @@
     row.appendChild(track); row.classList.add('is-belt');
   })();
 
-  /* ── Reviews "Trusted by" logos: same conveyor belt on phones; desktop keeps the static row ── */
+  /* ── Reviews "Trusted by" logos: a static row when they fit on one line, a seamless looping belt when they do not.
+        Re-checked on resize; reduced motion keeps the static (wrapping) row. ── */
   (function () {
     var row = document.querySelector('#reviews .rv-logos');
-    if (!row || !matchMedia('(max-width: 760px)').matches || reduceMotion) return;
-    var imgs = Array.prototype.slice.call(row.querySelectorAll('img'));
-    var track = document.createElement('div'); track.className = 'rv-track';
-    imgs.concat(imgs.map(function (im) { var c = im.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.alt = ''; return c; }))
-        .forEach(function (im) { im.loading = 'eager'; track.appendChild(im); });
-    row.appendChild(track); row.classList.add('is-belt');
+    if (!row || reduceMotion) return;
+    var imgs = Array.prototype.slice.call(row.querySelectorAll('img')), track = null, lastW = 0;
+    function unloop() {
+      if (!track) return;
+      imgs.forEach(function (im) { row.appendChild(im); });
+      track.remove(); track = null; row.classList.remove('is-loop');
+    }
+    function loop() {
+      track = document.createElement('div'); track.className = 'rv-loop';
+      imgs.concat(imgs.map(function (im) { var c = im.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.alt = ''; return c; }))
+          .forEach(function (im) { im.loading = 'eager'; track.appendChild(im); });
+      row.appendChild(track); row.classList.add('is-loop');
+    }
+    function update() {
+      if (innerWidth === lastW) return; lastW = innerWidth;
+      unloop();
+      row.classList.add('rv-measure');   // one line, no wrapping: does it overflow?
+      var over = row.scrollWidth > row.clientWidth + 1;
+      row.classList.remove('rv-measure');
+      if (over) loop();
+    }
+    update();
+    var t; addEventListener('resize', function () { clearTimeout(t); t = setTimeout(update, 150); });
   })();
 
   /* ── FAQ: smooth open/close for <details> ── */

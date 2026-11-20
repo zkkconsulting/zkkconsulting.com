@@ -31,14 +31,17 @@
 
   var css = document.createElement('style');
   css.textContent =
-    '.lm-inline{padding:clamp(2rem,5vw,3.5rem) var(--edge,6vw)!important}' +
-    '.lm-card{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:auto 1fr minmax(280px,400px);gap:1.6rem 2.4rem;align-items:center;' +
-      'padding:1.6rem 2rem;border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
+    // layout follows the card's own width (container queries), so it never squeezes the heading into a sliver
+    '.lm-inline{padding:clamp(2rem,5vw,3.5rem) var(--edge,6vw)!important;container-type:inline-size}' +
+    '.lm-card{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"pages copy" "act act";gap:1.4rem 2rem;align-items:center;' +
+      'padding:clamp(1.3rem,3cqi,2rem);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
       'box-shadow:inset 0 1px 0 #fff,0 24px 60px rgba(13,22,18,.12);text-align:left}' +
-    '.lm-pages{display:flex;gap:.7rem}' +
+    '.lm-pages{grid-area:pages;display:flex;gap:.7rem}.lm-card .lm-copy{grid-area:copy}.lm-card .lm-act{grid-area:act}' +
+    '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(300px,380px);grid-template-areas:"pages copy act";gap:1.6rem 2.6rem}}' +
+    '@container (max-width:700px){.lm-card{grid-template-columns:minmax(0,1fr);grid-template-areas:"pages" "copy" "act"}.lm-pages img{width:96px!important}}' +
     '.lm-pages img{width:120px;height:auto;border-radius:3px;background:#fff;box-shadow:0 1px 0 rgba(13,22,18,.08),0 14px 30px rgba(13,22,18,.2)}' +
     '.lm-kicker{display:block;margin-bottom:.45rem;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#775406}' +
-    ':root body .lm-card h2{margin:0;font:600 clamp(1.35rem,2.2vw,1.75rem)/1.15 var(--sans)!important;letter-spacing:-.02em;color:#0d1612!important;text-align:left!important}' +
+    ':root body .lm-card h2{margin:0;font:600 clamp(1.3rem,2.4cqi,1.75rem)/1.15 var(--sans)!important;letter-spacing:-.02em;color:#0d1612!important;text-align:left!important}' +
     '.lm-card .lm-sub{margin:.5rem 0 0;color:#4a554f;font-size:1rem;line-height:1.5}' +
     '.lm-form{display:flex;flex-direction:column;gap:.55rem}' +
     '.lm-form input[type="email"]{min-height:50px;padding:0 .95rem;font:400 1rem var(--sans);color:#0d1612;color-scheme:light;background:rgba(255,255,255,.75);' +
@@ -50,8 +53,7 @@
     '.lm-card :focus-visible,.lm-form input:focus{outline:2px solid #0b6b45;outline-offset:2px}' +
     '.lm-card .rv-note{margin:.1rem 0 0;color:#6a756f;font-size:.75rem}' +
     '.lm-done{display:flex;flex-direction:column;gap:.55rem}.lm-done p{margin:0;color:#0d1612;font-size:.95rem}' +
-    '@media (max-width:960px){.lm-card{grid-template-columns:auto 1fr}.lm-card .lm-act{grid-column:1/-1}}' +
-    '@media (max-width:600px){.lm-card{grid-template-columns:1fr;padding:1.3rem}.lm-pages{max-width:300px}.lm-pages img{width:calc(50% - .35rem)}}';
+    '';
   document.head.appendChild(css);
 
   function formHTML() {
@@ -78,7 +80,7 @@
   sec.setAttribute('aria-labelledby', 'lmTitle');
   sec.innerHTML = '<div class="lm-card">' +
       '<div class="lm-pages" aria-hidden="true"><img src="' + PAGES[0] + '" alt="" width="120" height="155" loading="lazy"><img src="' + PAGES[1] + '" alt="" width="120" height="155" loading="lazy"></div>' +
-      '<div><span class="lm-kicker">Free checklist</span><h2 id="lmTitle">Get the free Market Readiness Checklist when you sign up with your email.</h2>' +
+      '<div class="lm-copy"><span class="lm-kicker">Free checklist</span><h2 id="lmTitle">Get the free Market Readiness Checklist when you sign up with your email.</h2>' +
       '<p class="lm-sub">20 questions to answer before you pitch to investors.</p></div>' +
       '<div class="lm-act">' + formHTML() + '</div></div>';
   anchor.parentNode.insertBefore(sec, anchor);
