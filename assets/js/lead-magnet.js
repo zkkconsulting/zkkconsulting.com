@@ -33,17 +33,23 @@
   css.textContent =
     // layout follows the card's own width (container queries), so it never squeezes the heading into a sliver
     '.lm-inline{padding:clamp(2rem,5vw,3.5rem) var(--edge,6vw)!important;container-type:inline-size}' +
-    '.lm-card{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"pages copy" "act act";gap:1.4rem 2rem;align-items:center;' +
-      'padding:clamp(1.3rem,3cqi,2rem);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
+    '.lm-card{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"pages copy" "act act";gap:1.6rem 2.4rem;align-items:center;' +
+      'padding:clamp(1.5rem,3.4cqi,2.4rem) clamp(1.5rem,4cqi,3rem);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
       'box-shadow:inset 0 1px 0 #fff,0 24px 60px rgba(13,22,18,.12);text-align:left}' +
-    '.lm-pages{grid-area:pages;display:flex;gap:.7rem}.lm-card .lm-copy{grid-area:copy}.lm-card .lm-act{grid-area:act}' +
-    '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(300px,380px);grid-template-areas:"pages copy act";gap:1.6rem 2.6rem}}' +
-    '@container (max-width:700px){.lm-card{grid-template-columns:minmax(0,1fr);grid-template-areas:"pages" "copy" "act"}.lm-pages img{width:96px!important}}' +
-    '.lm-pages img{width:120px;height:auto;border-radius:3px;background:#fff;box-shadow:0 1px 0 rgba(13,22,18,.08),0 14px 30px rgba(13,22,18,.2)}' +
+    '.lm-pages{grid-area:pages;position:relative;width:196px;height:190px}.lm-card .lm-copy{grid-area:copy}.lm-card .lm-act{grid-area:act}' +
+    '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(300px,380px);grid-template-areas:"pages copy act";gap:1.6rem 3rem}}' +
+    '@container (max-width:700px){.lm-card{grid-template-columns:minmax(0,1fr);grid-template-areas:"pages" "copy" "act"}.lm-pages{width:166px;height:160px}.lm-pages img{width:108px!important}}' +
+    // report pages: a neat overlapping pair that fans out a little on hover
+    '.lm-pages img{position:absolute;top:8px;width:128px;height:auto;border-radius:4px;background:#fff;border:1px solid rgba(13,22,18,.08);' +
+      'box-shadow:0 2px 4px rgba(13,22,18,.05),0 18px 36px rgba(13,22,18,.16);transition:transform .6s cubic-bezier(.22,1,.36,1)}' +
+    '.lm-pages img:first-child{left:0;z-index:2;transform:rotate(-4deg)}.lm-pages img:last-child{right:0;z-index:1;transform:rotate(5deg) translateY(8px)}' +
+    '@media (hover:hover){.lm-card:hover .lm-pages img:first-child{transform:rotate(-6deg) translateX(-4px)}.lm-card:hover .lm-pages img:last-child{transform:rotate(7deg) translate(4px,8px)}}' +
     '.lm-kicker{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem;font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#775406}' +
     '.lm-kicker::before{content:"";width:22px;height:1px;background:currentColor}' +
-    ':root body .lm-card h2{margin:0;font:500 clamp(1.35rem,2.5cqi,1.85rem)/1.18 var(--sans)!important;letter-spacing:-.025em;text-wrap:balance;max-width:24ch;color:#0d1612!important;text-align:left!important}' +
-    '.lm-card .lm-sub{margin:.7rem 0 0;color:#5a645e;font-size:.98rem;line-height:1.55;text-wrap:pretty}' +
+    ':root body .lm-card h2{margin:0;font:500 clamp(1.5rem,2.7cqi,2.05rem)/1.15 var(--sans)!important;letter-spacing:-.03em;text-wrap:balance;max-width:20ch;color:#0d1612!important;text-align:left!important}' +
+    // gold marker behind "free", same as the thank-you highlight
+    '.lm-free{position:relative;isolation:isolate;padding:0 .1em;white-space:nowrap}.lm-free::before{content:"";position:absolute;z-index:-1;inset:.16em -.04em .04em -.06em;background:#f2d35a;border-radius:2px}' +
+    '.lm-card .lm-sub{margin:.75rem 0 0;color:#5a645e;font-size:.98rem;line-height:1.55;text-wrap:pretty}' +
     '.lm-form{display:flex;flex-direction:column;gap:.55rem}' +
     '.lm-form input[type="email"]{min-height:50px;padding:0 .95rem;font:400 1rem var(--sans);color:#0d1612;color-scheme:light;background:rgba(255,255,255,.75);' +
       'border:1px solid rgba(255,255,255,.95);border-radius:4px;box-shadow:inset 0 1px 0 #fff,0 6px 18px rgba(13,22,18,.06)}' +
@@ -62,7 +68,7 @@
         '<label class="visually-hidden" for="lmEmail">Email address</label>' +
         '<input id="lmEmail" type="email" name="email" required maxlength="120" autocomplete="email" placeholder="you@company.com">' +
         '<input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">' +
-        '<button type="submit" class="btn btn-primary">Send me the checklist</button>' +
+        '<button type="submit" class="btn btn-primary">Send me the free checklist</button>' +
         '<p class="rv-note" aria-live="polite">' + 'No spam. We\'ll use your email to personally reach out and explore how we can help.' + '</p>' +
       '</form>';
   }
@@ -80,8 +86,8 @@
   sec.setAttribute('data-lm', 'inline');
   sec.setAttribute('aria-labelledby', 'lmTitle');
   sec.innerHTML = '<div class="lm-card">' +
-      '<div class="lm-pages" aria-hidden="true"><img src="' + PAGES[0] + '" alt="" width="120" height="155" loading="lazy"><img src="' + PAGES[1] + '" alt="" width="120" height="155" loading="lazy"></div>' +
-      '<div class="lm-copy"><span class="lm-kicker">Free checklist</span><h2 id="lmTitle">Get the free Market Readiness Checklist when you sign up with your email.</h2>' +
+      '<div class="lm-pages" aria-hidden="true"><img src="' + PAGES[0] + '" alt="" width="128" height="165" loading="lazy"><img src="' + PAGES[1] + '" alt="" width="128" height="165" loading="lazy"></div>' +
+      '<div class="lm-copy"><span class="lm-kicker">Free download</span><h2 id="lmTitle">Get the Market Readiness Checklist for <span class="lm-free">free</span>.</h2>' +
       '<p class="lm-sub">20 questions to answer before you pitch to investors.</p></div>' +
       '<div class="lm-act">' + formHTML() + '</div></div>';
   anchor.parentNode.insertBefore(sec, anchor);
@@ -121,7 +127,7 @@
       showDownload(false);
       card.querySelector('.lm-done a').focus();
     }).catch(function () {
-      btn.disabled = false; btn.textContent = 'Send me the checklist';
+      btn.disabled = false; btn.textContent = 'Send me the free checklist';
       note.setAttribute('role', 'alert'); note.textContent = 'That did not send. Please try again, or email info@zkkconsulting.com.';
     });
   });

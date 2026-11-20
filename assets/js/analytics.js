@@ -138,7 +138,7 @@
     }
     if (LEAD_MAGNET_ENABLED) {
       var lm = document.createElement('script');
-      lm.src = '/assets/js/lead-magnet.js?v=9'; lm.defer = true;
+      lm.src = '/assets/js/lead-magnet.js?v=10'; lm.defer = true;
       document.body.appendChild(lm);
     }
   });
