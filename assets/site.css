@@ -3867,10 +3867,11 @@ nav#nav .nav-logo:is(:hover, :focus-visible)::after { opacity: 1; }
     top: 0 !important; left: 0 !important; right: 0 !important; height: 60px !important; padding: 8px calc(.6rem + 12px) 0 calc(1.1rem + 12px) !important;
     background: transparent !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; transition: none !important; pointer-events: none;
     -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
-  nav#nav > * { pointer-events: auto; transition: transform .45s cubic-bezier(.22,1,.36,1); }
-  nav#nav.shrink > * { transform: translateY(-9px); }
+  nav#nav > * { pointer-events: auto; transform: translate3d(0,0,0); will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; transition: transform .45s cubic-bezier(.22,1,.36,1); }
+  nav#nav.shrink > * { transform: translate3d(0,-9px,0); }
   nav#nav::before, nav#nav::after, nav#nav.on-hero::before, nav#nav.on-hero::after { opacity: 1 !important;
-    clip-path: inset(8px 12px 0 12px round 26px); transition: clip-path .45s cubic-bezier(.22,1,.36,1) !important; }
+    clip-path: inset(8px 12px 0 12px round 26px); transition: clip-path .45s cubic-bezier(.22,1,.36,1) !important;
+    transform: translate3d(0,0,0); will-change: clip-path; -webkit-backface-visibility: hidden; backface-visibility: hidden; }  /* stay on their own GPU layers so iOS never redraws them as the animation ends */
   nav#nav::before { background: #000 !important; }
   nav#nav.shrink::before, nav#nav.shrink::after { clip-path: inset(0 0 10px 0 round 0 0 22px 22px); }
   body:has(.mobile-menu.open) nav#nav::before, body:has(.mobile-menu.open) nav#nav::after { clip-path: inset(8px 12px 0 12px round 26px 26px 0 0); }

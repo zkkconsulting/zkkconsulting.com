@@ -105,7 +105,7 @@
     if (isHome && homeHero && navLogo) { var hl = navLogo.cloneNode(true); hl.classList.add('hero-logo'); hl.setAttribute('tabindex', '-1'); hl.setAttribute('aria-hidden', 'true'); homeHero.appendChild(hl); }
     var onScroll = function () {
       var y = window.pageYOffset || document.documentElement.scrollTop;
-      var sh = y > 30, oh = isHome ? y < 8 : (homeHero ? y < heroLimit : false); /* flips as the logo docks */
+      var sh = lastShrink ? y > 16 : y > 44,   /* a dead zone so the bar never flips back and forth near the edge */ oh = isHome ? y < 8 : (homeHero ? y < heroLimit : false); /* flips as the logo docks */
       var li = y > logoPass; if (li !== lastLogo) { nav.classList.toggle('logo-in', li); lastLogo = li; }
       if (sh !== lastShrink) { nav.classList.toggle('shrink', sh); lastShrink = sh; }
       if (homeHero && oh !== lastOnHero) { nav.classList.toggle('on-hero', oh); lastOnHero = oh; }
