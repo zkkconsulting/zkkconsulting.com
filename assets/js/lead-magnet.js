@@ -1,13 +1,14 @@
 /* ═══════════════════════════════════════════════════════════════════
-   Market Readiness Checklist signup: one inline card on the guides
-   (/insights/), above the closing call to action. No popup.
+   Market Readiness Checklist signup: one inline card at the bottom of
+   every page, above the closing call to action. No popup.
    Loaded by analytics.js only when LEAD_MAGNET_ENABLED is true.
    Styled like the home hero (paper, glass, dark button). The email goes
    to the Apps Script mailer (or FormSubmit until it is set), never to GA.
    ═══════════════════════════════════════════════════════════════════ */
 (function () {
   var Z = window.zkk; if (!Z) return;
-  if (!/^\/insights(\/|$)/.test(location.pathname)) return;
+  // every page except the intake form (its own signup), the legal page and the post-submit thank-you
+  if (/^\/(intake|legal)(\/|$)/.test(location.pathname) || /[?&]sent=1/.test(location.search)) return;
   var PDF = '/assets/downloads/zkk-medtech-market-readiness-checklist.pdf';
   var PAGES = ['/assets/downloads/checklist-page-1.jpg', '/assets/downloads/checklist-page-2.jpg'];
   // Google Apps Script web app that emails the PDF (see ops/checklist-mailer.gs). Until it is set,
