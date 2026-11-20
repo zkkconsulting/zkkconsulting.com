@@ -27,6 +27,10 @@
   if (q.get('debug_mode')) ss(function (s) { q.get('debug_mode') === 'true' ? s.setItem('zkk_debug', '1') : s.removeItem('zkk_debug'); });
   var debug = ss(function (s) { return s.getItem('zkk_debug'); }) === '1';
 
+  // Cookie choice: zkk_consent = granted | denied, kept for a year
+  var consent = getCookie('zkk_consent') || ls(function (s) { return s.getItem('zkk_consent'); }) || '';
+  function consentState(v) { return { ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v }; }
+
   window.dataLayer = window.dataLayer || [];
   if (PROD) {
     window.gtag = function () { dataLayer.push(arguments); };
@@ -34,11 +38,13 @@
     s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
     document.head.appendChild(s);
 
-    // Consent Mode v2: denied in the EEA, UK and Switzerland, granted elsewhere. No banner.
+    // Consent Mode v2: denied in the EEA, UK and Switzerland, granted elsewhere, until the visitor
+    // answers the cookie banner below. Their saved answer then overrides the default on every page.
     var DENY = { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' };
     gtag('consent', 'default', Object.assign({ region: ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE',
       'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'GB', 'CH'] }, DENY));
     gtag('consent', 'default', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
+    if (consent) gtag('consent', 'update', consentState(consent));
     gtag('set', 'ads_data_redaction', true);
     gtag('js', new Date());
     var cfg = { allow_google_signals: false, allow_ad_personalization_signals: false };
@@ -46,7 +52,7 @@
     if (debug) cfg.debug_mode = true;
     gtag('config', GA_ID, cfg);
 
-    if (CLARITY_ID && !internal) {
+    if (CLARITY_ID && !internal && consent === 'granted') {   // Clarity only after an explicit Accept
       window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
       var c = document.createElement('script');
       c.async = true; c.src = 'https://www.clarity.ms/tag/' + CLARITY_ID;
@@ -59,7 +65,7 @@
   }
 
   function track(name, params) { gtag('event', name, params || {}); }
-  window.zkk = { track: track, getCookie: getCookie, setCookie: setCookie, ls: ls, ss: ss };
+  window.zkk = { track: track, getCookie: getCookie, setCookie: setCookie, ls: ls, ss: ss, consentPending: function () { return !consent; } };
 
   var path = location.pathname;
 
@@ -119,12 +125,44 @@
       if (!ok.hidden && q.get('sent') === '1') qualify();
       new MutationObserver(function () { if (!ok.hidden) qualify(); }).observe(ok, { attributes: true, attributeFilter: ['hidden'] });
     }
+    if (!consent) cookieBanner();
     if (LEAD_MAGNET_ENABLED) {
       var lm = document.createElement('script');
       lm.src = '/assets/js/lead-magnet.js?v=1'; lm.defer = true;
       document.body.appendChild(lm);
     }
   });
+
+  /* ── Cookie banner: Accept or Decline, asked once a year. Styled like the home hero (paper, glass buttons). ── */
+  function cookieBanner() {
+    var css = document.createElement('style');
+    css.textContent =
+      '.ck-bar{position:fixed;z-index:9500;left:16px;bottom:16px;width:min(420px,calc(100% - 32px));padding:1.1rem 1.2rem 1rem;border-radius:16px;' +
+        'background:rgba(229,229,223,.94);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);' +
+        'border:1px solid rgba(255,255,255,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 18px 44px rgba(13,22,18,.18);color:#0d1612;font-family:var(--sans)}' +
+      '.ck-bar p{margin:0 0 .8rem;font-size:.9rem;line-height:1.5;color:#24302a}.ck-bar a{color:#0b4a32;text-decoration:underline;text-underline-offset:3px}' +
+      '.ck-row{display:flex;gap:.5rem}.ck-row .btn{flex:1 1 0;min-height:44px;max-width:none;justify-content:center;padding:0 1rem;border-radius:12px;letter-spacing:.07em}' +
+      '.ck-bar .ck-yes{color:#fff;background:linear-gradient(180deg,rgba(14,92,62,.92),rgba(7,58,39,.92));border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 20px rgba(7,58,39,.24)}' +
+      '.ck-bar .ck-no{color:#0b4a32;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}' +
+      '.ck-bar :focus-visible{outline:2px solid #0b6b45;outline-offset:2px}' +
+      '@media (max-width:560px){.ck-bar{left:8px;right:8px;bottom:8px;width:auto;padding:.9rem 1rem .85rem}.ck-bar p{font-size:.84rem;margin-bottom:.6rem}}' +
+      '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .35s ease-out}}@keyframes ck-in{from{opacity:0;transform:translateY(12px)}}';
+    document.head.appendChild(css);
+    var bar = document.createElement('section');
+    bar.className = 'ck-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Cookie choice');
+    bar.innerHTML = '<p>We use cookies to count visits and see which pages help. <a href="/legal/#s13">Privacy details</a></p>' +
+      '<div class="ck-row"><button type="button" class="btn ck-no">Decline</button><button type="button" class="btn ck-yes">Accept</button></div>';
+    document.body.appendChild(bar);
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      consent = b.classList.contains('ck-yes') ? 'granted' : 'denied';
+      setCookie('zkk_consent', consent, YEAR);
+      ls(function (s) { s.setItem('zkk_consent', consent); });
+      gtag('consent', 'update', consentState(consent));
+      bar.remove();
+      document.dispatchEvent(new Event('zkk:consent'));
+    });
+  }
 
   /* ── Scroll depth 25/50/75 (GA enhanced measurement already sends 90), and insight_read ── */
   var sent = {}, maxPct = 0, engaged = 0, readSent = false;

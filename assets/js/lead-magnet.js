@@ -39,29 +39,31 @@
     '.lm-cover{width:120px;height:auto;border-radius:6px;box-shadow:var(--shadow)}.lm-box.no-cover{grid-template-columns:1fr}' +
     '.lm-form{display:flex;gap:.6rem;flex-wrap:wrap}.lm-form input[type="email"]{flex:1 1 220px;min-height:44px}.lm-form .btn{white-space:nowrap;min-height:44px;max-width:none}' +
     '.lm-box .rv-note,.lm-pop .rv-note{margin:.6rem 0 0}.lm-done{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem}' +
-    // popup: dark green split card in the style of the checklist's own back page, cover on the left
-    '.lm-pop{width:min(880px,calc(100% - 32px));color:#fff;overflow:hidden;background:repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0 2px,transparent 2px 64px),linear-gradient(160deg,#0b1f17 0%,#0b4a2e 100%)}' +
-    '.lm-split{display:grid;grid-template-columns:1fr 1.1fr;min-height:460px}' +
-    '.lm-art{display:flex;align-items:center;justify-content:center;padding:2.4rem}' +
-    '.lm-art img{width:82%;max-width:300px;height:auto;transform:rotate(-4deg);border-radius:3px;box-shadow:0 26px 50px rgba(0,0,0,.5)}' +
-    '.lm-pop .lm-panel{align-items:center;justify-content:center;text-align:center;padding:2.8rem 2.6rem 2rem;gap:.7rem}' +
-    '.lm-logo{width:104px;height:auto;margin-bottom:.4rem}' +
-    '.lm-pop h2#lmPopTitle{color:#fff!important;text-align:center;font-size:clamp(1.6rem,2.6vw,2.05rem);line-height:1.15}' +
-    '.lm-kicker{display:block;margin-bottom:.7rem;font-size:.78rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#ffd36b}' +
-    '.lm-pop .rv-sub{margin:0 0 .5rem;color:rgba(255,255,255,.82)}' +
+    // popup: a small copy of the home hero. Paper ground, the "clearer." video fading in from the right,
+    // dark headline with the yellow highlighter, green glass button. Values mirror .hero-paper in site.css.
+    '.lm-pop{width:min(900px,calc(100% - 32px));overflow:hidden;background:#e5e5df;color:#0d1612}' +
+    '.lm-hero{position:relative;min-height:440px;display:flex;align-items:center;padding:3rem 2.8rem}' +
+    '.lm-vid{position:absolute;top:0;right:0;width:60%;height:100%;object-fit:cover;object-position:62% 50%;z-index:0;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 34%);mask-image:linear-gradient(90deg,transparent 0%,#000 34%)}' +
+    '.lm-hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(229,229,223,.98) 0%,rgba(229,229,223,.95) 46%,rgba(229,229,223,.55) 58%,rgba(229,229,223,.04) 74%),linear-gradient(0deg,rgba(229,229,223,.95) 0%,rgba(229,229,223,0) 28%)}' +
+    '.lm-pop .lm-panel{position:relative;z-index:2;max-width:390px;padding:0;gap:.75rem;text-align:left}' +
+    '.lm-kicker{display:block;margin-bottom:.6rem;font-size:.74rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#775406}' +
+    '.lm-pop h2#lmPopTitle{color:#0d1612!important;text-align:left;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.06;letter-spacing:-.03em}' +
+    '.lm-pop h2 .hl em{font-style:italic;font-weight:600;letter-spacing:-.02em}' +
+    '.lm-pop .rv-sub{margin:0 0 .4rem;color:#4a554f;font-size:1.02rem}' +
     '.lm-pop .lm-form{flex-direction:column;width:100%;gap:.6rem}' +
-    '.lm-pop .lm-form input[type="email"]{flex:none;min-height:50px;border:0;border-radius:6px;background:#fff;color:#0d1612;text-align:center}' +
-    '.lm-pop .lm-form .btn-primary,.lm-pop .lm-done .btn-primary{width:100%;max-width:none;min-height:50px;justify-content:center;background:#fff;color:#013220}.lm-pop .btn-primary:hover{background:#eafff3}' +
-    '.lm-pop :focus-visible,.lm-pop input:focus{outline:2px solid #ffd36b;outline-offset:2px}' +
-    '.lm-no{min-height:44px;padding:0 1rem;border:0;background:none;color:#fff;font:600 .76rem var(--sans);letter-spacing:.14em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;cursor:pointer}' +
-    '.lm-pop .rv-note{margin:0;color:rgba(255,255,255,.65);text-align:center}.lm-pop .lm-done{align-items:stretch;width:100%}' +
-    '.lm-pop .rv-x{z-index:1;width:44px;height:44px;color:#fff}.lm-pop .rv-x:hover{background:rgba(255,255,255,.12)}' +
+    '.lm-pop .lm-form input[type="email"]{flex:none;min-height:52px;border-radius:12px;border:1px solid rgba(255,255,255,.9);background:rgba(255,255,255,.72);box-shadow:inset 0 1px 0 #fff,0 8px 22px rgba(13,22,18,.06);color:#0d1612}' +
+    '.lm-pop .lm-form .btn-primary,.lm-pop .lm-done .btn-primary{width:100%;max-width:none;justify-content:center;color:#fff;background:linear-gradient(180deg,rgba(14,92,62,.92),rgba(7,58,39,.92));border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 10px 26px rgba(7,58,39,.28)}' +
+    '.lm-pop .btn-primary:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 14px 32px rgba(7,58,39,.36)}' +
+    '.lm-pop :focus-visible,.lm-pop input:focus{outline:2px solid #0b6b45;outline-offset:2px}' +
+    '.lm-no{align-self:flex-start;min-height:44px;padding:0;border:0;background:none;color:#4a554f;font:600 .74rem var(--sans);letter-spacing:.14em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;cursor:pointer}.lm-no:hover{color:#0d1612}' +
+    '.lm-pop .rv-note{margin:0;color:#4a554f}.lm-pop .lm-done{align-items:stretch;width:100%}' +
+    '.lm-pop .rv-x{z-index:3;width:44px;height:44px;color:#0d1612;background:rgba(255,255,255,.55)}.lm-pop .rv-x:hover{background:#fff}' +
     '@media (max-width:640px){.lm-box{grid-template-columns:1fr}.lm-cover{display:none}}' +
     '@media (max-width:767px){.lm-pop.lm-sheet{position:fixed;z-index:9000;inset:auto 0 0 0;margin:0;width:100%;max-width:100%;max-height:30vh;overflow:auto;border-radius:18px 18px 0 0}' +
-    '.lm-sheet .lm-split{display:block;min-height:0}.lm-sheet .lm-art,.lm-sheet .lm-logo,.lm-sheet .lm-no{display:none}' +
-    '.lm-sheet .lm-panel{padding:.9rem 1rem .8rem;gap:.4rem}.lm-sheet h2#lmPopTitle{padding:0 2.2rem;font-size:1.05rem;line-height:1.3}' +
-    '.lm-sheet .lm-kicker{display:inline;margin:0 .4rem 0 0;font-size:.68rem}.lm-sheet .rv-sub{margin:0;font-size:.85rem;line-height:1.4}' +
-    '.lm-sheet .lm-form{gap:.4rem}.lm-sheet .lm-form input[type="email"],.lm-sheet .btn-primary{min-height:44px}.lm-sheet .rv-x{top:.2rem;right:.2rem}}' +
+    '.lm-sheet .lm-hero{display:block;min-height:0;padding:.9rem 1rem .8rem}.lm-sheet .lm-vid,.lm-sheet .lm-no{display:none}.lm-sheet .lm-panel{max-width:none;gap:.4rem}' +
+    '.lm-sheet h2#lmPopTitle{padding-right:2.4rem;font-size:1.2rem;line-height:1.2}.lm-sheet .lm-kicker{margin-bottom:.25rem;font-size:.66rem}' +
+    '.lm-sheet .rv-sub{margin:0;font-size:.85rem;line-height:1.4}.lm-sheet .lm-form{gap:.4rem}' +
+    '.lm-sheet .lm-form input[type="email"],.lm-sheet .lm-form .btn-primary{min-height:44px}.lm-sheet .rv-x{top:.3rem;right:.3rem}}' +
     '@media (prefers-reduced-motion:no-preference){.lm-pop[open]{animation:lm-in .25s ease-out}.lm-sheet[open]{animation:lm-up .3s ease-out}}' +
     '@keyframes lm-in{from{opacity:0;transform:translateY(8px)}}@keyframes lm-up{from{transform:translateY(100%)}}';
   document.head.appendChild(css);
@@ -158,7 +160,7 @@
 
   var t0 = Date.now(), dlg, lastFocus, popIO;
   function trigger() {
-    if (dlg || Date.now() - t0 < 8000 || inlineOnScreen) return;
+    if (dlg || Date.now() - t0 < 8000 || inlineOnScreen || Z.consentPending()) return;   // never on top of the cookie banner
     if (Z.ss(function (s) { return s.getItem('zkk_lm_shown'); }) || getState()) return;
     open();
   }
@@ -170,15 +172,18 @@
     dlg.className = 'rv-dialog lm-pop' + (sheet ? ' lm-sheet' : '');
     dlg.setAttribute('aria-labelledby', 'lmPopTitle');
     dlg.setAttribute('aria-modal', sheet ? 'false' : 'true');
-    dlg.innerHTML = '<div class="lm-split"><div class="lm-art" aria-hidden="true"><img src="' + COVER + '" alt="" width="600" height="777"></div>' +
-      '<div class="rv-form lm-panel"><button type="button" class="rv-x" aria-label="Close">×</button>' +
-      '<img class="lm-logo" src="/assets/zkk-nav.png" alt="ZKK Consulting" width="868" height="331">' +
-      '<h2 id="lmPopTitle"><span class="lm-kicker">Free<span class="visually-hidden">:</span></span> The Medtech Market Readiness Checklist</h2>' +
+    var still = sheet || matchMedia('(prefers-reduced-motion: reduce)').matches;   // phones and reduced motion get the still frame
+    dlg.innerHTML = '<div class="lm-hero">' +
+      (sheet ? '' : '<video class="lm-vid" muted loop playsinline ' + (still ? '' : 'autoplay ') + 'preload="' + (still ? 'none' : 'auto') + '" poster="/assets/hero/clearer-poster.jpg" aria-hidden="true" tabindex="-1">' +
+        '<source src="/assets/hero/clearer.webm" type="video/webm"><source src="/assets/hero/clearer.mp4" type="video/mp4"></video>') +
+      '<button type="button" class="rv-x" aria-label="Close">\u00d7</button><div class="rv-form lm-panel">' +
+      '<h2 id="lmPopTitle"><span class="lm-kicker">Free<span class="visually-hidden">:</span></span> The Medtech Market Readiness <mark class="hl"><em>Checklist</em></mark></h2>' +
       '<p class="rv-sub">20 questions investors will ask before you pitch your device.</p>' + formHTML('popup') +
       '<button type="button" class="lm-no">No thanks</button></div></div>';
     document.body.appendChild(dlg);
     dlg.querySelector('.rv-x').addEventListener('click', close);
     dlg.querySelector('.lm-no').addEventListener('click', close);
+    var vid = dlg.querySelector('.lm-vid'); if (vid) vid.playbackRate = vid.defaultPlaybackRate = 0.4;   // same pace as the hero
     dlg.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
     dlg.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { e.preventDefault(); close(); return; }
@@ -204,6 +209,7 @@
   }
 
   setTimeout(trigger, 40000);
+  document.addEventListener('zkk:consent', function () { if (Date.now() - t0 >= 40000 || scrolled50()) setTimeout(trigger, 1500); });
   setTimeout(function () { if (scrolled50()) trigger(); }, 8000);
   function scrolled50() { var h = document.documentElement.scrollHeight - innerHeight; return h > 0 && scrollY / h >= 0.5; }
   addEventListener('scroll', function () { if (scrolled50()) trigger(); }, { passive: true });
