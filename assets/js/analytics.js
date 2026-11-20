@@ -124,15 +124,26 @@
       if (!ok.hidden && q.get('sent') === '1') qualify();
       new MutationObserver(function () { if (!ok.hidden) qualify(); }).observe(ok, { attributes: true, attributeFilter: ['hidden'] });
     }
-    if (!consent) setTimeout(cookieBanner, 4000);   // let the page land first, then ask
+    // ask once: desktop on first scroll or after 1.2s, phones after 4s so the page lands first
+    // a visit is a new browser session; after a choice the card asks again every other visit
+    var again = ls(function (s) {
+      var a = sessionStorage.getItem('zkk_ask');
+      if (a === null) { var n = (+s.getItem('zkk_visits') || 0) + 1; s.setItem('zkk_visits', n); a = n % 2 ? '1' : '0'; sessionStorage.setItem('zkk_ask', a); }
+      return a === '1';
+    });
+    if (!consent || again) {
+      var asked = false, ask = function () { if (asked) return; asked = true; removeEventListener('scroll', ask); cookieBanner(); };
+      if (matchMedia('(min-width: 861px)').matches) { addEventListener('scroll', ask, { passive: true }); setTimeout(ask, 1200); }
+      else setTimeout(ask, 4000);
+    }
     if (LEAD_MAGNET_ENABLED) {
       var lm = document.createElement('script');
-      lm.src = '/assets/js/lead-magnet.js?v=7'; lm.defer = true;
+      lm.src = '/assets/js/lead-magnet.js?v=16'; lm.defer = true;
       document.body.appendChild(lm);
     }
   });
 
-  /* ── Cookie banner, asked once a year. A black rounded card (bottom sheet on phones) with one white "Accept" pill.
+  /* ── Cookie banner, asked on the first visit and again every other visit after. A black rounded card (bottom sheet on phones) with one white "Accept" pill.
         "Settings" is a quiet link that opens a single analytics switch, on by default. ── */
   function cookieBanner() {
     var css = document.createElement('style');
@@ -152,10 +163,11 @@
       '.ck-sw:checked{background:#0b6b45}.ck-sw:checked::after{transform:translateX(18px)}' +
       '@media (max-width:560px){.ck-bar{right:0;left:0;bottom:0;width:auto;padding:2rem 1.4rem calc(1.3rem + env(safe-area-inset-bottom));border-radius:24px 24px 0 0}' +
         '.ck-bar p{font-size:1rem;line-height:1.6}.ck-row{flex-direction:column-reverse;gap:.5rem;margin-top:1.7rem}.ck-row .ck-yes{width:100%;min-height:56px;font-size:1.02rem}}' +
-      '@media (prefers-reduced-motion:no-preference){.ck-bar{will-change:transform,opacity;animation:ck-in .6s cubic-bezier(.22,1,.36,1) both}.ck-bar{transition:opacity .45s ease,transform .45s cubic-bezier(.4,0,.2,1)}.ck-bar.ck-out{animation:none;opacity:0;transform:translateY(24px);pointer-events:none}}' +
+      // desktop: a soft rise and settle in, a short fade and sink out
+      '@media (prefers-reduced-motion:no-preference){.ck-bar{will-change:transform,opacity;transform-origin:100% 100%;animation:ck-in .8s cubic-bezier(.16,1,.3,1) both}.ck-bar{transition:opacity .4s ease,transform .4s cubic-bezier(.4,0,1,1)}.ck-bar.ck-out{animation:none;opacity:0;transform:translateY(10px) scale(.98);pointer-events:none}}' +
       // phones: the sheet glides up from below the screen instead of popping in
       '@media (prefers-reduced-motion:no-preference) and (max-width:560px){.ck-bar{animation:ck-up .75s cubic-bezier(.22,1,.36,1) both}.ck-bar.ck-out{animation:none;transform:translateY(100%);opacity:1;transition:transform .5s cubic-bezier(.4,0,.2,1)}}' +
-      '@keyframes ck-in{from{opacity:0;transform:translateY(16px)}}@keyframes ck-up{from{transform:translateY(100%)}}';
+      '@keyframes ck-in{from{opacity:0;transform:translateY(14px) scale(.98)}}@keyframes ck-up{from{transform:translateY(100%)}}';
     document.head.appendChild(css);
     var bar = document.createElement('section');
     bar.className = 'ck-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Cookie choice');
@@ -168,8 +180,12 @@
       '<div class="ck-row"><button type="button" class="ck-quiet ck-settings" aria-controls="ckSet" aria-expanded="false">Cookie settings</button>' +
         '<button type="button" class="ck-quiet ck-save">Save choices</button><button type="button" class="ck-yes">Accept all</button></div>';
     bar.querySelector('.ck-save').style.display = 'none';
+    bar.querySelector('#ckAn').checked = consent !== 'denied';   // settings reflect the last choice
     document.body.appendChild(bar);
+    // drop the entrance animation once it ends so the exit transition can run from the resting state
+    bar.addEventListener('animationend', function () { bar.style.animation = 'none'; }, { once: true });
     function choose(v) {
+      ls(function () { sessionStorage.setItem('zkk_ask', '0'); });   // answered for this visit
       consent = v;
       setCookie('zkk_consent', consent, YEAR);
       ls(function (s) { s.setItem('zkk_consent', consent); });

@@ -33,16 +33,32 @@
   css.textContent =
     // layout follows the card's own width (container queries), so it never squeezes the heading into a sliver
     '.lm-inline{padding:clamp(2rem,5vw,3.5rem) var(--edge,6vw)!important;container-type:inline-size}' +
-    '.lm-card{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"pages copy" "act act";gap:1.4rem 2rem;align-items:center;' +
-      'padding:clamp(1.3rem,3cqi,2rem);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
+    '.lm-card{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"pages copy" "act act";gap:1.6rem 2.4rem;align-items:center;' +
+      '--py:clamp(1.5rem,3.4cqi,2.4rem);--px:clamp(1.5rem,4cqi,3rem);padding:var(--py) var(--px);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
       'box-shadow:inset 0 1px 0 #fff,0 24px 60px rgba(13,22,18,.12);text-align:left}' +
-    '.lm-pages{grid-area:pages;display:flex;gap:.7rem}.lm-card .lm-copy{grid-area:copy}.lm-card .lm-act{grid-area:act}' +
-    '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(300px,380px);grid-template-areas:"pages copy act";gap:1.6rem 2.6rem}}' +
-    '@container (max-width:700px){.lm-card{grid-template-columns:minmax(0,1fr);grid-template-areas:"pages" "copy" "act"}.lm-pages img{width:96px!important}}' +
-    '.lm-pages img{width:120px;height:auto;border-radius:3px;background:#fff;box-shadow:0 1px 0 rgba(13,22,18,.08),0 14px 30px rgba(13,22,18,.2)}' +
-    '.lm-kicker{display:block;margin-bottom:.45rem;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#775406}' +
-    ':root body .lm-card h2{margin:0;font:600 clamp(1.3rem,2.4cqi,1.75rem)/1.15 var(--sans)!important;letter-spacing:-.02em;color:#0d1612!important;text-align:left!important}' +
-    '.lm-card .lm-sub{margin:.5rem 0 0;color:#4a554f;font-size:1rem;line-height:1.5}' +
+    '.lm-pages{grid-area:pages;position:relative;width:196px;height:190px}.lm-card .lm-copy{grid-area:copy}.lm-card .lm-act{grid-area:act}' +
+    // desktop: light story on the left, a black panel on the right with the Services hero drawing animating behind the form
+    '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(320px,360px);grid-template-areas:"pages copy act";gap:1.6rem 2.6rem;overflow:hidden}' +
+      '.lm-card .lm-act{position:relative;isolation:isolate;overflow:hidden;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-start;' +
+        'margin:calc(var(--py) * -1) calc(var(--px) * -1) calc(var(--py) * -1) 0;padding:calc(var(--py) + 4.1rem) var(--px) var(--py);background:#000}' +
+      '.lm-card .lm-act::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.4))}' +
+      '.lm-act .lm-form input[type="email"]{background:#fff;border-color:#fff}' +
+      ':root body .lm-card.lm-card h2{font-size:clamp(1.5rem,2.1cqi,1.75rem)!important;max-width:none}' +
+      '.lm-act .lm-bp{display:block;filter:blur(1px);inset:-45% 0!important;--bp-g1:rgba(255,255,255,.08)!important;--bp-g2:rgba(255,255,255,.18)!important}.lm-card .lm-act .rv-note{color:rgba(255,255,255,.66)}' +
+      ':root body .lm-card .lm-act .btn-primary{background:#fff!important;color:#0d1612!important;border-color:#fff!important}' +
+      ':root body .lm-card .lm-act .btn-primary:hover{background:#d9d9d3!important;border-color:#d9d9d3!important;box-shadow:none}}' +
+    '.lm-bp{display:none;position:absolute!important;inset:0!important;z-index:-1;margin:0!important;width:auto!important;height:auto!important;aspect-ratio:auto!important;max-width:none!important;border-radius:0!important;box-shadow:none!important}' +
+    '.lm-act .lm-bp.lm-bp{background-color:#000!important}' +
+    '@container (max-width:700px){.lm-card{grid-template-columns:minmax(0,1fr);grid-template-areas:"pages" "copy" "act"}.lm-pages{width:166px;height:160px}.lm-pages img{width:108px!important}}' +
+    // report pages: a neat overlapping pair that fans out a little on hover
+    '.lm-pages img{position:absolute;top:8px;width:128px;height:auto;border-radius:4px;background:#fff;border:1px solid rgba(13,22,18,.08);' +
+      'box-shadow:0 2px 4px rgba(13,22,18,.05),0 18px 36px rgba(13,22,18,.16);transition:transform .6s cubic-bezier(.22,1,.36,1)}' +
+    '.lm-pages img:first-child{left:0;z-index:2;transform:rotate(-4deg)}.lm-pages img:last-child{right:0;z-index:1;transform:rotate(5deg) translateY(8px)}' +
+    '@media (hover:hover){.lm-card:hover .lm-pages img:first-child{transform:rotate(-6deg) translateX(-4px)}.lm-card:hover .lm-pages img:last-child{transform:rotate(7deg) translate(4px,8px)}}' +
+    '.lm-kicker{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem;font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#775406}' +
+    '.lm-kicker::before{content:"";width:22px;height:1px;background:currentColor}' +
+    ':root body .lm-card h2{margin:0;font:700 clamp(1.5rem,2.7cqi,2.05rem)/1.15 var(--sans)!important;letter-spacing:-.03em;text-wrap:balance;max-width:20ch;color:#0d1612!important;text-align:left!important}' +
+    '.lm-card .lm-sub{margin:.75rem 0 0;color:#5a645e;font-size:.98rem;line-height:1.55;text-wrap:pretty}' +
     '.lm-form{display:flex;flex-direction:column;gap:.55rem}' +
     '.lm-form input[type="email"]{min-height:50px;padding:0 .95rem;font:400 1rem var(--sans);color:#0d1612;color-scheme:light;background:rgba(255,255,255,.75);' +
       'border:1px solid rgba(255,255,255,.95);border-radius:4px;box-shadow:inset 0 1px 0 #fff,0 6px 18px rgba(13,22,18,.06)}' +
@@ -51,7 +67,7 @@
     ':root body .lm-card .btn-primary{width:100%;max-width:none;min-height:50px;background:#0d1612!important;color:#fff!important;border:1px solid #0d1612!important}' +
     ':root body .lm-card .btn-primary:hover{background:#3a423e!important;border-color:#3a423e!important;transform:translateY(-1px);box-shadow:0 10px 24px rgba(13,22,18,.2)}' +
     '.lm-card :focus-visible,.lm-form input:focus{outline:2px solid #0b6b45;outline-offset:2px}' +
-    '.lm-card .rv-note{margin:.1rem 0 0;color:#6a756f;font-size:.75rem}' +
+    '.lm-card .rv-note{margin:.2rem 0 0;color:#6a756f;font-size:.78rem;line-height:1.5;text-wrap:pretty}' +
     '.lm-done{display:flex;flex-direction:column;gap:.55rem}.lm-done p{margin:0;color:#0d1612;font-size:.95rem}' +
     '';
   document.head.appendChild(css);
@@ -61,8 +77,8 @@
         '<label class="visually-hidden" for="lmEmail">Email address</label>' +
         '<input id="lmEmail" type="email" name="email" required maxlength="120" autocomplete="email" placeholder="you@company.com">' +
         '<input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">' +
-        '<button type="submit" class="btn btn-primary">Send me the checklist</button>' +
-        '<p class="rv-note" aria-live="polite">' + (SIGNUP_URL ? 'We email you the PDF. No spam.' : 'No spam. Unsubscribe anytime.') + '</p>' +
+        '<button type="submit" class="btn btn-primary">Send me the free checklist</button>' +
+        '<p class="rv-note" aria-live="polite">' + 'No spam. We\'ll use your email to personally reach out and explore how we can help.' + '</p>' +
       '</form>';
   }
   function showDownload(again) {
@@ -79,13 +95,27 @@
   sec.setAttribute('data-lm', 'inline');
   sec.setAttribute('aria-labelledby', 'lmTitle');
   sec.innerHTML = '<div class="lm-card">' +
-      '<div class="lm-pages" aria-hidden="true"><img src="' + PAGES[0] + '" alt="" width="120" height="155" loading="lazy"><img src="' + PAGES[1] + '" alt="" width="120" height="155" loading="lazy"></div>' +
-      '<div class="lm-copy"><span class="lm-kicker">Free checklist</span><h2 id="lmTitle">Get the free Market Readiness Checklist when you sign up with your email.</h2>' +
+      '<div class="lm-pages" aria-hidden="true"><img src="' + PAGES[0] + '" alt="" width="128" height="165" loading="lazy"><img src="' + PAGES[1] + '" alt="" width="128" height="165" loading="lazy"></div>' +
+      '<div class="lm-copy"><span class="lm-kicker">Free download</span><h2 id="lmTitle">Get the Market Readiness Checklist for free.</h2>' +
       '<p class="lm-sub">20 questions to answer before you pitch to investors.</p></div>' +
-      '<div class="lm-act">' + formHTML() + '</div></div>';
+      '<div class="lm-act"><div class="lm-bp" data-mode="hero" data-preset="device" data-cuts="ink" aria-hidden="true"></div>' + formHTML() + '</div></div>';
   anchor.parentNode.insertBefore(sec, anchor);
   var card = sec.querySelector('.lm-card');
   if (subscribed()) showDownload(true);
+
+  /* ── Services hero drawing behind the form, mounted only once the desktop panel is showing ── */
+  var bp = card.querySelector('.lm-bp');
+  function mountBp() { window.ZKKBlueprint.mount(bp, 'lm'); }
+  var ro = new ResizeObserver(function () {
+    if (!bp.clientWidth) return;
+    ro.disconnect();
+    if (window.ZKKBlueprint) return mountBp();
+    if (!document.querySelector('link[href^="/assets/blueprint.css"]')) {
+      var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/assets/blueprint.css?v=7'; document.head.appendChild(l);
+    }
+    var js = document.createElement('script'); js.src = '/assets/blueprint.js?v=13'; js.onload = mountBp; document.body.appendChild(js);
+  });
+  ro.observe(bp);
 
   var io = new IntersectionObserver(function (es) {
     if (es[0].intersectionRatio >= 0.5) { io.disconnect(); Z.track('lead_magnet_view', { form_location: 'inline' }); }
@@ -120,7 +150,7 @@
       showDownload(false);
       card.querySelector('.lm-done a').focus();
     }).catch(function () {
-      btn.disabled = false; btn.textContent = 'Send me the checklist';
+      btn.disabled = false; btn.textContent = 'Send me the free checklist';
       note.setAttribute('role', 'alert'); note.textContent = 'That did not send. Please try again, or email info@zkkconsulting.com.';
     });
   });
