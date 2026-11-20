@@ -310,7 +310,7 @@
       '<button type="submit" class="btn btn-primary">Submit review</button>' +
       '<p class="rv-note">Reviews are checked against real engagements before we publish them. By submitting, you allow ZKK Consulting LLC to publish your review, name and company on this site.</p>' +
     '</form>' +
-    '<div class="rv-done" hidden><h2 class="rv-thanks"><span>Thank you</span></h2><p>Your feedback is highly appreciated.</p><button type="button" class="btn btn-primary rv-close">Close</button></div>';
+    '<div class="rv-done" hidden><h2 class="rv-thanks"><span>Thank you</span></h2><p>Your feedback is greatly appreciated!</p><button type="button" class="btn btn-primary rv-close">Close</button></div>';
   document.body.appendChild(dlg);
   var form = dlg.querySelector('form'), done = dlg.querySelector('.rv-done'), send = form.querySelector('[type="submit"]');
   // opens and closes slowly: CSS fades and lifts it in, and close() plays the reverse before the dialog actually closes

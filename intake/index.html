@@ -83,7 +83,6 @@
 
     .form-actions { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding-top: 1.4rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
     .form-actions .spacer { flex: 1; }
-    .step-count { font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 
     .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 1.8rem; }
     .progress-bar i { display: block; height: 100%; background: var(--accent); width: 25%; transition: width .3s ease; }
@@ -127,6 +126,55 @@
       .step-hint { display: none; }
       .stepper-aside { display: none; }
       .intake-panel { padding: 1.6rem 1.4rem; }
+      /* phones and tablets: the form comes first, the step list moves to the bottom */
+      .intake-layout > .stepper { order: 2; }
+      main > section.intake-top { padding-top: calc(var(--nav-h, 64px) + 18px) !important; }
+      .intake-head { margin-bottom: 1rem; }
+      .intake-head h1 { font-size: 1.7rem; margin-bottom: .3rem; }
+      .intake-head p { font-size: .92rem; }
+    }
+
+    /* ── Progress: four gold steps with dots and names (built by the script below) ── */
+    .progress-bar.pbar { height: auto; background: none; overflow: visible; border-radius: 0; margin-bottom: 1.4rem; display: grid; grid-template-columns: repeat(4, 1fr); }
+    .pseg { position: relative; display: flex; flex-direction: column; align-items: center; gap: .4rem; text-align: center; }
+    .pseg::before { content: ""; position: absolute; top: 11px; left: calc(-50% + 16px); right: calc(50% + 16px); height: 1.5px; border-radius: 2px; background: #dcd8cb; transition: background .4s ease; }
+    .pseg:first-child::before { display: none; }
+    .pseg.is-done::before, .pseg.is-active::before { background: #d9b45a; }
+    .pdot { position: relative; z-index: 1; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: #fff; border: 2px solid #dcd8cb; color: #6a756f; font: 600 .78rem/1 var(--sans); transition: background .4s ease, border-color .4s ease, color .4s ease, box-shadow .4s ease; }
+    .pseg.is-active .pdot { background: #e2c275; border-color: #e2c275; color: #14140f; }
+    .pseg.is-done .pdot { background: #e2c275; border-color: #e2c275; color: #14140f; }
+    .plabel { font-size: .74rem; font-weight: 600; color: #8a938e; line-height: 1.25; transition: color .3s; }
+    .pseg.is-active .plabel, .pseg.is-done .plabel { color: var(--ink); }
+    /* the sidebar steps turn gold too */
+    .step-item.is-active .step-dot, .step-item.is-done .step-dot { background: #e2c275 !important; border-color: #e2c275 !important; color: #14140f !important; }
+    /* Continue and Submit: clean black, gray on hover, no glow */
+    :root body.light-pg .zform .btn-primary.btn-sm { background: #0d1612 !important; border: 1px solid #0d1612 !important; color: #fff !important; font-weight: 600; box-shadow: none !important; transition: background-color .3s ease, border-color .3s ease; }
+    :root body.light-pg .zform .btn-primary.btn-sm:hover { background: #3a423e !important; border-color: #3a423e !important; box-shadow: none !important; transform: none !important; }
+    @media (min-width: 901px) { .progress-bar.pbar { display: none !important; } }   /* desktop: the gold sidebar steps show progress */
+    @media (max-width: 900px) {
+      .intake-layout > .stepper { display: none !important; }   /* the gold step dots above the form replace it */
+    }
+    /* Phones: a compact form that uses the full width */
+    @media (max-width: 600px) {
+      main > section.intake-top { padding-left: 12px !important; padding-right: 12px !important; }
+      .intake-head { padding: 0 6px; margin-bottom: .8rem !important; }
+      .intake-head h1 { font-size: 1.5rem !important; margin-bottom: .15rem !important; }
+      .intake-head p { font-size: .85rem !important; }
+      .intake-panel { padding: 1.15rem 1rem 1.1rem; border-radius: 14px; }
+      .fstep { gap: .85rem; }
+      .fstep-head { padding-bottom: .7rem; }
+      .fstep-title { font-size: 1.2rem; }
+      .fstep-sub { font-size: .82rem; line-height: 1.5; margin-top: .2rem; }
+      .zform .row, .zform .row-3 { gap: .85rem; }
+      .field { gap: .3rem; }
+      .zform input[type="text"], .zform input[type="email"], .zform input[type="tel"], .zform input[type="url"], .zform input[type="date"], .zform select { padding: .62rem .85rem; font-size: 16px; }
+      .zform textarea { min-height: 84px; font-size: 16px; }
+      .form-actions { padding-top: .9rem; }
+      .form-actions .btn { min-height: 46px; }
+      .progress-bar.pbar { margin-bottom: 1rem; padding: 0 2px; }
+      .plabel { font-size: .68rem; }
+      .checkgrid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: .5rem !important; }
+      .checkgrid .checkopt { padding: .55rem .7rem !important; font-size: .82rem !important; min-height: 0 !important; }
     }
 
   </style>
@@ -188,7 +236,7 @@
   <section class="intake-top">
     <header class="intake-head">
       <h1>Book a free discovery call</h1>
-      <p>Answer what you can. We reply within one business day.</p>
+      <p>Let us know more about your question.</p>
     </header>
     
 
@@ -241,7 +289,7 @@
           <!-- ══ STEP 1 ══ -->
           <fieldset class="fstep" data-step="1" style="border:none;">
             <div class="fstep-head">
-              <div class="fstep-num">Step 1 of 4</div>
+              <div class="fstep-num">1 of 4</div>
               <h2 class="fstep-title">About you</h2>
               <p class="fstep-sub">So we know who we are speaking with and how to reach you.</p>
             </div>
@@ -291,11 +339,10 @@
 
             <div class="field cond" id="condWebsite">
               <label for="fWebsite">Company website <span class="opt">(optional)</span></label>
-              <input type="url" id="fWebsite" name="company_website" maxlength="200" placeholder="https://" autocomplete="url" />
+              <input type="text" inputmode="url" id="fWebsite" name="company_website" maxlength="200" placeholder="yourcompany.com" autocomplete="url" autocapitalize="off" spellcheck="false" />
             </div>
 
             <div class="form-actions">
-              <span class="step-count nav-only">Step 1 of 4</span>
               <span class="spacer"></span>
               <button type="button" class="btn btn-primary btn-sm nav-only" data-next="2">Continue</button>
             </div>
@@ -304,7 +351,7 @@
           <!-- ══ STEP 2 ══ -->
           <fieldset class="fstep" data-step="2" style="border:none;">
             <div class="fstep-head">
-              <div class="fstep-num">Step 2 of 4</div>
+              <div class="fstep-num">2 of 4</div>
               <h2 class="fstep-title">Your business</h2>
               <p class="fstep-sub">Share enough context to help us understand the market, offering, and research question.</p>
             </div>
@@ -395,7 +442,6 @@
             <div class="form-actions">
               <button type="button" class="btn btn-outline btn-sm nav-only" data-prev="1">Back</button>
               <span class="spacer"></span>
-              <span class="step-count nav-only">Step 2 of 4</span>
               <button type="button" class="btn btn-primary btn-sm nav-only" data-next="3">Continue</button>
             </div>
           </fieldset>
@@ -403,7 +449,7 @@
           <!-- ══ STEP 3 ══ -->
           <fieldset class="fstep" data-step="3" style="border:none;">
             <div class="fstep-head">
-              <div class="fstep-num">Step 3 of 4</div>
+              <div class="fstep-num">3 of 4</div>
               <h2 class="fstep-title">Your research question</h2>
               <p class="fstep-sub">The most useful starting point is the decision the research needs to support.</p>
             </div>
@@ -467,7 +513,6 @@
             <div class="form-actions">
               <button type="button" class="btn btn-outline btn-sm nav-only" data-prev="2">Back</button>
               <span class="spacer"></span>
-              <span class="step-count nav-only">Step 3 of 4</span>
               <button type="button" class="btn btn-primary btn-sm nav-only" data-next="4">Continue</button>
             </div>
           </fieldset>
@@ -475,7 +520,7 @@
           <!-- ══ STEP 4 ══ -->
           <fieldset class="fstep" data-step="4" style="border:none;">
             <div class="fstep-head">
-              <div class="fstep-num">Step 4 of 4</div>
+              <div class="fstep-num">4 of 4</div>
               <h2 class="fstep-title">Scope &amp; timing</h2>
               <p class="fstep-sub">Timelines are set individually with each client. Sharing any deadline or timing constraint helps us scope the work realistically.</p>
             </div>
@@ -680,7 +725,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
-  <script src="/assets/site.js?v=20261120b"></script>
+  <script src="/assets/site.js?v=20261120c"></script>
   <script src="/assets/edits/e4-nav-current.js"></script> <!-- edit-4 -->
   <script>
     (function () {
@@ -793,7 +838,13 @@
       var bar = document.getElementById('progressBar');
       var current = 1;
 
-      if (bar) bar.hidden = false;
+      if (bar) {   // four gold steps with dots and names, taken from the sidebar steps
+        bar.hidden = false; bar.classList.add('pbar'); bar.setAttribute('aria-hidden', 'true');
+        bar.innerHTML = steps.map(function (s, i) {
+          var names = ['About you', 'Business', 'Question', 'Scope'];
+          return '<div class="pseg" data-step="' + (i + 1) + '"><span class="pdot">' + (i + 1) + '</span><span class="plabel">' + (names[i] || 'Step ' + (i + 1)) + '</span></div>';
+        }).join('');
+      }
       if (stepper) stepper.setAttribute('aria-hidden', 'false');
 
       function render(noScroll) {
@@ -803,11 +854,16 @@
           it.classList.toggle('is-active', n === current);
           it.classList.toggle('is-done', n < current);
         });
-        if (bar) bar.querySelector('i').style.width = (current / steps.length * 100) + '%';
+        if (bar) [].forEach.call(bar.querySelectorAll('.pseg'), function (g) {
+          var n = +g.getAttribute('data-step');
+          g.classList.toggle('is-active', n === current); g.classList.toggle('is-done', n < current);
+          g.querySelector('.pdot').innerHTML = n < current ? '&#10003;' : n;
+        });
         if (typeof saveDraft === 'function') saveDraft();
         if (noScroll) return;
-        var panel = form;
-        var top = panel.getBoundingClientRect().top + window.pageYOffset - 96;
+        var panel = (bar && bar.offsetParent) ? bar : form;   // the gold step dots stay in view under the nav
+        var navH = (document.getElementById('nav') || {}).offsetHeight || 0;
+        var top = panel.getBoundingClientRect().top + window.pageYOffset - navH - 24;
         window.scrollTo({ top: top, behavior: (window.ZKK && window.ZKK.reduceMotion) ? 'auto' : 'smooth' });
       }
 
@@ -858,17 +914,17 @@
         // files need the regular form post; everything else is sent in the background so there is no redirect wait
         if ((files && files.files && files.files.length) || !window.fetch) { store.clear(); return; }
         e.preventDefault();
+        // show the thank-you right away and send in the background; if the send fails, fall back to the regular post
+        var success = document.getElementById('formSuccess');
+        form.hidden = true; if (bar) bar.hidden = true; if (stepper) stepper.style.display = 'none';
+        if (success) {
+          success.hidden = false;
+          window.scrollTo({ top: 0, behavior: 'smooth' });   // back up to the top: title and Thank You! in full view
+        }
+        if (history.replaceState) history.replaceState(null, '', '?sent=1');
         fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-          .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-          .then(function () {
-            store.clear();
-            var success = document.getElementById('formSuccess');
-            form.hidden = true; if (bar) bar.hidden = true; if (stepper) stepper.style.display = 'none';
-            if (success) { success.hidden = false; success.scrollIntoView({ block: 'center' }); }
-            if (history.replaceState) history.replaceState(null, '', '?sent=1');
-          })
-          .catch(function () {   // background send failed: fall back to the regular post, the draft stays saved
-            if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; }
+          .then(function (r) { if (!r.ok) throw new Error(r.status); store.clear(); })
+          .catch(function () {   // background send failed: post the form the regular way, the draft stays saved
             HTMLFormElement.prototype.submit.call(form);
           });
       });
@@ -877,7 +933,7 @@
       if (saved && saved.step > 1 && saved.step <= steps.length && params.get('sent') !== '1') { current = saved.step; render(true); }
       else {
         steps.forEach(function (s) { s.hidden = (+s.getAttribute('data-step') !== 1); });
-        if (bar) bar.querySelector('i').style.width = (1 / steps.length * 100) + '%';
+        render(true);
       }
     })();
 
