@@ -62,3 +62,12 @@ section.bp-hero .btn-outline { background: rgba(255,255,255,.08) !important; col
     calc(12.8px * var(--bp-zoom, 1)) calc(12.8px * var(--bp-zoom, 1)), calc(12.8px * var(--bp-zoom, 1)) calc(12.8px * var(--bp-zoom, 1));
   background-position: 70% 45%; }
 .bp-cam-host svg { transform-style: flat; backface-visibility: hidden; }
+
+/* Tablets in portrait (and squarish windows): text sits low, the drawing fills the top */
+@media (min-width: 861px) and (max-aspect-ratio: 13/10) {
+  section.bp-hero { align-items: flex-end !important; padding-bottom: 72px !important; }
+  section.bp-hero::after { background: linear-gradient(0deg, rgba(5,12,20,.92) 0%, rgba(5,12,20,.78) 40%, rgba(5,12,20,.15) 75%, rgba(5,12,20,0) 100%); }
+}
+@media (min-width: 600px) and (max-width: 860px) {
+  section.bp-hero::after { background: linear-gradient(0deg, rgba(5,12,20,.92) 0%, rgba(5,12,20,.78) 40%, rgba(5,12,20,.15) 75%, rgba(5,12,20,0) 100%); }
+}

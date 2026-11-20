@@ -1,28 +1,37 @@
 User-agent: *
 Allow: /
+Disallow: /assets/downloads/
 
 User-agent: GPTBot
 Allow: /
+Disallow: /assets/downloads/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /assets/downloads/
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /assets/downloads/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /assets/downloads/
 
 User-agent: Claude-SearchBot
 Allow: /
+Disallow: /assets/downloads/
 
 User-agent: Claude-User
 Allow: /
+Disallow: /assets/downloads/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /assets/downloads/
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /assets/downloads/
 
 Sitemap: https://zkkconsulting.com/sitemap.xml

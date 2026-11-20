@@ -3231,6 +3231,9 @@ footer .footer-brand button.footer-review:hover { background: #ffd36b; color: #0
 .rv-form input, .rv-form textarea { font: inherit; font-size: 1rem; font-weight: 400; padding: .7rem .8rem; border: 1px solid #d5dad7; border-radius: 10px; background: #fafbf9; color: #0d1612; resize: vertical; }
 .rv-form input:focus, .rv-form textarea:focus { outline: 2px solid #0b6b45; outline-offset: 1px; border-color: transparent; }
 .rv-form .btn, .rv-done .btn { align-self: flex-start; }
+/* review dialog buttons: clean black, like the nav's book-a-call (page themes restyle .btn-primary, so pin it) */
+:root body .rv-dialog .btn-primary { background: #0d1612 !important; color: #fff !important; border: 1px solid #0d1612 !important; box-shadow: none !important; }
+:root body .rv-dialog .btn-primary:hover { background: #26302b !important; border-color: #26302b !important; transform: translateY(-1px); }
 .rv-note { margin: 0; font-size: .75rem; line-height: 1.5; color: #6a756f; }
 .rv-x { position: absolute; top: .8rem; right: .8rem; width: 40px; height: 40px; border: 0; border-radius: 999px; background: transparent; font-size: 1.5rem; color: #4a554f; cursor: pointer; }
 .rv-x:hover { background: #f1f3f1; }
@@ -3525,17 +3528,19 @@ body.light-pg .pkg { min-height: 0; }
 /* Home "What we research" note: underline the links on hover */
 :root body.home main .h-note a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 
-/* Reviews "Trusted by" on phones: label centred, logos run as a belt like the hero */
+/* Reviews "Trusted by" on phones: label centred */
 @media (max-width: 760px) {
   :root body.home #reviews .rv-trust { text-align: center; }
   :root body.home #reviews .rv-trust-label { text-align: center; margin-bottom: .9rem; }
-  :root body.home #reviews .rv-logos.is-belt { display: block; overflow: hidden; width: 100vw; margin: 0 calc(50% - 50vw); padding: .4rem 0 .6rem;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-  :root body.home #reviews .rv-track { display: flex; align-items: center; width: max-content; gap: 2.4rem; padding-right: 2.4rem; animation: beltMove 26s linear infinite; will-change: transform; }
-  :root body.home #reviews .rv-track img { flex: 0 0 auto; zoom: 1; height: 24px !important; width: auto; max-width: none; }
-  :root body.home #reviews .rv-track img[src*="longhorn"] { height: 30px !important; }
-  :root body.home #reviews .rv-track img[src*="leiskau"] { height: 22px !important; }
 }
+/* Reviews "Trusted by": site.js loops the logos only when they do not fit on one line */
+:root body.home #reviews .rv-logos.rv-measure { flex-wrap: nowrap; }
+:root body.home #reviews .rv-logos.is-loop { display: block; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+:root body.home #reviews .rv-loop { display: flex; align-items: center; width: max-content; gap: 3rem; padding: .4rem 3rem .6rem 0; animation: beltMove 30s linear infinite; will-change: transform; }
+:root body.home #reviews .rv-loop img { flex: 0 0 auto; }
+:root body.home #reviews .rv-logos.is-loop:hover .rv-loop { animation-play-state: paused; }
+@media (max-width: 760px) { :root body.home #reviews .rv-logos.is-loop { width: 100vw; margin: 0 calc(50% - 50vw); } :root body.home #reviews .rv-loop { gap: 2.4rem; padding-right: 2.4rem; animation-duration: 26s; } }
 @keyframes beltMove { to { transform: translateX(-50%); } }
 
 
@@ -3784,3 +3789,71 @@ footer.zf .zf-follow { margin-top: 2rem; }
 :root body .pv-media .viz-tab-mini:focus-visible { outline: 2px solid #0b6b45; outline-offset: 2px; }
 :root body .pv-media .viz-frame-mini { border-radius: 12px; border: 1px solid #dfe3df; }
 :root body .pv-media .viz-frame-mini { background: #4182c3; }
+
+/* Review dialog: slow fade-and-lift in and out, and a "Thank you" with the Book a call highlighter swipe */
+@media (prefers-reduced-motion: no-preference) {
+  .rv-dialog[open] { animation: rvIn .55s cubic-bezier(.2,.8,.2,1); }
+  .rv-dialog[open]::backdrop { animation: rvFade .55s ease-out; }
+  .rv-dialog { transition: opacity .45s ease, transform .45s cubic-bezier(.4,0,.2,1); }
+  .rv-dialog::backdrop { transition: opacity .45s ease; }
+  .rv-dialog.rv-out { opacity: 0; transform: translateY(14px) scale(.98); }
+  .rv-dialog.rv-out::backdrop { opacity: 0; }
+  .rv-done:not([hidden]) { animation: rvFade .5s ease-out; }
+}
+@keyframes rvIn { from { opacity: 0; transform: translateY(18px) scale(.98); } }
+@keyframes rvFade { from { opacity: 0; } }
+.rv-done { align-items: flex-start; }
+:root body .rv-dialog h2.rv-thanks { font-size: clamp(2rem, 5vw, 2.6rem); letter-spacing: -.03em; line-height: 1.1; margin: .4rem 0 .2rem; }
+.rv-thanks span { position: relative; isolation: isolate; padding: 0 .12em; }
+.rv-thanks span::before { content: ""; position: absolute; z-index: -1; inset: .14em -.05em .06em -.08em; background: #f2d35a;
+  border-radius: .45em .15em .4em .12em / .25em .45em .2em .5em; transform: rotate(-1.4deg) skewX(-8deg) scaleX(0); transform-origin: left center;
+  transition: transform .7s cubic-bezier(.3,.9,.3,1) .25s; }
+.rv-done.is-on .rv-thanks span::before { transform: rotate(-1.4deg) skewX(-8deg) scaleX(1); }
+.rv-done p { margin: 0 0 .6rem !important; font-size: 1rem !important; }
+
+/* Footer Book a call / Leave us a review: slower, eased hover */
+:root body footer.site-footer .footer-pills a:is(.zf-cta, .footer-review) { transition: background-color .45s ease, border-color .45s ease, color .45s ease, transform .45s ease, box-shadow .45s ease !important; }
+:root body footer.site-footer .footer-pills a:is(.zf-cta, .footer-review):hover { transform: translateY(-1px); }
+
+/* ZKK logo in the nav: a gold copy (masked by the logo itself) fades in on hover, so it never passes through other colors */
+nav#nav .nav-logo { position: relative; }
+nav#nav .nav-logo::after { content: ""; position: absolute; inset: 0; background: #e2c275; -webkit-mask: url(/assets/zkk-nav.png) center / 100% 100% no-repeat; mask: url(/assets/zkk-nav.png) center / 100% 100% no-repeat; opacity: 0; transition: opacity .3s ease; pointer-events: none; }
+nav#nav .nav-logo:is(:hover, :focus-visible)::after { opacity: 1; }
+
+/* Book a call thank-you highlighter. To revert: delete this block (the span in intake/index.html is harmless on its own). */
+.ty-hl { position: relative; isolation: isolate; padding: 0 .12em; }
+.ty-hl::before { content: ""; position: absolute; z-index: -1; inset: .14em -.05em .06em -.08em; background: #f2d35a;
+  border-radius: .45em .15em .4em .12em / .25em .45em .2em .5em; transform: rotate(-1.4deg) skewX(-8deg) scaleX(0); transform-origin: left center; }
+.form-success:not([hidden]) .ty-hl::before { animation: tyHl .7s cubic-bezier(.3,.9,.3,1) .35s forwards; }
+@keyframes tyHl { to { transform: rotate(-1.4deg) skewX(-8deg) scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .form-success:not([hidden]) .ty-hl::before { animation: none; transform: rotate(-1.4deg) skewX(-8deg) scaleX(1); } }
+/* end Book a call thank-you highlighter */
+
+/* Book a call thank-you: replaces the form card in place. To revert: delete this block. */
+.intake-layout:has(#formSuccess:not([hidden])) { grid-template-columns: 1fr; max-width: 760px; }
+:root body .form-success.ty-screen { max-width: none; margin: 0 0 2rem; padding: clamp(2rem, 5vw, 3.2rem) clamp(1.4rem, 4vw, 2.6rem); display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--white, #fff) !important; border: 1px solid var(--border, rgba(13,22,18,.12)) !important; border-radius: 10px; box-shadow: none !important; }
+.form-success.ty-screen[hidden] { display: none; }
+.intake-layout:has(#formSuccess:not([hidden])) .progress-bar { display: none !important; }
+:root body .form-success.ty-screen h2 { margin: 0 0 1rem; font: 600 clamp(2rem, 5vw, 2.8rem)/1.1 var(--sans); letter-spacing: -.03em; color: #0d1612; }
+:root body .form-success.ty-screen p { margin: 0 0 1.6rem; max-width: 34em; font-size: 1.02rem; line-height: 1.65; color: #4a554f; }
+:root body .form-success.ty-screen .btn-primary { background: #0d1612 !important; color: #fff !important; border: 1px solid #0d1612 !important; transition: background-color .35s ease, border-color .35s ease, color .35s ease, box-shadow .35s ease !important; }
+:root body .form-success.ty-screen .btn-primary:hover { background: #3a423e !important; border-color: #3a423e !important; color: #fff !important; box-shadow: none !important; }
+.form-success.ty-screen:not([hidden]) { animation: rvFade .6s ease-out; }
+/* end Book a call thank-you */
+
+/* Card grids: never leave one card alone on the last row.
+   3 cards: three across when there is room, otherwise two plus one full-width card.
+   4 cards: four across when there is room, otherwise two by two. */
+:root body main .related-grid, :root body main .pz-terms { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; }
+@media (min-width: 600px) {
+  :root body main :is(.related-grid, .pz-terms) { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  :root body main :is(.related-grid, .pz-terms) > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 1000px) {
+  :root body main :is(.related-grid, .pz-terms):has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  :root body main :is(.related-grid, .pz-terms):has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  :root body main :is(.related-grid, .pz-terms):is(:has(> :nth-child(3):last-child), :has(> :nth-child(4):last-child)) > * { grid-column: auto; }
+}
+/* Services capabilities (10 items): one column, then two, then five across */
+@media (min-width: 600px) { :root body main .pz-caps { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+@media (min-width: 1180px) { :root body main .pz-caps { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; } }

@@ -174,7 +174,18 @@
     var pal = CONFIG.palette, start = Math.max(0, pal.indexOf(cuts[0]));
     cuts = pal.slice(start).concat(pal.slice(0, start));
     var svg = document.createElementNS(NS, 'svg');
-    svg.setAttribute('viewBox', hero ? (innerWidth > 860 ? '-1500 160 2400 1240' : '-200 160 1300 1240') : '0 0 900 1600');
+    // hero framing follows the hero's own shape, and re-frames on resize or rotation:
+    // landscape keeps the drawing on the right behind the text, phones crop in on it,
+    // tablets in portrait show the whole drawing in the top part with the text below
+    function frameBox() {
+      if (!hero) return '0 0 900 1600';
+      var a = host.clientWidth / Math.max(1, host.clientHeight);
+      if (a >= 1.3) return '-1500 160 2400 1240';
+      if (a < .6) return '-200 160 1300 1240';
+      var H = 1240 / .62, W = H * a;
+      return (450 - W / 2).toFixed(0) + ' 100 ' + W.toFixed(0) + ' ' + H.toFixed(0);
+    }
+    svg.setAttribute('viewBox', frameBox());
     svg.setAttribute('preserveAspectRatio', hero ? 'xMidYMid slice' : 'xMidYMid meet');
     if (hero) { svg.setAttribute('aria-hidden', 'true'); host.classList.add('bp-cam-host'); }
     else { svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', host.getAttribute('data-label') || 'Animated line drawing'); }
@@ -213,7 +224,7 @@
       svg.style.transform = 'translate(' + (sh.dx * w).toFixed(1) + 'px,' + (sh.dy * h).toFixed(1) + 'px) rotateX(' + sh.rx + 'deg) rotateY(' + (sh.ry + 4 * p).toFixed(2) + 'deg) rotateZ(' + sh.rz + 'deg) scale(' + (sh.s * push).toFixed(3) + ')';
       host.style.setProperty('--bp-zoom', (sh.s * push).toFixed(3));
     }
-    aim(); addEventListener('resize', aim);
+    aim(); addEventListener('resize', function () { svg.setAttribute('viewBox', frameBox()); aim(); });
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(5.2); if (hero) svg.style.transform = 'none'; return; }
     var t0 = null, raf = 0, visible = true, held = 0, last = 0;
     function frame(now) {
