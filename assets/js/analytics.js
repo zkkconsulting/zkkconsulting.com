@@ -65,7 +65,7 @@
   }
 
   function track(name, params) { gtag('event', name, params || {}); }
-  window.zkk = { track: track, getCookie: getCookie, setCookie: setCookie, ls: ls, ss: ss, consentPending: function () { return !consent; } };
+  window.zkk = { track: track, getCookie: getCookie, setCookie: setCookie, ls: ls, ss: ss };
 
   var path = location.pathname;
 
@@ -73,7 +73,6 @@
   var SOCIAL = { 'linkedin.com': 'linkedin', 'instagram.com': 'instagram', 'facebook.com': 'facebook', 'threads.net': 'threads',
     'threads.com': 'threads', 'tiktok.com': 'tiktok', 'youtube.com': 'youtube', 'x.com': 'x', 'twitter.com': 'x' };
   function ctaLocation(a) {
-    if (a.closest('.lm-pop')) return 'popup';
     if (a.closest('nav, .mobile-menu')) return 'nav';
     if (a.closest('footer')) return 'footer';
     if (a.closest('.page-hero, .light-hero, #hero')) return 'hero';
@@ -128,25 +127,25 @@
     if (!consent) cookieBanner();
     if (LEAD_MAGNET_ENABLED) {
       var lm = document.createElement('script');
-      lm.src = '/assets/js/lead-magnet.js?v=1'; lm.defer = true;
+      lm.src = '/assets/js/lead-magnet.js?v=3'; lm.defer = true;
       document.body.appendChild(lm);
     }
   });
 
-  /* ── Cookie banner: Accept or Decline, asked once a year. Styled like the home hero (paper, glass buttons). ── */
+  /* ── Cookie banner: Accept or Decline, asked once a year. A full-width black bar, styled like the nav (black, white button). ── */
   function cookieBanner() {
     var css = document.createElement('style');
     css.textContent =
-      '.ck-bar{position:fixed;z-index:9500;left:16px;bottom:16px;width:min(420px,calc(100% - 32px));padding:1.1rem 1.2rem 1rem;border-radius:16px;' +
-        'background:rgba(229,229,223,.94);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);' +
-        'border:1px solid rgba(255,255,255,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 18px 44px rgba(13,22,18,.18);color:#0d1612;font-family:var(--sans)}' +
-      '.ck-bar p{margin:0 0 .8rem;font-size:.9rem;line-height:1.5;color:#24302a}.ck-bar a{color:#0b4a32;text-decoration:underline;text-underline-offset:3px}' +
-      '.ck-row{display:flex;gap:.5rem}.ck-row .btn{flex:1 1 0;min-height:44px;max-width:none;justify-content:center;padding:0 1rem;border-radius:12px;letter-spacing:.07em}' +
-      '.ck-bar .ck-yes{color:#fff;background:linear-gradient(180deg,rgba(14,92,62,.92),rgba(7,58,39,.92));border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 20px rgba(7,58,39,.24)}' +
-      '.ck-bar .ck-no{color:#0b4a32;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}' +
-      '.ck-bar :focus-visible{outline:2px solid #0b6b45;outline-offset:2px}' +
-      '@media (max-width:560px){.ck-bar{left:8px;right:8px;bottom:8px;width:auto;padding:.9rem 1rem .85rem}.ck-bar p{font-size:.84rem;margin-bottom:.6rem}}' +
-      '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .35s ease-out}}@keyframes ck-in{from{opacity:0;transform:translateY(12px)}}';
+      '.ck-bar{position:fixed;z-index:9500;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;gap:.75rem 2rem;flex-wrap:wrap;' +
+        'padding:.85rem var(--edge,6vw) calc(.85rem + env(safe-area-inset-bottom));background:#0b0f0d;color:#fff;border-top:1px solid rgba(255,255,255,.1);' +
+        'box-shadow:0 -12px 32px rgba(0,0,0,.18);font-family:var(--sans)}' +
+      '.ck-bar p{margin:0;font-size:.9rem;line-height:1.5;color:rgba(255,255,255,.86)}.ck-bar a{color:#fff;text-decoration:underline;text-underline-offset:3px}' +
+      '.ck-row{display:flex;gap:.5rem;flex:none}.ck-row .btn{min-height:44px;max-width:none;width:auto;padding:0 1.3rem;font-size:.74rem}' +
+      '.ck-bar .ck-yes{background:#fff;color:#0b0f0d;border:1px solid #fff}.ck-bar .ck-yes:hover{background:#e9e9e3}' +
+      '.ck-bar .ck-no{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}.ck-bar .ck-no:hover{border-color:#fff}' +
+      '.ck-bar :focus-visible{outline:2px solid #f2d35a;outline-offset:2px}' +
+      '@media (max-width:560px){.ck-bar{justify-content:stretch;padding:.8rem 16px calc(.8rem + env(safe-area-inset-bottom))}.ck-bar p{font-size:.84rem}.ck-row{width:100%}.ck-row .btn{flex:1 1 0}}' +
+      '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .35s ease-out}.ck-bar.ck-out{animation:ck-in .25s ease-in reverse forwards}}@keyframes ck-in{from{transform:translateY(100%)}}';
     document.head.appendChild(css);
     var bar = document.createElement('section');
     bar.className = 'ck-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Cookie choice');
@@ -159,8 +158,7 @@
       setCookie('zkk_consent', consent, YEAR);
       ls(function (s) { s.setItem('zkk_consent', consent); });
       gtag('consent', 'update', consentState(consent));
-      bar.remove();
-      document.dispatchEvent(new Event('zkk:consent'));
+      bar.classList.add('ck-out'); setTimeout(function () { bar.remove(); }, 250);
     });
   }
 

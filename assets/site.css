@@ -3231,6 +3231,9 @@ footer .footer-brand button.footer-review:hover { background: #ffd36b; color: #0
 .rv-form input, .rv-form textarea { font: inherit; font-size: 1rem; font-weight: 400; padding: .7rem .8rem; border: 1px solid #d5dad7; border-radius: 10px; background: #fafbf9; color: #0d1612; resize: vertical; }
 .rv-form input:focus, .rv-form textarea:focus { outline: 2px solid #0b6b45; outline-offset: 1px; border-color: transparent; }
 .rv-form .btn, .rv-done .btn { align-self: flex-start; }
+/* review dialog buttons: clean black, like the nav's book-a-call (page themes restyle .btn-primary, so pin it) */
+:root body .rv-dialog .btn-primary { background: #0d1612 !important; color: #fff !important; border: 1px solid #0d1612 !important; box-shadow: none !important; }
+:root body .rv-dialog .btn-primary:hover { background: #26302b !important; border-color: #26302b !important; transform: translateY(-1px); }
 .rv-note { margin: 0; font-size: .75rem; line-height: 1.5; color: #6a756f; }
 .rv-x { position: absolute; top: .8rem; right: .8rem; width: 40px; height: 40px; border: 0; border-radius: 999px; background: transparent; font-size: 1.5rem; color: #4a554f; cursor: pointer; }
 .rv-x:hover { background: #f1f3f1; }
