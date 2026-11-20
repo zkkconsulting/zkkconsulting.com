@@ -3867,6 +3867,14 @@ nav#nav .nav-logo:is(:hover, :focus-visible)::after { opacity: 1; }
     transition: top .4s cubic-bezier(.22,1,.36,1), height .4s cubic-bezier(.22,1,.36,1), border-radius .2s ease, box-shadow .3s ease !important; }
   nav#nav.shrink { box-shadow: 0 6px 20px rgba(0,0,0,.24) !important; }
   :root body .mobile-menu { padding-top: calc(var(--nav-t) + var(--nav-h2) - 1px) !important; }
+  /* once scrolled, the bar docks flush to the top edge, full width, so no page shows between it and the browser bar; logo and menu button keep their place */
+  body:has(nav#nav.shrink) { --nav-t: 0px; --nav-h2: 50px; }
+  nav#nav { transition: top .4s cubic-bezier(.22,1,.36,1), height .4s cubic-bezier(.22,1,.36,1), left .4s cubic-bezier(.22,1,.36,1), right .4s cubic-bezier(.22,1,.36,1),
+    padding .4s cubic-bezier(.22,1,.36,1), border-radius .4s cubic-bezier(.22,1,.36,1), box-shadow .3s ease !important; }
+  nav#nav.shrink { left: 0 !important; right: 0 !important; padding: 0 calc(.6rem + 12px) 0 calc(1.1rem + 12px) !important; border-radius: 0 0 22px 22px !important; border-top-color: transparent !important; }
+  body:has(nav#nav.shrink) .mobile-menu { padding-left: 0 !important; padding-right: 0 !important; }
+  body:has(nav#nav.shrink):has(.mobile-menu.open) nav#nav { border-radius: 0 !important; }
+  body:has(nav#nav.shrink) .mobile-menu ul { padding-left: calc(1.1rem + 12px) !important; padding-right: calc(1.1rem + 12px) !important; }
 }
 
 /* Team: the first profile slides up over the hero with rounded corners, like every other page */
