@@ -40,10 +40,10 @@
     // desktop: light story on the left, a black panel on the right with the Services hero drawing animating behind the form
     '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(320px,360px);grid-template-areas:"pages copy act";gap:1.6rem 2.6rem;overflow:hidden}' +
       '.lm-card .lm-act{position:relative;isolation:isolate;overflow:hidden;align-self:stretch;display:flex;flex-direction:column;justify-content:center;' +
-        'margin:calc(var(--py) * -1) calc(var(--px) * -1) calc(var(--py) * -1) 0;padding:var(--py) var(--px);background:#000}' +
-      '.lm-card .lm-act::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.35))}' +
+        'margin:calc(var(--py) * -1) calc(var(--px) * -1) calc(var(--py) * -1) 0;padding:calc(var(--py) + 1.4rem) var(--px) var(--py);background:#000}' +
+      '.lm-card .lm-act::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.72))}' +
       '.lm-act .lm-form input[type="email"]{background:#fff;border-color:#fff}' +
-      '.lm-act .lm-bp{display:block}.lm-card .lm-act .rv-note{color:rgba(255,255,255,.66)}' +
+      '.lm-act .lm-bp{display:block;filter:blur(2.5px)}.lm-card .lm-act .rv-note{color:rgba(255,255,255,.66)}' +
       ':root body .lm-card .lm-act .btn-primary{background:#fff!important;color:#0d1612!important;border-color:#fff!important}' +
       ':root body .lm-card .lm-act .btn-primary:hover{background:#d9d9d3!important;border-color:#d9d9d3!important;box-shadow:none}}' +
     '.lm-bp{display:none;position:absolute!important;inset:0!important;z-index:-1;margin:0!important;width:auto!important;height:auto!important;aspect-ratio:auto!important;max-width:none!important;border-radius:0!important;box-shadow:none!important}' +
@@ -58,7 +58,7 @@
     '.lm-kicker::before{content:"";width:22px;height:1px;background:currentColor}' +
     ':root body .lm-card h2{margin:0;font:500 clamp(1.5rem,2.7cqi,2.05rem)/1.15 var(--sans)!important;letter-spacing:-.03em;text-wrap:balance;max-width:20ch;color:#0d1612!important;text-align:left!important}' +
     // gold marker behind "free", same as the thank-you highlight
-    '.lm-free{position:relative;isolation:isolate;padding:0 .14em 0 .08em;white-space:nowrap;font-style:italic}.lm-free::before{content:"";position:absolute;z-index:-1;inset:.16em -.04em .04em -.06em;background:#f2d35a;border-radius:2px}' +
+    '.lm-free{position:relative;isolation:isolate;padding:0 .16em 0 .1em;white-space:nowrap;font-style:italic;font-weight:700}.lm-free::before{content:"";position:absolute;z-index:-1;inset:.12em 0 .02em;background:#f2d35a;transform:skewX(-8deg)}' +
     '.lm-card .lm-sub{margin:.75rem 0 0;color:#5a645e;font-size:.98rem;line-height:1.55;text-wrap:pretty}' +
     '.lm-form{display:flex;flex-direction:column;gap:.55rem}' +
     '.lm-form input[type="email"]{min-height:50px;padding:0 .95rem;font:400 1rem var(--sans);color:#0d1612;color-scheme:light;background:rgba(255,255,255,.75);' +
