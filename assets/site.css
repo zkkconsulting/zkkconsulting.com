@@ -3832,7 +3832,7 @@ nav#nav .nav-logo:is(:hover, :focus-visible)::after { opacity: 1; }
 /* Book a call thank-you: replaces the form card in place. To revert: delete this block. */
 .intake-layout:has(#formSuccess:not([hidden])) { grid-template-columns: 1fr; max-width: 760px; }
 :root body .form-success.ty-screen { max-width: none; margin: 0 0 2rem; padding: clamp(2rem, 5vw, 3.2rem) clamp(1.4rem, 4vw, 2.6rem); display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--white, #fff) !important; border: 1px solid var(--border, rgba(13,22,18,.12)) !important; border-radius: 10px; box-shadow: none !important; }
-.form-success.ty-screen[hidden] { display: none; }
+:root body .form-success.ty-screen[hidden] { display: none !important; }
 .intake-layout:has(#formSuccess:not([hidden])) .progress-bar { display: none !important; }
 :root body .form-success.ty-screen h2 { margin: 0 0 1rem; font: 600 clamp(2rem, 5vw, 2.8rem)/1.1 var(--sans); letter-spacing: -.03em; color: #0d1612; }
 :root body .form-success.ty-screen p { margin: 0 0 1.6rem; max-width: 34em; font-size: 1.02rem; line-height: 1.65; color: #4a554f; }
