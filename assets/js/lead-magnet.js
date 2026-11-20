@@ -37,13 +37,31 @@
     '.lm-box{max-width:760px;margin:0 auto;display:grid;grid-template-columns:120px 1fr;gap:1.6rem;align-items:center;padding:clamp(1.4rem,3vw,2.2rem);background:var(--white);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);text-align:left}' +
     '.lm-box h2{margin:0 0 .4rem;text-align:left}.lm-box p{margin:0 0 1rem;color:var(--muted)}' +
     '.lm-cover{width:120px;height:auto;border-radius:6px;box-shadow:var(--shadow)}.lm-box.no-cover{grid-template-columns:1fr}' +
-    '.lm-form{display:flex;gap:.6rem;flex-wrap:wrap}.lm-form input[type="email"]{flex:1 1 220px;min-height:44px}.lm-form .btn{white-space:nowrap;min-height:44px}' +
+    '.lm-form{display:flex;gap:.6rem;flex-wrap:wrap}.lm-form input[type="email"]{flex:1 1 220px;min-height:44px}.lm-form .btn{white-space:nowrap;min-height:44px;max-width:none}' +
     '.lm-box .rv-note,.lm-pop .rv-note{margin:.6rem 0 0}.lm-done{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem}' +
-    '.lm-pop .rv-x{width:44px;height:44px}.lm-pop .rv-form{gap:.6rem}.lm-pop h2{padding-right:2.5rem}' +
+    // popup: dark green split card in the style of the checklist's own back page, cover on the left
+    '.lm-pop{width:min(880px,calc(100% - 32px));color:#fff;overflow:hidden;background:repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0 2px,transparent 2px 64px),linear-gradient(160deg,#0b1f17 0%,#0b4a2e 100%)}' +
+    '.lm-split{display:grid;grid-template-columns:1fr 1.1fr;min-height:460px}' +
+    '.lm-art{display:flex;align-items:center;justify-content:center;padding:2.4rem}' +
+    '.lm-art img{width:82%;max-width:300px;height:auto;transform:rotate(-4deg);border-radius:3px;box-shadow:0 26px 50px rgba(0,0,0,.5)}' +
+    '.lm-pop .lm-panel{align-items:center;justify-content:center;text-align:center;padding:2.8rem 2.6rem 2rem;gap:.7rem}' +
+    '.lm-logo{width:104px;height:auto;margin-bottom:.4rem}' +
+    '.lm-pop h2#lmPopTitle{color:#fff!important;text-align:center;font-size:clamp(1.6rem,2.6vw,2.05rem);line-height:1.15}' +
+    '.lm-kicker{display:block;margin-bottom:.7rem;font-size:.78rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#ffd36b}' +
+    '.lm-pop .rv-sub{margin:0 0 .5rem;color:rgba(255,255,255,.82)}' +
+    '.lm-pop .lm-form{flex-direction:column;width:100%;gap:.6rem}' +
+    '.lm-pop .lm-form input[type="email"]{flex:none;min-height:50px;border:0;border-radius:6px;background:#fff;color:#0d1612;text-align:center}' +
+    '.lm-pop .lm-form .btn-primary,.lm-pop .lm-done .btn-primary{width:100%;max-width:none;min-height:50px;justify-content:center;background:#fff;color:#013220}.lm-pop .btn-primary:hover{background:#eafff3}' +
+    '.lm-pop :focus-visible,.lm-pop input:focus{outline:2px solid #ffd36b;outline-offset:2px}' +
+    '.lm-no{min-height:44px;padding:0 1rem;border:0;background:none;color:#fff;font:600 .76rem var(--sans);letter-spacing:.14em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;cursor:pointer}' +
+    '.lm-pop .rv-note{margin:0;color:rgba(255,255,255,.65);text-align:center}.lm-pop .lm-done{align-items:stretch;width:100%}' +
+    '.lm-pop .rv-x{z-index:1;width:44px;height:44px;color:#fff}.lm-pop .rv-x:hover{background:rgba(255,255,255,.12)}' +
     '@media (max-width:640px){.lm-box{grid-template-columns:1fr}.lm-cover{display:none}}' +
     '@media (max-width:767px){.lm-pop.lm-sheet{position:fixed;z-index:9000;inset:auto 0 0 0;margin:0;width:100%;max-width:100%;max-height:30vh;overflow:auto;border-radius:18px 18px 0 0}' +
-    '.lm-sheet .rv-form{padding:1rem 1rem .9rem;gap:.4rem}.lm-sheet h2{font-size:1.05rem;line-height:1.3}.lm-sheet .rv-sub{margin:0;font-size:.85rem;line-height:1.4}' +
-    '.lm-sheet .rv-x{top:.2rem;right:.2rem}.lm-sheet .lm-form .btn{padding-left:1rem;padding-right:1rem}}' +
+    '.lm-sheet .lm-split{display:block;min-height:0}.lm-sheet .lm-art,.lm-sheet .lm-logo,.lm-sheet .lm-no{display:none}' +
+    '.lm-sheet .lm-panel{padding:.9rem 1rem .8rem;gap:.4rem}.lm-sheet h2#lmPopTitle{padding:0 2.2rem;font-size:1.05rem;line-height:1.3}' +
+    '.lm-sheet .lm-kicker{display:inline;margin:0 .4rem 0 0;font-size:.68rem}.lm-sheet .rv-sub{margin:0;font-size:.85rem;line-height:1.4}' +
+    '.lm-sheet .lm-form{gap:.4rem}.lm-sheet .lm-form input[type="email"],.lm-sheet .btn-primary{min-height:44px}.lm-sheet .rv-x{top:.2rem;right:.2rem}}' +
     '@media (prefers-reduced-motion:no-preference){.lm-pop[open]{animation:lm-in .25s ease-out}.lm-sheet[open]{animation:lm-up .3s ease-out}}' +
     '@keyframes lm-in{from{opacity:0;transform:translateY(8px)}}@keyframes lm-up{from{transform:translateY(100%)}}';
   document.head.appendChild(css);
@@ -123,6 +141,7 @@
         Z.track('generate_lead', { lead_source: 'medtech_checklist', form_location: loc });
         var host = f.parentNode;
         showDownload(host, false);
+        var no = host.querySelector('.lm-no'); if (no) no.remove();
         var a = host.querySelector('.lm-done a'); if (a) a.focus();
         if (inline && loc === 'popup') showDownload(inline, true);
       })
@@ -151,11 +170,15 @@
     dlg.className = 'rv-dialog lm-pop' + (sheet ? ' lm-sheet' : '');
     dlg.setAttribute('aria-labelledby', 'lmPopTitle');
     dlg.setAttribute('aria-modal', sheet ? 'false' : 'true');
-    dlg.innerHTML = '<div class="rv-form"><button type="button" class="rv-x" aria-label="Close">×</button>' +
-      '<h2 id="lmPopTitle">Free: The Medtech Market Readiness Checklist</h2>' +
-      '<p class="rv-sub">20 questions investors will ask before you pitch your device.</p>' + formHTML('popup') + '</div>';
+    dlg.innerHTML = '<div class="lm-split"><div class="lm-art" aria-hidden="true"><img src="' + COVER + '" alt="" width="600" height="777"></div>' +
+      '<div class="rv-form lm-panel"><button type="button" class="rv-x" aria-label="Close">×</button>' +
+      '<img class="lm-logo" src="/assets/zkk-nav.png" alt="ZKK Consulting" width="868" height="331">' +
+      '<h2 id="lmPopTitle"><span class="lm-kicker">Free<span class="visually-hidden">:</span></span> The Medtech Market Readiness Checklist</h2>' +
+      '<p class="rv-sub">20 questions investors will ask before you pitch your device.</p>' + formHTML('popup') +
+      '<button type="button" class="lm-no">No thanks</button></div></div>';
     document.body.appendChild(dlg);
     dlg.querySelector('.rv-x').addEventListener('click', close);
+    dlg.querySelector('.lm-no').addEventListener('click', close);
     dlg.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
     dlg.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { e.preventDefault(); close(); return; }

@@ -7,7 +7,7 @@
 (function () {
   var GA_ID = 'G-TMKT95P39F';
   var CLARITY_ID = '';                 // paste a Microsoft Clarity project ID here to turn Clarity on
-  var LEAD_MAGNET_ENABLED = false;     // true once /assets/downloads/zkk-medtech-market-readiness-checklist.pdf is in the repo
+  var LEAD_MAGNET_ENABLED = true;      // needs /assets/downloads/zkk-medtech-market-readiness-checklist.pdf
 
   var PROD = location.hostname === 'zkkconsulting.com' || location.hostname === 'www.zkkconsulting.com';
   var q = new URLSearchParams(location.search);
