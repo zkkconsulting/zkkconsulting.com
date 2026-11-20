@@ -46,7 +46,7 @@
     '.lm-form input[type="email"]::placeholder{color:#6a756f}.lm-form input[aria-invalid="true"]{border-color:#b3261e}' +
     // pages restyle .btn-primary, so pin the dark button of the home hero
     ':root body .lm-card .btn-primary{width:100%;max-width:none;min-height:50px;background:#0d1612!important;color:#fff!important;border:1px solid #0d1612!important}' +
-    ':root body .lm-card .btn-primary:hover{background:#0b4a32!important;border-color:#0b4a32!important;transform:translateY(-1px);box-shadow:0 10px 24px rgba(13,22,18,.2)}' +
+    ':root body .lm-card .btn-primary:hover{background:#3a423e!important;border-color:#3a423e!important;transform:translateY(-1px);box-shadow:0 10px 24px rgba(13,22,18,.2)}' +
     '.lm-card :focus-visible,.lm-form input:focus{outline:2px solid #0b6b45;outline-offset:2px}' +
     '.lm-card .rv-note{margin:.1rem 0 0;color:#6a756f;font-size:.75rem}' +
     '.lm-done{display:flex;flex-direction:column;gap:.55rem}.lm-done p{margin:0;color:#0d1612;font-size:.95rem}' +

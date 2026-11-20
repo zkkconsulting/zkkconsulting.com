@@ -127,43 +127,60 @@
     if (!consent) cookieBanner();
     if (LEAD_MAGNET_ENABLED) {
       var lm = document.createElement('script');
-      lm.src = '/assets/js/lead-magnet.js?v=4'; lm.defer = true;
+      lm.src = '/assets/js/lead-magnet.js?v=5'; lm.defer = true;
       document.body.appendChild(lm);
     }
   });
 
-  /* ── Cookie banner: Accept or Decline, asked once a year. A black rounded card in the bottom-right corner with two white pill buttons. ── */
+  /* ── Cookie banner, asked once a year. A black rounded card (bottom sheet on phones) with one white "Accept" pill.
+        "Settings" is a quiet link that opens a single analytics switch, on by default. ── */
   function cookieBanner() {
     var css = document.createElement('style');
     css.textContent =
-      '.ck-bar{position:fixed;z-index:9500;right:28px;bottom:28px;width:min(620px,calc(100% - 56px));box-sizing:border-box;padding:1.5rem 1.6rem 1.3rem;' +
+      '.ck-bar{position:fixed;z-index:9500;right:28px;bottom:28px;width:min(520px,calc(100% - 56px));box-sizing:border-box;padding:1.4rem 1.5rem 1.2rem;' +
         'border-radius:22px;background:#000;color:#fff;font-family:var(--sans);box-shadow:0 24px 60px rgba(0,0,0,.28)}' +
-      '.ck-bar p{margin:0;font-size:.95rem;line-height:1.55;color:#fff}.ck-bar a{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px}' +
-      '.ck-row{display:flex;justify-content:flex-end;gap:.75rem;margin-top:1.1rem}' +
-      '.ck-row button{min-height:44px;padding:0 1.5rem;border:0;border-radius:999px;background:#fff;color:#0d1612;font:600 .92rem var(--sans);letter-spacing:.01em;cursor:pointer;transition:background .2s}' +
-      '.ck-row button:hover{background:#e9e9e3}.ck-bar :focus-visible{outline:2px solid #f2d35a;outline-offset:2px}' +
-      // decline stays available but quiet: small gray text link, never a button
-      '.ck-row{align-items:center}.ck-row .ck-no{min-height:44px;padding:0 .4rem;background:none;color:rgba(255,255,255,.5);font-weight:400;font-size:.78rem;text-decoration:underline;text-underline-offset:3px}' +
-      '.ck-row .ck-no:hover{background:none;color:#fff}' +
-      // phones: a sheet on the bottom edge, "Yes, I agree" full width, decline reduced to a quiet text link under it
+      '.ck-bar p{margin:0;font-size:.95rem;line-height:1.55;color:#fff}.ck-bar a{color:rgba(255,255,255,.7);text-decoration:underline;text-underline-offset:3px}.ck-bar a:hover{color:#fff}' +
+      '.ck-row{display:flex;justify-content:flex-end;align-items:center;gap:.75rem;margin-top:1.1rem}' +
+      '.ck-row .ck-yes{min-height:44px;padding:0 1.7rem;border:0;border-radius:999px;background:#fff;color:#0d1612;font:600 .92rem var(--sans);cursor:pointer;transition:background .2s}' +
+      '.ck-row .ck-yes:hover{background:#e9e9e3}.ck-bar :focus-visible{outline:2px solid #f2d35a;outline-offset:2px}' +
+      '.ck-quiet{min-height:44px;padding:0 .4rem;border:0;background:none;color:rgba(255,255,255,.5);font:400 .8rem var(--sans);text-decoration:underline;text-underline-offset:3px;cursor:pointer}.ck-quiet:hover{color:#fff}' +
+      '.ck-set{display:none;margin-top:1rem;border-top:1px solid rgba(255,255,255,.14)}.ck-bar.ck-open .ck-set{display:block}.ck-bar.ck-open .ck-settings{display:none}' +
+      '.ck-opt{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:.88rem}' +
+      '.ck-opt small{display:block;color:rgba(255,255,255,.55);font-size:.78rem;margin-top:.15rem}.ck-on{color:rgba(255,255,255,.55);font-size:.78rem;white-space:nowrap}' +
+      '.ck-sw{position:relative;flex:none;width:44px;height:26px;margin:0;appearance:none;-webkit-appearance:none;border-radius:999px;background:rgba(255,255,255,.25);cursor:pointer;transition:background .2s}' +
+      '.ck-sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s}' +
+      '.ck-sw:checked{background:#0b6b45}.ck-sw:checked::after{transform:translateX(18px)}' +
       '@media (max-width:560px){.ck-bar{right:0;left:0;bottom:0;width:auto;padding:1.4rem 1.2rem calc(.6rem + env(safe-area-inset-bottom));border-radius:24px 24px 0 0}' +
-        '.ck-bar p{font-size:.95rem}.ck-row{flex-direction:column-reverse;gap:.15rem;margin-top:1.1rem}.ck-row .ck-yes{width:100%;min-height:48px;font-size:1rem}.ck-row .ck-no{align-self:center}}' +
+        '.ck-row{flex-direction:column-reverse;gap:.15rem}.ck-row .ck-yes{width:100%;min-height:48px;font-size:1rem}}' +
       '@media (prefers-reduced-motion:no-preference){.ck-bar{animation:ck-in .4s cubic-bezier(.2,.8,.2,1)}.ck-bar.ck-out{animation:ck-in .25s ease-in reverse forwards}}' +
       '@keyframes ck-in{from{opacity:0;transform:translateY(16px)}}';
     document.head.appendChild(css);
     var bar = document.createElement('section');
     bar.className = 'ck-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Cookie choice');
-    bar.innerHTML = '<p>We use cookies to count visits and see which pages help visitors. We never sell your data. ' +
-      'Please let us know if you agree. <a href="/legal/#s13">Click here to find out more.</a></p>' +
-      '<div class="ck-row"><button type="button" class="ck-no">No, thanks</button><button type="button" class="ck-yes">Yes, I agree</button></div>';
+    bar.innerHTML = '<p>We use cookies to see which pages help visitors. <a href="/legal/#s13">Privacy</a></p>' +
+      '<div class="ck-set" id="ckSet">' +
+        '<div class="ck-opt"><span>Essential<small>Remember your choices.</small></span><span class="ck-on">Always on</span></div>' +
+        '<label class="ck-opt" for="ckAn"><span>Analytics<small>Count visits and pages. Never sold.</small></span><input class="ck-sw" id="ckAn" type="checkbox" checked></label>' +
+      '</div>' +
+      '<div class="ck-row"><button type="button" class="ck-quiet ck-settings" aria-controls="ckSet" aria-expanded="false">Settings</button>' +
+        '<button type="button" class="ck-quiet ck-save">Save choices</button><button type="button" class="ck-yes">Accept</button></div>';
+    bar.querySelector('.ck-save').style.display = 'none';
     document.body.appendChild(bar);
-    bar.addEventListener('click', function (e) {
-      var b = e.target.closest('button'); if (!b) return;
-      consent = b.classList.contains('ck-yes') ? 'granted' : 'denied';
+    function choose(v) {
+      consent = v;
       setCookie('zkk_consent', consent, YEAR);
       ls(function (s) { s.setItem('zkk_consent', consent); });
       gtag('consent', 'update', consentState(consent));
       bar.classList.add('ck-out'); setTimeout(function () { bar.remove(); }, 250);
+    }
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.classList.contains('ck-settings')) {
+        bar.classList.add('ck-open'); b.setAttribute('aria-expanded', 'true');
+        bar.querySelector('.ck-save').style.display = ''; bar.querySelector('.ck-yes').textContent = 'Accept all';
+        bar.querySelector('#ckAn').focus();
+      } else if (b.classList.contains('ck-save')) choose(bar.querySelector('#ckAn').checked ? 'granted' : 'denied');
+      else if (b.classList.contains('ck-yes')) choose('granted');
     });
   }
 
