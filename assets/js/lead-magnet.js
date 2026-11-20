@@ -34,10 +34,21 @@
     // layout follows the card's own width (container queries), so it never squeezes the heading into a sliver
     '.lm-inline{padding:clamp(2rem,5vw,3.5rem) var(--edge,6vw)!important;container-type:inline-size}' +
     '.lm-card{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"pages copy" "act act";gap:1.6rem 2.4rem;align-items:center;' +
-      'padding:clamp(1.5rem,3.4cqi,2.4rem) clamp(1.5rem,4cqi,3rem);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
+      '--py:clamp(1.5rem,3.4cqi,2.4rem);--px:clamp(1.5rem,4cqi,3rem);padding:var(--py) var(--px);border-radius:18px;background:#e5e5df;color:#0d1612;border:1px solid rgba(255,255,255,.9);' +
       'box-shadow:inset 0 1px 0 #fff,0 24px 60px rgba(13,22,18,.12);text-align:left}' +
     '.lm-pages{grid-area:pages;position:relative;width:196px;height:190px}.lm-card .lm-copy{grid-area:copy}.lm-card .lm-act{grid-area:act}' +
-    '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(300px,380px);grid-template-areas:"pages copy act";gap:1.6rem 3rem}}' +
+    '@container (min-width:1000px){.lm-card{grid-template-columns:auto minmax(0,1fr) minmax(320px,360px);grid-template-areas:"pages copy act";gap:1.6rem 2.6rem;' +
+        'overflow:hidden;background:#0d1612;color:#fff;border-color:#0d1612;box-shadow:0 24px 60px rgba(13,22,18,.22)}' +
+      '.lm-pages{width:176px;height:176px}.lm-pages img{width:116px}' +
+      '.lm-card.lm-card .lm-kicker{color:#e2c275}:root body .lm-card.lm-card h2{color:#fff!important;font-size:clamp(1.35rem,1.75cqi,1.55rem)!important}.lm-card.lm-card .lm-sub{color:rgba(255,255,255,.68)}' +
+      '.lm-card .lm-act{position:relative;isolation:isolate;overflow:hidden;align-self:stretch;display:flex;flex-direction:column;justify-content:center;' +
+        'margin:calc(var(--py) * -1) calc(var(--px) * -1) calc(var(--py) * -1) 0;padding:var(--py) var(--px);background:#ecebe4}' +
+      '.lm-card .lm-act::before{content:"";position:absolute;inset:-35%;z-index:-1;filter:blur(36px);' +
+        'background:radial-gradient(circle at 28% 30%,#fffdf5 0 22%,transparent 48%),radial-gradient(circle at 72% 62%,rgba(226,194,117,.55) 0 16%,transparent 44%),' +
+        'radial-gradient(circle at 38% 82%,#cfcfc7 0 20%,transparent 48%),radial-gradient(circle at 80% 18%,#f6f3ea 0 18%,transparent 42%);animation:lm-drift 16s ease-in-out infinite alternate}' +
+      '.lm-nw{white-space:nowrap}}' +
+    '@keyframes lm-drift{50%{transform:translate(7%,-5%) rotate(14deg) scale(1.08)}to{transform:translate(-6%,6%) rotate(-10deg) scale(1.04)}}' +
+    '@media (prefers-reduced-motion:reduce){.lm-card .lm-act::before{animation:none}}' +
     '@container (max-width:700px){.lm-card{grid-template-columns:minmax(0,1fr);grid-template-areas:"pages" "copy" "act"}.lm-pages{width:166px;height:160px}.lm-pages img{width:108px!important}}' +
     // report pages: a neat overlapping pair that fans out a little on hover
     '.lm-pages img{position:absolute;top:8px;width:128px;height:auto;border-radius:4px;background:#fff;border:1px solid rgba(13,22,18,.08);' +
@@ -46,9 +57,8 @@
     '@media (hover:hover){.lm-card:hover .lm-pages img:first-child{transform:rotate(-6deg) translateX(-4px)}.lm-card:hover .lm-pages img:last-child{transform:rotate(7deg) translate(4px,8px)}}' +
     '.lm-kicker{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem;font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#775406}' +
     '.lm-kicker::before{content:"";width:22px;height:1px;background:currentColor}' +
-    ':root body .lm-card h2{margin:0;font:500 clamp(1.5rem,2.7cqi,2.05rem)/1.15 var(--sans)!important;letter-spacing:-.03em;text-wrap:balance;max-width:20ch;color:#0d1612!important;text-align:left!important}' +
-    // gold marker behind "free", same as the thank-you highlight
-    '.lm-free{position:relative;isolation:isolate;padding:0 .1em;white-space:nowrap}.lm-free::before{content:"";position:absolute;z-index:-1;inset:.16em -.04em .04em -.06em;background:#f2d35a;border-radius:2px}' +
+    ':root body .lm-card h2{margin:0;font:500 clamp(1.5rem,2.7cqi,2.05rem)/1.15 var(--sans)!important;letter-spacing:-.03em;text-wrap:balance;color:#0d1612!important;text-align:left!important}' +
+    '.lm-free{font-style:italic;font-weight:700}' +
     '.lm-card .lm-sub{margin:.75rem 0 0;color:#5a645e;font-size:.98rem;line-height:1.55;text-wrap:pretty}' +
     '.lm-form{display:flex;flex-direction:column;gap:.55rem}' +
     '.lm-form input[type="email"]{min-height:50px;padding:0 .95rem;font:400 1rem var(--sans);color:#0d1612;color-scheme:light;background:rgba(255,255,255,.75);' +
@@ -87,7 +97,7 @@
   sec.setAttribute('aria-labelledby', 'lmTitle');
   sec.innerHTML = '<div class="lm-card">' +
       '<div class="lm-pages" aria-hidden="true"><img src="' + PAGES[0] + '" alt="" width="128" height="165" loading="lazy"><img src="' + PAGES[1] + '" alt="" width="128" height="165" loading="lazy"></div>' +
-      '<div class="lm-copy"><span class="lm-kicker">Free download</span><h2 id="lmTitle">Get the Market Readiness Checklist for <span class="lm-free">free</span>.</h2>' +
+      '<div class="lm-copy"><span class="lm-kicker">Free download</span><h2 id="lmTitle">Get the <span class="lm-nw">Market Readiness Checklist</span>, for <em class="lm-free">free</em>.</h2>' +
       '<p class="lm-sub">20 questions to answer before you pitch to investors.</p></div>' +
       '<div class="lm-act">' + formHTML() + '</div></div>';
   anchor.parentNode.insertBefore(sec, anchor);
